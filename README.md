@@ -11,7 +11,7 @@ X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変化させた分布モデルです。
 なお、正規分布の関数の畳み込みではありません。
 
 Gradational Gaussian Distribution は、
-連結ガウス分布 (Connected Gaussian Distribution; CGD) からの派生で[^1]、
+[連結ガウス分布](https://github.com/Kimitsuna-Goblin/cgd) (Connected Gaussian Distribution; CGD) からの派生で[^1]、
 一応、このライブラリの著者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
 もし、これに関する、2021年以前の情報があれば教えてください。
