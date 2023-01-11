@@ -32,9 +32,9 @@ Gradational Gaussian Distribution は、
 上のそれぞれの大まかな分類は、
 さらに、構成要素である2つないし4つの正規分布の条件によって、
 
-1. 平均値が異なり、標準偏差が等しい (Mean-Differd Sigma-Equaled) 正規分布の混合
-2. 平均値が等しく、標準偏差が異なる (Mean-Equaled Sigma-Differd) 正規分布の混合
-3. 平均値と標準偏差の両方が異なる (Mean-Differd Sigma-Differd) 正規分布の混合
+1. 平均値が異なり、標準偏差が等しい正規分布の混合 (Mean-Differd Sigma-Equaled)
+2. 平均値が等しく、標準偏差が異なる正規分布の混合 (Mean-Equaled Sigma-Differd)
+3. 平均値と標準偏差の両方が異なる正規分布の混合 (Mean-Differd Sigma-Differd)
 
 のように細分化されます。
 直感的に分かるように、 4-3 の分布が、この中では最も自由度が高く、複雑な分布を表現できますが、
