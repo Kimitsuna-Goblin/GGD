@@ -151,7 +151,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-3-2. 3つの正規分布のグラデーション (山側1個と裾側2個 (左右1個ずつ))
+3-2. 3つの正規分布のグラデーション (山側1個と裾側2個 (左右各1個))
 
 $$
 \begin{align}
@@ -198,7 +198,7 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 + Mean-Differed Sigma-Differed Vertical Gradational Distribution
 
 
-3-2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
+3-2. 3つの正規分布のグラデーション (山側1個と裾側2個 (左右各1個))
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
