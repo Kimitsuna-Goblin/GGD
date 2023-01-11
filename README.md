@@ -64,7 +64,9 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 累積分布関数: $\Phi(x)$ 、確率密度関数: $f(x)$
 
 $$
+\begin{align}
 \Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt,\\
 f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right),\\
+\end{align}
 $$
 
