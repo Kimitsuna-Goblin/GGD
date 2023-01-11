@@ -142,7 +142,7 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 
 以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\sigma_i / \sqrt{2}$ の正規分布の累積分布関数を表します。
 
-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
+3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 
 $$
 \begin{align}
@@ -151,7 +151,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
+3-2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
 
 $$
 \begin{align}
@@ -192,13 +192,13 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 
 #### Names of "kind" at this package - パッケージにおける "kind" の名前
 
-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
+3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 + Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled Sigma-Differed Vertical Gradational Distribution
 + Mean-Differed Sigma-Differed Vertical Gradational Distribution
 
 
-2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
+3-2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
