@@ -72,9 +72,9 @@ $$
 
 いわゆる正規分布です。
 
-#### Names of kinds at this package - パッケージにおける種類名
+#### Names of "kind" at this package - パッケージにおける "kind" の名前
 
-+ "Normal Distribution"
++ Normal Distribution
 
 
 ### 1. Mean of 2 Normal Distributions - 2つの正規分布の平均
@@ -101,9 +101,9 @@ Gradational Gaussian Distribution との違いを確認するためにサポー�
 平均値が異なる正規分布の平均と、標準偏差が異なる正規分布の平均が生成できますが、
 平均値が異なる2つの正規分布の平均は、単峰性分布のモデルとしては、適切でないかも知れません。
 
-#### Names of kinds at this package - パッケージにおける種類名
+#### Names of "kind" at this package - パッケージにおける "kind" の名前
 
-+ "Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions"
-+ "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions"
-+ "Mean of Mean-Differed Sigma-Differed 2 Normal Distributions"
++ Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
++ Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
++ Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
 
