@@ -151,6 +151,7 @@ $$
 2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
 
 $$
+\begin{align}
 \Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x)\\
 g(x) &= g_1(x) + g_2(x) + g_3(x)\\
 \\
@@ -164,6 +165,7 @@ g_3(x) &= \left\lbrace
 \Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
 \Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)\\
 \Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)
+\end{align}
 $$
 
 #### Description - 解説
