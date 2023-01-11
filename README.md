@@ -153,18 +153,22 @@ $$
 $$
 \begin{align}
 \Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x)\\
-g(x) &= g_1(x) + g_2(x) + g_3(x)\\
+g(x) &= g_1(x) + g_2(x) + g_3(x) \\
 \\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)\\
 g_1(x) &= \left\lbrace
 \begin{array}{l}
 \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1)\\
-0 & (x > \mu_1)\\
-\end{array} \right\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
 g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x)\\
 g_3(x) &= \left\lbrace
-\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
-\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)\\
-\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)
+\begin{array}{l}
+0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3)
+\end{array} \right.
 \end{align}
 $$
 
