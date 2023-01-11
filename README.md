@@ -12,13 +12,13 @@ X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変
 
 Gradational Gaussian Distribution は、
 [連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で[^1]、
-一応、このライブラリの作者が考案したものですが、
+一応、このパッケージの作者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
 もし、これに関する、2021年以前の情報があれば教えてください。
 
-## About this library - このライブラリの概要
+## About this package - このパッケージの概要
 
-このサイトの R 言語ライブラリでは、大きく分けて、以下の種類の分布モデルが生成できます。
+このサイトの R 言語パッケージでは、大きく分けて、以下の種類の分布モデルが生成できます。
 
 0. 正規分布 (Normal Distribution)
 1. 2つの正規分布の平均 (Mean of 2 Normal Distributions) (混合ガウス分布; Gaussian Mixture Distribution)
@@ -67,4 +67,42 @@ f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sig
 \Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt
 \end{align}
 $$
+
+#### Description - 解説
+
+いわゆる正規分布です。
+
+#### Names of kinds at this package - パッケージにおける種類名
+
++ "Normal Distribution" - 正規分布
+
+
+### 1. Mean of 2 Normal Distributions - 2つの正規分布の平均
+
+#### $g(x)$ : Distribution Function and $\Psi(x)$ : Cumulative Distribution Function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+
+$$
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma_i^2} \right)\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma_i^2} \right) dt
+
+$$
+
+#### Description - 解説
+
+Gradational Gaussian Distribution との違いを確認するために生成可能な、混合ガウス分布です。
+
+混合ガウス分布は本来、単峰性でない分布や、正規分布に従わない分布のデータを
+正規分布に従う複数のクラスターデータに分割するための手段です。
+
+平均値が異なる2つの正規分布の平均は、単峰性分布のモデルとしては、適切でないかも知れません。
+
+#### Names of kinds at this package - パッケージにおける種類名
+
++ "Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions" - 平均値が異なり、標準偏差が等しい2つの正規分布の平均
++ "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" - 平均値が等しく、標準偏差が異なる2つの正規分布の平均
++ "Mean of Mean-Differed Sigma-Differed 2 Normal Distributions" - 平均値と標準偏差の両方が異なる2つの正規分布の平均
 
