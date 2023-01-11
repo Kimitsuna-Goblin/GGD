@@ -193,6 +193,7 @@ $f_1(x)$ や $f_3(x)$ の負担率が、ある点から一時的に増加に転�
 + Mean-Equaled Sigma-Differed Vertical Gradational Distribution
 + Mean-Differed Sigma-Differed Vertical Gradational Distribution
 
+
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
