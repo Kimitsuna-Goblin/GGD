@@ -33,7 +33,7 @@ Gradational Gaussian Distribution は、
 
 1. 平均値が異なり、標準偏差が等しい正規分布の混合 (Mean-Differed Sigma-Equaled)
 2. 平均値が等しく、標準偏差が異なる正規分布の混合 (Mean-Equaled Sigma-Differed)
-3. 平均値と標準偏差の両方が異なる正規分布の混合 (Mean-Differd Sigma-Differed)
+3. 平均値と標準偏差の両方が異なる正規分布の混合 (Mean-Differed Sigma-Differed)
 
 のように細分化されます。
 これらの中では、 4-3 の分布が、最も自由度が高く、複雑な分布を表現できますが、
@@ -107,3 +107,34 @@ Gradational Gaussian Distribution との違いを確認するためにサポー�
 + Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
 + Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
 
+
+### 2. Horizontal Gradational Distribution - 横方向グラデーション分布
+
+#### $g(x)$ : Distribution Function and $\Psi(x)$ : Cumulative Distribution Function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+
+$$
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x)\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2\\
+\\
+\Phi_i(x) = \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,
+f_i(x) = \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right)
+\\
+\end{align}
+$$
+
+#### Description - 解説
+
+確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されますが、
+$f_1(x)$ は $x$ が $-\infth \to \infty$ と増加するにつれて、負担率が $1 \to 0$ と減少し、
+$f_2(x)$ は逆に $0 \to 1$ と増加します。
+
+負担率の増加率・減少率はそれぞれの累積分布関数 $\Psi_1(x), \Psi_2(x)$ に依存します。
+$f_1(x)$ と $f_2(x)$ の負担率の合計は、
+$x = \pm \Inf$ の場合を除き、必ずしも $1$ にはなりません。
+
+#### Names of "kind" at this package - パッケージにおける "kind" の名前
+
++ Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
++ Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
++ Mean-Differed Sigma-Differed Horizontal Gradational Distribution
