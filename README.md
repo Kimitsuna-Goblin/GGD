@@ -55,11 +55,11 @@ install.packages( "devtools" )
 devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
-## Distribution types - 生成できる分布の種類
+## Kinds of distributions - 分布の種類
 
 ### 0. Normal Distribution - 正規分布
 
-#### Cumulative Distribution Function $\Phi(x)$ and Distribution Function $f(x)$ - 累積分布関数 $\Phi(x)$ ・確率密度関数 $f(x)$
+#### $\Phi(x)$ : Cumulative Distribution Function and $f(x)$ : Distribution Function - 累積分布関数 $\Phi(x)$ ・確率密度関数 $f(x)$
 
 $$
 \begin{align}
