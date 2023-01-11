@@ -74,7 +74,7 @@ $$
 
 #### Names of kinds at this package - パッケージにおける種類名
 
-+ "Normal Distribution" - 正規分布
++ "Normal Distribution"
 
 
 ### 1. Mean of 2 Normal Distributions - 2つの正規分布の平均
@@ -98,11 +98,12 @@ Gradational Gaussian Distribution との違いを確認するためにサポー�
 混合ガウス分布は本来、単峰性でない分布や、正規分布に従わない分布のデータを
 正規分布に従う複数のクラスターデータに分割するための手段です。
 
+平均値が異なる正規分布の平均と、標準偏差が異なる正規分布の平均が生成できますが、
 平均値が異なる2つの正規分布の平均は、単峰性分布のモデルとしては、適切でないかも知れません。
 
 #### Names of kinds at this package - パッケージにおける種類名
 
-+ "Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions" - 平均値が異なり、標準偏差が等しい2つの正規分布の平均
-+ "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" - 平均値が等しく、標準偏差が異なる2つの正規分布の平均
-+ "Mean of Mean-Differed Sigma-Differed 2 Normal Distributions" - 平均値と標準偏差の両方が異なる2つの正規分布の平均
++ "Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions"
++ "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions"
++ "Mean of Mean-Differed Sigma-Differed 2 Normal Distributions"
 
