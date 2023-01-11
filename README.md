@@ -62,7 +62,7 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 
 ### 0. Normal Distribution - 正規分布
 
-#### $f(x)$ : Distribution Function and $\Phi(x)$ : Cumulative Distribution Function - 確率密度関数 $f(x)$ ・累積分布関数 $\Phi(x)$
+#### $f(x)$ : Distribution function and $\Phi(x)$ : Cumulative distribution function - 確率密度関数 $f(x)$ ・累積分布関数 $\Phi(x)$
 
 $$
 \begin{align}
@@ -82,7 +82,7 @@ $$
 
 ### 1. Mean of 2 Normal Distributions - 2つの正規分布の平均
 
-#### $g(x)$ : Distribution Function and $\Psi(x)$ : Cumulative Distribution Function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 $$
 \begin{align}
@@ -110,7 +110,7 @@ Gradational Gaussian Distribution との違いを確認するためにサポー�
 
 ### 2. Horizontal Gradational Distribution - 横方向グラデーション分布
 
-#### $g(x)$ : Distribution Function and $\Psi(x)$ : Cumulative Distribution Function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 $$
 \begin{align}
