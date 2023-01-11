@@ -117,7 +117,7 @@ $$
 g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x)\\
 \Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2\\
 \\
-f_i(x) = \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right), &\quad
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right), \quad
 \Phi_i(x) = \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt
 \\
 \end{align}
@@ -126,7 +126,7 @@ $$
 #### Description - 解説
 
 確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されますが、
-$f_1(x)$ は $x$ が $-\infth \to \infty$ と増加するにつれて、負担率が $1 \to 0$ と減少し、
+$f_1(x)$ は $x$ が $-\infty \to \infty$ と増加するにつれて、負担率が $1 \to 0$ と減少し、
 $f_2(x)$ は逆に $0 \to 1$ と増加します。
 
 負担率の増加率・減少率はそれぞれの累積分布関数 $\Psi_1(x), \Psi_2(x)$ に依存します。
