@@ -23,7 +23,7 @@ Gradational Gaussian Distribution は、
 0. 正規分布 (Normal Distribution)
 1. 2つの正規分布の平均 (Mean of 2 Normal Distributions) (混合ガウス分布; Gaussian Mixture Model)
 2. 横方向 (X軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Horizontal Gradational Distribution)
-3. 縦方向 (Y軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Vertical Gradational Distribution)
+3. 縦方向 (Y軸方向) に2つないし3つの正規分布の混合比率が漸次的に変化する分布 (Vertical Gradational Distribution)
 4. 縦横両方向に4つの正規分布の混合比率が漸次的に変化する分布 (Vertical-Horizontal Gradational Distribution)
 
 上の 0. と 1. は Gradational Gaussian Distribution ではありませんが、
