@@ -135,11 +135,12 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 + Mean-Differed Sigma-Differed Horizontal Gradational Distribution
 
 
-### 3. Vertical Gradational Distribution - 横方向グラデーション分布
+### 3. Vertical Gradational Distribution - 縦方向グラデーション分布
 
 #### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 1. 2つの正規分布のグラデーション (山側1個と裾側1個)
+
 $$
 \begin{align}
 g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x)\\
@@ -148,6 +149,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 $$
 
 2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
+
 $$
 \Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x)\\
 g(x) &= g_1(x) + g_2(x) + g_3(x)\\
@@ -166,12 +168,12 @@ $$
 
 #### Description - 解説
 
-確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されます。
+確率密度関数 $g(x)$ は2つないし3つの正規分布の確率密度関数 $f_1(x), f_2(x), f_3(x)$ によって負担されます。
 
-$f_1(x)$ が $-\infty \to \infty$ と増加するにつれて、 $f_1(x)$ の負担率は $1 \to 0$ と減少し、
-$f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
+$f_1(x)$ と $f_3(x)$ の負担率は $f_i(x)$ の値が $0 \to \max{ f_i(x) } = \f_i(\mu_i)$ と増加するにつれて $1 \to 0$ と減少し、
+$f_2(x)$ の負担率は $f_2(x)$ の値に対して $0 \to 1$ と増加します。
 
-負担率の増加率・減少率はそれぞれの累積分布関数 $\Phi_1(x), \Phi_2(x)$ に依存します。
+負担率の増加率・減少率はそれぞれの累積分布関数 $f_1(x), f_2(x), f_3(x)$ の値自身に依存します。
 
 #### Names of "kind" at this package - パッケージにおける "kind" の名前
 
