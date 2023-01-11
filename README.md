@@ -155,9 +155,9 @@ $$
 \Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x)\\
 g(x) &= g_1(x) + g_2(x) + g_3(x) \\
 \\
-\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
+\Psi_1(x) &= \min \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
 \Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)\\
-\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)\\
+\Psi_3(x) &= \max \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)\\
 g_1(x) &= \left\lbrace
 \begin{array}{l}
 \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1)\\
@@ -176,7 +176,7 @@ $$
 
 確率密度関数 $g(x)$ は2つないし3つの正規分布の確率密度関数 $f_1(x), f_2(x), f_3(x)$ によって負担されます。
 
-$f_1(x)$ と $f_3(x)$ の負担率は $f_i(x)$ の値が $0 \to \max{ f_i(x) } = \f_i(\mu_i)$ と増加するにつれて $1 \to 0$ と減少し、
+$f_1(x)$ と $f_3(x)$ の負担率は $f_i(x)$ の値が $0 \to \max \lbrace f_i(x) \rbrace = \f_i(\mu_i)$ と増加するにつれて $1 \to 0$ と減少し、
 $f_2(x)$ の負担率は $f_2(x)$ の値に対して $0 \to 1$ と増加します。
 
 負担率の増加率・減少率はそれぞれの確率密度関数 $f_1(x), f_2(x), f_3(x)$ の値に依存します。
