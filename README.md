@@ -6,7 +6,7 @@ Gradational Gaussian Distribution (漸変ガウス分布？) は、
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルです。
 
 Gradational Gaussian Distribution は、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
-いわゆる混合ガウス分布 (Gaussian Mixture Model)、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
+いわゆる混合ガウス分布 (Gaussian Mixture Distribution)、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
 X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変化させた分布モデルです。
 なお、正規分布の関数の畳み込みではありません。
 
@@ -21,7 +21,7 @@ Gradational Gaussian Distribution は、
 このサイトの R 言語ライブラリでは、大きく分けて、以下の種類の分布モデルが生成できます。
 
 0. 正規分布 (Normal Distribution)
-1. 2つの正規分布の平均 (Mean of 2 Normal Distributions) (混合ガウス分布; Gaussian Mixture Model)
+1. 2つの正規分布の平均 (Mean of 2 Normal Distributions) (混合ガウス分布; Gaussian Mixture Distribution)
 2. 横方向 (X軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Horizontal Gradational Distribution)
 3. 縦方向 (Y軸方向) に2つまたは3つの正規分布の混合比率が漸次的に変化する分布 (Vertical Gradational Distribution)
 4. 縦横両方向に4つの正規分布の混合比率が漸次的に変化する分布 (Vertical-Horizontal Gradational Distribution)
