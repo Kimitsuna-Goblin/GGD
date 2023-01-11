@@ -2,14 +2,13 @@
 
 ## What is Gradational Gaussian Distribution? - Gradational Gaussian Distribution とは
 
-Gradational Gaussian Distribution (漸変ガウス分布？) とは、
-正規分布 (ガウス分布) の混合分布モデルの一種ですが、
+Gradational Gaussian Distribution (漸変ガウス分布？) は、
+主として単峰性の、正規分布に従わない分布をターゲットとした、連続分布モデルです。
+
+この分布モデルは、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
 いわゆる混合ガウス分布、すなわち正規分布の一次結合で表される分布モデルとは異なり、
 X軸方向やY軸方向に沿って、次第に正規分布の混合比率が変化する分布モデルです。
 なお、正規分布の確率密度関数の畳み込みではありません。
-
-この Gradational Gaussian Distribution は、
-主として単峰性の、正規分布に従わない分布をターゲットとした、連続分布モデルです。
 
 ## About this library - このライブラリの概要
 
