@@ -1,51 +1,51 @@
 # GGD -  Gradational Gaussian Distribution
 
-## What is Gradational Gaussian Distribution? - Gradational Gaussian Distribution �Ƃ�
+## What is Gradational Gaussian Distribution? - Gradational Gaussian Distribution とは
 
-Gradational Gaussian Distribution (�Q�σK�E�X���z�H) �́A
-��Ƃ��ĒP�����́A���K���z�ɏ]��Ȃ����z���^�[�Q�b�g�Ƃ����A�����z���f���ł��B
+Gradational Gaussian Distribution (漸変ガウス分布？) は、
+主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルです。
 
-Gradational Gaussian Distribution �́A���K���z (�K�E�X���z) �̍������z���f���̈��ł����A
-�����鍬���K�E�X���z (Gaussian Mixture Distribution)�A���Ȃ킿�A���K���z�̈ꎟ�����ŕ\����镪�z���f���Ƃ͈قȂ�A
-X��������Y�������ɉ����āA����ɐ��K���z�̍����䗦��ω����������z���f���ł��B
-�Ȃ��A���K���z�̊֐��̏�ݍ��݂ł͂���܂���B
+Gradational Gaussian Distribution は、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
+いわゆる混合ガウス分布 (Gaussian Mixture Distribution)、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
+X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変化させた分布モデルです。
+なお、正規分布の関数の畳み込みではありません。
 
-Gradational Gaussian Distribution �́A
-[�A���K�E�X���z (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) ����̔h����[^1]�A
-�ꉞ�A���̃��C�u�����̍�҂��l�Ă������̂ł����A
-���ƒN�ł��v���������ȕ��z���f�����Ǝv���܂��̂ŁA
-�����A����Ɋւ���A2021�N�ȑO�̏�񂪂���΋����Ă��������B
+Gradational Gaussian Distribution は、
+[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で[^1]、
+一応、このライブラリの作者が考案したものですが、
+わりと誰でも思いつきそうな分布モデルだと思いますので、
+もし、これに関する、2021年以前の情報があれば教えてください。
 
-## About this library - ���̃��C�u�����̊T�v
+## About this library - このライブラリの概要
 
-���̃T�C�g�� R ���ꃉ�C�u�����ł́A�傫�������āA�ȉ��̎�ނ̕��z���f���������ł��܂��B
+このサイトの R 言語ライブラリでは、大きく分けて、以下の種類の分布モデルが生成できます。
 
-0. ���K���z (Normal Distribution)
-1. 2�̐��K���z�̕��� (Mean of 2 Normal Distributions) (�����K�E�X���z; Gaussian Mixture Distribution)
-2. ������ (X������) ��2�̐��K���z�̍����䗦���Q���I�ɕω����镪�z (Horizontal Gradational Distribution)
-3. �c���� (Y������) ��2�܂���3�̐��K���z�̍����䗦���Q���I�ɕω����镪�z (Vertical Gradational Distribution)
-4. �c����������4�̐��K���z�̍����䗦���Q���I�ɕω����镪�z (Vertical-Horizontal Gradational Distribution)
+0. 正規分布 (Normal Distribution)
+1. 2つの正規分布の平均 (Mean of 2 Normal Distributions) (混合ガウス分布; Gaussian Mixture Distribution)
+2. 横方向 (X軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Horizontal Gradational Distribution)
+3. 縦方向 (Y軸方向) に2つまたは3つの正規分布の混合比率が漸次的に変化する分布 (Vertical Gradational Distribution)
+4. 縦横両方向に4つの正規分布の混合比率が漸次的に変化する分布 (Vertical-Horizontal Gradational Distribution)
 
-��� 0. �� 1. �� Gradational Gaussian Distribution �ł͂���܂��񂪁A
-���z���f���̔�r�̂��߁A�����ł���悤�ɂ��Ă��܂��B
+上の 0. と 1. は Gradational Gaussian Distribution ではありませんが、
+分布モデルの比較のため、生成できるようにしています。
 
-��̂��ꂼ��̑�܂��ȕ��ނ́A����ɁA�\���v�f�̐��K���z�̏����ɂ���āA
+上のそれぞれの大まかな分類は、さらに、構成要素の正規分布の条件によって、
 
-1. ���ϒl���قȂ�A�W���΍������������K���z�̍��� (Mean-Differed Sigma-Equaled)
-2. ���ϒl���������A�W���΍����قȂ鐳�K���z�̍��� (Mean-Equaled Sigma-Differed)
-3. ���ϒl�ƕW���΍��̗������قȂ鐳�K���z�̍��� (Mean-Differd Sigma-Differed)
+1. 平均値が異なり、標準偏差が等しい正規分布の混合 (Mean-Differed Sigma-Equaled)
+2. 平均値が等しく、標準偏差が異なる正規分布の混合 (Mean-Equaled Sigma-Differed)
+3. 平均値と標準偏差の両方が異なる正規分布の混合 (Mean-Differd Sigma-Differed)
 
-�̂悤�ɍו�������܂��B
-�����̒��ł́A 4-3 �̕��z���A�ł����R�x�������A���G�ȕ��z��\���ł��܂����A
-3-1 �� 2-2 �Ȃǂ́A���P���ȃ��f���̕����A�f�[�^�𕪐͂��₷���P�[�X�������Ǝv���܂��B
+のように細分化されます。
+これらの中では、 4-3 の分布が、最も自由度が高く、複雑な分布を表現できますが、
+3-1 や 2-2 などの、より単純なモデルの方が、データを分析しやすいケースも多いと思われます。
 
-[^1]: ��҂̃��[�J���J�����ł́A
-�܂���ɁA���� Gradational Gaussian Distribution �̈ꕔ�̊m�����x�֐����������̂ł����A
-����́A���_�I�ɐ����������z���f���ł͂Ȃ��A�����I�ɍ���Ă݂��֐��Q�ł����B
-�����āA����ɖO�����炸�A�N���X�����āu�A���K�E�X���z�v���l�Ă��Ă݂��Ƃ���A
-���ǂ����˂��l�߂���A�uGradational Gaussian Distribution�v�ɖ߂��Ă����̂ł����B
+[^1]: 作者のローカル開発環境では、
+まず先に、この Gradational Gaussian Distribution の一部の確率密度関数があったのですが、
+それは、理論的に整備した分布モデルではなく、直感的に作ってみた関数群でした。
+そして、それに飽き足らず、クラス化して「連結ガウス分布」を考案してみたところ、
+結局それを突き詰めたら、「Gradational Gaussian Distribution」に戻ってきたのでした。
 
-## Installation - �C���X�g�[��
+## Installation - インストール
 
 <pre>
 # Install devtools from CRAN
@@ -55,11 +55,11 @@ install.packages( "devtools" )
 devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
-## Distribution types - �����ł��镪�z�̎��
+## Distribution types - 生成できる分布の種類
 
-### 0. Normal Distribution - ���K���z
+### 0. Normal Distribution - 正規分布
 
-#### Dumulative Distribution Function $\Phi(x)$ and Distribution Function $f(x)$ - �ݐϕ��z�֐� $\Phi(x)$ �E�m�����x�֐� $f(x)$
+#### Cumulative Distribution Function $\Phi(x)$ and Distribution Function $f(x)$ - 累積分布関数 $\Phi(x)$ ・確率密度関数 $f(x)$
 
 $$
 \begin{align}
