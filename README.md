@@ -57,6 +57,9 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 
 ## Kinds of distributions - 分布の種類
 
+この節において、関数 $f(x), f_i(x), f_{i,j}(x)$ は正規分布の確率密度関数を表し、
+関数 $\Phi(x), \Phi_i(x), \Phi_{i,j}(x)$ は正規分布の累積分布関数を表すものとします。
+
 ### 0. Normal Distribution - 正規分布
 
 #### $f(x)$ : Distribution Function and $\Phi(x)$ : Cumulative Distribution Function - 確率密度関数 $f(x)$ ・累積分布関数 $\Phi(x)$
@@ -84,10 +87,7 @@ $$
 $$
 \begin{align}
 g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
-\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )\\
-\\
-f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma_i^2} \right)\\
-\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma_i^2} \right) dt
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )
 \end{align}
 $$
 
@@ -115,11 +115,7 @@ Gradational Gaussian Distribution との違いを確認するためにサポー�
 $$
 \begin{align}
 g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x)\\
-\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2\\
-\\
-f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right) \\
-\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt
-\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2
 \end{align}
 $$
 
@@ -129,6 +125,7 @@ $$
 
 $x$ が $-\infty \to \infty$ と増加するにつれて、 $f_1(x)$ の負担率は $1 \to 0$ と減少し、
 $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
+
 負担率の増加率・減少率はそれぞれの累積分布関数 $\Phi_1(x), \Phi_2(x)$ に依存します。
 
 #### Names of "kind" at this package - パッケージにおける "kind" の名前
