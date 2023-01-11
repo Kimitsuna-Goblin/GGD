@@ -202,3 +202,36 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
+
+
+### 4. Vertical-Horizontal Gradational Distribution - 縦横グラデーション分布
+
+#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+
+以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\sigma_i / \sqrt{2}$ の正規分布の累積分布関数を表します。
+
+$$
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x)\\
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x)\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x)
+\end{align}
+$$
+
+#### Description - 解説
+
+確率密度関数 $g(x)$ は4つの正規分布の確率密度関数 $f_1,1(x), f_1,2(x), f_2,1(x), f_2,2(x)$ によって負担されます。
+
+$f_1,1(x)$ は分布の左側 ($x$ が平均値よりも小さい方) の裾側、$f_1,2(x)$ は分布の左側の山側、
+$f_2,1(x)$ は分布の右側 ($x$ が平均値よりも大きい方) の裾側、$f_1,2(x)$ は分布の右側の山側をそれぞれ主に負担します。
+それぞれの負担率の増減のしかたは、単調増加、単調減少とは限りません。
+
+本パッケージの分布モデルの中では、最も自由度が高く、最も複雑な分布を表現できます。
+
+#### Names of "kind" at this package - パッケージにおける "kind" の名前
+
++ Mean-Differed Sigma-Equaled Vertical-Horizontal Gradational Distribution
++ Mean-Equaled Sigma-Differed Vertical-Horizontal Gradational Distribution
++ Mean-Differed Sigma-Differed Vertical-Horizontal Gradational Distribution
