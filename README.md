@@ -59,9 +59,7 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 
 ### 0. Normal Distribution - 正規分布
 
-#### Dumulative Distribution Function and Distribution Function - 累積分布関数・確率密度関数
-
-累積分布関数: $\Phi(x)$ 、確率密度関数: $f(x)$
+#### Dumulative Distribution Function $\Phi(x)$ and Distribution Function $f(x)$ - 累積分布関数 $\Phi(x)$ ・確率密度関数 $f(x)$
 
 $$
 \begin{align}
