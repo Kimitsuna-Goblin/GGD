@@ -133,3 +133,52 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 + Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
 + Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
 + Mean-Differed Sigma-Differed Horizontal Gradational Distribution
+
+
+### 3. Vertical Gradational Distribution - 横方向グラデーション分布
+
+#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+
+1. 2つの正規分布のグラデーション (山側1個と裾側1個)
+$$
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x)\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)
+\end{align}
+$$
+
+2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
+$$
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x)\\
+g(x) &= g_1(x) + g_2(x) + g_3(x)\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{l}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1)\\
+0 & (x > \mu_1)\\
+\end{array} \right\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x)\\
+g_3(x) &= \left\lbrace
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right)\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)
+$$
+
+#### Description - 解説
+
+確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されます。
+
+$f_1(x)$ が $-\infty \to \infty$ と増加するにつれて、 $f_1(x)$ の負担率は $1 \to 0$ と減少し、
+$f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
+
+負担率の増加率・減少率はそれぞれの累積分布関数 $\Phi_1(x), \Phi_2(x)$ に依存します。
+
+#### Names of "kind" at this package - パッケージにおける "kind" の名前
+
++ Mean-Differed Sigma-Equaled Vertical Gradational Distribution
++ Mean-Equaled Sigma-Differed Vertical Gradational Distribution
++ Mean-Differed Sigma-Differed Vertical Gradational Distribution
+
++ 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
++ Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
++ 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
