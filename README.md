@@ -14,7 +14,7 @@ Gradational Gaussian Distribution は、
 連結ガウス分布 (Connected Gaussian Distribution; CGD) からの派生で[^1]、
 一応、このライブラリの著者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
-もし、2021年以前の情報があれば教えてください。
+もし、これに関する、2021年以前の情報があれば教えてください。
 
 ## About this library - このライブラリの概要
 
