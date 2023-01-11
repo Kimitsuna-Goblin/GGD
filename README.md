@@ -88,12 +88,12 @@ g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
 \\
 f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma_i^2} \right)\\
 \Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma_i^2} \right) dt
-
+\end{align}
 $$
 
 #### Description - 解説
 
-Gradational Gaussian Distribution との違いを確認するために生成可能な、混合ガウス分布です。
+Gradational Gaussian Distribution との違いを確認するために生成できるようにしている、混合ガウス分布です。
 
 混合ガウス分布は本来、単峰性でない分布や、正規分布に従わない分布のデータを
 正規分布に従う複数のクラスターデータに分割するための手段です。
