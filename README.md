@@ -55,3 +55,16 @@ install.packages( "devtools" )
 devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
+## Distribution types - 生成できる分布の種類
+
+### 0. Normal Distribution - 正規分布
+
+#### Dumulative Distribution Function and Distribution Function - 累積分布関数・確率密度関数
+
+累積分布関数: $\Phi(x)$ 、確率密度関数: $f(x)$
+
+$$
+\Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt,\\
+f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right),\\
+$$
+

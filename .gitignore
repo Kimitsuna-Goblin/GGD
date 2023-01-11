@@ -48,6 +48,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# local work folder
+# local work folder and link
 backup
 work
+*.lnk
