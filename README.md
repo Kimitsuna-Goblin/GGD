@@ -140,7 +140,7 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 
 #### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
-以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\displaystyle( \freq{ \sigma_i }{ \sqrt{2} } )$ の正規分布の累積分布関数を表します。
+以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\displaystyle( \fraq{ \sigma_i }{ \sqrt{2} } )$ の正規分布の累積分布関数を表します。
 
 3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 
@@ -208,7 +208,7 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 
 #### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
-以下の式において、 $\Phi^\ast_{i,j}(x)$ は平均値が $\mu_{i,j}$ で標準偏差が $\displaystyle( \freq{ \sigma_{i,j} }{ \sqrt{2} } )$ の正規分布の累積分布関数を表します。
+以下の式において、 $\Phi^\ast_{i,j}(x)$ は平均値が $\mu_{i,j}$ で標準偏差が $\displaystyle( \fraq{ \sigma_{i,j} }{ \sqrt{2} } )$ の正規分布の累積分布関数を表します。
 
 $$
 \begin{align}
