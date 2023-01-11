@@ -6,12 +6,12 @@ Gradational Gaussian Distribution (漸変ガウス分布？) は、
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルです。
 
 Gradational Gaussian Distribution は、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
-いわゆる混合ガウス分布、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
+いわゆる混合ガウス分布 (Gaussian Mixture Model)、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
 X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変化させた分布モデルです。
 なお、正規分布の関数の畳み込みではありません。
 
 Gradational Gaussian Distribution は、
-[連結ガウス分布](https://github.com/Kimitsuna-Goblin/cgd) (Connected Gaussian Distribution; CGD) からの派生で[^1]、
+[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で[^1]、
 一応、このライブラリの著者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
 もし、これに関する、2021年以前の情報があれば教えてください。
@@ -21,20 +21,20 @@ Gradational Gaussian Distribution は、
 このサイトの R 言語ライブラリでは、大きく分けて、以下の種類の分布モデルが生成できます。
 
 0. 正規分布
-1. 2つの正規分布の平均 (混合ガウス分布)
-2. 横方向 (X軸方向) に2つの正規分布の混合比率が漸次的に変化する分布
-3. 縦方向 (Y軸方向) に2つの正規分布の混合比率が漸次的に変化する分布
-4. 縦横両方向に4つの正規分布の混合比率が漸次的に変化する分布
+1. 2つの正規分布の平均 (混合ガウス分布; Gaussian Mixture Model)
+2. 横方向 (X軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Horizontal Gradational Distribution)
+3. 縦方向 (Y軸方向) に2つの正規分布の混合比率が漸次的に変化する分布 (Vertical Gradational Distribution)
+4. 縦横両方向に4つの正規分布の混合比率が漸次的に変化する分布 (Vertical-Horizontal Gradational Distribution)
 
 上の 0. と 1. は Gradational Gaussian Distribution ではありませんが、
 分布モデルの比較のため、生成できるようにしています。
 
 上のそれぞれの大まかな分類は、
-さらに、構成要素の2つないし4つの正規分布の条件によって、
+さらに、構成要素である2つないし4つの正規分布の条件によって、
 
-1. 平均値が異なり、標準偏差が等しい正規分布の混合
-2. 平均値が等しく、標準偏差が異なる正規分布の混合
-3. 平均値と標準偏差の両方が異なる正規分布の混合
+1. 平均値が異なり、標準偏差が等しい (Mean-Differd Sigma-Equaled) 正規分布の混合
+2. 平均値が等しく、標準偏差が異なる (Mean-Equaled Sigma-Differd) 正規分布の混合
+3. 平均値と標準偏差の両方が異なる (Mean-Differd Sigma-Differd) 正規分布の混合
 
 のように細分化されます。
 直感的に分かるように、 4-3 の分布が、この中では最も自由度が高く、複雑な分布を表現できますが、
