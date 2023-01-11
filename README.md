@@ -1,0 +1,2 @@
+# GGD
+ Gradational Gaussian Distribution
