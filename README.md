@@ -189,11 +189,13 @@ $f_1(x)$ や $f_3(x)$ の負担率が、ある点から一時的に増加に転�
 
 #### Names of "kind" at this package - パッケージにおける "kind" の名前
 
+1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 + Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled Sigma-Differed Vertical Gradational Distribution
 + Mean-Differed Sigma-Differed Vertical Gradational Distribution
 
 
+2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
 + Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
