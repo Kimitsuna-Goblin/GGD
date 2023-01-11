@@ -93,7 +93,7 @@ $$
 
 #### Description - 解説
 
-Gradational Gaussian Distribution との違いを確認するために生成できるようにしている、混合ガウス分布です。
+Gradational Gaussian Distribution との違いを確認するためにサポートしている、混合ガウス分布の例です。
 
 混合ガウス分布は本来、単峰性でない分布や、正規分布に従わない分布のデータを
 正規分布に従う複数のクラスターデータに分割するための手段です。
