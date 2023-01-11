@@ -139,6 +139,8 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 
 #### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
+以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ 、標準偏差が $\sigma / \sqrt{2}$ の正規分布の累積分布関数を表します。
+
 1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 
 $$
@@ -147,8 +149,6 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x)
 \end{align}
 $$
-
-ただし、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ 、標準偏差が $\sigma / \sqrt{2}$ の正規分布の累積分布関数。
 
 2. 3つの正規分布のグラデーション (山側1個と裾側の左右各1個、合計2個)
 
@@ -174,8 +174,6 @@ g_3(x) &= \left\lbrace
 \Psi_3(x) &= \max \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right)
 \end{align}
 $$
-
-ただし、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ 、標準偏差が $\sigma / \sqrt{2}$ の正規分布の累積分布関数。
 
 #### Description - 解説
 
