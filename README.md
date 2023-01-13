@@ -95,8 +95,8 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 
 $$
 \begin{align}
-確率密度関数: f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right)\\
-累積分布関数: \Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt
+f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right)\\
+\Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt
 \end{align}
 $$
 
@@ -115,8 +115,8 @@ $$
 
 $$
 \begin{align}
-確率密度関数 g : g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
-累積分布関数 \Psi : \Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )
 \end{align}
 $$
 
