@@ -115,8 +115,8 @@ $$
 
 $$
 \begin{align}
-確率密度関数: g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
-累積分布関数: \Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )
+確率密度関数 g(x) : g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
+累積分布関数 \Psi(x) : \Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) )
 \end{align}
 $$
 
