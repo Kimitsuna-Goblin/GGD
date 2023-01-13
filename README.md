@@ -3,7 +3,7 @@
 このR言語パッケージは、度数分布の近似あるいはクォンタイルのトレースにより、
 Gradational Gaussian Distribution のR5クラスオブジェクトを生成するものです。
 
-[English](README.en.md)
+[English README](README.en.md)
 
 
 ## Gradational Gaussian Distribution とは
@@ -89,12 +89,12 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 この節において、関数 $f(x), f_i(x), f_{i,j}(x)$ は正規分布の確率密度関数を表し、
 関数 $\Phi(x), \Phi_i(x), \Phi_{i,j}(x)$ は正規分布の累積分布関数を表すものとします。
 
-### 0. Normal Distribution - 正規分布
+### 0. 正規分布
 
-#### $f(x)$ : Distribution function and $\Phi(x)$ : Cumulative distribution function - 確率密度関数 $f(x)$ ・累積分布関数 $\Phi(x)$
+#### 確率密度関数 $f(x)$ ・累積分布関数 $\Phi(x)$
 
 $$
-\begin{align}
+\begin{align}{l}
 f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right)\\
 \Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt
 \end{align}
