@@ -1,22 +1,35 @@
 # GGD -  Gradational Gaussian Distribution
 
-## What is Gradational Gaussian Distribution? - Gradational Gaussian Distribution とは
+このR言語パッケージは、度数分布の近似あるいはクォンタイルのトレースにより、
+Gradational Gaussian Distribution のR5クラスオブジェクトを生成するものです。
+
+[English](README.en.md)
+
+
+## Gradational Gaussian Distribution とは
 
 Gradational Gaussian Distribution (漸変ガウス分布？) は、
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルです。
 
-Gradational Gaussian Distribution は、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
+この分布モデルは、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
 いわゆる混合ガウス分布 (Gaussian Mixture Distribution)、すなわち、正規分布の一次結合で表される分布モデルとは異なり、
-X軸方向やY軸方向に沿って、次第に正規分布の混合比率を変化させた分布モデルです。
+X軸方向やY軸方向に沿って、徐々に正規分布の混合比率を変化させた分布モデルです。
 なお、正規分布の関数の畳み込みではありません。
 
-Gradational Gaussian Distribution は、
+この分布モデルは、
+正規分布に従わないデータがあったとき、
+その分布が正規分布に従わない原因が、クラスタリング可能な、離散的なパラメータによるものではなく、
+何か連続的なパラメータによるものだった場合に、モデルとして適用できるだろうと、私は考えています。
+
+この分布モデルは、
 [連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で[^1]、
 一応、このパッケージの作者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
-もし、これに関する、2021年以前の情報があれば教えてください。
+先人の研究があるんじゃないかろうか？と思っています。
+もし、この分布モデルに関する、2021年以前の情報があれば教えてください。
 
-## About this package - このパッケージの概要
+
+## このパッケージの概要
 
 このサイトの R 言語パッケージでは、大きく分けて、以下の種類の分布モデルが生成できます。
 
@@ -45,7 +58,23 @@ Gradational Gaussian Distribution は、
 そして、それに飽き足らず、クラス化して「連結ガウス分布」を考案してみたところ、
 結局それを突き詰めたら、「Gradational Gaussian Distribution」に戻ってきたのでした。
 
-## Installation - インストール
+
+## 主な機能
+
+| 種別          | 関数名            | 機能                                                              |
+| :-----------: | :---------------: | :---------------------------------------------------------------- |
+| ジェネレータ  | nls.freq          | 度数分布を近似する GGD クラスオブジェクトを生成します。           |
+| ^             | nls.freq.all      | サポートしている全種類の分布モデルで度数分布の近似を試みます。    |
+| ^             | trace.q           | クォンタイルをトレースするGGD クラスオブジェクトを生成します。    |
+| メソッド      | GGD$d             | 確率密度関数の値を返します。                                      |
+| ^             | GGD$p             | X座標 (あるいはクォンタイル) に対する確率を返します。             |
+| ^             | GGD$q             | 確率に対するX座標 (あるいはクォンタイル) を返します。             |
+| ^             | GGD$r             | 分布モデルに従うランダムサンプルを返します。                      |
+| ^             | GGD$sd, usd, lsd  | 標準偏差、上側標準偏差、下側標準偏差を返します。                  |
+| ^             | GGD$tex           | 確率密度関数と累積分布関数を TeX 形式で表示します。               |
+
+
+## インストール
 
 <pre>
 # Install devtools from CRAN
@@ -55,7 +84,7 @@ install.packages( "devtools" )
 devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
-## Kinds of distributions - 分布の種類
+## 分布の種類
 
 この節において、関数 $f(x), f_i(x), f_{i,j}(x)$ は正規分布の確率密度関数を表し、
 関数 $\Phi(x), \Phi_i(x), \Phi_{i,j}(x)$ は正規分布の累積分布関数を表すものとします。
@@ -71,18 +100,18 @@ f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sig
 \end{align}
 $$
 
-#### Description - 解説
+#### 解説
 
 いわゆる正規分布です。
 
-#### Names of "kind" at this package - パッケージにおける "kind" の名前
+#### パッケージにおける "kind" の名前
 
 + Normal Distribution
 
 
-### 1. Mean of 2 Normal Distributions - 2つの正規分布の平均
+### 1. 2つの正規分布の平均
 
-#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 $$
 \begin{align}
@@ -91,26 +120,23 @@ g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) )\\
 \end{align}
 $$
 
-#### Description - 解説
+#### 解説
 
-Gradational Gaussian Distribution との違いを確認するためにサポートしている、混合ガウス分布の例です。
+このクラスは Gradational Gaussian Distribution との違いを確認するためにサポートしている、混合ガウス分布の例です。
 
 混合ガウス分布は本来、単峰性でない分布や、正規分布に従わない分布のデータを
 正規分布に従う複数のクラスターデータに分割するための手段です。
 
-平均値が異なる正規分布の平均と、標準偏差が異なる正規分布の平均が生成できますが、
-平均値が異なる2つの正規分布の平均は、単峰性分布のモデルとしては、適切でないかも知れません。
-
-#### Names of "kind" at this package - パッケージにおける "kind" の名前
+#### パッケージにおける "kind" の名前
 
 + Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
 + Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
 + Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
 
 
-### 2. Horizontal Gradational Distribution - 横方向グラデーション分布
+### 2. 横方向グラデーション分布
 
-#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 $$
 \begin{align}
@@ -119,9 +145,9 @@ g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x)\\
 \end{align}
 $$
 
-#### Description - 解説
+#### 解説
 
-確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されます。
+このクラスでは、確率密度関数 $g(x)$ は2つの正規分布の確率密度関数 $f_1(x), f_2(x)$ によって負担されます。
 
 $x$ が $-\infty \to \infty$ と増加するにつれて、 $f_1(x)$ の負担率は $1 \to 0$ と減少し、
 $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
@@ -130,29 +156,31 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 負担率の増減のしかたは、それぞれ単調増加、単調減少とは限りません。
 
 累積密度関数でクォンタイルをトレースする場合は、3点または4点のクォンタイルをトレースできます。
-例えば、四分位数 $\lbrace 0.25, 0.5, 0.75 \rbrace$ のクォンタイルを
+例えば、四分位点 $\lbrace 0.25, 0.5, 0.75 \rbrace$ を
  (過度にいびつな形でなければ) ほとんど誤差なくトレースできます。
 
 ただし、
 度数分布が分かっている場合は、
-四分位数をトレースさせるよりも、
+四分位点をトレースさせるよりも、
 度数分布を入力して、それに近い分布を算出させることをお勧めします。
-四分位数のトレースだけでは、
+四分位点のトレースだけでは、
 元データを適切にモデル化できるかどうか、分からないからです。
 
 
-#### Names of "kind" at this package - パッケージにおける "kind" の名前
+#### パッケージにおける "kind" の名前
 
 + Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
 + Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
 + Mean-Differed Sigma-Differed Horizontal Gradational Distribution
 
 
-### 3. Vertical Gradational Distribution - 縦方向グラデーション分布
+### 3. 縦方向グラデーション分布
 
-#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
-以下の式において、 $\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\displaystyle \frac{ \sigma_i }{ \sqrt{2} }$ の正規分布の累積分布関数を表します。
+以下の式において、
+$\Phi^\ast_i(x)$ は平均値が $\mu_i$ で標準偏差が $\displaystyle \frac{\sigma_i}{\sqrt{2}}$
+の正規分布の累積分布関数を表します。
 
 3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 
@@ -188,23 +216,24 @@ g_3(x) &= \left\lbrace
 \end{align}
 $$
 
-#### Description - 解説
+#### 解説
 
-確率密度関数 $g(x)$ は2つないし3つの正規分布の確率密度関数 $f_1(x), f_2(x), f_3(x)$ によって負担されます。
+このクラスでは、確率密度関数 $g(x)$ は2つないし3つの正規分布の確率密度関数 $f_1(x), f_2(x), f_3(x)$
+によって負担されます。
 
 $f_1(x)$ と $f_3(x)$ の負担率は概ね、
 $f_i(x)$ の値が裾から山の頂点に向かって $0 \to f_i(\mu_i)$ と増加するにつれて $1 \to 0$ と減少し、
 $f_2(x)$ の負担率は $f_2(x)$ の値が $0 \to f_2(\mu_2)$ と増加するにつれて $0$ から徐々に増加していきます。
 
-ただし、それぞれの正規分布の平均値 $\mu_1, \mu_2, \mu_3$ が異なる場合は、
-$f_2(x)$ の負担率の最大値が $1$ より小さくなることがあります。
+$f_2(x)$ の負担率の最大値は、それぞれの正規分布の平均値 $\mu_1, \mu_2, \mu_3$ が異なる場合、
+$1$ より小さくなることがあります。
 また、それぞれの負担率の増減のしかたは、単調増加、単調減少とは限りません。
 
 負担率の増加率・減少率はそれぞれの確率密度関数 $f_1(x), f_2(x), f_3(x)$ の値に依存します。
 
 累積密度関数でクォンタイルをトレースする場合は、最大6点のクォンタイルをトレースできます。
 
-ただし、この縦方向グラデーション分布は、四分位数のトレースには、あまり適しません。
+ただし、この縦方向グラデーション分布は、等間隔の四分位数のトレースには、あまり適しません。
 この分布モデルは、山部と裾部の代表点、つまり、平均値に近い点と遠い点のトレースに適します。
 例えば、確率 $\lbrace 0.1, 0.4, 0.5, 0.6, 0.9 \rbrace$ のようなクォンタイルを
  (過度にいびつな形でなければ) ほとんど誤差なくトレースできます。
@@ -213,7 +242,7 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 確率 $\lbrace 0.1, 0.4, 0.5 \rbrace$ のように、
 一方の側に偏ったクォンタイルも有効です。
 
-#### Names of "kind" at this package - パッケージにおける "kind" の名前
+#### パッケージにおける "kind" の名前
 
 3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
 + Mean-Differed Sigma-Equaled Vertical Gradational Distribution
@@ -227,9 +256,9 @@ $f_2(x)$ の負担率の最大値が $1$ より小さくなることがありま
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
 
 
-### 4. Vertical-Horizontal Gradational Distribution - 縦横グラデーション分布
+### 4. 縦横グラデーション分布
 
-#### $g(x)$ : Distribution function and $\Psi(x)$ : Cumulative distribution function - 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
+#### 確率密度関数 $g(x)$ ・累積分布関数 $\Psi(x)$
 
 以下の式において、 $\Phi^\ast_{i,j}(x)$ は平均値が $\mu_{i,j}$ で標準偏差が $\displaystyle \frac{ \sigma_{i,j} }{ \sqrt{2} }$ の正規分布の累積分布関数を表します。
 
@@ -243,12 +272,14 @@ g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) +
 \end{align}
 $$
 
-#### Description - 解説
+#### 解説
 
-確率密度関数 $g(x)$ は4つの正規分布の確率密度関数 $f_{1,1}(x), f_{1,2}(x), f_{2,1}(x), f_{2,2}(x)$ によって負担されます。
+このクラスでは、確率密度関数 $g(x)$ は
+4つの正規分布の確率密度関数 $f_{1,1}(x), f_{1,2}(x), f_{2,1}(x), f_{2,2}(x)$ によって負担されます。
 
 $f_{1,1}(x)$ は分布の左側 ( $x$ が平均値よりも小さい方) の裾側、 $f_{1,2}(x)$ は分布の左側の山側、
-$f_{2,1}(x)$ は分布の右側 ( $x$ が平均値よりも大きい方) の裾側、 $f_{2,2}(x)$ は分布の右側の山側をそれぞれ主に負担します。
+$f_{2,1}(x)$ は分布の右側 ( $x$ が平均値よりも大きい方) の裾側、 $f_{2,2}(x)$ は分布の右側の山側を
+それぞれ主に負担します。
 ただし、それぞれの負担率の増減のしかたは、単調増加、単調減少とは限りません。
 
 本パッケージの分布モデルの中では、最も自由度が高く、最も複雑な分布を表現できます。
@@ -257,8 +288,14 @@ $f_{2,1}(x)$ は分布の右側 ( $x$ が平均値よりも大きい方) の裾�
 例えば、確率 $\lbrace 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 \rbrace$ のクォンタイルを
  (過度にいびつな形でなければ) ほとんど誤差なくトレースできます。
 
-#### Names of "kind" at this package - パッケージにおける "kind" の名前
+9点以上のクォンタイルをトレースしたい場合は、
+影響の少なそうなクォンタイルを除外して8点以下にするか、
+[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd)
+の不連続分布をご利用ください。
+
+#### パッケージにおける "kind" の名前
 
 + Mean-Differed Sigma-Equaled Vertical-Horizontal Gradational Distribution
 + Mean-Equaled Sigma-Differed Vertical-Horizontal Gradational Distribution
 + Mean-Differed Sigma-Differed Vertical-Horizontal Gradational Distribution
+
