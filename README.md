@@ -20,9 +20,7 @@ It is a distribution model in which the mixing ratio of the normal distributions
 gradually changes along the x-axis or y-axis directions.
 And it is not a convolution of functions of the normal distribution.
 
-I am not a professional of statistics
-(I was a C++/Java programmer and had been a image clustering student),
-but believe that the GGD can be applied as a model
+I believe that the GGD can be applied as a model
 when there is some data that does not follow a normal distribution,
 and the reason why the distribution does not follow a normal distribution
 is not due to a discrete parameter that can be clustered,
@@ -34,6 +32,9 @@ which is an "almighty" quantile-probability points tracer (but a discontinuous d
 But I think the GGD is a distribution model that anyone could have come up with,
 so I think if there have been some prior researches about it done by our predecessors.
 If you have any pre-2021 information on this distribution model, please let me know.
+I am not a professional of statistics
+(I was a C++/Java programmer and had been a image clustering student),
+so I'm not familiar with that kind of information.
 
 
 ## Overview of this package
