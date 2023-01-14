@@ -31,7 +31,7 @@ after the [Connected Gaussian Distribution (CGD)](https://github.com/Kimitsuna-G
 which is an "almighty" quantile-probability points tracer (but a discontinuous distribution).
 But I think the GGD is a distribution model that anyone could have come up with,
 so I think if there have been some prior researches about it done by our predecessors.
-If you have any pre-2021 information on this distribution model, please [let me know](<mailto:goblin@big,or.jp>).
+If you have any pre-2021 information on this distribution model, please [let me know](<mailto:goblin@dream.big.or.jp>).
 I did some math study, but I am not a professional of statistics
 so I'm not familiar with that kind of information.
 
