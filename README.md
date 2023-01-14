@@ -216,7 +216,7 @@ and cumulative distribution function $\Phi_i(x)$ $(i = 1, 2, 3)$.
 
 In the following equation,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
-with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
+with mean $\mu_i$ and standard deviation $\displaystyle \begin{array}{c}\frac{\sigma_i}{\sqrt{2}}\end{array}$.
 
 3-1. Vertical gradation with 2 normal distributions (1 for head and 1 for tail)
 
