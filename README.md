@@ -4,7 +4,7 @@ Here is an R package
 which generates a reference class object of the basic Gradational Gaussian Distribution
 with a frequency distribution approximation or tracing quantile-probability points.
 
-[日本語 README](README.ja.md)
+[日本語](README.ja.md)
 
 
 ## What is Gradational Gaussian Distribution?

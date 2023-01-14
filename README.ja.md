@@ -3,7 +3,7 @@
 このR言語パッケージは、度数分布の近似あるいは分位点のトレースにより、
 基本的な Gradational Gaussian Distribution のR5クラスオブジェクトを生成するものです。
 
-[English README](README.en.md)
+[English](README.en.md)
 
 
 ## Gradational Gaussian Distribution とは
