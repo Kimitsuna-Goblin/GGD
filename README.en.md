@@ -75,21 +75,16 @@ just had been a programmer and was a image clustering student.
 
 | Type      | Name                  | Overview                                                  |
 | :-------: | :-------------------: | :-------------------------------------------------------- |
-| Generator | nls.freq              | Generates a GGD class object that
-                                      approximates a frequency distribution.                    |
-| 〃        | nls.freq.all          | Attempts to approximate the frequency distribution
-                                      with all supported kinds of distributions.                |
-| Generator | trace.q               | Generates a GGD class object that traces
-                                      quantile-probability points.                              |
+| Generator | nls.freq              | Generates a GGD class object that approximates a frequency distribution. |
+| 〃        | nls.freq.all          | Attempts to approximate the frequency distribution with all supported kinds of distributions. |
+| Generator | trace.q               | Generates a GGD class object that traces quantile-probability points.                         |
 | Field     | \$mean                | The mean of the distribution.                             |
 | Method    | \$d                   | Returns the values of the probability density function.   |
 | 〃        | \$p                   | Returns the probability for x-coordinates (quantiles).    |
 | 〃        | \$q                   | Returns the x-coordinates (quantiles) for probabilities.  |
 | 〃        | $r                    | Returns random samples following the distribution.        |
-| 〃        | \$sd, \$usd, \$lsd    | Returns the standard deviation, upper standard deviation
-                                      and lower standard deviation of the distribution[^2].     |
-| 〃        | \$tex                 | Displays the probability density function
-                                      and cumulative distribution function in TeX format.       |
+| 〃        | \$sd, \$usd, \$lsd    | Returns the standard deviation, upper standard deviation and lower standard deviation of the distribution[^2]. |
+| 〃        | \$tex                 | Displays the probability density function and cumulative distribution function in TeX format. |
 
 ## Installation
 
