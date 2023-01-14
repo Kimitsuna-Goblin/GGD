@@ -67,9 +67,6 @@ I tried to develop the "Connected Gaussian Distribution" package
 as continued to study statistics and the Gaussian integral.
 Then, when I eventually worked out, I have returned to the GGD.
 
-Yes, I am not a professional of statistics,
-just had been a programmer and was a image clustering student.
-
 
 ## Major functions
 
