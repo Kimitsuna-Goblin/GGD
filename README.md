@@ -120,8 +120,8 @@ $$
 
 This class is the so-called normal distribution.
 
-When approximating a frequency distribution, the result may be a normal distribution.
-In that case, do not hesitate to apply the normal distribution as the model.
+When approximating a frequency distribution, if you get the result of a normal distribution,
+please do not hesitate to apply the normal distribution as the model.
 
 You can trace 2 quantile-probability points (e.g., tertiles) (can it be called a trace for only 2 points?).
 
