@@ -277,7 +277,7 @@ However, this vertical gradational distribution
 is not well suited for tracing equally spaced probability points (e.g. $p = 0.25, 0.5, 0.75$).
 This distribution model is better suited for tracing quantiles near the head and near the tale
 (i.e. points far and near from the mean).
-For example, quantile-probability points with $p = 0.1, 0.4, 0.5, 0.6, 0.9$
+For example, quantile-probability points with $p = 0.1, 0.4, 0.6, 0.9$
 can be traced with very little error (as long as they are not overly distorted).
 
 If you want to trace quantile-probability points for symmetrical distributions,
