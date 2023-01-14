@@ -20,7 +20,9 @@ It is a distribution model in which the mixing ratio of the normal distributions
 gradually changes along the x-axis or y-axis directions.
 And it is not a convolution of functions of the normal distribution.
 
-I believe that the GGD can be applied as a model
+I am not a professional of statistics
+(I was a C++/Java programmer and had been a image clustering student),
+but believe that the GGD can be applied as a model
 when there is some data that does not follow a normal distribution,
 and the reason why the distribution does not follow a normal distribution
 is not due to a discrete parameter that can be clustered,
