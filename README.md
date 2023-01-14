@@ -123,7 +123,7 @@ This class is the so-called normal distribution.
 When approximating a frequency distribution, if you get the result of a normal distribution,
 please do not hesitate to apply the normal distribution as the model.
 
-You can trace 2 quantile-probability points (e.g., tertiles) (but can it be called a trace for only 2 points?).
+You can trace 2 quantile-probability points (e.g., tertiles) (but can it be called a "trace" for only 2 points?).
 
 #### Names of "kind" at this package
 
