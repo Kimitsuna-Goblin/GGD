@@ -8,7 +8,7 @@ Gradational Gaussian Distribution のR5クラスオブジェクトを生成す�
 
 ## Gradational Gaussian Distribution とは
 
-Gradational Gaussian Distribution (漸変ガウス分布？) は、
+Gradational Gaussian Distribution (漸変ガウス分布？グラデーションガウス分布？) は、
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルです。
 
 この分布モデルは、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
