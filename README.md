@@ -43,7 +43,7 @@ The R package on this site can generate the following kinds of distribution mode
 0. normal distribution
 1. mean of 2 normal distributions (a kind of Gaussian Mixture Distribution)
 2. a distribution in which the mixture ratio of 2 normal distributions changes gradually along the horizontal (x-axis) direction (Horizontal Gradational Distribution)
-3. a distribution in which the mixture ratio of 2 or 3 normal distributions changes gradually in the vertical (y-axis) direction (Vertical Gradational Distribution)
+3. a distribution in which the mixture ratio of 2 or 3 normal distributions changes gradually along the vertical (y-axis) direction (Vertical Gradational Distribution)
 4. a distribution in which the mixture ratio of 4 normal distributions changes gradually in both the vertical and horizontal directions (Vertical-Horizontal Gradational Distribution)
 
 The above 0. and 1. are not kinds of the GGD, however,
