@@ -86,6 +86,10 @@ just had been a programmer and was a image clustering student.
 | 〃        | \$sd, \$usd, \$lsd    | Returns the standard deviation, upper standard deviation and lower standard deviation of the distribution[^2]. |
 | 〃        | \$tex                 | Displays the probability density function and cumulative distribution function in TeX format. |
 
+[^2]: The family of the standard deviation is not a field, but a method.
+The reason is that the computation of the standard deviation can take a bit of time,
+and in some cases the standard deviation is not needed.
+
 ## Installation
 
 <pre>
