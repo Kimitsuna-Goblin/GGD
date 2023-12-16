@@ -1,7 +1,7 @@
 # GGD -  Gradational Gaussian Distribution
 
-このR言語パッケージは、度数分布の近似あるいは分位点のトレースにより、
-基本的な Gradational Gaussian Distribution のR5クラスオブジェクトを生成するものです。
+このR言語パッケージは、度数分布を近似したり、分位点をトレースすることにより、
+Gradational Gaussian Distribution のリファレンスクラスのオブジェクトを生成するものです。
 
 [English](README.md)
 
@@ -22,7 +22,7 @@ X軸方向やY軸方向に沿って、グラデーション的に徐々に正規
 何か連続的なパラメータによるものだった場合に、モデルとして適用できるだろうと、私は考えています。
 
 この分布モデルは、
-[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で[^1]、
+[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd) からの派生で、
 一応、このパッケージの作者が考案したものですが、
 わりと誰でも思いつきそうな分布モデルだと思いますので、
 先人の研究があるんじゃないかろうか？と思っています。
@@ -53,30 +53,25 @@ X軸方向やY軸方向に沿って、グラデーション的に徐々に正規
 これらの中では、 4-3 の分布が、最も自由度が高く、複雑な分布を表現できますが、
 3-1 や 2-2 などの、より単純なモデルの方が、データを分析しやすいケースも多いと思われます。
 
-[^1]: 作者のローカル開発環境では、
-まず先に、この Gradational Gaussian Distribution の一部の確率密度関数があったのですが、
-それは、理論的に整備した分布モデルではなく、直感的に作ってみた関数群でした。
-そして、それに飽き足らず、クラス化して「連結ガウス分布」を考案してみたところ、
-結局それを突き詰めたら、「Gradational Gaussian Distribution」に戻ってきたのでした。
-
 
 ## 主な機能
 
 | 種別          | 関数名                | 機能                                                          |
 | :-----------: | :-------------------: | :------------------------------------------------------------ |
-| ジェネレータ  | nls.freq              | 度数分布を近似する GGD クラスオブジェクトを生成します。       |
-| 〃            | nls.freq.all          | サポートしている全種類の分布で度数分布の近似を試みます。      |
-| 〃            | trace.q               | 分位点をトレースするGGD クラスオブジェクトを生成します。      |
-| フィールド    | \$mean                | 分布の平均値です。                                            |
+| ジェネレータ  | ggd.nls.freq          | 度数分布を近似する GGD クラスオブジェクトを生成します。       |
+| 〃            | ggd.nls.freq.all      | サポートしている全種類の分布で度数分布の近似を試みます。      |
+| 〃            | ggd.trace.q           | 分位点をトレースする GGD クラスオブジェクトを生成します。     |
+| 〃            | ggd.set.cmp           | GGD の構成を指定して、オブジェクトを生成します。              |
+| フィールド    | \$median              | 分布の中央値です。                                            |
+| 〃            | \$mean                | 分布の平均値です。                                            |
+| 〃            | \$sd, \$usd, \$lsd    | 分布の標準偏差、上側標準偏差、下側標準偏差です。              |
 | メソッド      | \$d                   | 確率密度関数の値を返します。                                  |
 | 〃            | \$p                   | X座標 (クォンタイル) に対する確率を返します。                 |
 | 〃            | \$q                   | 確率に対するX座標 (クォンタイル) を返します。                 |
 | 〃            | \$r                   | 分布に従うランダムサンプルを返します。                        |
-| 〃            | \$sd, \$usd, \$lsd    | 分布の標準偏差、上側標準偏差、下側標準偏差を返します[^2]。    |
 | 〃            | \$tex                 | 確率密度関数と累積分布関数を TeX 形式で表示します。           |
-
-[^2]: 標準偏差の計算には、少し時間がかかることがあり、
-また、標準偏差が不要な場合もあることから、標準偏差はフィールドではなく、メソッドにしています。
+| 〃            | \$read                | GGD クラスオブジェクトの構成をファイルから読み込みます。      |
+| 〃            | \$write               | GGD クラスオブジェクトの構成をファイルに保存します。          |
 
 ## インストール
 
@@ -269,14 +264,14 @@ $p = 0.1, 0.4, 0.5$ のように、
 #### パッケージにおける "kind" の名前
 
 3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
-+ Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-+ Mean-Differed Sigma-Differed Vertical Gradational Distribution
++ 2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
++ 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
++ 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
 
 
 3-2. 3つの正規分布のグラデーション (山側1個と裾側2個 (左右各1個))
 + 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
++ 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
 + 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
 
 
@@ -316,13 +311,11 @@ $f_{2,1}(x)$ は分布の右側 ( $x$ が平均値よりも大きい方) の裾�
  (過度にいびつな形でなければ) ほとんど誤差なくトレースできます。
 
 9点以上の分位点は本パッケージの機能ではトレースできません。
-どうしても9点以上を誤差なくトレースしたい場合は、
-[連結ガウス分布 (Connected Gaussian Distribution; CGD)](https://github.com/Kimitsuna-Goblin/cgd)
-の不連続分布をご利用ください。
+分位点が9点以上ある場合は、度数分布を作成して、 ggd.nls.freq による近似をお試しください。
 
 #### パッケージにおける "kind" の名前
 
-+ Mean-Differed Sigma-Equaled Vertical-Horizontal Gradational Distribution
-+ Mean-Equaled Sigma-Differed Vertical-Horizontal Gradational Distribution
-+ Mean-Differed Sigma-Differed Vertical-Horizontal Gradational Distribution
++ Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
++ Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
++ Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
 

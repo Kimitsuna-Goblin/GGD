@@ -1,93 +1,78 @@
 # GGD -  Gradational Gaussian Distribution
 
-Here is an R package
-which generates a reference class object of the basic Gradational Gaussian Distribution
-with a frequency distribution approximation or tracing quantile-probability points.
+Here is an R package which generates a reference class object provides a Gradational Gaussian Distribution;
+it approximates an asymmetric frequency distribution or traces quantiles accurately.
 
 [日本語](README.ja.md)
 
 
-## What is Gradational Gaussian Distribution?
+## What is the Gradational Gaussian Distribution?
 
-The Gradational Gaussian Distribution (GGD) is a continuous distribution model
-that primarily targets unimodal, non-normal distributions.
+The Gradational Gaussian Distribution (GGD) is a continuous distribution
+for modeling mainly asymmetric unimodal data.
 
-The GGD is a kind of mixture distribution model
-of the normal distributions (Gaussian distributions),
-but it is different from the so-called Gaussian Mixture Distribution,
-which is represented by linear combinations of the normal distributions.
-It is a distribution model in which the mixing ratio of the normal distributions
-gradually changes along the x-axis or y-axis directions.
-And it is not a convolution of functions of the normal distribution.
+The GGD is alike the Gaussian mixture distribution model (GMM) but different.
+The GMM is represented by linear combinations of some normal distributions,
+and is often used for clustering of mixed data.
+On the other hand, the GGD is a distribution of which mixes some normal distributions
+with gradually changing ratio along the x-axis or y-axis directions,
+and treat non-normal distribution data as it is.
+Please remark that the GGD is not a convolution of normal distributions.
 
-I believe that the GGD can be applied as a model
-when there is some data that does not follow a normal distribution,
-and the reason why the distribution does not follow a normal distribution
-is not due to a discrete parameter that can be clustered,
-but due to some continuous parameters.
+I think that the GGD model can be applied as a distribution model of data
+which is a bit like a normal distribution but never follows any normal distribution model
+because some effects by (hidden) continuous parameters.
+The GGD model may not able to exclude disturbing effects from a normal distribuion like GMM,
+but may help to find out some existences of effects by hidden continuous parameters in data.
 
-The GGD was invented by the author of this package
-after the [Connected Gaussian Distribution (CGD)](https://github.com/Kimitsuna-Goblin/cgd)[^1]
-which is an "almighty" quantile-probability points tracer (but a discontinuous distribution).
-But I think the GGD is a distribution model that anyone could have come up with,
-so I think if there have been some prior researches about it done by our predecessors.
-If you have any pre-2021 information on this distribution model, please [let me know](<mailto:goblin@dream.big.or.jp>).
-I did some math study, but I am not a professional of statistics
-so I'm not familiar with that kind of information.
+The GGD model was invented by the author of this package
+after the [Connected Gaussian Distribution (CGD)](https://github.com/Kimitsuna-Goblin/cgd)
+which is a discontinuous distribution model to trace any quantiles with very little error.
+But I think that someone had come up with the GGD already and there may be some prior researches.
+If you have any research information about this model, please [let me know](<mailto:goblin@dream.big.or.jp>).
+Sorry but I am not a professional of statistics, so I am not familiar with such informations.
 
 
-## Overview of this package
+## Package overview
 
-The R package on this site can generate the following kinds of distribution models.
+This R package can generate objects for the following kinds of distribution models:
 
-0. normal distribution
-1. mean of 2 normal distributions (a kind of Gaussian Mixture Distribution)
-2. a distribution in which the mixture ratio of 2 normal distributions changes gradually along the horizontal (x-axis) direction (Horizontal Gradational Distribution)
-3. a distribution in which the mixture ratio of 2 or 3 normal distributions changes gradually along the vertical (y-axis) direction (Vertical Gradational Distribution)
-4. a distribution in which the mixture ratio of 4 normal distributions changes gradually in both the vertical (y-axis) and horizontal (x-axis) directions (Vertical-Horizontal Gradational Distribution)
++ 0. normal distribution
++ 1. mean of 2 normal distributions (a kind of Gaussian mixture distribution)
++ 2. mixture of 2 normal distributions with gradually changing ratio along the horizontal (x-axis) direction (Horizontal Gradational Distribution)
++ 3. mixture of 2 or 3 normal distributions with gradually changing ratio along the vertical (y-axis) direction (Vertical Gradational Distribution)
++ 4. mixture of 4 normal distributions with gradually changing ratio along both the vertical (y-axis) and horizontal (x-axis) directions (Vertical-Horizontal Gradational Distribution)
 
-The above 0. and 1. are not kinds of the GGD, however,
+The 0 and 1 of above are not kinds of GGD model, however,
 they can be generated for the purpose of comparing distribution models.
 
-Each of the above rough classifications can be further classified
-according to the conditions of the normal distribution of the components as follows.
+Each of 1 to 4 of above can be further classified
+according to the conditions of the normal distribution of the components as follows:
 
-1. a mixture of normal distributions with different means and equal standard deviations (Mean-Differed Sigma-Equaled)
-2. a mixture of normal distributions with equal means and different standard deviations (Mean-Equaled Sigma-Differed)
-3. a mixture of normal distributions where both mean and standard deviation are different (Mean-Differed Sigma-Differed)
-
-The 4-3 model has the most degrees of freedom
-and can represent the most complex distributions in these.
-However, simpler models such as 3-1 or 2-2 may be easier to analyze in many cases.
-
-[^1]: In the author's local development environment,
-around June 2022, I had created some probability density functions of this GGD earlier.
-However, they were just a group of functions that I created intuitively,
-not a theoretically developed distribution model.
-And since I was not satisfied with them,
-I tried to develop the "Connected Gaussian Distribution" package
-as continued to study statistics and the Gaussian integral.
-Then, when I eventually worked out, I have returned to the GGD.
++ with different means and equal standard deviations (Mean-Differed-Sigma-Equaled Distribution)
++ with equal means and different standard deviations (Mean-Equaled-Sigma-Differed Distribution)
++ both means and standard deviations are different (Mean-Differed-Sigma-Differed Distribution)
 
 
-## Major functions
+## Major functions and members
 
 | Type      | Name                  | Overview                                                  |
 | :-------: | :-------------------: | :-------------------------------------------------------- |
-| Generator | nls.freq              | Generates a GGD class object that approximates a frequency distribution. |
-| 〃        | nls.freq.all          | Attempts to approximate the frequency distribution with all supported kinds of distributions. |
-| Generator | trace.q               | Generates a GGD class object that traces quantile-probability points.                         |
-| Field     | \$mean                | The mean of the distribution.                             |
+| Generator | ggd.nls.freq          | Generates a GGD object that approximates a frequency distribution. |
+| 〃        | ggd.nls.freq.all      | Approximates a frequency distribution with all supported distribution models. |
+| 〃        | ggd.trace.q           | Generates a GGD object that traces quantiles.             |
+| 〃        | ggd.set.cmp           | Generates a GGD object with indicated components.         |
+| Field     | \$median              | The median value  of the distribution.                    |
+| 〃        | \$mean                | The mean value of the distribution.                       |
+| 〃        | \$sd, \$usd, \$lsd    | The standard deviation, upper semi-standard deviation and lower semi-standard deviation. |
 | Method    | \$d                   | Returns the values of the probability density function.   |
-| 〃        | \$p                   | Returns the probability for x-coordinates (quantiles).    |
-| 〃        | \$q                   | Returns the x-coordinates (quantiles) for probabilities.  |
-| 〃        | $r                    | Returns random samples following the distribution.        |
-| 〃        | \$sd, \$usd, \$lsd    | Returns the standard deviation, upper standard deviation and lower standard deviation of the distribution[^2]. |
-| 〃        | \$tex                 | Displays the probability density function and cumulative distribution function in TeX format. |
+| 〃        | \$p                   | Returns the values of the cummulative probability function.    |
+| 〃        | \$q                   | Returns the values of the quantile function.              |
+| 〃        | \$r                   | Returns random samples following the distribution.        |
+| 〃        | \$tex                 | Displays the formulas of the probability density function and the cumulative distribution function in TeX format. |
+| 〃        | \$read                | Read the configuration of a GGD object from a file.       |
+| 〃        | \$write               | Write the configuration of a GGD object to a file.        |
 
-[^2]: The family of the standard deviation is not a field, but a method.
-The reason is that the computation of the standard deviation can take a bit of time,
-and in some cases the standard deviation is not needed.
 
 ## Installation
 
@@ -100,7 +85,7 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
 
-## Kinds of distributions
+## Kinds of supported distribution models
 
 ### 0. Normal Distribution
 
@@ -122,11 +107,7 @@ This class is the so-called normal distribution.
 When approximating a frequency distribution, if you get the result of a normal distribution,
 please do not hesitate to apply the normal distribution as the model.
 
-You can trace 2 quantile-probability points (e.g., tertiles) (but can it be called a "trace" for only 2 points?).
-
-#### Names of "kind" at this package
-
-+ Normal Distribution
+You can trace 2 quantiles (e.g., tertiles).
 
 
 ### 1. Mean of 2 Normal Distributions
@@ -157,14 +138,8 @@ Use it to approximate the frequency distribution
 as a guide to determine whether the Gaussian Mixture Distribution is applicable,
 or the GGD should be applied.
 
-Meanwhile, it is allow to try tracing 3 or 4 quantile-probability points
+Meanwhile, it is allow to try tracing 3 or 4 quantiles
 with the cumulative density function.
-
-#### Names of "kind" at this package
-
-+ Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
-+ Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
-+ Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
 
 
 ### 2. Horizontal Gradational Distribution
@@ -188,22 +163,16 @@ In this class, as $x$ increases as $-\infty \to \infty$,
 the weight of $f_1(x)$ conversely decreases as $1 \to 0$
 and the weight of $f_2(x)$ increases as $0 \to 1$.
 
-When tracing quantile-probability points with the cumulative density function,
-you can trace 3 or 4 quantile-probability points.
+When tracing quantiles with the cumulative density function,
+you can trace 3 or 4 quantiles.
 For example, the quartiles for $p = 0.25, 0.5, 0.75$ can be traced
 with very little error (as long as they are not overly distorted).
 
 However, if you know the frequency distribution,
 it is recommended to approximate the frequency distribution
-rather than tracing quantile-probability points.
+rather than tracing quantiles.
 This is because generally you cannot be sure that the original data can be properly modeled
 by just tracing 3 or 4 quartiles.
-
-#### Names of "kind" at this package
-
-+ Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
-+ Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
-+ Mean-Differed Sigma-Differed Horizontal Gradational Distribution
 
 
 ### 3. Vertical Gradational Distribution
@@ -227,7 +196,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-3-2. Vertical gradation with 3 normal distributions (1 for head and 2 for tail (for lower side and upper side))
+3-2. Vertical gradation with 3 normal distributions (1 for head and 2 for left and right side tails)
 
 $$
 \begin{align}
@@ -270,32 +239,19 @@ In other words, the standard deviation should be larger for the tail side than f
 Conversely, if S.D. for the head side is larger,
 the head will not ride on the tail body and the tail body will "break through" the head.
 
-When tracing quantile-probability points with the cumulative density function,
-you can trace from 3 to 6 quantile-probability points.
+When tracing quantiles with the cumulative density function,
+you can trace from 3 to 6 quantiles.
 
 However, this vertical gradational distribution
 is not well suited for tracing equally spaced probability points (e.g. $p = 0.25, 0.5, 0.75$).
 This distribution model is better suited for tracing quantiles near the head and near the tale
 (i.e. points far and near from the mean).
-For example, quantile-probability points with $p = 0.1, 0.4, 0.6, 0.9$
+For example, quantiles with $p = 0.1, 0.4, 0.6, 0.9$
 can be traced with very little error (as long as they are not overly distorted).
 
-If you want to trace quantile-probability points for symmetrical distributions,
-you can use quantile-probability points biased to one side
+If you want to trace quantiles for symmetrical distributions,
+you can use quantiles biased to one side
 (e.g. points with $p = 0.1, 0.4, 0.5$).
-
-#### Names of "kind" at this package
-
-3-1. Vertical gradation with 2 normal distributions (1 for head and 1 for tail)
-+ Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-+ Mean-Differed Sigma-Differed Vertical Gradational Distribution
-
-
-3-2. Vertical gradation with 3 normal distributions (1 for head and 2 for tail (for lower side and upper side))
-+ 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ Mean-Equaled 3-Sigma-Differed Vertical Gradational Distribution
-+ 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
 
 
 ### 4. Vertical-Horizontal Gradational Distribution
@@ -334,19 +290,10 @@ and $f_{2,2}(x)$ is for the upper-tail side of the distribution, respectively.
 Of the distribution models in this package,
 it has the most degrees of freedom and can represent the most complex distributions.
 
-When tracing quantile-probability points with the cumulative density function,
-you can trace from 5 to 8 quantile-probability points.
+When tracing quantiles with the cumulative density function,
+you can trace from 5 to 8 quantiles.
 For example, the quantile points at $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$
 can be traced with little error (as long as they are not overly distorted).
 
-Quantile-probability points larger than 9 cannot be traced with this package.
-If you really want to trace more than 9 points without error,
-please use the discontinuous distribution of
-[Connected Gaussian Distribution (CGD)](https://github.com/Kimitsuna-Goblin/cgd).
-
-#### Names of "kind" at this package
-
-+ Mean-Differed Sigma-Equaled Vertical-Horizontal Gradational Distribution
-+ Mean-Equaled Sigma-Differed Vertical-Horizontal Gradational Distribution
-+ Mean-Differed Sigma-Differed Vertical-Horizontal Gradational Distribution
-
+More than 8 quantiles cannot be traced with this package.
+If you have more than 8 quantiles, make a frequency distribution and try ggd.nls.freq instead.
