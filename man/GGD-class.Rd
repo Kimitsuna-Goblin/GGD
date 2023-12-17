@@ -24,17 +24,13 @@ The class provides the Gradational Gaussian Distribution.
 
      About the \bold{horizontal gradational Gaussian distribution}
      \eqn{\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]},
-     it is expressed by the equation
+     it is expressed as
      \deqn{\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
-           h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2,}
+           h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2}
 
-     where \eqn{h_1} is the mixing ratio of normal distribution \eqn{\mathcal{N}_1},
-     and \eqn{h_2} is the mixing ratio of normal distribution \eqn{\mathcal{N}_2}.
-
-     The mixing ratio \eqn{h_1} decreases gradually along x-axis as
+     where \eqn{h_1} is the mixing ratio decreasing gradually along x-axis as
      \deqn{x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0,}
-
-     and inversely, \eqn{h_2} increases gradually as
+     and \eqn{h_2} is the mixing ratio increasing gradually as
      \deqn{x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1.}
 
      Because \eqn{\mathcal{N}_1} is dominant on the left (lower) side of x-axis,
@@ -48,7 +44,7 @@ The class provides the Gradational Gaussian Distribution.
 
      About the \bold{vertical gradational Gaussian distribution}
      \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]},
-     it is also expressed by the equation
+     it is expressed as
      \deqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2.}
 
@@ -58,7 +54,7 @@ The class provides the Gradational Gaussian Distribution.
      \deqn{f_1(x):0 \to \max_{x \in (-\infty, \infty)}(f_1(x))
                   \ \Rightarrow \ v_1(x):1 \to 0,}
 
-     and inversely, \eqn{v_2} increases gradually as
+     and \eqn{v_2} increases gradually as
      \deqn{f_2(x):0 \to \max_{x \in (-\infty, \infty)}(f_2(x))
                   \ \Rightarrow \ v_2(x):0 \to 1.}
 
@@ -72,9 +68,10 @@ The class provides the Gradational Gaussian Distribution.
 
      You can devide the tail-side distribution along x-axis into left (lower) side
      and right (upper) side.
+
      In this case, the distribution
      \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]}
-     is expressed by the equation
+     is expressed as
      \deqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3,}
 
@@ -82,22 +79,23 @@ The class provides the Gradational Gaussian Distribution.
      \deqn{x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \
            v_1(x) = 0 \ \ \mathrm{where} \ \ x > \mu_1,}
 
-     and inversely, \eqn{v_3} increases gradually as
+     and \eqn{v_3} increases gradually as
      \deqn{v_3(x) = 0 \ \ \mathrm{where} \ \ x < \mu_3, \
            x:\mu_3 \to \infty \ \Rightarrow \ v_3(x):0 \to 1.}
+
+     Then, \eqn{v_2(x)} for top side is defined as same as
+     with 2 components.
 
      Here, \eqn{\mu_1} and \eqn{\mu_3} are the mean values of
      \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_3}, respectively.
      We call \eqn{\mathcal{N}_1} the \bold{left- (lower-) tail-side} distribution,
      and \eqn{\mathcal{N}_3} the \bold{right- (upper-) tail-side} distribution,
      regardless whether \eqn{\mu_1} and \eqn{\mu_3} is greater.
-     Then, \eqn{v_2(x)} for top side is defined as same as
-     for \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}.
 
      About the \bold{horizontal-vertical gradational Gaussian distribution}
      \eqn{\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2]},
      two vertical GGDs \eqn{\mathcal{G}_1} and \eqn{\mathcal{G}_2} can mixture
-     as same as the normal distributions for the horizontal GGD as
+     as same as normal distributions for the horizontal GGD as
      \deqn{\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
            h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2,}
      \deqn{\mathcal{G}_1 =
@@ -108,10 +106,6 @@ The class provides the Gradational Gaussian Distribution.
                  v_{2,1}(x) \ \mathcal{N}_{2,1} + v_{2,2}(x) \ \mathcal{N}_{2,2}.}
 
      These are the kinds of distribution models supported by this package.
-
-     The \bold{horizontal-vertical gradational Gaussian distribution},
-     which is defined as a vertical gradational distribution of two horizontal GGDs,
-     is not supported.
  }
  \subsection{The probability density function and the cumulative distribution function}{
      In \code{GGD} class, \code{mix.type} is very important field that determines

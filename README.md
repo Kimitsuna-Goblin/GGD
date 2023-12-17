@@ -22,8 +22,6 @@ Please remark that the GGD is not a convolution of normal distributions.
 I think that the GGD model can be applied as a distribution model of data
 which is a bit like a normal distribution but never follows any normal distribution model
 because some effects by (hidden) continuous parameters.
-The GGD model may not able to exclude disturbing effects from a normal distribuion like GMM,
-but may help to find out some existences of effects by hidden continuous parameters in data.
 
 This package provides following GGD models:
 + Horizontal Gradational Distribution
@@ -45,7 +43,7 @@ It is expressed as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
-	h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2.
+    h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2.
 $$
 
 where $h_1$ is the mixing ratio decreasing gradually along x-axis as
@@ -77,7 +75,7 @@ It is expressed as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
-	v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2
+    v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2
 $$
 
 where the mixing ratio $v_1$ is expressed
@@ -86,14 +84,14 @@ $\mathcal{N}_1$ and $\mathcal{N}_2$ as
 
 $$
 f_1(x):0 \to \max_{x \in (-\infty, \infty)}f_1(x)
-	\ \Rightarrow \ v_1(x):1 \to 0
+    \ \Rightarrow \ v_1(x):1 \to 0
 $$
 
 and the mixing ratio $v_2$ is expressed as
 
 $$
 f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
-	\ \Rightarrow \ v_2(x):0 \to 1.
+    \ \Rightarrow \ v_2(x):0 \to 1.
 $$
 
 Or, using $\mu_1$ and $\mu_2$, the mean values of $\mathcal{N}_1$ and  $\mathcal{N}_2$,
@@ -134,21 +132,21 @@ It is expressed as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
-	v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3
+    v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3
 $$
 
 where the mixing ratio $v_1$ decreases gradually as
 
 $$
 x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
-	v_1(x) = 0 \ \ \mathrm{where} \ \ x > \mu_1
+    v_1(x) = 0 \ \ \mathrm{where} \ \ x > \mu_1
 $$
 
 and $v_3$ increases gradually as
 
 $$
 v_3(x) = 0 \ \ \mathrm{where} \ \ x < \mu_3, \ \ \ \
-	x:\mu_3 \to \infty \ \Rightarrow \ v_3(x):0 \to 1.
+    x:\mu_3 \to \infty \ \Rightarrow \ v_3(x):0 \to 1.
 $$
 
 Then, $v_2(x)$ for the top side is defined as same as with 2 components.
@@ -168,7 +166,7 @@ It is expressed as
 
 $$
 \mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
-	h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2
+    h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2
 $$
 
 where $h_1(x)$ and $h_2(x)$ are as same as those for the horizontal gradational distribution.
@@ -181,8 +179,8 @@ $$
 
 $$
 G_2 =
-	G[N_{2,1} \uparrow N_{2,2}] =
-	v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
+    G[N_{2,1} \uparrow N_{2,2}] =
+    v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
 $$
 
 where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
@@ -240,7 +238,7 @@ devtools::install_github( "Kimitsuna-Goblin/ggd" )
 </pre>
 
 
-## Kinds of supported distribution models
+## Details of supported distribution models
 
 ### 0. Normal Distribution
 
@@ -452,3 +450,11 @@ can be traced.
 
 More than 8 quantiles cannot be traced with this package.
 If you have more than 8 quantiles, make a frequency distribution and try ggd.nls.freq instead.
+
+
+## Postscript
+
+The GGD model was invented by the author of this package,
+but I think that someone had come up with the GGD already and there may be some prior researches.
+If you have any research information about this model, please let me know.
+
