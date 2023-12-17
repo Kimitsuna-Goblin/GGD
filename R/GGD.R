@@ -1246,15 +1246,17 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #'          \href{https://github.com/Kimitsuna-Goblin/GGD}{README.md} (GitHub)
 #' @details
 #'  \subsection{Overview about GGD}{
-#'      The \bold{gradational Gaussian distribution (GGD)} is a continuous distribution
-#'      for modeling mainly asymmetric unimodal data.
+#'      The \bold{gradational Gaussian distribution (GGD)} is one of
+#'      continuous distribution models for mainly modeling asymmetric unimodal data
+#'      which do not follow a normal distribution.
 #'
 #'      The GGD is alike the Gaussian mixture model (GMM) but different.
 #'      The GMM is represented by linear combinations of some normal distributions,
 #'      and is often used for clustering of mixed data.
-#'      On the other hand, the GGD is a distribution of which mixes some normal distributions
-#'      with gradually changing ratio along the x-axis or y-axis directions,
-#'      and treat non-normal distribution data as it is.
+#'      On the other hand, the GGD is a distribution model of
+#'      which mixes some normal distributions with gradually changing ratio
+#'      along the x-axis or y-axis directions,
+#'      and it treats data which do not follow a normal distribution as they are.
 #'
 #'      About the \bold{horizontal gradational Gaussian distribution}
 #'      \eqn{\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]},
