@@ -8,7 +8,7 @@ Gradational Gaussian Distribution のリファレンスクラスのオブジェ�
 
 ## Gradational Gaussian Distribution とは
 
-Gradational Gaussian Distribution (漸次的ガウス分布) は、
+Gradational Gaussian Distribution (漸次的ガウス分布 あるいは グラデーションガウス分布) は、
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルの一つです。
 
 この分布モデルは、正規分布 (ガウス分布) の混合分布モデルの一種ですが、
@@ -140,12 +140,6 @@ Gradational Gaussian Distribution との違いを見るためにサポートし�
 
 一応、累積密度関数で3点または4点の分位点をトレースすることも可能です。
 
-#### パッケージにおける "kind" の名前
-
-+ Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
-+ Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
-+ Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
-
 
 ### 2. 横方向グラデーション分布
 
@@ -178,13 +172,6 @@ $f_2(x)$ の負担率は逆に $0 \to 1$ と増加します。
 四分位点をトレースするよりも、度数分布を近似することをお勧めします。
 四分位点のトレースだけでは、
 元データを適切にモデル化できるかどうか、分からないからです。
-
-
-#### パッケージにおける "kind" の名前
-
-+ Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
-+ Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
-+ Mean-Differed Sigma-Differed Horizontal Gradational Distribution
 
 
 ### 3. 縦方向グラデーション分布
@@ -261,19 +248,6 @@ $p = 0.25, 0.5, 0.75$ となる等間隔な四分位点のトレースなどに�
 $p = 0.1, 0.4, 0.5$ のように、
 一方の側に偏った分位点も有効です。
 
-#### パッケージにおける "kind" の名前
-
-3-1. 2つの正規分布のグラデーション (山側1個と裾側1個)
-+ 2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-+ 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
-
-
-3-2. 3つの正規分布のグラデーション (山側1個と裾側2個 (左右各1個))
-+ 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-+ 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-+ 3-Mean-Differed 3-Sigma-Differed Vertical Gradational Distribution
-
 
 ### 4. 縦横グラデーション分布
 
@@ -312,10 +286,4 @@ $f_{2,1}(x)$ は分布の右側 ( $x$ が平均値よりも大きい方) の裾�
 
 9点以上の分位点は本パッケージの機能ではトレースできません。
 分位点が9点以上ある場合は、度数分布を作成して、 ggd.nls.freq による近似をお試しください。
-
-#### パッケージにおける "kind" の名前
-
-+ Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
-+ Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
-+ Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
 
