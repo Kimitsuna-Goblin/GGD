@@ -350,7 +350,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-3-2. Vertical gradation with 3 normal distributions (1 for head and 2 for left and right side tails)
+3-2. Vertical gradation with 3 normal distributions (1 for head and 2 for both tails)
 
 $$
 \begin{align}
