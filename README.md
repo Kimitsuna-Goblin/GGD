@@ -290,7 +290,7 @@ it has the most degrees of freedom and can represent the most complex distributi
 When tracing quantiles with the cumulative density function,
 you can trace from 5 to 8 quantiles.
 For example, the quantile points at $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$
-can be traced with little error (as long as they are not overly distorted).
+can be traced.
 
 More than 8 quantiles cannot be traced with this package.
 If you have more than 8 quantiles, make a frequency distribution and try ggd.nls.freq instead.
