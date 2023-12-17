@@ -183,7 +183,8 @@ G_2 =
     v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
 $$
 
-where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
+(sorry, but README.md seem not to be able to display $\mathcal{G}$ and $\mathcal{N}$ in the above expressions)
+where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution
 
 
 ## Package overview
