@@ -197,8 +197,8 @@ This package can generate objects for the following kinds of distribution models
 + 3. Vertical Gradational Distribution
 + 4. Horizontal-Vertical Gradational Distribution
 
-The 0 and 1 of above are not kinds of GGD model, however,
-they can be generated for the purpose of comparing distribution models.
+The 0 and 1 of above are not kinds of GGD model.
+They can be used as criteria to determine if it is appropriate to use GGD as a distribution model for the data.
 
 Each of 1 to 4 of above can be further classified
 according to the conditions of the normal distribution of the components as follows:
@@ -281,19 +281,10 @@ $$
 
 #### Description
 
-This class is an example of the Gaussian Mixture Distribution,
+This class is an example of the Gaussian Mixture Distribution (GMM),
 supported to see how the GGD differs from it.
 
-The Gaussian Mixture Distribution is essentially a means to split data from a distribution
-that is not unimodal or does not follow a normal distribution
-into multiple clusters of data that follow a normal distribution.
-
-Use it to approximate the frequency distribution
-as a guide to determine whether the Gaussian Mixture Distribution is applicable,
-or the GGD should be applied.
-
-Meanwhile, it is allow to try tracing 3 or 4 quantiles
-with the cumulative density function.
+Use this class as a guide to determine whether the GMM or the GGD should be applied. 
 
 
 ### 2. Horizontal Gradational Distribution
@@ -313,20 +304,10 @@ $$
 
 #### Description
 
-In this class, as $x$ increases as $-\infty \to \infty$,
-the weight of $f_1(x)$ conversely decreases as $1 \to 0$
-and the weight of $f_2(x)$ increases as $0 \to 1$.
-
+This class is for horizontal gradational distribution models.
 When tracing quantiles with the cumulative density function,
 you can trace 3 or 4 quantiles.
-For example, the quartiles for $p = 0.25, 0.5, 0.75$ can be traced
-with very little error (as long as they are not overly distorted).
-
-However, if you know the frequency distribution,
-it is recommended to approximate the frequency distribution
-rather than tracing quantiles.
-This is because generally you cannot be sure that the original data can be properly modeled
-by just tracing 3 or 4 quartiles.
+For example, the quartiles for $p = 0.25, 0.5, 0.75$ can be traced with little error.
 
 
 ### 3. Vertical Gradational Distribution
@@ -337,11 +318,11 @@ The probability density function $g(x)$ and cumulative distribution function $\P
 are expressed as follows using 2 or 3 normally distributed probability density functions $f_i(x)$
 and cumulative distribution function $\Phi_i(x)$ $(i = 1, 2, 3)$.
 
-In the following equation,
+In the following expression,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
 with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
 
-3-1. Vertical gradation with 2 normal distributions (1 for top and 1 for tail)
+3-1. Vertical gradation with 2 components (1 for top and 1 for tail)
 
 $$
 \begin{align}
@@ -350,7 +331,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-3-2. Vertical gradation with 3 normal distributions (1 for top and 2 for both tails)
+3-2. Vertical gradation with 3 components (1 for top and 2 for both tails)
 
 $$
 \begin{align}
@@ -377,35 +358,9 @@ $$
 
 #### Description
 
-In this class, as each value of the normal distributed probability density functions
-$f_i(x)$ $(i = 1, 2, 3)$ increase $0 \to f_i(\mu_i)$,
-the weights of $f_1(x)$ and $f_3(x)$ conversely decrease $1 \to 0$
-and the weight of $f_2(x)$ gradually increases from $0$ to its maximum value
-(equal to or smaller than $1$).
-
-The image of the probability density function is such that
-the closer x to the tail of the normal distribution, the greater the weights of $f_1(x)$ and $f_3(x)$,
-and the closer x to the head of normal the distribution, the greater the weight of $f_2(x)$.
-
-For each standard deviation $\sigma_i$ $(i = 1, 2, 3)$,
-it should be $\sigma_2 \leq \sigma_1, \sigma_3$.
-In other words, the standard deviation should be larger for the tail side than for the head side.
-Conversely, if S.D. for the head side is larger,
-the head will not ride on the tail body and the tail body will "break through" the head.
-
+This class is for vertical gradational distribution models with 2 or 3 components.
 When tracing quantiles with the cumulative density function,
 you can trace from 3 to 6 quantiles.
-
-However, this vertical gradational distribution
-is not well suited for tracing equally spaced probability points (e.g. $p = 0.25, 0.5, 0.75$).
-This distribution model is better suited for tracing quantiles near the head and near the tale
-(i.e. points far and near from the mean).
-For example, quantiles with $p = 0.1, 0.4, 0.6, 0.9$
-can be traced with very little error (as long as they are not overly distorted).
-
-If you want to trace quantiles for symmetrical distributions,
-you can use quantiles biased to one side
-(e.g. points with $p = 0.1, 0.4, 0.5$).
 
 
 ### 4. Horizontal-Vertical Gradational Distribution
@@ -432,17 +387,9 @@ $$
 
 #### Description
 
-In this class, the probability density function $g(x)$ is borne by
-4 normally distributed probability density functions
-$f_{1,1}(x), f_{1,2}(x), f_{2,1}(x)$ and $f_{2,2}(x)$.
-
-The $f_{1,1}(x)$ is for the lower-tail side of the distribution (where $x$ is less than the mean),
-$f_{1,2}(x)$ is for the lower-head side of the distribution,
-$f_{2,1}(x)$ is for the upper-head side of the distribution (where $x$ is greater than the mean),
-and $f_{2,2}(x)$ is for the upper-tail side of the distribution, respectively.
-
-Of the distribution models in this package,
-it has the most degrees of freedom and can represent the most complex distributions.
+This class is for horizontal-vertical gradational distribution models.
+In this package,
+this class has the most degrees of freedom and can represent the most complex distributions.
 
 When tracing quantiles with the cumulative density function,
 you can trace from 5 to 8 quantiles.
