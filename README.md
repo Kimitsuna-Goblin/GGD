@@ -38,7 +38,7 @@ This R package can generate objects for the following kinds of distribution mode
 + 1. mean of 2 normal distributions (a kind of Gaussian mixture distribution)
 + 2. mixture of 2 normal distributions with gradually changing ratio along the horizontal (x-axis) direction (Horizontal Gradational Distribution)
 + 3. mixture of 2 or 3 normal distributions with gradually changing ratio along the vertical (y-axis) direction (Vertical Gradational Distribution)
-+ 4. mixture of 4 normal distributions with gradually changing ratio along both the vertical (y-axis) and horizontal (x-axis) directions (Vertical-Horizontal Gradational Distribution)
++ 4. mixture of 4 normal distributions with gradually changing ratio along both the vertical (y-axis) and horizontal (x-axis) directions (Horizontal-Vertical Gradational Distribution)
 
 The 0 and 1 of above are not kinds of GGD model, however,
 they can be generated for the purpose of comparing distribution models.
@@ -251,7 +251,7 @@ you can use quantiles biased to one side
 (e.g. points with $p = 0.1, 0.4, 0.5$).
 
 
-### 4. Vertical-Horizontal Gradational Distribution
+### 4. Horizontal-Vertical Gradational Distribution
 
 #### Distribution function and cumulative distribution function
 
