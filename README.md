@@ -8,10 +8,10 @@ it approximates an asymmetric frequency distribution or traces quantiles accurat
 
 ## What is the Gradational Gaussian Distribution?
 
-The Gradational Gaussian Distribution (GGD) is one of continuous distribution models
+The **Gradational Gaussian Distribution (GGD)** is one of continuous distribution models
 for mainly modeling asymmetric unimodal data which do not follow a normal distribution.
 
-The GGD is alike the Gaussian mixture distribution model (GMM) but different.
+The GGD is alike the **Gaussian mixture distribution model (GMM)** but different.
 The GMM is represented by linear combinations of some normal distributions,
 and is often used for clustering of mixed data.
 On the other hand, the GGD is a distribution of which mixes some normal distributions
@@ -25,20 +25,178 @@ because some effects by (hidden) continuous parameters.
 The GGD model may not able to exclude disturbing effects from a normal distribuion like GMM,
 but may help to find out some existences of effects by hidden continuous parameters in data.
 
-The GGD model was invented by the author of this package,
-but I think that someone had come up with the GGD already and there may be some prior researches.
-If you have any research information about this model, please let me know.
+This package provides following GGD models:
++ Horizontal Gradational Distribution
++ Vertical Gradational Distribution (with 2 or 3 components)
++ Horizontal-Vertical Gradational Distribution
+
+### Horizontal Gradational Distribution
+
+A **horizontal gradational distribution** is a distribution model
+in which the mixing ratio of two normal distributions varies gradually along the x-axis.
+
+We write a sign of a horizontal gradational distribution as
+$\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$. 
+It means that as the x-coordinate increases from $-\infty$ to $\infty$,
+the shape of the probability density function gradually changes
+from that of a normal distribution $\mathcal{N}_1$ to that of $\mathcal{N}_2$.
+
+It is expressed as
+
+$$
+\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
+	h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2.
+$$
+
+where $h_1$ is the mixing ratio decreasing gradually along x-axis as
+$x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0$,
+and $h_2$ is the mixing ratio increasing gradually as
+$x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
+
+Because $\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
+and $\mathcal{N}_2$ is on the right (upper) side,
+we call $\mathcal{N}_1$ the **left- (lower-) side distribution**,
+and $\mathcal{N}_2$ the **right- (upper-) side distribution**.
+
+In this package, we use $h_1(x) = 1 - \Phi_1(x)$ and $h_2(x) = \Phi_2(x)$,
+where $\Phi_1$ and $\Phi_2$ are the cumulative distribution functions
+of $\mathcal{N}_1$ and $\mathcal{N}_2$, respectively.
+
+### Vertical Gradational Distribution (2 components)
+
+A **(2-component) vertical gradational distribution** is a distribution model
+in which the mixing ratio of two normal distributions varies gradually along the y-axis.
+
+We write a sign of a vertical gradational distribution as
+$\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$. 
+It means that as the y-coordinate increases from $0$ to $1$,
+the shape of the probability density function gradually changes
+from that of a normal distribution $\mathcal{N}_1$ to that of $\mathcal{N}_2$.
+
+It is expressed as
+
+$$
+\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
+	v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2
+$$
+
+where the mixing ratio $v_1$ is expressed
+using $f_1$ and $f_2$, the probability density functions of
+$\mathcal{N}_1$ and $\mathcal{N}_2$ as
+
+$$
+f_1(x):0 \to \max_{x \in (-\infty, \infty)}f_1(x)
+	\ \Rightarrow \ v_1(x):1 \to 0
+$$
+
+and the mixing ratio $v_2$ is expressed as
+
+$$
+f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
+	\ \Rightarrow \ v_2(x):0 \to 1.
+$$
+
+Or, using $\mu_1$ and $\mu_2$, the mean values of $\mathcal{N}_1$ and  $\mathcal{N}_2$,
+we can write as
+
+$$
+x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
+x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1,
+$$
+
+$$
+x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
+x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
+$$
+
+Here, we call $\mathcal{N}_1$ the **tail-side distribution**,
+and $\mathcal{N}_2$ the **top-side distribution**.
+
+In this package, we use $v_1(x) = 1 - f_1(x) / f_1(\mu_1)$
+and $v_2(x) = f_2(x) / f_2(\mu_1)$,
+where $\mu_1$ and $\mu_2$ are the mean values of
+$\mathcal{N}_1$ and  $\mathcal{N}_2$, respectively.
+
+### Vertical Gradational Distribution (3 components)
+
+You can devide the tail-side distribution along x-axis into left (lower) side
+and right (upper) side.
+
+In other words, we can consider a distribution model in which the probability density function
+gradually varies from that of $\mathcal{N}_1$ to $\mathcal{N}_2$ as the x-coordinate moves
+from the tail to the top of the distribution,
+and then again from the top to the tail,
+this time the probability density function varies to that of $\mathcal{N}_3$.
+
+In this case, we write a sign of the distribution as
+$\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]$.
+It is expressed as
+
+$$
+\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
+	v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3
+$$
+
+where the mixing ratio $v_1$ decreases gradually as
+
+$$
+x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
+	v_1(x) = 0 \ \ \mathrm{where} \ \ x > \mu_1
+$$
+
+and $v_3$ increases gradually as
+
+$$
+v_3(x) = 0 \ \ \mathrm{where} \ \ x < \mu_3, \ \ \ \
+	x:\mu_3 \to \infty \ \Rightarrow \ v_3(x):0 \to 1.
+$$
+
+Then, $v_2(x)$ for the top side is defined as same as with 2 components.
+
+Here, we call $\mathcal{N}_1$ the **left- (lower-) tail-side distribution**,
+and $\mathcal{N}_3$ the **right- (upper-) tail-side distribution**,
+regardless whether each of mean values, $\mu_1$ and $\mu_3$ is greater.
+
+### Horizontal-Vertical Gradational Distribution
+
+Two vertical GGDs $\mathcal{G}_1$ and $\mathcal{G}_2$ can mixture
+as same as normal distributions $\mathcal{N}_1$ and $\mathcal{N}_2$ for the horizontal GGD.
+
+In this case, we write a sign of the distribution as
+$\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2]$.
+It is expressed as
+
+$$
+\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
+	h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2
+$$
+
+where $h_1(x)$ and $h_2(x)$ are as same as those for the horizontal gradational distribution.
+And then,
+
+$$
+G_1 = G[N_{1,1} \uparrow N_{1,2}]
+  = v_{1,1}(x) \ N_{1,1} + v_{1,2}(x) \ N_{1,2},
+$$
+
+$$
+G_2 =
+	G[N_{2,1} \uparrow N_{2,2}] =
+	v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
+$$
+
+where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
 
 
 ## Package overview
 
-This R package can generate objects for the following kinds of distribution models:
+This package can generate objects for the following kinds of distribution models:
 
-+ 0. normal distribution
-+ 1. mean of 2 normal distributions (a kind of Gaussian mixture distribution)
-+ 2. mixture of 2 normal distributions with gradually changing ratio along the horizontal (x-axis) direction (Horizontal Gradational Distribution)
-+ 3. mixture of 2 or 3 normal distributions with gradually changing ratio along the vertical (y-axis) direction (Vertical Gradational Distribution)
-+ 4. mixture of 4 normal distributions with gradually changing ratio along both the vertical (y-axis) and horizontal (x-axis) directions (Horizontal-Vertical Gradational Distribution)
++ 0. Normal Distribution
++ 1. Mean of 2 Normal Distributions (a kind of Gaussian mixture distribution)
++ 2. Horizontal Gradational Distribution
++ 3. Vertical Gradational Distribution
++ 4. Horizontal-Vertical Gradational Distribution
 
 The 0 and 1 of above are not kinds of GGD model, however,
 they can be generated for the purpose of comparing distribution models.
@@ -46,9 +204,9 @@ they can be generated for the purpose of comparing distribution models.
 Each of 1 to 4 of above can be further classified
 according to the conditions of the normal distribution of the components as follows:
 
-+ with different means and equal standard deviations (Mean-Differed-Sigma-Equaled Distribution)
-+ with equal means and different standard deviations (Mean-Equaled-Sigma-Differed Distribution)
-+ both means and standard deviations are different (Mean-Differed-Sigma-Differed Distribution)
++ Mean-Differed Sigma-Equaled: a distribuion with components of different means and equal standard deviations
++ Mean-Equaled Sigma-Differed: a distribuion with components of equal means and different standard deviations
++ Mean-Differed Sigma-Differed: a distribuion with components of both means and standard deviations are different
 
 
 ## Major functions and members
