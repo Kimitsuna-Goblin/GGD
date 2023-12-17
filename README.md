@@ -62,16 +62,16 @@ according to the conditions of the normal distribution of the components as foll
 | 〃        | ggd.nls.freq.all      | Approximates a frequency distribution with all supported distribution models. |
 | 〃        | ggd.trace.q           | Generates a GGD object that traces quantiles.             |
 | 〃        | ggd.set.cmp           | Generates a GGD object with indicated components.         |
-| Field     | \$median              | The median value  of the distribution.                    |
-| 〃        | \$mean                | The mean value of the distribution.                       |
-| 〃        | \$sd, \$usd, \$lsd    | The standard deviation, upper semi-standard deviation and lower semi-standard deviation. |
-| Method    | \$d                   | Returns the values of the probability density function.   |
-| 〃        | \$p                   | Returns the values of the cummulative probability function.    |
-| 〃        | \$q                   | Returns the values of the quantile function.              |
-| 〃        | \$r                   | Returns random samples following the distribution.        |
-| 〃        | \$tex                 | Displays the formulas of the probability density function and the cumulative distribution function in TeX format. |
-| 〃        | \$read                | Read the configuration of a GGD object from a file.       |
-| 〃        | \$write               | Write the configuration of a GGD object to a file.        |
+| Field     | median                | The median value  of the distribution.                    |
+| 〃        | mean                  | The mean value of the distribution.                       |
+| 〃        | sd, usd, lsd          | The standard deviation, upper semi-standard deviation and lower semi-standard deviation. |
+| RC Method | d                     | Returns the values of the probability density function.   |
+| 〃        | p                     | Returns the values of the cummulative probability function.    |
+| 〃        | q                     | Returns the values of the quantile function.              |
+| 〃        | r                     | Returns random samples following the distribution.        |
+| 〃        | tex                   | Displays the formulas of the probability density function and the cumulative distribution function in TeX format. |
+| 〃        | read.csv              | Read the composition of a GGD object from a CSV file.     |
+| 〃        | write.csv             | Write the composition of a GGD object to a CSV file.      |
 
 
 ## Installation

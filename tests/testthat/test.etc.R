@@ -482,33 +482,33 @@ plot.a( c( -5, 4 ) )
 
 
 ################################################################################################
-## Read/Write a GGD object
+## Read/Write a GGD object with CSV file
 ################################################################################################
 
-check.read.write <- function( obj )
+check.read.write.csv <- function( obj )
 {
-    # write via non-method function
+    # write.csv via non-method function
     csvfile <- tempfile( fileext = ".csv" )
-    result.1 <- withVisible( write.ggd( obj, csvfile ) )
+    result.1 <- withVisible( ggd.write.csv( obj, csvfile ) )
     expect_equal( result.1$value, NULL )
     expect_false( result.1$visible )
 
-    # read via non-method function
-    result.2 <- withVisible( read.ggd( csvfile ) )
+    # read.csv via non-method function
+    result.2 <- withVisible( ggd.read.csv( csvfile ) )
     expect_s4_class( result.2$value, "GGD" )
     expect_true( result.2$visible )
     expect_equal_ggd( result.2$value, obj )
     unlink( csvfile )
 
-    # write via method
+    # write.csv via method
     csvfile <- tempfile( fileext = ".csv" )
-    result.3 <- withVisible( obj$write( csvfile ) )
+    result.3 <- withVisible( obj$write.csv( csvfile ) )
     expect_equal( result.3$value, NULL )
     expect_false( result.3$visible )
 
-    # read via method
+    # read.csv via method
     result.2$value$clear()
-    result.4 <- withVisible( result.2$value$read( csvfile ) )
+    result.4 <- withVisible( result.2$value$read.csv( csvfile ) )
     expect_s4_class( result.4$value, "GGD" )
     expect_identical( result.4$value, result.2$value )
     expect_false( result.4$visible )
@@ -516,56 +516,56 @@ check.read.write <- function( obj )
     unlink( csvfile )
 }
 
-## file read/write tests
+## read.csv/write.csv tests
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), grad = "normal" )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), this.mix.type = 1 )
 expect_equal( a$mix.type, 1 )
 expect_equal( nrow( a$cmp ), 2 )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), grad = "h" )
 expect_equal( a$mix.type, 2 )
 expect_equal( nrow( a$cmp ), 2 )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), grad = "v2" )
 expect_equal( a$mix.type, 3 )
 expect_equal( nrow( a$cmp ), 2 )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), grad = "v3" )
 expect_equal( a$mix.type, 3 )
 expect_equal( nrow( a$cmp ), 3 )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = 4, sd = 2.5 ), grad = "hv" )
 expect_equal( a$mix.type, 4 )
 expect_equal( nrow( a$cmp ), 4 )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = c( -2, 1 ), sd = c( 8, 12 ) ), grad = "h" )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = c( -0.423198, 1.71489423 ), sd = c( 0.4123, 4.1532 ) ), grad = "v2" )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = c( 1.2095e-8, -0.000547813, -1.198567e-9 ),
                        sd = c( 0.56789, 1.23456, 2.7890123 ) ), grad = "v3" )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = c( 1.2, 0.987, 1.2 ),
                        sd = c( 1.2356, 1.1978, 1.2356 ) ), grad = "v3" )
-check.read.write( a )
+check.read.write.csv( a )
 
 a$set.cmp( data.frame( mean = c( 1.912205, -2.12978e-10, -0.095678919356745, 0.09375 ),
                        sd = c( 1.125, 3.875, 2.3125, 0.046875 ) ), grad = "hv" )
-check.read.write( a )
+check.read.write.csv( a )
 
 ## console output tests
 expect_output( expect_equal(
-    write.ggd( a, "" ), NULL ),
+    ggd.write.csv( a, "" ), NULL ),
     paste0( '^"4","mean","sd"\n',
             '"n.1.1",1.91220[0-9]+,1.125\n',
             '"n.1.2",-2.1297[0-9]+e-10,3.875\n',
@@ -573,7 +573,7 @@ expect_output( expect_equal(
             '"n.2.2",0.0937[0-9]+,0.046875$' ) )
 
 expect_output( expect_equal(
-    write.ggd( a ), NULL ),
+    ggd.write.csv( a ), NULL ),
     paste0( '^"4","mean","sd"\n',
             '"n.1.1",1.91220[0-9]+,1.125\n',
             '"n.1.2",-2.1297[0-9]+e-10,3.875\n',
@@ -582,14 +582,14 @@ expect_output( expect_equal(
 
 a$set.cmp( data.frame( mean = c( -2, 1 ), sd = c( 8, 12 ) ), grad = "h" )
 expect_output( expect_equal(
-    a$write( "" ), NULL ),
+    a$write.csv( "" ), NULL ),
     paste0( '^"2","mean","sd"\n',
             '"n.1",-2,8\n',
             '"n.2",1,12$' ) )
 
 a$set.cmp( data.frame( mean = c( -2, 1 ), sd = c( 8, 12 ) ), grad = "h" )
 expect_output( expect_equal(
-    a$write(), NULL ),
+    a$write.csv(), NULL ),
     paste0( '^"2","mean","sd"\n',
             '"n.1",-2,8\n',
             '"n.2",1,12$' ) )
@@ -597,102 +597,102 @@ expect_output( expect_equal(
 ## cleared object
 a$clear()
 csvfile <- tempfile( fileext = ".csv" )
-write.ggd( a, csvfile )
-b <- read.ggd( csvfile )
+ggd.write.csv( a, csvfile )
+b <- ggd.read.csv( csvfile )
 expect_na_ggd( b )
 unlink( csvfile )
 rm( b )
 
 csvfile <- tempfile( fileext = ".csv" )
-a$write( csvfile )
-a$read( csvfile )
+a$write.csv( csvfile )
+a$read.csv( csvfile )
 expect_na_ggd( a )
 unlink( csvfile )
 
 ## NA object
 csvfile <- tempfile( fileext = ".csv" )
-write.ggd( a, csvfile )
-b <- read.ggd( csvfile )
+ggd.write.csv( a, csvfile )
+b <- ggd.read.csv( csvfile )
 expect_na_ggd( b )
 unlink( csvfile )
 rm( b )
 
 csvfile <- tempfile( fileext = ".csv" )
-a$write( csvfile )
+a$write.csv( csvfile )
 a$clear()
-a$read( csvfile )
+a$read.csv( csvfile )
 expect_na_ggd( a )
 unlink( csvfile )
 
 ## Error cases
 # no file or bad file format
 csvfile <- tempfile( fileext = ".csv" )
-expect_warning( expect_error( a$read( csvfile ) ), "No such file or directory" )
+expect_warning( expect_error( a$read.csv( csvfile ) ), "No such file or directory" )
 expect_cleared( a ); a <- GGD$new()
-expect_warning( expect_error( read.ggd( csvfile ) ), "No such file or directory" )
+expect_warning( expect_error( ggd.read.csv( csvfile ) ), "No such file or directory" )
 
 ggd:::cat.table( data.frame( mean = c( 1, 2 ) ), csvfile, "2" )
-expect_error( a$read( csvfile ), "File format error" )
+expect_error( a$read.csv( csvfile ), "File format error" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "File format error" )
+expect_error( ggd.read.csv( csvfile ), "File format error" )
 unlink( csvfile )
 
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( sd = c( 1, 2 ) ), csvfile, "2" )
-expect_error( a$read( csvfile ), "File format error" )
+expect_error( a$read.csv( csvfile ), "File format error" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "File format error" )
+expect_error( ggd.read.csv( csvfile ), "File format error" )
 unlink( csvfile )
 
 # invalid header
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( sd = c( 1, 2 ), mean = c( 1, 2 ) ), csvfile, "2" )
-expect_error( a$read( csvfile ), "Invalid file header" )
+expect_error( a$read.csv( csvfile ), "Invalid file header" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "Invalid file header" )
+expect_error( ggd.read.csv( csvfile ), "Invalid file header" )
 unlink( csvfile )
 
 # invalid mix.type
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "-1" )
-expect_error( a$read( csvfile ), "The value of mix.type is invalid" )
+expect_error( a$read.csv( csvfile ), "The value of mix.type is invalid" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "The value of mix.type is invalid" )
+expect_error( ggd.read.csv( csvfile ), "The value of mix.type is invalid" )
 unlink( csvfile )
 
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "5" )
-expect_error( a$read( csvfile ), "The value of mix.type is invalid" )
+expect_error( a$read.csv( csvfile ), "The value of mix.type is invalid" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "The value of mix.type is invalid" )
+expect_error( ggd.read.csv( csvfile ), "The value of mix.type is invalid" )
 unlink( csvfile )
 
 # unmatch between mix.type and cmp
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "NA" )
-expect_error( a$read( csvfile ), "NA for kind or mix.type can be specified only if cmp has no rows" )
+expect_error( a$read.csv( csvfile ), "NA for kind or mix.type can be specified only if cmp has no rows" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "NA for kind or mix.type can be specified only if cmp has no rows" )
+expect_error( ggd.read.csv( csvfile ), "NA for kind or mix.type can be specified only if cmp has no rows" )
 unlink( csvfile )
 
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "0" )
-expect_error( a$read( csvfile ), "Indicated mix.type is not appropriate for cmp" )
+expect_error( a$read.csv( csvfile ), "Indicated mix.type is not appropriate for cmp" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "Indicated mix.type is not appropriate for cmp" )
+expect_error( ggd.read.csv( csvfile ), "Indicated mix.type is not appropriate for cmp" )
 unlink( csvfile )
 
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2, 2, 3 ), sd = c( 1, 2, 1, 2 ) ), csvfile, "2" )
-expect_error( a$read( csvfile ), "Indicated mix.type is not appropriate for cmp" )
+expect_error( a$read.csv( csvfile ), "Indicated mix.type is not appropriate for cmp" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( read.ggd( csvfile ), "Indicated mix.type is not appropriate for cmp" )
+expect_error( ggd.read.csv( csvfile ), "Indicated mix.type is not appropriate for cmp" )
 unlink( csvfile )
 
 # It works, but not recommended.
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "4" )
-a$read( csvfile )
+a$read.csv( csvfile )
 expect_match( a$kind, "Mean-Differed Sigma-Differed Horizontal" )
 expect_equal( a$mix.type, 4 )
 expect_equal( nrow( a$cmp ), 4 )
@@ -701,7 +701,7 @@ unlink( csvfile )
 # It also works, but not recommended also.
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 1, 1 ), sd = c( 2, 2, 2 ) ), csvfile, "0" )
-a$read( csvfile )
+a$read.csv( csvfile )
 expect_match( a$kind, "Normal" )
 expect_equal( a$mix.type, 0 )
 expect_equal( nrow( a$cmp ), 1 )
@@ -1402,17 +1402,17 @@ csvfile <- tempfile( fileext = ".csv" )
 a$set.cmp( data.frame( mean = c( 0.857, 1.264 ),
                          sd = c( 0.964, 1.237 ) ), grad = "v2" )$
     apply.cmp( function( mean, ... ) { mean + 2 } )$round.cmp( 2 )$adjust.cmp.rownames()$
-    adjust.cmp( grad = "v3" )$adjust.kind.index()$adjust.median.mean.sd()$write( csvfile )
+    adjust.cmp( grad = "v3" )$adjust.kind.index()$adjust.median.mean.sd()$write.csv( csvfile )
 
 b <- ggd.set.cmp( data.frame( mean = c( 2.86, 3.26, 2.86 ),
                             sd = c( 0.96, 1.24, 0.96 ) ), grad = "v3" )
 expect_equal_ggd( a, b )
 
 b$clear()
-b$read( csvfile )
+b$read.csv( csvfile )
 expect_equal_ggd( a, b )
 
-a$clear()$read( csvfile )$apply.cmp( function( mean, ... ) { mean - 1 } )$round.cmp( 2 )
+a$clear()$read.csv( csvfile )$apply.cmp( function( mean, ... ) { mean - 1 } )$round.cmp( 2 )
 b$set.cmp( data.frame( mean = c( 1.86, 2.26, 1.86 ),
                          sd = c( 0.96, 1.24, 0.96 ) ), grad = "v3" )
 expect_equal_ggd( a, b )
@@ -1424,7 +1424,7 @@ df <- data.frame( x = seq( -2, 2, 0.2 ),
                   freq = c( 156076, 237265, 267947, 309733, 438590, 473217, 482163,
                             627630, 650366, 589660, 695975, 694195, 612552, 674896,
                             658579, 486660, 439381, 351997, 221480, 169332, 136742 ) )
-a$nls.freq( df, grad = "h" )$obj$signif.cmp( 3 )$write( csvfile )
+a$nls.freq( df, grad = "h" )$obj$signif.cmp( 3 )$write.csv( csvfile )
 
 b <- GGD$new()
 b$nls.freq( df, grad = "h" )
@@ -1432,14 +1432,14 @@ b$signif.cmp( 3 )
 expect_equal_ggd( a, b )
 
 b$clear()
-b$read( csvfile )
+b$read.csv( csvfile )
 expect_equal_ggd( a, b )
 unlink( csvfile )
 
 # trace.q method can connect other methods using $obj.
 csvfile <- tempfile( fileext = ".csv" )
 qt <- data.frame( x = c( -0.167, 0.2, 1.61 ), p = c( 0.3, 0.5, 0.7 ) )
-a$trace.q( qt, grad = "h" )$obj$signif.cmp( 4 )$write( csvfile )
+a$trace.q( qt, grad = "h" )$obj$signif.cmp( 4 )$write.csv( csvfile )
 
 b <- GGD$new()
 b$trace.q( qt, grad = "h" )
@@ -1447,7 +1447,7 @@ b$signif.cmp( 4 )
 expect_equal_ggd( a, b )
 
 b$clear()
-b$read( csvfile )
+b$read.csv( csvfile )
 expect_equal_ggd( a, b )
 unlink( csvfile )
 rm( b )

@@ -1150,7 +1150,8 @@ ggd.mix.type.for.kind.index <- function( kind.index )
 #'  ggd.ncmp.for( mix.type = NA )                   ## 0
 #'  ggd.ncmp.for( mix.type = -1 )                   ## NA (invalid mix.type)
 ################################################################################################
-ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ), mix.type = 2 )
+ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
+                          mix.type = 2 )
 {
     grad <- match.arg( grad )
     if ( grad == "v" )
@@ -1170,7 +1171,7 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
             ncmp <- 0
         }
         else if ( mix.type[1] == 0 )            ncmp <- 1
-        else if ( any( mix.type[1] == 1:3 ) )   ncmp <- 2   # Note vgrad.3 == FALSE
+        else if ( any( mix.type[1] == 1:3 ) )   ncmp <- 2   # "v3" is not indicated.
         else if ( mix.type[1] == 4 )            ncmp <- 4
         else ncmp <- NA_integer_
     }
@@ -2541,17 +2542,17 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Read a object from a file
+#' Read a composition from a CSV file
 #'
 #' Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object
 #' and generates a \code{\link[ggd]{GGD}} object.
 #' @export
-#' @name    read
-#' @aliases read.ggd
-#' @aliases read
-#' @aliases \S4method{read}{GGD}
-#' @usage   read.ggd(file)
-#' @usage   \S4method{read}{GGD}(file)
+#' @name    read.csv
+#' @aliases ggd.read.csv
+#' @aliases read.csv
+#' @aliases \S4method{read.csv}{GGD}
+#' @usage   ggd.read.csv(file)
+#' @usage   \S4method{read.csv}{GGD}(file)
 #' @param   file        The name of the CSV file which the composition of
 #'                      a \code{\link[ggd]{GGD}} object is to be read from.
 #'                      The \code{file} can be a readable text-mode \link[base]{connection}.
@@ -2572,7 +2573,7 @@ GGD$methods(
 #'
 #'          For \code{GGD} method: If failed to read, the object will be cleared.
 #'
-#' @seealso \code{\link[ggd]{write}}
+#' @seealso \code{\link[ggd]{write.csv}}
 #'
 #' @details
 #' \subsection{Reading empty data}{
@@ -2595,22 +2596,22 @@ GGD$methods(
 #'  csvfile <- tempfile( fileext = ".csv" )
 #'  a <- ggd.set.cmp( data.frame( mean = c( -1.739, 1.195 ), sd = c( 1.175, 1.831 ) ),
 #'                    grad = "h" )
-#'  a$write( csvfile )
+#'  a$write.csv( csvfile )
 #'
-#'  read.ggd( csvfile )
-#'  b <- read.ggd( csvfile )
+#'  ggd.read.csv( csvfile )
+#'  b <- ggd.read.csv( csvfile )
 #'  b$mix.type == a$mix.type
 #'  b$cmp == a$cmp
 #'
 #'  a$clear()
-#'  a$read( csvfile )
+#'  a$read.csv( csvfile )
 #'  a
 #'  a$mix.type == b$mix.type
 #'  a$cmp == b$cmp
 #'
 #'  unlink( csvfile )
 ################################################################################################
-read.ggd <- function( file )
+ggd.read.csv <- function( file )
 {
     table <- read.csv( file, header = FALSE, numerals = "no.loss" )
     if ( nrow( table ) < 1 || ncol( table ) < 3 )
@@ -2652,10 +2653,10 @@ read.ggd <- function( file )
 }
 
 GGD$methods(
-    read = function( file )
+    read.csv = function( file )
     {
         clear()
-        obj <- read.ggd( file )
+        obj <- ggd.read.csv( file )
         set.cmp( obj$cmp, this.mix.type = obj$mix.type,
                  grad = ifelse( ( obj$mix.type == 3 && nrow( obj$cmp ) == 3 ),
                                 "v3", "default" ) )
@@ -2663,41 +2664,46 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Write the composition of a object to a file
+#' Write the composition to a CSV file
 #'
 #' Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
 #' Mean values and standard deviations of the components are recorded to a maximum length of
 #' the 22nd decimal place.
+#' The accuracy is sufficient to reconstruct the original object almost completely
+#' (at least the value of each field can be \code{TRUE} with \code{"=="})
+#' in most cases, in most systems.
+#' So, this function provides a simple way to export a \code{\link[ggd]{GGD}} object,
+#' regardless of the package or R version.
 #' @export
-#' @name    write
-#' @aliases write.ggd
-#' @aliases write
-#' @aliases \S4method{write}{GGD}
-#' @usage   write.ggd(obj, file = "")
-#' @usage   \S4method{write}{GGD}(file = "")
+#' @name    write.csv
+#' @aliases ggd.write.csv
+#' @aliases write.csv
+#' @aliases \S4method{write.csv}{GGD}
+#' @usage   ggd.write.csv(obj, file = "")
+#' @usage   \S4method{write.csv}{GGD}(file = "")
 #' @param   obj     The \code{\link[ggd]{GGD}} object to be saved.
 #' @param   file    The name of the file or a \link[base]{connection} for writing
 #'                  the composition of the object. \code{""} indicates output to the console.
 #' @return  An invisible NULL.
-#' @seealso \code{\link[ggd]{read}}
+#' @seealso \code{\link[ggd]{read.csv}}
 #' @importFrom  utils   read.csv
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),
-#'                    vgrad.2 = TRUE )
+#'                    grad = "v2" )
 #'  a$mix.type
 #'  a$cmp
-#'  a$write()
-#'  write.ggd( a )
+#'  a$write.csv()
+#'  ggd.write.csv( a )
 ################################################################################################
-write.ggd <- function( obj, file = "" )
+ggd.write.csv <- function( obj, file = "" )
 {
     ggd:::cat.table( obj$cmp, file, obj$mix.type, 22 )
 }
 
 GGD$methods(
-    write = function( file = "" )
+    write.csv = function( file = "" )
     {
-        write.ggd( .self, file )
+        ggd.write.csv( .self, file )
     }
 )
 
@@ -3262,7 +3268,7 @@ GGD$methods(
                                        mix.type.seq[mix.type.seq != mix.type] )
 
                     # In order to attempt to retain number of rows of cmp field when mix.type = 3,
-                    # make sequences of values to set vgrad flags.
+                    # make sequences of values to set grad values.
                     if ( mix.type == 3 && nrow( cmp ) == 2 )
                     {
                         grad.seq <- c( "v2", rep( "default", length( mix.type.seq - 1 ) ) )
