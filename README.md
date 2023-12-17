@@ -25,12 +25,9 @@ because some effects by (hidden) continuous parameters.
 The GGD model may not able to exclude disturbing effects from a normal distribuion like GMM,
 but may help to find out some existences of effects by hidden continuous parameters in data.
 
-The GGD model was invented by the author of this package
-after the [Connected Gaussian Distribution (CGD)](https://github.com/Kimitsuna-Goblin/cgd)
-which is a discontinuous distribution model to trace any quantiles with very little error.
-But I think that someone had come up with the GGD already and there may be some prior researches.
-If you have any research information about this model, please [let me know](<mailto:goblin@dream.big.or.jp>).
-Sorry but I am not a professional of statistics, so I am not familiar with such informations.
+The GGD model was invented by the author of this package,
+but I think that someone had come up with the GGD already and there may be some prior researches.
+If you have any research information about this model, please let me know.
 
 
 ## Package overview
