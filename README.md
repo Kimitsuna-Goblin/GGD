@@ -184,7 +184,7 @@ G_2 =
 $$
 
 (sorry, but README.md seem not to be able to display $\mathcal{G}$ and $\mathcal{N}$ in the above expressions)
-where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution
+where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
 
 
 ## Package overview
