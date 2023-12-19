@@ -280,12 +280,9 @@ $$
 
 #### Description
 
-This class is the so-called normal distribution.
-
-When approximating a frequency distribution, if you get the result of a normal distribution,
-please do not hesitate to apply the normal distribution as the model.
-
-You can trace 2 quantiles (e.g., tertiles).
+This is the so-called normal distribution.
+This is provided to compare the adequacy of data modeling between a normal distribution and GGD models.
+Also, it can trace 2 quantiles (e.g., tertiles) with the cumulative density function.
 
 
 ### 1. Mean of 2 Normal Distributions
@@ -305,10 +302,9 @@ $$
 
 #### Description
 
-This class is an example of the Gaussian Mixture Distribution (GMM),
-supported to see how the GGD differs from it.
-
-Use this class as a guide to determine whether the GMM or the GGD should be applied. 
+This is a kind of the Gaussian Mixture Distribution (GMM).
+It is provided to compare the adequacy of data modeling with GMM and GGD.
+Also, it can trace 3 or 4 quantiles with the cumulative density function.
 
 
 ### 2. Horizontal Gradational Distribution
@@ -328,10 +324,8 @@ $$
 
 #### Description
 
-This class is for horizontal gradational distribution models.
-When tracing quantiles with the cumulative density function,
-you can trace 3 or 4 quantiles.
-For example, the quartiles for $p = 0.25, 0.5, 0.75$ can be traced with little error.
+The horizontal gradational distribution model
+can trace left- or right-skewed 3 or 4 quantiles with the cumulative density function.
 
 
 ### 3. Vertical Gradational Distribution
@@ -382,9 +376,13 @@ $$
 
 #### Description
 
-This class is for vertical gradational distribution models with 2 or 3 components.
-When tracing quantiles with the cumulative density function,
-you can trace from 3 to 6 quantiles.
+The vertical gradational distribution is a model that emphasizes the kurtosis of the distribution.
+It can trace from 3 to 6 quantile points with the cumulative distribution function,
+but is not suitable for tracing equally spaced few number quantiles such as $p = 0.25, 0.5, 0.75$.
+When tracing a quantile, choose representative quantiles for the tails and the top,
+for example $p = 0.1, 0.4, 0.6, 0.9$.
+For symmetrical distributions, it is also useful to choose quantiles biased to one side,
+for example $p = 0.1, 0.4, 0.5$. 
 
 
 ### 4. Horizontal-Vertical Gradational Distribution
@@ -411,16 +409,12 @@ $$
 
 #### Description
 
-This class is for horizontal-vertical gradational distribution models.
-In this package,
-this class has the most degrees of freedom and can represent the most complex distributions.
+The horizontal-tovertical gradational distribution has the most degrees of freedom in this package
+and can represent the most complex distributions.
+This model can trace 5 to 8 quantiles with the cumulative density function.
+For example, quantiles of $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$ can be traced.  
 
-When tracing quantiles with the cumulative density function,
-you can trace from 5 to 8 quantiles.
-For example, the quantile points at $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$
-can be traced.
-
-More than 8 quantiles cannot be traced with this package.
+More than 8 quantiles cannot be traced with any models in this package.
 If you have more than 8 quantiles, make a frequency distribution and try ggd.nls.freq instead.
 
 
