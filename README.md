@@ -336,7 +336,7 @@ The probability density function $g(x)$ and cumulative distribution function $\P
 are expressed as follows using 2 or 3 normally distributed probability density functions $f_i(x)$
 and cumulative distribution function $\Phi_i(x)$ $(i = 1, 2, 3)$.
 
-In the following expression,
+In the following expressions,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
 with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
 
@@ -393,7 +393,7 @@ The probability density function $g(x)$ and cumulative distribution function $\P
 are expressed as follows using the probability density function $f_{i,j}(x)$
 and cumulative distribution function $\Phi_{i,j}(x)$ $(i, j = 1, 2)$ for 4 normal distributions.
 
-In the following equation,
+In the following expressions,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
 with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
 
