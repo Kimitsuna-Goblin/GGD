@@ -1,6 +1,7 @@
 # GGD -  Gradational Gaussian Distribution
 
-これは Gradational Gaussian Distribution (グラデーションガウス分布; GGD) のリファレンスクラスの R パッケージです。
+これは Gradational Gaussian Distribution (GGD; グラデーションガウス分布 あるいは 漸次的ガウス分布)
+のリファレンスクラスの R パッケージです。
 GGD によって度数分布を近似したり、分位点をトレースすることができます。
 
 [English](README.md)
@@ -8,7 +9,7 @@ GGD によって度数分布を近似したり、分位点をトレースする�
 
 ## Gradational Gaussian Distribution とは
 
-Gradational Gaussian Distribution (GGD; グラデーションガウス分布 あるいは 漸次的ガウス分布) は、
+GGD (グラデーションガウス分布 あるいは 漸次的ガウス分布) は
 主として単峰性の、正規分布に従わない分布をターゲットとした連続分布モデルの一つです。
 正規分布に従わない歪んだ分布、裾の重い分布、頂点が扁平な分布などを表すことができます。
 
