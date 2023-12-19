@@ -13,7 +13,7 @@ for mainly modeling asymmetric unimodal data which do not follow a normal distri
 It can represent distributions which do not follow a normal distribution:
 skewed distributions, heavy-tailed or flat-topped distributions.
 
-The GGD is alike the **Gaussian mixture distribution model (GMM)** but different.
+The GGD is alike the **Gaussian mixture model (GMM)** but different.
 The GMM is represented by linear combinations of some normal distributions,
 and is often used for clustering of mixed data.
 On the other hand, the GGD is a distribution of which mixes some normal distributions
@@ -207,7 +207,7 @@ This model is suitable for, for example, representing skewed and heavy-tailed di
 This package can generate objects for the following kinds of distribution models:
 
 0. Normal Distribution
-1. Mean of 2 Normal Distributions (a kind of Gaussian mixture distribution)
+1. Mean of 2 Normal Distributions (a kind of Gaussian mixture model)
 2. Horizontal Gradational Distribution
 3. Vertical Gradational Distribution (2 or 3 components)
 4. Horizontal-Vertical Gradational Distribution
@@ -302,7 +302,7 @@ $$
 
 #### Description
 
-This is a kind of the Gaussian Mixture Distribution (GMM).
+This is a kind of the Gaussian mixture model (GMM).
 It is provided to compare the adequacy of data modeling with GMM and GGD.
 Also, it can trace 3 or 4 quantiles with the cumulative density function.
 
