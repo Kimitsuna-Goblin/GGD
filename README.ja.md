@@ -30,7 +30,7 @@ X座標が $-\infty \to \infty$ と漸増するにつれて、確率密度関数
 正規分布 $\mathcal{N}_1$ のものから$正規分布 $\mathcal{N}_2$ のものに徐々に変化するような
 横方向グラデーション分布を $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ と書くことにします。
 
-一般に、$\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ は次のように定義できます。
+一般に $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ は次のように定義できます。
 
 $$
 \mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
@@ -38,20 +38,20 @@ $$
 $$
 
 ここで、$h_1$ はX軸に沿って
-$x:-infty \to \infty \ \Rightarrow \ h_1(x):1 \to to 0$ のように徐々に減少する混合比を表し、
-$h_2$ は $x:-infty \to \infty \  \ \Rightarrow \ h_2(x):0 \to 1$ のように
+$x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to to 0$ のように徐々に減少する混合比を表し、
+$h_2$ は $x:-\infty \to \infty \  \ \Rightarrow \ h_2(x):0 \to 1$ のように
 徐々に増加する混合比を表します。
 
 なお、 $h_1(x) + h_2(x)$ は、常に $1$ である必要はありません。
 ただし、 $\forall x, h_i(x) \in [0,1]$ $(i = 1,2)$ と
 $\lim_{x \to -\infty} h_1(x) + h_2(x) = \lim_{x \to \infty} h_1(x) + h_2(x) = 1$ は成り立つべきです。
 
-X軸の左側（下側）では $mathcal{N}_1$ が支配的であり、
-右側 (上側) では $mathcal{N}_2$ が支配的なので、
-$mathcal{N}_1$を**左側 (下側) 分布**、$mathcal{N}_2$を**右側 (上側) 分布** と呼ぶことにします。
+X軸の左側（下側）では $\mathcal{N}_1$ が支配的であり、
+右側 (上側) では $\mathcal{N}_2$ が支配的なので、
+$\mathcal{N}_1$を**左側 (下側) 分布**、$\mathcal{N}_2$を**右側 (上側) 分布** と呼ぶことにします。
 
 本パッケージでは、$h_1(x) = 1 - \Phi_1(x)$ と $h_2(x) = \Phi_2(x)$ を用います。
-なお、$Phi_1$ と $Phi_2$ は、それぞれ正規分布 $mathcal{N}_1$ と $mathcal{N}_2$ の累積分布関数です。
+なお $\Phi_1$ と $\Phi_2$ は、それぞれ正規分布 $\mathcal{N}_1$ と $\mathcal{N}_2$ の累積分布関数です。
 
 ### 縦方向グラデーション分布 (Vertical Gradational Distribution) (2-コンポーネント)
 
@@ -62,10 +62,10 @@ $mathcal{N}_1$を**左側 (下側) 分布**、$mathcal{N}_2$を**右側 (上側)
 縦方向グラデーション分布を $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ のように書くことにします。
 この記号は、少なくともイメージとして、
 Y座標が $0 \to 1$ と漸増するにつれて、確率密度関数が
-正規分布 $mathcal{N}_1$ のものから$正規分布 mathcal{N}_2$ のものに徐々に変化することを表しています。
+正規分布 $\mathcal{N}_1$ のものから$正規分布 mathcal{N}_2$ のものに徐々に変化することを表しています。
 このとき、$\mathcal{N}_1$ を **裾側分布**、$\mathcal{N}_2$ を **山側分布** と呼ぶことにします。
 
-一般に、$mathcal{G}[\mathcal{N}_1  \uparrow \mathcal{N}_2]$ は次のように定義できます。
+一般に $\mathcal{G}[\mathcal{N}_1  \uparrow \mathcal{N}_2]$ は次のように定義できます。
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
@@ -112,9 +112,9 @@ $\lim_{x \to -\infty} v_1(x) + v_2(x) = \lim_{x \to \infty} v_1(x) + v_2(x) = 1$
 縦方向グラデーション分布の裾側は、X軸に沿って左側（下側）と右側（上側）に分けることができます。
 
 つまり、x座標が分布の $-\infty$ 側の裾から山に向かうにつれて、
-確率密度関数が$mathcal{N}_1$のものから$mathcal{N}_2$のものに徐々に変化し、
+確率密度関数が$\mathcal{N}_1$のものから$\mathcal{N}_2$のものに徐々に変化し、
 また頂点から $\infty$ 側の裾に向かうにつれて、
-今度は確率密度関数が$mathcal{N}_3$のものに変化していくような分布モデルを考えることができます。
+今度は確率密度関数が$\mathcal{N}_3$のものに変化していくような分布モデルを考えることができます。
 
 そのような分布モデルを
 $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]$
@@ -162,8 +162,8 @@ $$
 のように定義できます。
 ただし、$h_1(x)$ と $h_2(x)$ は横方向グラデーション分布の混合比と同様です。
 
-$mathcal{G}_1$ と $\mathcal{G}_2]$ は次のように定義される分布モデルです
-(ごめんなさい。$\mathcal{G}$、$\mathcal{N}$ の代わりに $G$、$N$ と書いています。
+$\mathcal{G}_1$ と $\mathcal{G}_2]$ は次のように定義される分布モデルです
+(ごめんなさい。 $\mathcal{G}$ 、$\mathcal{N}$ の代わりに $G$ 、$N$ と書いています。
  GitHub のレンダリングエンジンは添字2つの $\mathcal{G}$ や $\mathcal{N}$ が複数あると、
  どうもうまく式を解釈してくれないようなので ( ˘•ω•˘ ))。
 
@@ -179,7 +179,7 @@ G_2 =
 $$
 
 ただし、$N_{i,j}$ は正規分布で、
-$v_{i,1}(x)$、$v_{i,2}(x)$ は縦方向グラデーション分布の $v_1(x)$、$v_2(x)$ と同様の混合比です。
+$v_{i,1}(x)$ 、 $v_{i,2}(x)$ は縦方向グラデーション分布の $v_1(x)$ 、$v_2(x)$ と同様の混合比です。
 この分布モデルは例えば、左右に歪んでいて、かつ裾が重い分布などに適用できます。
 
 
