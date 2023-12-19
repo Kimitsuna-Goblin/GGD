@@ -118,6 +118,11 @@ x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 $$
 
+As the horizontal gradational distribution,
+$v_1(x) + v_2(x)$ need not always be $1$,
+but $\forall x, v_i(x) \in [0,1]$ $(i = 1,2)$
+and $lim_{x \to -\infty} v_1(x) + v_2(x) = \lim_{x \to \infty} v_1(x) + v_2(x) = 1$ should hold. 
+
 In this package, we use $v_1(x) = 1 - f_1(x) / f_1(\mu_1)$
 and $v_2(x) = f_2(x) / f_2(\mu_1)$.
 
