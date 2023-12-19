@@ -38,7 +38,7 @@ $$
 $$
 
 ここで、 $h_1$ はX軸に沿って
-$x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to to 0$ のように徐々に減少する混合比を表し、
+$x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0$ のように徐々に減少する混合比を表し、
 $h_2$ は $x:-\infty \to \infty \  \ \Rightarrow \ h_2(x):0 \to 1$ のように
 徐々に増加する混合比を表します。
 
