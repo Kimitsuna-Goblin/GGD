@@ -212,7 +212,7 @@ This package can generate objects for the following kinds of distribution models
 3. Vertical Gradational Distribution (2 or 3 components)
 4. Horizontal-Vertical Gradational Distribution
 
-The 0 and 1 of above are not kinds of GGD model.
+The 0 and 1 of above are not kinds of GGD.
 They can be used as criteria to determine if it is appropriate to use GGD as a distribution model for the data.
 
 Each of 1 to 4 of above can be further classified
