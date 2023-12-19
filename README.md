@@ -340,7 +340,7 @@ In the following expression,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
 with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
 
-3-1. Vertical gradation with 2 components (1 for top and 1 for tail)
+3-1. Vertical gradation with 2 components
 
 $$
 \begin{align}
@@ -349,7 +349,7 @@ g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_
 \end{align}
 $$
 
-3-2. Vertical gradation with 3 components (1 for top and 2 for both tails)
+3-2. Vertical gradation with 3 components
 
 $$
 \begin{align}
