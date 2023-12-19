@@ -146,7 +146,7 @@ $\mathcal{N}_3$ は **右裾側 (上裾側) 分布** と呼ぶことにします
 
 ### 横-縦グラデーション分布 (Horizontal-Vertical Gradational Distribution)
 
-2つの縦方法グラデーション分布 $\mathcal{G}_1$ と $\mathcal{G}_2$ を
+2つの縦方向ラデーション分布 $\mathcal{G}_1$ と $\mathcal{G}_2$ を
 横方向グラデーション分布のように混合させることができます。
 
 そのような分布を
