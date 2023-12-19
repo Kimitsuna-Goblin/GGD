@@ -1,6 +1,6 @@
 # GGD -  Gradational Gaussian Distribution
 
-Here is an R package of a reference class object provides a Gradational Gaussian Distribution (GGD).
+Here is an R package of a reference class provides a Gradational Gaussian Distribution (GGD).
 It can approximates asymmetric frequency distributions or traces quantiles accuratelies with GGD models.
 
 [日本語](README.ja.md)
