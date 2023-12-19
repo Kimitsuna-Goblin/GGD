@@ -133,8 +133,8 @@ and right (upper) side.
 
 In other words, we can consider a distribution model in which the probability density function
 gradually varies from that of $\mathcal{N}_1$ to $\mathcal{N}_2$ as the x-coordinate moves
-from the $-\infty$-side-tail to the top of the distribution,
-and then again from the top to the $\infty$-side-tail,
+from the left-side-tail ($x = -\infty$) to the top of the distribution,
+and then again from the top to the right-side-tail ($x = \infty$),
 this time the probability density function varies to that of $\mathcal{N}_3$.
 
 In this case, we write a sign of the distribution as
