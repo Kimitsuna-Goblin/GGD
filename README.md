@@ -206,11 +206,11 @@ This model is suitable, for example, for representing skewed and heavy-tailed di
 
 This package can generate objects for the following kinds of distribution models:
 
-+ 0. Normal Distribution
-+ 1. Mean of 2 Normal Distributions (a kind of Gaussian mixture distribution)
-+ 2. Horizontal Gradational Distribution
-+ 3. Vertical Gradational Distribution (2 or 3 components)
-+ 4. Horizontal-Vertical Gradational Distribution
+0. Normal Distribution
+1. Mean of 2 Normal Distributions (a kind of Gaussian mixture distribution)
+2. Horizontal Gradational Distribution
+3. Vertical Gradational Distribution (2 or 3 components)
+4. Horizontal-Vertical Gradational Distribution
 
 The 0 and 1 of above are not kinds of GGD model.
 They can be used as criteria to determine if it is appropriate to use GGD as a distribution model for the data.
