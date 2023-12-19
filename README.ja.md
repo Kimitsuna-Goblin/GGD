@@ -86,7 +86,7 @@ f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
 $$
 
 が成り立ち、
-$\mathcal{N}_1$ and  $\mathcal{N}_2$ の平均値 $\mu_1$ と $\mu_2$ に対しては、
+$\mathcal{N}_1$ と $\mathcal{N}_2$ の平均値 $\mu_1$ と $\mu_2$ に対しては、
 
 $$
 x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
