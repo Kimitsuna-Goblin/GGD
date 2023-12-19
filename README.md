@@ -71,7 +71,7 @@ of $\mathcal{N}_1$ and $\mathcal{N}_2$, respectively.
 
 A **(2-component) vertical gradational distribution** is a distribution model
 in which the mixing ratio of two normal distributions varies gradually along the y-axis.
-This model is suitable for representing heavy-tailed or flat-topped distributions. 
+This model is suitable for representing heavy-tailed or flat-topped or very sharp distributions. 
 
 We write a sign of a vertical gradational distribution as
 $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$. 
