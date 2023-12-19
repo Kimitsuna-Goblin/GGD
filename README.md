@@ -249,7 +249,7 @@ But simple models may be easier to use for analyzing data.
 | 〃        | read.csv              | Read the composition of a GGD object from a CSV file.     |
 | 〃        | write.csv             | Write the composition of a GGD object to a CSV file.      |
 
-The mean and standard deviation are calculated using the R standard dnorm and pnorm functions and four arithmetic operations
+The mean and standard deviation are calculated using the dnorm and pnorm functions in 'stats' pachage and four arithmetic operations
 (semi-standard deviations of the horizontal-vertical gradational distribution are computed with numerical integration).
 Therefore, the accuracy of the them depends on the dnorm and pnorm functions.
 
