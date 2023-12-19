@@ -199,7 +199,7 @@ $$
 where each $N_{i,j}$ is a normal distribuion
 and $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
 
-This model is suitable, for example, for representing skewed and heavy-tailed distributions. 
+This model is suitable for, for example, representing skewed and heavy-tailed distributions. 
 
 
 ## Package overview
