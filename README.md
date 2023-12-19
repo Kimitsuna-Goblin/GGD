@@ -338,7 +338,7 @@ and cumulative distribution function $\Phi_i(x)$ $(i = 1, 2, 3)$.
 
 In the following expressions,
 $\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
-with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
+with mean $\mu_i$ and standard deviation $\sigma_i / \sqrt{2}$.
 
 3-1. Vertical gradation with 2 components
 
@@ -394,8 +394,8 @@ are expressed as follows using the probability density function $f_{i,j}(x)$
 and cumulative distribution function $\Phi_{i,j}(x)$ $(i, j = 1, 2)$ for 4 normal distributions.
 
 In the following expressions,
-$\Phi^\ast_i(x)$ represents the cumulative distribution function of the normal distribution
-with mean $\mu_i$ and standard deviation $\displaystyle \frac{\sigma_i}{\sqrt{2}}$.
+$\Phi^\ast_{i,j}(x)$ represents the cumulative distribution function of the normal distribution
+with mean $\mu_{i,j}$ and standard deviation $\sigma_{i,j} / \sqrt{2}$.
 
 $$
 \begin{align}
