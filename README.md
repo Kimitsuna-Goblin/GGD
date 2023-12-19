@@ -1,7 +1,7 @@
 # GGD -  Gradational Gaussian Distribution
 
-Here is an R package which generates a reference class object provides a Gradational Gaussian Distribution;
-it approximates an asymmetric frequency distribution or traces quantiles accurately.
+Here is an R package of a reference class object provides a Gradational Gaussian Distribution (GGD).
+It can approximates asymmetric frequency distributions or traces quantiles accuratelies with GGD models.
 
 [日本語](README.ja.md)
 
@@ -10,6 +10,8 @@ it approximates an asymmetric frequency distribution or traces quantiles accurat
 
 The **Gradational Gaussian Distribution (GGD)** is one of continuous distribution models
 for mainly modeling asymmetric unimodal data which do not follow a normal distribution.
+It can represent distributions which do not follow a normal distribution:
+skewed distributions, heavy-tailed or flat-topped distributions.
 
 The GGD is alike the **Gaussian mixture distribution model (GMM)** but different.
 The GMM is represented by linear combinations of some normal distributions,
@@ -19,7 +21,7 @@ with gradually changing ratio along the x-axis or y-axis directions,
 and treat non-normal distribution data as it is.
 Please remark that the GGD is not a convolution of normal distributions.
 
-I think that the GGD model can be applied as a distribution model of data
+The GGD model may be applied as a distribution model of data
 which is a bit like a normal distribution but never follows any normal distribution model
 because some effects by (hidden) continuous parameters.
 
@@ -32,6 +34,7 @@ This package provides following GGD models:
 
 A **horizontal gradational distribution** is a distribution model
 in which the mixing ratio of two normal distributions varies gradually along the x-axis.
+This model is suitable for representing left- or right-skewed distributions. 
 
 We write a sign of a horizontal gradational distribution as
 $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$. 
@@ -39,7 +42,7 @@ It means that as the x-coordinate increases from $-\infty$ to $\infty$,
 the shape of the probability density function gradually changes
 from that of a normal distribution $\mathcal{N}_1$ to that of $\mathcal{N}_2$.
 
-It is expressed as
+Generally it is expressed as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
@@ -51,9 +54,13 @@ $x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0$,
 and $h_2$ is the mixing ratio increasing gradually as
 $x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
 
-Because $\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
+Note that $h_1(x) + h_2(x)$ need not always be $1$.
+However, $\forall x, h_i(x) \in [0,1]$ $(i = 1,2)$
+and $\lim_{x \to -\infty} h_1(x) + h_2(x) = \lim_{x \to \infty} h_1(x) + h_2(x) = 1$ should hold. 
+
+$\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
 and $\mathcal{N}_2$ is on the right (upper) side,
-we call $\mathcal{N}_1$ the **left- (lower-) side distribution**,
+so we call $\mathcal{N}_1$ the **left- (lower-) side distribution**,
 and $\mathcal{N}_2$ the **right- (upper-) side distribution**.
 
 In this package, we use $h_1(x) = 1 - \Phi_1(x)$ and $h_2(x) = \Phi_2(x)$,
@@ -64,14 +71,18 @@ of $\mathcal{N}_1$ and $\mathcal{N}_2$, respectively.
 
 A **(2-component) vertical gradational distribution** is a distribution model
 in which the mixing ratio of two normal distributions varies gradually along the y-axis.
+This model is suitable for representing heavy-tailed or flat-topped distributions. 
 
 We write a sign of a vertical gradational distribution as
 $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$. 
-It means that as the y-coordinate increases from $0$ to $1$,
+It means that, at least as an image, as the y-coordinate increases from $0$ to $1$,
 the shape of the probability density function gradually changes
 from that of a normal distribution $\mathcal{N}_1$ to that of $\mathcal{N}_2$.
 
-It is expressed as
+Here, we call $\mathcal{N}_1$ the **tail-side distribution**,
+and $\mathcal{N}_2$ the **top-side distribution**.
+
+Generally $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ is defined as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
@@ -107,13 +118,8 @@ x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 $$
 
-Here, we call $\mathcal{N}_1$ the **tail-side distribution**,
-and $\mathcal{N}_2$ the **top-side distribution**.
-
 In this package, we use $v_1(x) = 1 - f_1(x) / f_1(\mu_1)$
-and $v_2(x) = f_2(x) / f_2(\mu_1)$,
-where $\mu_1$ and $\mu_2$ are the mean values of
-$\mathcal{N}_1$ and  $\mathcal{N}_2$, respectively.
+and $v_2(x) = f_2(x) / f_2(\mu_1)$.
 
 ### Vertical Gradational Distribution (3 components)
 
@@ -122,13 +128,13 @@ and right (upper) side.
 
 In other words, we can consider a distribution model in which the probability density function
 gradually varies from that of $\mathcal{N}_1$ to $\mathcal{N}_2$ as the x-coordinate moves
-from the tail to the top of the distribution,
-and then again from the top to the tail,
+from the $-\infty$-side-tail to the top of the distribution,
+and then again from the top to the $\infty$-side-tail,
 this time the probability density function varies to that of $\mathcal{N}_3$.
 
 In this case, we write a sign of the distribution as
 $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]$.
-It is expressed as
+Generally it is defined as
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
@@ -162,7 +168,7 @@ as same as normal distributions $\mathcal{N}_1$ and $\mathcal{N}_2$ for the hori
 
 In this case, we write a sign of the distribution as
 $\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2]$.
-It is expressed as
+Generally it is defined as
 
 $$
 \mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
@@ -170,7 +176,9 @@ $$
 $$
 
 where $h_1(x)$ and $h_2(x)$ are as same as those for the horizontal gradational distribution.
-And then,
+And then
+(sorry, I write here $G$ and $N$ instead of $\mathcal{G}$ and $\mathcal{N}$,
+ because the engine of GitHub seems not to interpret double subscripts well with them),
 
 $$
 G_1 = G[N_{1,1} \uparrow N_{1,2}]
@@ -183,8 +191,10 @@ G_2 =
     v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
 $$
 
-(sorry, but README.md seem not to be able to display $\mathcal{G}$ and $\mathcal{N}$ in the above expressions)
-where $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
+where each $N_{i,j}$ is a normal distribuion
+and $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
+
+This model is suitable, for example, for representing skewed and heavy-tailed distributions. 
 
 
 ## Package overview
@@ -194,7 +204,7 @@ This package can generate objects for the following kinds of distribution models
 + 0. Normal Distribution
 + 1. Mean of 2 Normal Distributions (a kind of Gaussian mixture distribution)
 + 2. Horizontal Gradational Distribution
-+ 3. Vertical Gradational Distribution
++ 3. Vertical Gradational Distribution (2 or 3 components)
 + 4. Horizontal-Vertical Gradational Distribution
 
 The 0 and 1 of above are not kinds of GGD model.
@@ -206,6 +216,12 @@ according to the conditions of the normal distribution of the components as foll
 + Mean-Differed Sigma-Equaled: a distribuion with components of different means and equal standard deviations
 + Mean-Equaled Sigma-Differed: a distribuion with components of equal means and different standard deviations
 + Mean-Differed Sigma-Differed: a distribuion with components of both means and standard deviations are different
+
+Therefore, there are a total of 16 kinds of distribution models.
+
+The larger the number of the kind,
+the more degrees of freedom and the more complex distribution can be represented.
+But simple models may be easier to use for analyzing data.
 
 
 ## Major functions and members
@@ -227,6 +243,9 @@ according to the conditions of the normal distribution of the components as foll
 | 〃        | read.csv              | Read the composition of a GGD object from a CSV file.     |
 | 〃        | write.csv             | Write the composition of a GGD object to a CSV file.      |
 
+The mean and standard deviation are calculated using the R standard dnorm and pnorm functions and four arithmetic operations
+(semi-standard deviations of the horizontal-vertical gradational distribution are computed with numerical integration).
+Therefore, the accuracy of the them depends on the dnorm and pnorm functions.
 
 ## Installation
 
