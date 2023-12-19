@@ -131,11 +131,12 @@ and $v_2(x) = f_2(x) / f_2(\mu_1)$.
 You can devide the tail-side distribution along x-axis into left (lower) side
 and right (upper) side.
 
-In other words, we can consider a distribution model in which the probability density function
+In other words, we can consider a skewed distribution model in which the probability density function
 gradually varies from that of $\mathcal{N}_1$ to $\mathcal{N}_2$ as the x-coordinate moves
 from the left-side-tail ($x = -\infty$) to the top of the distribution,
 and then again from the top to the right-side-tail ($x = \infty$),
-this time the probability density function varies to that of $\mathcal{N}_3$.
+this time the probability density function varies to that of $\mathcal{N}_3$,
+which is different from $\mathcal{N}_1$.
 
 In this case, we write a sign of the distribution as
 $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]$.
