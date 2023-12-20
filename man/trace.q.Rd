@@ -234,9 +234,8 @@ accurately with its cumulative distribution function.
  ##  If mix.type = 2 or grad = "h",
  ##  it constructs a horizontal gradational distribution.
  ##  The number of p of the quantiles must be 3 or 4.
- a$trace.q(
-     data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
-     this.mix.type = 2 )
+ a <- ggd.trace.q( data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
+                   mix.type = 2 )$obj
  a
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 

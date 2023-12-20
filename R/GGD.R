@@ -340,7 +340,6 @@ ms.norm.xp <- function( x, p )
 #' \eqn{( i = 1, 2 )}.
 #' This function does not use \code{\link[stats]{integrate}},
 #' but \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations.
-#' @usage   mean.calc.t4.sub(means, sds)
 #' @param   means   The mean values of two normal distributions
 #'                  \eqn{\mathcal{N}_{i,1}, \mathcal{N}_{i,2}}.
 #' @param   sds     The standard deviations of two normal distributions
@@ -348,7 +347,7 @@ ms.norm.xp <- function( x, p )
 #' @return  The value of \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx}.
 #' @importFrom  stats   pnorm
 ################################################################################################
-mean.calc.t4.sub <- function( means, sds )
+calc.mean.t4.sub <- function( means, sds )
 {
     d.mean <- means[1] - means[2]
 
@@ -369,7 +368,6 @@ mean.calc.t4.sub <- function( means, sds )
 #' Calculates the mean value of a GGD model.
 #' This function does not use \code{\link[stats]{integrate}}, but \code{\link[stats]{pnorm}},
 #' \code{\link[base]{sqrt}} and four arithmetic operations as needed.
-#' @usage   mean.calc(mix.type, means, sds)
 #' @param   mix.type    The value of \code{mix.type}.
 #' @param   means       The vector of the mean values of the normal distributions
 #'                      of the components.
@@ -377,7 +375,7 @@ mean.calc.t4.sub <- function( means, sds )
 #'                      of the components.
 #' @return  The mean value of a gradational Gaussian distribution model.
 ################################################################################################
-mean.calc <- function( mix.type, means, sds )
+calc.mean <- function( mix.type, means, sds )
 {
     mean <- numeric()
 
@@ -406,8 +404,8 @@ mean.calc <- function( mix.type, means, sds )
     else if ( mix.type == 4 )
     {
         mean <- means[1] - ( means[1] - means[2] ) * sqrt( 2 ) / 2 -
-                mean.calc.t4.sub( means[1:2], sds[1:2] ) +
-                mean.calc.t4.sub( means[3:4], sds[3:4] )
+                calc.mean.t4.sub( means[1:2], sds[1:2] ) +
+                calc.mean.t4.sub( means[3:4], sds[3:4] )
     }
 
     return ( mean )
@@ -461,7 +459,7 @@ mean.calc <- function( mix.type, means, sds )
 #' @return  Calculated value of the expression shown in "Details".
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
-v.calc.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0 )
+calc.v.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0 )
 {
     v <- numeric()
     d.i <- dnorm( x, mean.i, sd.i )
@@ -521,7 +519,7 @@ v.calc.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0 )
 #' @return  The value of \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx}.
 #' @importFrom  stats   pnorm
 ################################################################################################
-v.calc.sub.t4 <- function( means, sds )
+calc.v.sub.t4 <- function( means, sds )
 {
     d.mean <- means[1] - means[2]
 
@@ -568,8 +566,8 @@ v.calc.sub.t4 <- function( means, sds )
 #' @return  The value of the whole/half variance.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
-v.calc <- function( mix.type, means, sds,
-                    mean = mean.calc( mix.type, means, sds ),
+calc.v <- function( mix.type, means, sds,
+                    mean = calc.mean( mix.type, means, sds ),
                     symmetric = FALSE, get.lv = FALSE, get.uv = FALSE )
 {
     v <- 0
@@ -639,8 +637,8 @@ v.calc <- function( mix.type, means, sds,
         {
             if ( get.lv || get.uv )
             {
-                v <- v.calc.sub( 2, mean, means[2], sds[2], mean, 0 ) -
-                     v.calc.sub( 2, mean, means[1], sds[1], mean, 2 )
+                v <- calc.v.sub( 2, mean, means[2], sds[2], mean, 0 ) -
+                     calc.v.sub( 2, mean, means[1], sds[1], mean, 2 )
             }
 
             if ( !get.lv )
@@ -704,12 +702,12 @@ v.calc <- function( mix.type, means, sds,
         {
             if ( get.lv )
             {
-                v <- v.calc.sub( 3, mean, means[1], sds[1], min( mean, means[1] ), k = 1 ) +
-                     v.calc.sub( 3, mean, means[2], sds[2], mean, k = 2 )
+                v <- calc.v.sub( 3, mean, means[1], sds[1], min( mean, means[1] ), k = 1 ) +
+                     calc.v.sub( 3, mean, means[2], sds[2], mean, k = 2 )
 
                 if ( means[3] < mean )
                 {
-                    v <- v + v.calc.sub( 3, mean, means[3], sds[3], mean, k = 3 ) -
+                    v <- v + calc.v.sub( 3, mean, means[3], sds[3], mean, k = 3 ) -
                          ( means[3] - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 +
                          ( means[3] - mean ) * sds[3] * sqrt( 2 ) / sqrt( pi ) / 2 -
                          sds[3]^2 * ( 4 - sqrt( 2 ) ) / 8
@@ -719,14 +717,14 @@ v.calc <- function( mix.type, means, sds,
             {
                 v <- ( means[2] - mean )^2 * sqrt( 2 ) / 2 +
                      sds[2]^2 * sqrt( 2 ) / 4 -
-                     v.calc.sub( 3, mean, means[2], sds[2], mean, k = 2 ) +
+                     calc.v.sub( 3, mean, means[2], sds[2], mean, k = 2 ) +
                      ( means[3] - mean )^2 * ( 2 - sqrt( 2 ) ) / 2 +
                      sds[3]^2 * ( 4 - sqrt( 2 ) ) / 4 -
-                     v.calc.sub( 3, mean, means[3], sds[3], max( mean, means[3] ), k = 3 )
+                     calc.v.sub( 3, mean, means[3], sds[3], max( mean, means[3] ), k = 3 )
 
                 if ( mean < means[1] )
                 {
-                    v <- v - v.calc.sub( 3, mean, means[1], sds[1], mean, k = 1 ) +
+                    v <- v - calc.v.sub( 3, mean, means[1], sds[1], mean, k = 1 ) +
                          ( means[1] - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 -
                          ( means[1] - mean ) * sds[1] * sqrt( 2 ) / sqrt( pi ) / 2 +
                          sds[1]^2 * ( 4 - sqrt( 2 ) ) / 8
@@ -746,7 +744,7 @@ v.calc <- function( mix.type, means, sds,
     else if ( mix.type == 4 )
     {
         # For mix.type ==4, both get.lv and get.uv options are invalid.
-        # Use v.calc.t4.via.integrate instead.
+        # Use calc.v.t4.via.integrate instead.
 
         if ( get.lv || get.uv )
         {
@@ -755,8 +753,8 @@ v.calc <- function( mix.type, means, sds,
 
         v <- ( ( 2 - sqrt( 2 ) ) * means[1]^2 + ( 4 - sqrt( 2 ) ) * sds[1]^2 / 2 +
              sqrt( 2 ) * ( means[2]^2 + sds[2]^2 / 2 ) ) / 2 - mean^2 -
-             v.calc.sub.t4( means[1:2], sds[1:2] ) +
-             v.calc.sub.t4( means[3:4], sds[3:4] )
+             calc.v.sub.t4( means[1:2], sds[1:2] ) +
+             calc.v.sub.t4( means[3:4], sds[3:4] )
     }
 
     return ( v )
@@ -781,7 +779,7 @@ v.calc <- function( mix.type, means, sds,
 #'          as the result of the half/whole variance computation.
 #' @importFrom  stats   dnorm pnorm integrate
 ################################################################################################
-v.calc.t4.via.integrate <- function( means, sds, mean = mean.calc( 4, means, sds ),
+calc.v.t4.via.integrate <- function( means, sds, mean = calc.mean( 4, means, sds ),
                                      get.lv = FALSE, get.uv = FALSE )
 {
     f <- function( x )
@@ -2491,7 +2489,7 @@ GGD$methods(
                 }
 
                 # S.D. = lower S.D = upper S.D.
-                sd <<- lsd <<- usd <<- sqrt( v.calc( abst.mix.type, means, sds, mean,
+                sd <<- lsd <<- usd <<- sqrt( calc.v( abst.mix.type, means, sds, mean,
                                                      symmetric = TRUE ) )
                 lsd.abs.error <<- usd.abs.error <<- 0
             }
@@ -2508,25 +2506,25 @@ GGD$methods(
                                           c( min( means ), max( means ) ) )
                 }
 
-                mean <<- mean.calc( abst.mix.type, means, sds )
+                mean <<- calc.mean( abst.mix.type, means, sds )
 
                 if ( abst.mix.type == 4 )
                 {
-                    sd <<- sqrt( v.calc( 4, means, sds, mean ) )
+                    sd <<- sqrt( calc.v( 4, means, sds, mean ) )
 
-                    lv <- v.calc.t4.via.integrate( means, sds, mean, get.lv = TRUE )
+                    lv <- calc.v.t4.via.integrate( means, sds, mean, get.lv = TRUE )
                     lsd <<- sqrt( 2 * lv$value )
                     lsd.abs.error <<- sqrt( 2 * lv$abs.error )
 
-                    uv <- v.calc.t4.via.integrate( means, sds, mean, get.uv = TRUE )
+                    uv <- calc.v.t4.via.integrate( means, sds, mean, get.uv = TRUE )
                     usd <<- sqrt( 2 * uv$value )
                     usd.abs.error <<- sqrt( 2 * uv$abs.error )
                 }
                 else
                 {
-                    sd  <<- sqrt( v.calc( abst.mix.type, means, sds, mean ) )
-                    lsd <<- sqrt( 2 * v.calc( abst.mix.type, means, sds, mean, get.lv = TRUE ) )
-                    usd <<- sqrt( 2 * v.calc( abst.mix.type, means, sds, mean, get.uv = TRUE ) )
+                    sd  <<- sqrt( calc.v( abst.mix.type, means, sds, mean ) )
+                    lsd <<- sqrt( 2 * calc.v( abst.mix.type, means, sds, mean, get.lv = TRUE ) )
+                    usd <<- sqrt( 2 * calc.v( abst.mix.type, means, sds, mean, get.uv = TRUE ) )
 
                     lsd.abs.error <<- usd.abs.error <<- 0
                 }
@@ -2693,7 +2691,7 @@ GGD$methods(
 ################################################################################################
 ggd.write.csv <- function( obj, file = "" )
 {
-    ggd:::cat.table( obj$cmp, file, obj$mix.type, 22 )
+    cat.table( obj$cmp, file, obj$mix.type, 22 )
 }
 
 GGD$methods(
@@ -2936,9 +2934,8 @@ GGD$methods(
 #'  ##  If mix.type = 2 or grad = "h",
 #'  ##  it constructs a horizontal gradational distribution.
 #'  ##  The number of p of the quantiles must be 3 or 4.
-#'  a$trace.q(
-#'      data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
-#'      this.mix.type = 2 )
+#'  a <- ggd.trace.q( data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
+#'                    mix.type = 2 )$obj
 #'  a
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
@@ -5849,11 +5846,11 @@ get.p.freq <- function( freq, total )
 }
 
 ################################################################################################
-#' [Non-exported] Cut out small frequencies of edges
+#' [Non-exported] Exclude small frequencies of edges
 #'
-#' Cuts out data with \code{0} or extremely small frequency on both edges of the range of
+#' Excludes data with \code{0} or extremely small frequency on both edges of the range of
 #' the x-coordinates from data of a frequency distribution.
-#' @usage   cut.out.freq.edge(x, freq)
+#' @usage   exclude.freq.edge(x, freq)
 #' @param   x               A vector of x-coordinates of a frequency distribution.
 #' @param   freq            A vector of frequencies of a frequency distribution.
 #' @return  A list containing components
@@ -5862,7 +5859,7 @@ get.p.freq <- function( freq, total )
 #'          \item{freq}{
 #'                  The vectors of frequencies after the cutoff.}
 ################################################################################################
-cut.out.freq.edge <- function( x, freq )
+exclude.freq.edge <- function( x, freq )
 {
     min.i <- min( ( 1:length( freq ) )[freq > .Machine$double.eps * max( freq )] )
     max.i <- max( ( 1:length( freq ) )[freq > .Machine$double.eps * max( freq )] )
@@ -5911,16 +5908,16 @@ cut.out.freq.edge <- function( x, freq )
 ################################################################################################
 get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, start.level )
 {
-    fm <- NULL
-    start <- list()
+    fm <- NULL          # formula for return value
+    start <- list()     # start for return value
 
     # Mean and standard deviation of the data
     data.mean <- sum( x * freq ) / total
     data.sd   <- sqrt( sum( ( data.mean - x )^2 * freq ) / total )
 
-    # Cut out data with 0 or extremely small frequency on both edges of
+    # Exclude data with 0 or extremely small frequency on both edges of
     # the range of the x-coordinates.
-    cutout <- cut.out.freq.edge( x, freq )
+    x.freq <- exclude.freq.edge( x, freq )
 
     # Quarter the vectors of the frequency distribution and get initial values.
     #
@@ -5965,7 +5962,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
     else if ( start.level == 1 )
     {
         # Level 1: compute local mean values and standard deviations.
-        sep <- separate.data.quarter( cutout$x, cutout$freq, data.mean )
+        sep <- separate.data.quarter( x.freq$x, x.freq$freq, data.mean )
 
         mean.lower <- sum( sep$x.lower * sep$data.lower ) / sum( sep$data.lower )
         mean.upper <- sum( sep$x.upper * sep$data.upper ) / sum( sep$data.upper )
@@ -5997,8 +5994,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
     else if ( start.level >= 2 )
     {
         # Level 2: pick up 2 quantiles for each component.
-        cutout.ps <- get.p.freq( cutout$freq, total )
-        sep <- separate.data.quarter( cutout$x, cutout.ps, data.mean )
+        freq.ps <- get.p.freq( x.freq$freq, total )
+        sep <- separate.data.quarter( x.freq$x, freq.ps, data.mean )
         lengths <- vapply( 1:4, function( i ) length( sep$x[[i]] ), 0 )
 
         ms <- lapply( 1:4, function( i )
@@ -7559,7 +7556,7 @@ GGD$methods(
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'  a$is.symmetric()    ## TRUE
 #'
-#'  a$adjust.cmp( grad = "h" )
+#'  a$adjust.cmp( grad = "hv" )
 #'  a$is.symmetric()    ## TRUE
 #'
 #'  a$set.cmp( data.frame( mean = c( -0.8, -0.2, 0.8, 0.2 ), sd = c( 1.2, 0.9, 1.2, 0.9 ) ) )

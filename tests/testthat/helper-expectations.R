@@ -8,6 +8,7 @@ library( "testthat" )
 ################################################################################################
 #' Check if a GGD object is cleared
 #' @param   obj     A \code{GGD} class object.
+#' @importFrom  rlang   enquo
 ################################################################################################
 expect_cleared <- function( obj )
 {
@@ -34,6 +35,7 @@ expect_cleared <- function( obj )
 #' @param   obj             A \code{GGD} class object.
 #' @param   kind.length     A numeric value of expected length of \code{kind} field.
 #'                          1 or 0 is allowed.
+#' @importFrom  rlang   enquo
 ################################################################################################
 expect_na_ggd <- function( obj, kind.length = 1 )
 {
@@ -69,6 +71,7 @@ expect_na_ggd <- function( obj, kind.length = 1 )
 #' Check whether GGD object a equals to b
 #' @param   a       A GGD object. It must not be a cleared object.
 #' @param   b       A GGD object which is expected to be equal to a.
+#' @importFrom  rlang   enquo
 ################################################################################################
 expect_equal_ggd <- function( a, b )
 {

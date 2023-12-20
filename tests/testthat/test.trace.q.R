@@ -729,12 +729,12 @@ plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
 ## Where symmetric distribution,
-## ggd:::v.calc value with get.lv/get.uv = TRUE is "worse" than the lsd/usd field value.
-## The theoretical maximum error of ggd:::v.calc (vs lsd/usd) is sqrt( .Machine$double.eps ).
+## ggd:::calc.v value with get.lv/get.uv = TRUE is "worse" than the lsd/usd field value.
+## The theoretical maximum error of ggd:::calc.v (vs lsd/usd) is sqrt( .Machine$double.eps ).
 ## However, almost always, all values of them are equal.
-expect_equal( abs( a$lsd - sqrt( ggd:::v.calc( 1, a$cmp$mean, a$cmp$sd, get.lv = TRUE ) * 2 ) ) <=
+expect_equal( abs( a$lsd - sqrt( ggd:::calc.v( 1, a$cmp$mean, a$cmp$sd, get.lv = TRUE ) * 2 ) ) <=
                 sqrt( .Machine$double.eps ), TRUE )
-expect_equal( abs( a$usd - sqrt( ggd:::v.calc( 1, a$cmp$mean, a$cmp$sd, get.uv = TRUE ) * 2 ) ) <=
+expect_equal( abs( a$usd - sqrt( ggd:::calc.v( 1, a$cmp$mean, a$cmp$sd, get.uv = TRUE ) * 2 ) ) <=
                 sqrt( .Machine$double.eps ), TRUE )
 
 # normal test (keep mix.type = 1)
@@ -1877,12 +1877,12 @@ show.results()
 
 ## Where symmetric distribution
 ## (e.g., mix.type = 3, is.v2() = TRUE and is.eq.mean() = TRUE is symmetric),
-## ggd:::v.calc value with get.lv/get.uv = TRUE is "worse" than the lsd/usd field value.
-## The theoretical maximum error of ggd:::v.calc (vs lsd/usd) is sqrt( .Machine$double.eps ).
+## ggd:::calc.v value with get.lv/get.uv = TRUE is "worse" than the lsd/usd field value.
+## The theoretical maximum error of ggd:::calc.v (vs lsd/usd) is sqrt( .Machine$double.eps ).
 ## However, almost always, all values of them are equal.
-expect_equal( abs( a$lsd - sqrt( ggd:::v.calc( 3, a$cmp$mean, a$cmp$sd,
+expect_equal( abs( a$lsd - sqrt( ggd:::calc.v( 3, a$cmp$mean, a$cmp$sd,
                                  symmetric = TRUE, get.lv = TRUE ) * 2 ) ) <= sqrt( .Machine$double.eps ), TRUE )
-expect_equal( abs( a$usd - sqrt( ggd:::v.calc( 3, a$cmp$mean, a$cmp$sd,
+expect_equal( abs( a$usd - sqrt( ggd:::calc.v( 3, a$cmp$mean, a$cmp$sd,
                                  symmetric = TRUE, get.uv = TRUE ) * 2 ) ) <= sqrt( .Machine$double.eps ), TRUE )
 
 # normal test

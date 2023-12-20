@@ -46,7 +46,7 @@ This function judges that the distribution model is symmetric if either:
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
  a$is.symmetric()    ## TRUE
 
- a$adjust.cmp( grad = "h" )
+ a$adjust.cmp( grad = "hv" )
  a$is.symmetric()    ## TRUE
 
  a$set.cmp( data.frame( mean = c( -0.8, -0.2, 0.8, 0.2 ), sd = c( 1.2, 0.9, 1.2, 0.9 ) ) )

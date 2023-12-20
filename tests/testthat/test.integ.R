@@ -1049,7 +1049,7 @@ expect_equal( check.integ( integ.x.d.pstar, integ.x.d.pstar.via.integrate ), TRU
 
 
 ################################################################################################
-#' Test function for mean.calc function (type1.type = 3)
+#' Test function for calc.mean function (type1.type = 3)
 #'
 #' Calculates \eqn{\int_{-\infty}^{\infty} x g_k(x) dx}, \eqn{(k = 1, 2, 3)}
 #' where \eqn{g_k} is the PDF of cmp[k] of a GGD model of type1.type = 3.
@@ -1058,7 +1058,7 @@ expect_equal( check.integ( integ.x.d.pstar, integ.x.d.pstar.via.integrate ), TRU
 #' @param   sd.k        The standard deviation of cmp[k].
 #' @return  The mean value of \eqn{\int_{-\infty}^{\infty} x g_k(x) dx}.
 ################################################################################################
-mean.calc.t3.sub <- function( k, mean.k, sd.k )
+calc.mean.t3.sub <- function( k, mean.k, sd.k )
 {
     if ( k == 1 )
     {
@@ -1076,7 +1076,7 @@ mean.calc.t3.sub <- function( k, mean.k, sd.k )
     return ( mean )
 }
 
-mean.calc.t3.sub.via.integrate <- function( k, mean.k, sd.k )
+calc.mean.t3.sub.via.integrate <- function( k, mean.k, sd.k )
 {
     if ( k == 1 )
     {
@@ -1106,14 +1106,14 @@ mean.calc.t3.sub.via.integrate <- function( k, mean.k, sd.k )
 expect_equal( all( vapply( 1:3,
             function( k )
             check.integ( function( mean, sd, x )
-                         { mean.calc.t3.sub( k, mean, sd ) },
+                         { calc.mean.t3.sub( k, mean, sd ) },
                          function( mean, sd, x )
-                         { mean.calc.t3.sub.via.integrate( k, mean, sd ) }, d.range = 1e-6 ),
+                         { calc.mean.t3.sub.via.integrate( k, mean, sd ) }, d.range = 1e-6 ),
             TRUE ) ), TRUE )
 
 
 ################################################################################################
-#' Test function for v.calc function (type1.type = 3)
+#' Test function for calc.v function (type1.type = 3)
 #'
 #' Calculates \eqn{\int_{-\infty}^{\infty} (x - \mu)^2 g_k(x) dx}, \eqn{(k = 1, 2, 3)}
 #' where \mu is the mean value of a GGD model of type1.type = 3 and
@@ -1124,7 +1124,7 @@ expect_equal( all( vapply( 1:3,
 #' @param   sd.k        The standard deviation of cmp[k].
 #' @return  The mean value of \eqn{\int_{-\infty}^{\infty} x g_k(x) dx}.
 ################################################################################################
-v.calc.t3.sub <- function( k, mean, mean.k, sd.k )
+calc.v.t3.sub <- function( k, mean, mean.k, sd.k )
 {
     if ( k == 1 )
     {
@@ -1144,7 +1144,7 @@ v.calc.t3.sub <- function( k, mean, mean.k, sd.k )
     }
 }
 
-v.calc.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k, x )
+calc.v.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k, x )
 {
     if ( k == 1 )
     {
@@ -1194,9 +1194,9 @@ expect_equal( all( vapply( 1:3,
         {
             print( paste( "k:", k ) )
             check.integ( function( mean, sd, x )
-                         { v.calc.t3.sub( k, x[1], mean, sd ) },
+                         { calc.v.t3.sub( k, x[1], mean, sd ) },
                          function( mean, sd, x )
-                         { v.calc.t3.sub.via.integrate( k, x[1], mean, sd, c( -Inf, Inf ) ) },
+                         { calc.v.t3.sub.via.integrate( k, x[1], mean, sd, c( -Inf, Inf ) ) },
                          d.range = 1e-6 )
         }, TRUE ) ), TRUE )
 
@@ -1282,17 +1282,17 @@ lv.t3.sub <- function( k, mean, mean.k, sd.k )
 {
     if ( k == 1 )
     {
-        ggd:::v.calc.sub( 3, mean, mean.k, sd.k, min( mean, mean.k ), k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, min( mean, mean.k ), k = k )
     }
     else if ( k == 2 )
     {
-        ggd:::v.calc.sub( 3, mean, mean.k, sd.k, mean, k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
     }
     else if ( k == 3 )
     {
         if ( mean.k < mean )
         {
-            ggd:::v.calc.sub( 3, mean, mean.k, sd.k, mean, k = k ) -
+            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k ) -
             ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 +
             ( mean.k - mean ) * sd.k * sqrt( 2 ) / sqrt( pi ) / 2 -
             sd.k^2 * ( 4 - sqrt( 2 ) ) / 8
@@ -1313,7 +1313,7 @@ lv.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k )
     }
     else
     {
-        v.calc.t3.sub.via.integrate( k, mean, mean.k, sd.k, c( -Inf, mean ) )
+        calc.v.t3.sub.via.integrate( k, mean, mean.k, sd.k, c( -Inf, mean ) )
     }
 }
 
@@ -1383,7 +1383,7 @@ uv.t3.sub <- function( k, mean, mean.k, sd.k )
             ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 -
             ( mean.k - mean ) * sd.k * sqrt( 2 ) / sqrt( pi ) / 2 +
             sd.k^2 * ( 4 - sqrt( 2 ) ) / 8 -
-            ggd:::v.calc.sub( 3, mean, mean.k, sd.k, mean, k = k )
+            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
         }
         else
         {
@@ -1394,13 +1394,13 @@ uv.t3.sub <- function( k, mean, mean.k, sd.k )
     {
         ( mean.k - mean )^2 * sqrt( 2 ) / 2 +
         sd.k^2 * sqrt( 2 ) / 4 -
-        ggd:::v.calc.sub( 3, mean, mean.k, sd.k, mean, k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
     }
     else if ( k == 3 )
     {
         ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 2 +
         sd.k^2 * ( 4 - sqrt( 2 ) ) / 4 -
-        ggd:::v.calc.sub( 3, mean, mean.k, sd.k, max( mean, mean.k ), k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, max( mean, mean.k ), k = k )
     }
 }
 
@@ -1413,7 +1413,7 @@ uv.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k )
     }
     else
     {
-        v.calc.t3.sub.via.integrate( k, mean, mean.k, sd.k, c( mean, Inf ) )
+        calc.v.t3.sub.via.integrate( k, mean, mean.k, sd.k, c( mean, Inf ) )
     }
 }
 
@@ -2684,7 +2684,7 @@ expect_equal( check.integ.2( integ.t4.x2.psi.g.inf,
 # functions in the package
 ################################
 
-mean.calc.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
+calc.mean.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
                                      mean.3 = mean.1, sd.3 = sd.1, mean.4 = mean.4, sd.4 = sd.4 )
 {
     if ( type1.type == 2 )
@@ -2763,15 +2763,15 @@ mean.calc.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
 }
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                { ggd:::mean.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ) },
+                { ggd:::calc.mean( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ) },
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                { mean.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.2 ) },
+                { calc.mean.via.integrate( 2, mean.1, sd.1, mean.2, sd.2 ) },
                 inf.to.inf = TRUE, d.range = 1.65e-3 ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                { ggd:::mean.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ) ) },
+                { ggd:::calc.mean( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ) ) },
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                { mean.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2 ) },
+                { calc.mean.via.integrate( 3, mean.1, sd.1, mean.2, sd.2 ) },
                 inf.to.inf = TRUE ), TRUE )
 
 ## If some error have occurred in check.integ.2 for type1.type = 3, use this slower version.
@@ -2783,9 +2783,9 @@ expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
 #       print( paste( "sd.3:", sd.3 ) )
 #       e <- try( check.integ.2(
 #                       function( mean.1, sd.1, mean.2, sd.2, x )
-#                       { mean.calc( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
+#                       { calc.mean( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
 #                       function( mean.1, sd.1, mean.2, sd.2, x )
-#                       { mean.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
+#                       { calc.mean.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
 #                       inf.to.inf = TRUE,
 #                       target.cond = function( mean.1, sd.1, mean.2, sd.2, x )
 #                       {
@@ -2815,9 +2815,9 @@ function( mean.3 )
                 print( paste( "sd.3:", sd.3 ) )
                 check.integ.2(
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { ggd:::mean.calc( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
+                    { ggd:::calc.mean( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { mean.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
+                    { calc.mean.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
                     inf.to.inf = TRUE,
                     target.cond = function( mean.1, sd.1, mean.2, sd.2, x )
                     {
@@ -2848,10 +2848,10 @@ vapply( c( 1, 0.8, 1.21 ),
                             print( paste( "sd.4:", sd.4 ) )
                             check.integ.2(
                                 function( mean.2, sd.2, mean.3, sd.3, x )
-                                { ggd:::mean.calc( 4, c( mean.1, mean.2, mean.3, mean.4 ),
+                                { ggd:::calc.mean( 4, c( mean.1, mean.2, mean.3, mean.4 ),
                                                       c( sd.1, sd.2, sd.3, sd.4 ) ) },
                                 function( mean.2, sd.2, mean.3, sd.3, x )
-                                { mean.calc.via.integrate( 4, mean.1, sd.1, mean.2, sd.2,
+                                { calc.mean.via.integrate( 4, mean.1, sd.1, mean.2, sd.2,
                                                               mean.3, sd.3, mean.4, sd.4 ) },
                                 inf.to.inf = TRUE,
                                 permit.d = function( d, abs.error, info, parent.info )
@@ -2878,10 +2878,10 @@ vapply( c( 1, 0.8, 1.21 ),
                                             sd.3    <- parent.info$sd
                                         }
 
-                                        abs( ggd:::mean.calc( 4,
+                                        abs( ggd:::calc.mean( 4,
                                                     c( mean.1, mean.2, mean.3, mean.4 ),
                                                     c( sd.1, sd.2, sd.3, sd.4 ) ) -
-                                             mean.calc.via.integrate( 4,
+                                             calc.mean.via.integrate( 4,
                                                     mean.1, sd.1, mean.2, sd.2,
                                                     mean.3, sd.3, mean.4, sd.4 )$value ) < abs.error * 64
                                     }
@@ -2889,11 +2889,11 @@ vapply( c( 1, 0.8, 1.21 ),
                         }, TRUE ), rep( TRUE, 3 ) ), rep( TRUE, 9 ) ), rep( TRUE, 27 ) ) ), TRUE )
 
 
-v.calc.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
+calc.v.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
                                   mean.3 = mean.1, sd.3 = sd.1, mean.4 = mean.2, sd.4 = sd.2,
                                   get.lv = FALSE, get.uv = FALSE )
 {
-    mean <- ggd:::mean.calc( type1.type, c( mean.1, mean.2, mean.3, mean.4 ), c( sd.1, sd.2, sd.3, sd.4 ) )
+    mean <- ggd:::calc.mean( type1.type, c( mean.1, mean.2, mean.3, mean.4 ), c( sd.1, sd.2, sd.3, sd.4 ) )
 
     if ( type1.type == 1 )
     {
@@ -3051,7 +3051,7 @@ v.calc.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
     }
     #else if ( type1.type == 4 )
     #{
-    ##  For type1.type == 4, use cdg:::v.calc.t4.via.integrate instead of this fuction.
+    ##  For type1.type == 4, use cdg:::calc.v.t4.via.integrate instead of this fuction.
     #}
 
     return( result )
@@ -3059,102 +3059,102 @@ v.calc.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.1, sd.2 ), inf.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.1, sd.2 ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE, get.lv = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE, get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.1, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.1, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE, get.uv = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.1 ), c( sd.1, sd.2 ), symmetric = TRUE, get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.1, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.1, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.2, sd.1 ),
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.2, sd.1 ),
                 inf.to.inf = TRUE, d.range = 5e-5 ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.2, sd.1, get.lv = TRUE ),
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.2, sd.1, get.lv = TRUE ),
                 inf.to.x = TRUE, d.range = 5e-5 ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
+                ggd:::calc.v( 1, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 1, mean.1, sd.1, mean.2, sd.1, get.uv = TRUE ),
+                calc.v.via.integrate( 1, mean.1, sd.1, mean.2, sd.1, get.uv = TRUE ),
                  x.to.inf = TRUE, d.range = 5e-5 ), TRUE )
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.2 ), inf.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.2 ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.lv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.uv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
-
-
-expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE ),
-                function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.1 ), inf.to.inf = TRUE ), TRUE )
-
-expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
-                function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.1, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
-
-expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
-                function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 2, mean.1, sd.1, mean.2, sd.1, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ) ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2 ), inf.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.1 ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.lv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.1, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.uv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 2, mean.1, sd.1, mean.2, sd.1, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ) ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.1, sd.2 ), inf.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2 ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.1, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.1, sd.1, mean.1, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
+
+
+expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
+                ggd:::calc.v( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE ),
+                function( mean.1, sd.1, mean.2, sd.2, x )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.1, sd.2 ), inf.to.inf = TRUE ), TRUE )
+
+expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
+                ggd:::calc.v( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
+                function( mean.1, sd.1, mean.2, sd.2, x )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.1, sd.2, get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
+
+expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
+                ggd:::calc.v( 3, c( mean.1, mean.1, mean.1 ), c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
+                function( mean.1, sd.1, mean.2, sd.2, x )
+                calc.v.via.integrate( 3, mean.1, sd.1, mean.1, sd.2, get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
 
 expect_equal( all( vapply( means,
 function( mean.3 )
@@ -3166,9 +3166,9 @@ function( mean.3 )
                 print( paste( "sd.3:", sd.3 ) )
                 check.integ.2(
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { ggd:::v.calc( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
+                    { ggd:::calc.v( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ) ) },
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
+                    { calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3 ) },
                     inf.to.inf = TRUE,
                     target.cond = function( mean.1, sd.1, mean.2, sd.2, x )
                     {
@@ -3192,10 +3192,10 @@ function( mean.3 )
                 print( paste( "sd.3:", sd.3 ) )
                 check.integ.2(
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { ggd:::v.calc( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ),
+                    { ggd:::calc.v( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ),
                                     get.lv = TRUE ) },
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3,
+                    { calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3,
                                             get.lv = TRUE ) },
                     inf.to.x = TRUE,
                     target.cond = function( mean.1, sd.1, mean.2, sd.2, x )
@@ -3220,10 +3220,10 @@ function( mean.3 )
                 print( paste( "sd.3:", sd.3 ) )
                 check.integ.2(
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { ggd:::v.calc( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ),
+                    { ggd:::calc.v( 3, c( mean.1, mean.2, mean.3 ), c( sd.1, sd.2, sd.3 ),
                                     get.uv = TRUE ) },
                     function( mean.1, sd.1, mean.2, sd.2, x )
-                    { v.calc.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3,
+                    { calc.v.via.integrate( 3, mean.1, sd.1, mean.2, sd.2, mean.3, sd.3,
                                             get.uv = TRUE ) },
                     x.to.inf = TRUE,
                     target.cond = function( mean.1, sd.1, mean.2, sd.2, x )
@@ -3240,28 +3240,28 @@ function( mean.3 )
 
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
+                ggd:::calc.v( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
                                  c( sd.1, sd.2, sd.1 ), symmetric = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.2 - mean.1, sd.1,
+                calc.v.via.integrate( 3, mean.2 - mean.1, sd.1,
                                          mean.2,          sd.2,
                                          mean.2 + mean.1, sd.1 ),
                 inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
+                ggd:::calc.v( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
                                  c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.2 - mean.1, sd.1,
+                calc.v.via.integrate( 3, mean.2 - mean.1, sd.1,
                                          mean.2,          sd.2,
                                          mean.2 + mean.1, sd.1, get.lv = TRUE ),
                 inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
+                ggd:::calc.v( 3, c( mean.2 - mean.1, mean.2, mean.2 + mean.1 ),
                                  c( sd.1, sd.2, sd.1 ), symmetric = TRUE, get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                v.calc.via.integrate( 3, mean.2 - mean.1, sd.1,
+                calc.v.via.integrate( 3, mean.2 - mean.1, sd.1,
                                          mean.2,          sd.2,
                                          mean.2 + mean.1, sd.1, get.uv = TRUE ),
                 x.to.inf = TRUE ), TRUE )
@@ -3271,7 +3271,7 @@ expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
 # to search out copy errors betweeen this file and the GGD.R source around *.t3.sub.
 lv.t3.test <- function( means, sds )
 {
-    mean <- ggd:::mean.calc( 3, means, sds )
+    mean <- ggd:::calc.mean( 3, means, sds )
 
     lv.t3.sub( 1, mean, means[1], sds[1] ) +
     lv.t3.sub( 2, mean, means[2], sds[2] ) +
@@ -3280,7 +3280,7 @@ lv.t3.test <- function( means, sds )
 
 uv.t3.test <- function( means, sds )
 {
-    mean <- ggd:::mean.calc( 3, means, sds )
+    mean <- ggd:::calc.mean( 3, means, sds )
 
     uv.t3.sub( 1, mean, means[1], sds[1] ) +
     uv.t3.sub( 2, mean, means[2], sds[2] ) +
@@ -3288,7 +3288,7 @@ uv.t3.test <- function( means, sds )
 }
 ########
 
-v.calc.sub.t4.via.integrate <- function( mean, mean.1, sd.1, mean.2, sd.2 )
+calc.v.sub.t4.via.integrate <- function( mean, mean.1, sd.1, mean.2, sd.2 )
 {
     integrate( function( x )
                 {
@@ -3308,15 +3308,15 @@ function( mean )
     print( paste( "whole mean:", mean ) )
     check.integ.2(
         function( mean.1, sd.1, mean.2, sd.2, x )
-        { ggd:::v.calc.sub.t4( c( mean.1, mean.2 ), c( sd.1, sd.2 ) ) },
+        { ggd:::calc.v.sub.t4( c( mean.1, mean.2 ), c( sd.1, sd.2 ) ) },
         function( mean.1, sd.1, mean.2, sd.2, x )
-        { v.calc.sub.t4.via.integrate( mean, mean.1, sd.1, mean.2, sd.2 ) },
+        { calc.v.sub.t4.via.integrate( mean, mean.1, sd.1, mean.2, sd.2 ) },
         inf.to.inf = TRUE,
         permit.d = function( d, abs.error, info, parent.info )
         {
             ( abs( d ) < 1 && abs( d ) < abs.error * 64 ) ||
-            abs( ggd:::v.calc.sub.t4( c( mean.1, mean.2 - 0.05 ), c( sd.1, sd.2 ) ) -
-                 v.calc.sub.t4.via.integrate( mean, mean.1, sd.1,
+            abs( ggd:::calc.v.sub.t4( c( mean.1, mean.2 - 0.05 ), c( sd.1, sd.2 ) ) -
+                 calc.v.sub.t4.via.integrate( mean, mean.1, sd.1,
                                               mean.2 - 0.05, sd.2 )$value ) < abs.error * 64
         } )
 }, TRUE ) ), TRUE )
@@ -3338,10 +3338,10 @@ vapply( c( 1, 0.8, 1.21 ),
 
                             check.integ.2(
                                 function( mean.2, sd.2, mean.3, sd.3, x )
-                                { ggd:::v.calc( 4, c( mean.1, mean.2, mean.3, mean.4 ),
+                                { ggd:::calc.v( 4, c( mean.1, mean.2, mean.3, mean.4 ),
                                                    c( sd.1, sd.2, sd.3, sd.4 ) ) },
                                 function( mean.2, sd.2, mean.3, sd.3, x )
-                                { ggd:::v.calc.t4.via.integrate( c( mean.1, mean.2, mean.3, mean.4 ),
+                                { ggd:::calc.v.t4.via.integrate( c( mean.1, mean.2, mean.3, mean.4 ),
                                                                  c( sd.1, sd.2, sd.3, sd.4 ) ) },
                                 inf.to.inf = TRUE,
                                 permit.d = function( d, abs.error, info, parent.info )
@@ -3368,10 +3368,10 @@ vapply( c( 1, 0.8, 1.21 ),
                                             sd.3    <- parent.info$sd
                                         }
 
-                                        abs( ggd:::v.calc( 4,
+                                        abs( ggd:::calc.v( 4,
                                                     c( mean.1, mean.2, mean.3, mean.4 ),
                                                     c( sd.1, sd.2, sd.3, sd.4 ) ) -
-                                             ggd:::v.calc.t4.via.integrate(
+                                             ggd:::calc.v.t4.via.integrate(
                                                     c( mean.1, mean.2, mean.3, mean.4 ),
                                                     c( sd.1, sd.2, sd.3, sd.4 ) )$value ) < abs.error * 64
                                     }
@@ -3379,43 +3379,43 @@ vapply( c( 1, 0.8, 1.21 ),
                         }, TRUE ), rep( TRUE, 3 ) ), rep( TRUE, 9 ) ), rep( TRUE, 27 ) ) ), TRUE )
 
 ## These get.uv/get.lv options are not supported yet for type1.type = 4.
-expect_error( ggd:::v.calc( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.uv = TRUE ), "not supported yet" )
+expect_error( ggd:::calc.v( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.uv = TRUE ), "not supported yet" )
 
-expect_error( ggd:::v.calc( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.lv = TRUE ), "not supported yet" )
+expect_error( ggd:::calc.v( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.lv = TRUE ), "not supported yet" )
 ########
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
                                                c( sd.1, sd.1, sd.2, sd.2 ) ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.lv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
                                                c( sd.1, sd.1, sd.2, sd.2 ), get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.uv = TRUE ),
+                ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ), get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.1, mean.2, mean.2 ),
                                                c( sd.1, sd.1, sd.2, sd.2 ), get.uv = TRUE ), x.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2,sd.1 ) ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2,sd.1 ) ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
                                                c( sd.1, sd.2, sd.1, sd.2 ) ), inf.to.inf = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.lv = TRUE ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.lv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
                                                c( sd.1, sd.2, sd.1, sd.2 ), get.lv = TRUE ), inf.to.x = TRUE ), TRUE )
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.uv = TRUE ),
+                ggd:::calc.v( 3, c( mean.1, mean.2, mean.1 ), c( sd.1, sd.2, sd.1 ), get.uv = TRUE ),
                 function( mean.1, sd.1, mean.2, sd.2, x )
-                ggd:::v.calc.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
+                ggd:::calc.v.t4.via.integrate( c( mean.1, mean.2, mean.1, mean.2 ),
                                                c( sd.1, sd.2, sd.1, sd.2 ), get.uv = TRUE ), x.to.inf = TRUE ), TRUE )

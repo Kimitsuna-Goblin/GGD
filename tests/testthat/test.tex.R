@@ -17,135 +17,189 @@ expect_error( expect_warning( readLines( tmpfile ), "No such file or directory" 
 
 ## tex function
 # mix.type = 0
-a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 0",
+{
+    a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 1
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 1",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 3, vgrad.2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
-a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 3, vgrad.3",
+{
+    a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 4
-a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
-a$tex( tmpfile )
-x.tex <- readLines( tmpfile )
-expect_snapshot( cat( x.tex, sep = "\n" ) )
+test_that( "Normal output: mix.type = 4",
+{
+    a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
+    a$tex( tmpfile )
+    x.tex <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex, sep = "\n" ) )
+} )
 unlink( tmpfile )
 rm( x.tex )
 
 
 ## tex.d function
 # mix.type = 0
-a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 0",
+{
+    a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 1
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 1",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 3, vgrad.2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
-a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 3, vgrad.3",
+{
+    a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 4
-a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
-a$tex.d( tmpfile )
-x.tex.d <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+test_that( "tex.d: mix.type = 4",
+{
+    a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
+    a$tex.d( tmpfile )
+    x.tex.d <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+} )
 unlink( tmpfile )
 rm( x.tex.d )
 
 
 ## tex.p function
 # mix.type = 0
-a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 0",
+{
+    a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 1
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 1",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 1 )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), this.mix.type = 2 )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 3, vgrad.2",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
-a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 3, vgrad.3",
+{
+    a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 
 # mix.type = 4
-a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
-a$tex.p( tmpfile )
-x.tex.p <- readLines( tmpfile )
-expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+test_that( "tex.p: mix.type = 4",
+{
+    a$set.cmp( data.frame( mean = 1:4, sd = 1:4 * 0.5 ), this.mix.type = 4 )
+    a$tex.p( tmpfile )
+    x.tex.p <- readLines( tmpfile )
+    expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+} )
 unlink( tmpfile )
 rm( x.tex.p )
 
@@ -174,10 +228,13 @@ expect_output( a$tex.p(), paste( "[\\]Psi.x.[^\n]+[,]..\n" ) )
 
 #### Changing sep value
 # normal tests
-a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
-expect_snapshot( a$tex( sep = "--" ) )
-expect_snapshot( a$tex.d( sep = "+++" ) )
-expect_snapshot( a$tex.p( sep = "****" ) )
+test_that( "Changing sep value",
+{
+    a$set.cmp( data.frame( mean = 1, sd = 0.5 ), this.mix.type = 0 )
+    expect_snapshot( a$tex( sep = "--" ) )
+    expect_snapshot( a$tex.d( sep = "+++" ) )
+    expect_snapshot( a$tex.p( sep = "****" ) )
+} )
 
 # Error case
 b <- a$copy()
@@ -357,11 +414,14 @@ expect_output( a$tex( format.num = function( x ) sprintf( "%.5f", x ) ),
 #### Changing frac.env value
 ## Currently, only the tex and tex.p methods are tested.
 ## Since there is no part which frac.env effects in expressions output by the tex.d method.
-a$set.cmp( data.frame( mean = 1:2, sd = 1:2 + 0.5 ), grad = "v2" )
-expect_snapshot( a$tex( frac.env = "array" ) )
-expect_snapshot( a$tex( frac.env = "aligned" ) )
-expect_snapshot( a$tex( frac.env = "gathered" ) )
-expect_snapshot( a$tex( frac.env = "default" ) )
+test_that( "Changing frac.env value",
+{
+    a$set.cmp( data.frame( mean = 1:2, sd = 1:2 + 0.5 ), grad = "v2" )
+    expect_snapshot( a$tex( frac.env = "array" ) )
+    expect_snapshot( a$tex( frac.env = "aligned" ) )
+    expect_snapshot( a$tex( frac.env = "gathered" ) )
+    expect_snapshot( a$tex( frac.env = "default" ) )
+} )
 
 # Error case
 expect_error( a$tex( frac.env = "multline" ), "should be one of" )
@@ -370,56 +430,74 @@ expect_error( a$tex( frac.env = "multline" ), "should be one of" )
 #### Outputs of eq.mean and eq.sd objects
 
 # mix.type = 1
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), this.mix.type = 1 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex.d() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 1",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), this.mix.type = 1 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex.d() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 1 )$tex.p() )
+} )
 
 # mix.type = 2
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), this.mix.type = 2 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex.d() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 2",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), this.mix.type = 2 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex.d() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex.p() )
+} )
 
 # mix.type = 3, vgrad.2
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), grad = "v2" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex.d() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.2",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), grad = "v2" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex.d() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex.p() )
+} )
 
 # mix.type = 3, vgrad.3
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = 1:3 + 0.5 ), grad = "v3" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = 1:3, sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.d() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.3",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = 1:3 + 0.5 ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = 1:3, sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.d() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.p() )
+} )
 
 expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2 ), sd = c( 1.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
 expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 2 ), sd = c( 2.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
 expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1 ), sd = c( 2.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
 
 # mix.type = 4
-expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = 1:4 + 0.5 ), this.mix.type = 4 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = 1:4, sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex.d() )
-expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 4 -- 1/2",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = 1:4 + 0.5 ), this.mix.type = 4 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = 1:4, sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex.d() )
+    expect_snapshot( a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = rep( 1.5, 4 ) ), this.mix.type = 4 )$tex.p() )
+} )
 
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 2 ), sd = c( 1.5, 1.5, 2.5, 2.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1, 2 ), sd = c( 2.5, 1.5, 1.5, 2.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 2 ), sd = c( 1.5, 2.5, 1.5, 2.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 2, 2 ), sd = c( 1.5, 2.5, 2.5, 2.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 1 ), sd = c( 1.5, 2.5, 1.5, 1.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 1 ), sd = c( 1.5, 1.5, 2.5, 1.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1, 2 ), sd = c( 1.5, 1.5, 1.5, 2.5 ) ),
-                            this.mix.type = 4 )$tex.p() )
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 4 -- 2/2",
+{
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 2 ), sd = c( 1.5, 1.5, 2.5, 2.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1, 2 ), sd = c( 2.5, 1.5, 1.5, 2.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 2 ), sd = c( 1.5, 2.5, 1.5, 2.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 2, 2 ), sd = c( 1.5, 2.5, 2.5, 2.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 1 ), sd = c( 1.5, 2.5, 1.5, 1.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 1 ), sd = c( 1.5, 1.5, 2.5, 1.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1, 2 ), sd = c( 1.5, 1.5, 1.5, 2.5 ) ),
+                                this.mix.type = 4 )$tex.p() )
+} )
 
