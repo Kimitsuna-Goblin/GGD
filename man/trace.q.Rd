@@ -6,11 +6,13 @@
 \alias{\S4method{trace.q}{GGD}}
 \title{Quantile tracing}
 \usage{
-ggd.trace.q(quantiles, x = "x", p = "p", mix.type = NULL,
+ggd.trace.q(quantiles, x = "x", p = "p",
+         kind = NULL, mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
          eq.mean = logical(), eq.sd = logical(), control = list())
 
-\S4method{trace.q}{GGD}(quantiles, x = "x", p = "p", this.mix.type = NULL,
+\S4method{trace.q}{GGD}(quantiles, x = "x", p = "p",
+         this.kind = NULL, this.mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
          eq.mean = logical(), eq.sd = logical(), control = list())
 }

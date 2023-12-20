@@ -2713,10 +2713,12 @@ GGD$methods(
 #' @aliases ggd.trace.q
 #' @aliases trace.q
 #' @aliases \S4method{trace.q}{GGD}
-#' @usage   ggd.trace.q(quantiles, x = "x", p = "p", mix.type = NULL,
+#' @usage   ggd.trace.q(quantiles, x = "x", p = "p",
+#'          kind = NULL, mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
 #'          eq.mean = logical(), eq.sd = logical(), control = list())
-#' @usage   \S4method{trace.q}{GGD}(quantiles, x = "x", p = "p", this.mix.type = NULL,
+#' @usage   \S4method{trace.q}{GGD}(quantiles, x = "x", p = "p",
+#'          this.kind = NULL, this.mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
 #'          eq.mean = logical(), eq.sd = logical(), control = list())
 #' @param   quantiles   A data frame which represents the quantiles to be traced.
@@ -5040,8 +5042,10 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
 #'  means <- rep( 0.5, 3 ); sds <- rep( 2.5, 3 )
 #'  ggd.get.t3.cmp( means, sds )                    # 2 components even if normal distribution
 ################################################################################################
-ggd.get.t3.cmp <- function( means, sds, grad )
+ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 {
+    grad <- match.arg( grad )
+
     if ( grad != "v3" && means[1] == means[3] && sds[1] == sds[3] )
     {
         cmp <- data.frame( mean = means[1:2], sd = sds[1:2] )

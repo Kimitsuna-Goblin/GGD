@@ -4,7 +4,7 @@
 \alias{ggd.get.t3.cmp}
 \title{Get cmp field for mix.type = 3}
 \usage{
-ggd.get.t3.cmp(means, sds, grad)
+ggd.get.t3.cmp(means, sds, grad = c("default", "v2", "v3"))
 }
 \arguments{
 \item{means}{A vector of mean values of the 3 normal distributions of the components.}

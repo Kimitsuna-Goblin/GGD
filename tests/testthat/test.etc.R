@@ -48,6 +48,32 @@ expect_equal( a$cmp$sd, 1:4 )
 a$adjust.kind.index()
 a$adjust.median.mean.sd()
 
+#### ggd.get.t3.cmp
+expect_error( ggd.get.t3.cmp( c( 0, 0 ), c( 1, 1 ) ) )
+expect_error( ggd.get.t3.cmp( c( 0, 0 ), c( 1, 1 ), "h" ) )
+expect_error( ggd.get.t3.cmp( c( 0, 0 ), c( 1, 1 ), "hv" ) )
+
+expect_identical( ggd.get.t3.cmp( rep( 1, 3 ), rep( 2, 3 ) ),
+                  data.frame( mean = c( 1, 1 ), sd = c( 2, 2 ) ) )
+
+expect_identical( ggd.get.t3.cmp( rep( 1.5, 3 ), rep( 2.5, 3 ), "default" ),
+                  data.frame( mean = c( 1.5, 1.5 ), sd = c( 2.5, 2.5 ) ) )
+
+expect_identical( ggd.get.t3.cmp( rep( 0.5, 3 ), rep( 1.5, 3 ), "v2" ),
+                  data.frame( mean = c( 0.5, 0.5 ), sd = c( 1.5, 1.5 ) ) )
+
+expect_identical( ggd.get.t3.cmp( rep( 1.5, 3 ), rep( 2, 3 ), "v3" ),
+                  data.frame( mean = c( 1.5, 1.5, 1.5 ), sd = c( 2, 2, 2 ) ) )
+
+expect_identical( ggd.get.t3.cmp( c( 1, 0.5, 1 ), c( 2, 1, 2 ), "v2" ),
+                  data.frame( mean = c( 1, 0.5 ), sd = c( 2, 1 ) ) )
+
+expect_identical( ggd.get.t3.cmp( c( 1, 0.5, 1 ), c( 2, 1, 2 ), "v3" ),
+                  data.frame( mean = c( 1, 0.5, 1 ), sd = c( 2, 1, 2 ) ) )
+
+expect_identical( ggd.get.t3.cmp( c( 1, 1, 0.5 ), c( 2, 2, 1 ), "v2" ),
+                  data.frame( mean = c( 1, 1, 0.5 ), sd = c( 2, 2, 1 ) ) )
+
 #### invalid mix.type
 a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), grad = "h" )
 a$mix.type <- -1L       ## Don't do it! (this is just for test)

@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^backup$
+^work$
+^.*\.lnk$
