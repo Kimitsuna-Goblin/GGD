@@ -2,7 +2,8 @@
 ## This file is to test TeX-formatted output with snapshots.
 ################################################################################################
 
-source( "tests/testthat/setup.R" )
+# For interactive test, load setup.R expressly.
+if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 a <- GGD$new()
 tmpfile <- tempfile( fileext = ".txt" )

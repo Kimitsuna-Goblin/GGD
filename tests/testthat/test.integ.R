@@ -6,7 +6,8 @@
 ##          it outputs over 1,000,000 lines of text (about 23MB size).
 ################################################################################################
 
-source( "tests/testthat/setup.R" )
+# For interactive test, load setup.R expressly.
+if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 ################################
 # test routines

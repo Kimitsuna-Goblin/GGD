@@ -2,7 +2,8 @@
 ## This file is to test ggd.set.cmp and other functions to adjust fields.
 ################################################################################################
 
-source( "tests/testthat/setup.R" )
+# For interactive test, load setup.R expressly.
+if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 a <- GGD$new()
 

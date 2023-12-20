@@ -2,7 +2,8 @@
 ## This file is to test cases which are not tested in other files.
 ################################################################################################
 
-source( "tests/testthat/setup.R" )
+# For interactive test, load setup.R expressly.
+if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
