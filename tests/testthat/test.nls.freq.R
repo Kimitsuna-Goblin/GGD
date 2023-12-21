@@ -546,7 +546,7 @@ expect_error( a$nls.freq( df, this.kind = character() ),
 expect_cleared( a ); a <- GGD$new()
 expect_error( ggd.nls.freq( df, kind = 1:2 ),
               "kind should be valid single value or a GGD object" )
-expect_error( a$nls.freq( df, kind = 1:2 ),
+expect_error( a$nls.freq( df, this.kind = 1:2 ),
               "kind should be valid single value or a GGD object" )
 expect_cleared( a ); a <- GGD$new()
 expect_error( ggd.nls.freq( df, kind = c( "Normal", "Horizontal" ) ),
