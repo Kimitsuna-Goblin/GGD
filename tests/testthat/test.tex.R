@@ -23,8 +23,8 @@ test_that( "Normal output: mix.type = 0",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 1
 test_that( "Normal output: mix.type = 1",
@@ -33,8 +33,8 @@ test_that( "Normal output: mix.type = 1",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 2
 test_that( "Normal output: mix.type = 2",
@@ -43,8 +43,8 @@ test_that( "Normal output: mix.type = 2",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
 test_that( "Normal output: mix.type = 3, vgrad.2",
@@ -53,8 +53,8 @@ test_that( "Normal output: mix.type = 3, vgrad.2",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
 test_that( "Normal output: mix.type = 3, vgrad.3",
@@ -63,8 +63,8 @@ test_that( "Normal output: mix.type = 3, vgrad.3",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 4
 test_that( "Normal output: mix.type = 4",
@@ -73,9 +73,9 @@ test_that( "Normal output: mix.type = 4",
     a$tex( tmpfile )
     x.tex <- readLines( tmpfile )
     expect_snapshot( cat( x.tex, sep = "\n" ) )
+    unlink( tmpfile )
+    rm( x.tex )
 } )
-unlink( tmpfile )
-rm( x.tex )
 
 
 ## tex.d function
@@ -86,8 +86,8 @@ test_that( "tex.d: mix.type = 0",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 1
 test_that( "tex.d: mix.type = 1",
@@ -96,8 +96,8 @@ test_that( "tex.d: mix.type = 1",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 2
 test_that( "tex.d: mix.type = 2",
@@ -106,8 +106,8 @@ test_that( "tex.d: mix.type = 2",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
 test_that( "tex.d: mix.type = 3, vgrad.2",
@@ -116,8 +116,8 @@ test_that( "tex.d: mix.type = 3, vgrad.2",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
 test_that( "tex.d: mix.type = 3, vgrad.3",
@@ -126,8 +126,8 @@ test_that( "tex.d: mix.type = 3, vgrad.3",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 4
 test_that( "tex.d: mix.type = 4",
@@ -136,9 +136,9 @@ test_that( "tex.d: mix.type = 4",
     a$tex.d( tmpfile )
     x.tex.d <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.d, sep = "\n" ) )
+    unlink( tmpfile )
+    rm( x.tex.d )
 } )
-unlink( tmpfile )
-rm( x.tex.d )
 
 
 ## tex.p function
@@ -149,8 +149,8 @@ test_that( "tex.p: mix.type = 0",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 1
 test_that( "tex.p: mix.type = 1",
@@ -159,8 +159,8 @@ test_that( "tex.p: mix.type = 1",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 2
 test_that( "tex.p: mix.type = 2",
@@ -169,8 +169,8 @@ test_that( "tex.p: mix.type = 2",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.2
 test_that( "tex.p: mix.type = 3, vgrad.2",
@@ -179,8 +179,8 @@ test_that( "tex.p: mix.type = 3, vgrad.2",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 3, vgrad.3
 test_that( "tex.p: mix.type = 3, vgrad.3",
@@ -189,8 +189,8 @@ test_that( "tex.p: mix.type = 3, vgrad.3",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
 } )
-unlink( tmpfile )
 
 # mix.type = 4
 test_that( "tex.p: mix.type = 4",
@@ -199,9 +199,9 @@ test_that( "tex.p: mix.type = 4",
     a$tex.p( tmpfile )
     x.tex.p <- readLines( tmpfile )
     expect_snapshot( cat( x.tex.p, sep = "\n" ) )
+    unlink( tmpfile )
+    rm( x.tex.p )
 } )
-unlink( tmpfile )
-rm( x.tex.p )
 
 
 #### Output to console
@@ -467,11 +467,11 @@ test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.3",
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.d() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex.p() )
-} )
 
-expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2 ), sd = c( 1.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 2 ), sd = c( 2.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
-expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1 ), sd = c( 2.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2 ), sd = c( 1.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 2 ), sd = c( 2.5, 1.5, 2.5 ) ), grad = "v3" )$tex() )
+    expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1 ), sd = c( 2.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )
+} )
 
 # mix.type = 4
 test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 4 -- 1/2",

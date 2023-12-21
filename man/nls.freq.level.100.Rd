@@ -27,7 +27,7 @@ It must contain 2 numeric columns named \code{x} and \code{freq}.}
 
 \item{mix.type}{A numeric value to set into \code{mix.type} field of
 the \code{\link[ggd]{GGD}} object as an integer.
-You can specify a value in \code{0:4}.}
+It is an integer from \code{0} to \code{4} or \code{NULL}.}
 
 \item{grad}{A character string indicating the method of gradation.
 See \code{\link[ggd]{nls.freq}} for more information.}

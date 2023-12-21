@@ -120,14 +120,14 @@ expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 1.5 ) )
 
 expect_no_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1.2, 1.5 ) ),
-                                     kind = c( "Horizontal", "Vertical" ) ) )
+                                     kind = c( "Horizontal" ) ) )
 expect_equal( a$mix.type, 2 )
 expect_equal( a$kind, "Mean-Equaled Sigma-Differed Horizontal Gradational Distribution" )
 expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1.2, 1.5 ) )
 
 expect_no_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1.2, 1.7 ) ),
-                                     kind = list( 3, 5, 10 ) ) )
+                                     kind = 3 ) )
 expect_equal( a$mix.type, 1 )
 expect_equal( a$kind.index, 3 )
 expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
@@ -389,12 +389,44 @@ expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
               "kind for index 17 is undefined" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.kind = 1:2 ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           kind = 1:16 ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.kind = list( 3, 5, 10 ) ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           kind = list( 4, 8, 12 ) ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.kind = c( "Horizontal", "Vertical" ) ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           kind = c( "Normal", NA ) ),
+              "kind should be valid single value or a GGD object" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.mix.type = -1 ),
-              "mix.type -1 is undefined" )
+              "mix.type should be single integer from 0 to 4" )
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            mix.type = 5 ),
-              "mix.type 5 is undefined" )
+              "mix.type should be single integer from 0 to 4" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.mix.type = 2:3 ),
+              "mix.type should be single integer from 0 to 4" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           mix.type = c( -3, NA ) ),
+              "mix.type should be single integer from 0 to 4" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          grad = "aaaaa" ), "should be one of" )
@@ -468,14 +500,15 @@ expect_equal( a$mix.type, 1 )
 
 ## Basic Errors
 a <- GGD$new()
-expect_error( a$adjust.cmp( -1 ), "mix.type -1 is undefined" )
-expect_error( a$adjust.cmp( 5 ), "mix.type 5 is undefined" )
-expect_error( a$adjust.cmp( NA ), "NA for mix.type can be specified only if cmp has no rows" )
+expect_error( a$adjust.cmp( -1 ),   "mix.type should be single integer from 0 to 4" )
+expect_error( a$adjust.cmp( 5 ),    "mix.type should be single integer from 0 to 4" )
+expect_error( a$adjust.cmp( 1:2 ),  "mix.type should be single integer from 0 to 4" )
+expect_error( a$adjust.cmp( NA ),   "NA for mix.type can be specified only if cmp has no rows" )
 
 a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1, 2 ) ) )
-a$mix.type <- integer()     ## Don't do it! (this is just for test)
-expect_error( a$adjust.cmp(), "Cannot identify current mix.type" )
-expect_error( a$adjust.cmp( 2 ), "Cannot identify current mix.type" )
+a$mix.type <- integer() ## Don't do it! (this is just for test)
+expect_error( a$adjust.cmp(),       "Cannot identify current mix.type" )
+expect_error( a$adjust.cmp( 2 ),    "Cannot identify current mix.type" )
 
 a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1, 2 ) ), this.mix.type = 1 )
 expect_error( a$adjust.cmp( 0 ), "Not appropriate for current distribution model" )

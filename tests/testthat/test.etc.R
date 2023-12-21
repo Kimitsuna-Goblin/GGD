@@ -151,6 +151,11 @@ expect_identical( ggd.mix.type.for( NULL, mix.type = NA ), NA_integer_ )
 expect_equal( ggd.mix.type.for( NULL, mix.type = -1 ), -1 )
 expect_equal( ggd.mix.type.for( NULL, mix.type = 5 ), 5 )
 
+#### lengths of default values of ggd.mix.type.for
+expect_identical( ggd.mix.type.for( NULL, kind = 1:2 ), c( 0L, 1L ) )
+expect_identical( ggd.mix.type.for( NULL, kind = c( "2.*Ver", "Hor" ) ), c( 3L, 2L ) )
+expect_identical( ggd.mix.type.for( NULL, mix.type = 1:10 ), 1:10 )
+
 # "v" for analias of "v2"
 expect_equal( ggd.mix.type.for( "v" ), 3 )
 

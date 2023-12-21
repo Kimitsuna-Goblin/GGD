@@ -13,7 +13,7 @@
 
                      If \code{NULL} (the default), \code{mix.type} field will be set to
                      the smallest number which can represent the distribution model.
-                     Normally, it must be in \code{0:4}.
+                     Normally, it should be an integer from \code{0} to \code{4}.
                      \code{NA} is allowed only if \code{cmp} field has no rows.}
 
 \item{grad}{A character string indicating the method of gradation.

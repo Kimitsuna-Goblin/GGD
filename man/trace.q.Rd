@@ -57,7 +57,7 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      can overwrite the conditions of this argument.}
 
 \item{mix.type}{A numeric value to set into \code{mix.type} field as an integer.
-                     You can specify a value in \code{0:4} or \code{NULL}.
+                     It should be an integer from \code{0} to \code{4} or \code{NULL}.
 
                      Each value represents the following type of distribution:
                      \itemize{
@@ -144,7 +144,7 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      of the generator function (signature '\code{NULL}').
 
                      If this method is called without \code{this.kind} argument,
-                     flags, or other conditions, it attempt to retain the value of
+                     \code{grad}, or other conditions, it attempt to retain the value of
                      \code{mix.type} field as much as possible, but not the value of
                      \code{kind} field, i.e., the condition whether the mean value or
                      standard deviation of each component is aligned may not be retained.
@@ -153,7 +153,7 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      \code{obj$trace.q(quantiles, this.kind = obj)}.}
 
 \item{this.mix.type}{A numeric value to set into \code{mix.type} field as an integer.
-                         You can specify a value in \code{0:4} or \code{NULL}.
+                         It should be an integer from \code{0} to \code{4} or \code{NULL}.
 
                      If \code{NULL}, the current \code{mix.type} field will be retained
                      (and number of components, too) if it could trace the quantiles.

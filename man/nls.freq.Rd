@@ -72,7 +72,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 
 \item{mix.type}{A numeric value to set into \code{mix.type} field of
                      the \code{\link[ggd]{GGD}} object as an integer.
-                     You can specify a value in \code{0:4}.
+                     It should be an integer from \code{0} to \code{4} or \code{NULL}.
 
                      The type of the distribution model will be as:
                      \itemize{

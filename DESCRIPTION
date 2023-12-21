@@ -4,14 +4,14 @@ Title: What the Package Does (Title Case)
 Version: 1.0.0
 Author: Kimitsuna-Goblin
 Maintainer: Kimitsuna-Goblin <kimitsuna@i.softbank.jp>
-Description: A package provides the Gradational Gaussian Distribution models;
-    they approximate asymmetric frequency distributions or trace quantiles accurately.
+Description: Reference class of the Gradational Gaussian Distribution
+    with methods of approximating frequency distributions and tracing quantiles.
 Depends: R (>= 2.12), methods
 Imports: nleqslv
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0), rlang (>= 1.1.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.2.3

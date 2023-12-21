@@ -865,7 +865,8 @@
 ---
 
     Code
-      a$set.cmp(data.frame(mean = c(1, 1, 2), sd = c(1.5, 1.5, 2.5)), grad = "v3")$tex()
+      a$set.cmp(data.frame(mean = c(1, 1, 2), sd = c(1.5, 1.5, 2.5)), grad = "v3")$
+      tex()
     Output
       \begin{align}
       g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
@@ -898,7 +899,8 @@
 ---
 
     Code
-      a$set.cmp(data.frame(mean = c(2, 1, 2), sd = c(2.5, 1.5, 2.5)), grad = "v3")$tex()
+      a$set.cmp(data.frame(mean = c(2, 1, 2), sd = c(2.5, 1.5, 2.5)), grad = "v3")$
+      tex()
     Output
       \begin{align}
       g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
@@ -931,7 +933,8 @@
 ---
 
     Code
-      a$set.cmp(data.frame(mean = c(2, 1, 1), sd = c(2.5, 1.5, 1.5)), grad = "v3")$tex()
+      a$set.cmp(data.frame(mean = c(2, 1, 1), sd = c(2.5, 1.5, 1.5)), grad = "v3")$
+      tex()
     Output
       \begin{align}
       g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\

@@ -184,49 +184,49 @@ expect_error( a$nls.freq( data.frame( x.err = -x, freq = -freq ), x = "x.err" ),
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( a$nls.freq( df, total = -sum( freq ), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = 0, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = 0, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = -sum( freq ), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = -sum( freq ), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = NaN, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = NaN, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = Inf, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = Inf, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = numeric(), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = numeric(), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = 1:2, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = 1:2, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, total = a, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( a$nls.freq( df, total = a, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( df, grad = "zzz" ),
@@ -290,17 +290,20 @@ expect_error( a$nls.freq( df, grad = "normal", start.level = a ),
               "start.level should be single integer in 0:3 or 100" )
 expect_cleared( a ); a <- GGD$new()
 
-expect_error( ggd.nls.freq( df, mix.type = -1 ),        "mix.type should be single integer in 0:4" )
-expect_error( a$nls.freq( df, this.mix.type = -1 ), "mix.type should be single integer in 0:4" )
+expect_error( ggd.nls.freq( df, mix.type = -1 ),    "mix.type should be single integer from 0 to 4" )
+expect_error( a$nls.freq( df, this.mix.type = -1 ), "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = 5 ),         "mix.type should be single integer in 0:4" )
-expect_error( a$nls.freq( df, this.mix.type = 5 ),  "mix.type should be single integer in 0:4" )
+expect_error( ggd.nls.freq( df, mix.type = 5 ),     "mix.type should be single integer from 0 to 4" )
+expect_error( a$nls.freq( df, this.mix.type = 5 ),  "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = NA ),        "mix.type should be single integer in 0:4" )
-expect_error( a$nls.freq( df, this.mix.type = NA ), "mix.type should be single integer in 0:4" )
+expect_error( ggd.nls.freq( df, mix.type = NA ),    "mix.type should be single integer from 0 to 4" )
+expect_error( a$nls.freq( df, this.mix.type = NA ), "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = numeric() ),         "mix.type should be single integer in 0:4" )
-expect_error( a$nls.freq( df, this.mix.type = numeric() ),  "mix.type should be single integer in 0:4" )
+expect_error( ggd.nls.freq( df, mix.type = numeric() ),     "mix.type should be single integer from 0 to 4" )
+expect_error( a$nls.freq( df, this.mix.type = numeric() ),  "mix.type should be single integer from 0 to 4" )
+expect_cleared( a ); a <- GGD$new()
+expect_error( ggd.nls.freq( df, mix.type = 1:2 ),           "mix.type should be single integer from 0 to 4" )
+expect_error( a$nls.freq( df, this.mix.type = 1:2 ),  "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
 expect_error( a$nls.freq( df, start = list( mean = -10, sqrt.sd = 10 ), grad = "normal" ), "nls has failed" )
 expect_cleared( a ); a <- GGD$new()
@@ -533,10 +536,33 @@ diff.check( a, x, freq )
 # Error case
 expect_error( ggd.nls.freq( df, kind = NA ),
               "kind should be valid single value or a GGD object" )
+expect_error( a$nls.freq( df, this.kind = NA ),
+              "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+expect_error( ggd.nls.freq( df, kind = character() ),
+              "kind should be valid single value or a GGD object" )
+expect_error( a$nls.freq( df, this.kind = character() ),
+              "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+expect_error( ggd.nls.freq( df, kind = 1:2 ),
+              "kind should be valid single value or a GGD object" )
+expect_error( a$nls.freq( df, kind = 1:2 ),
+              "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+expect_error( ggd.nls.freq( df, kind = c( "Normal", "Horizontal" ) ),
+              "kind should be valid single value or a GGD object" )
+expect_error( a$nls.freq( df, this.kind = c( "Normal", "Horizontal" ) ),
+              "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+expect_error( ggd.nls.freq( df, kind = c( NA, "Horizontal" ) ),
+              "kind should be valid single value or a GGD object" )
+expect_error( a$nls.freq( df, this.kind = c( NA, "Horizontal" ) ),
+              "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
 
 # Error case
 expect_error( a$nls.freq( df, this.mix.type = NA ),
-              "mix.type should be single integer in 0:4" )
+              "mix.type should be single integer from 0 to 4" )
 expect_cleared( a )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -584,21 +610,21 @@ expect_error( ggd.nls.freq.all( data.frame( x = c( x[1:10], x[10:21] ), freq = c
 expect_error( ggd.nls.freq.all( data.frame( x.err = -x, freq = -freq ), x = "x.err" ),
               "Rows of x.err must have been sorted" )
 expect_error( ggd.nls.freq.all( df, total = -sum( freq ), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = 0, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = -sum( freq ), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = NaN, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = Inf, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = numeric(), grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = 1:2, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, total = a, grad = "normal" ),
-              "total must be positive finite single value" )
+              "total should be positive finite single value" )
 expect_error( ggd.nls.freq.all( df, grad = "normal", start.level = -1 ),
               "start.level should be single integer in 0:3 or 100" )
 expect_error( ggd.nls.freq.all( df, grad = "normal", start.level = 4 ),

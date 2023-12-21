@@ -3,4 +3,4 @@
 ^backup$
 ^work$
 ^.*\.lnk$
-^.*\.ja\..*$
+^README(\.|\.[a-z]+\.)md$

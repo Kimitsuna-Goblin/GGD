@@ -341,26 +341,33 @@ expect_cleared( a ); a <- GGD$new()
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     mix.type = -1 ),
-    "mix.type should be single integer in 0:4" )
+    "mix.type should be single integer from 0 to 4" )
 
 # Error case
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.mix.type = 5 ),
-    "mix.type should be single integer in 0:4" )
+    "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     mix.type = NA ),
-    "mix.type should be single integer in 0:4" )
+    "mix.type should be single integer from 0 to 4" )
 
 # Error case
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.mix.type = numeric() ),
-    "mix.type should be single integer in 0:4" )
+    "mix.type should be single integer from 0 to 4" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.mix.type = 1:4 ),
+    "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
@@ -368,7 +375,7 @@ expect_error( a$trace.q(
     data.frame(
     p = c( 0.1, 0.3, 0.5, 0.6, 0.7 ),
     x = c( qnorm( c( 0.1, 0.3, 0.5, 0.6 ), 0, 1 ), 0.5 ) ), this.mix.type = 1:3 ),
-    "Illegal number of quantiles for mix.type = 1" )
+    "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
@@ -376,11 +383,42 @@ expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     kind = NA ),
     "kind should be valid single value or a GGD object" )
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.kind = NA ),
+    "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
 
 # Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+  	kind = character() ),
+    "kind should be valid single value or a GGD object" )
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.kind = character() ),
+    "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+  	kind = 2:3 ),
+    "kind should be valid single value or a GGD object" )
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.kind = 2:3 ),
+    "kind should be valid single value or a GGD object" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+  	kind = c( "Horizontal", NA ) ),
+    "kind should be valid single value or a GGD object" )
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.kind = c( "Horizontal", NA ) ),
     "kind should be valid single value or a GGD object" )
 expect_cleared( a ); a <- GGD$new()
 
@@ -4839,14 +4877,11 @@ show.results()
 # normal test (very straight quantiles)
 # Note, even if the quantiles are symmetric, a symmetrical distribution may not generated.
 xs <- c( -1.2, -0.83, -0.31, 0, 0.31, 0.83, 1.2 )
-expect_message( expect_message(
-    a$trace.q(
-        data.frame(
-        p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ),
-        x = xs ),
-        this.mix.type = 4, control = list( maxit = 1000 ) ),
-    "Initial guessing with 3-quantile-tracing for left-side components has failed" ),
-    "Initial guessing with 3-quantile-tracing for right-side components has failed" )
+a$trace.q(
+    data.frame(
+    p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ),
+    x = xs ),
+    this.mix.type = 4 )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
     c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ), xs, c( -3, 3 ) )

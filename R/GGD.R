@@ -1000,7 +1000,7 @@ ggd.kind <- function( objs )
 }
 
 ################################################################################################
-#' Get mix.type according to the flags
+#' Get mix.type according to grad
 #'
 #' Gets the value for \code{mix.type} field of \code{GGD} object which is appropriate to
 #' given \code{grad} value.
@@ -1020,8 +1020,7 @@ ggd.kind <- function( objs )
 #' @param   kind        A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model.
 #'                      This argument is enabled when the length of \code{mix.type} argument
-#'                      is \code{0}, and is used for deciding default value which is returned
-#'                      if all flags are \code{FALSE}.
+#'                      is \code{0}, and \code{grad} is \code{"default"}.
 #'
 #'                      The matching method of this argument follows that of elements of
 #'                      the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
@@ -1030,14 +1029,20 @@ ggd.kind <- function( objs )
 #'                      If indicated character string pattern or index number does not match
 #'                      to any element of \code{ggd:::kind}, an error will occur.
 #'
-#' @param   mix.type    Default value which is returned if all flags are \code{FALSE}.
-#'                      If the length is longer than 1, only the first element is valid.
-#'
-#'                      This function does not check if the value of this argument is valid.
+#' @param   mix.type    Default value which is returned if \code{grad} is \code{"default"}.
+#'                      Although return value will become in integer class,
+#'                      this function does not check if the value of this argument is valid.
 #'
 #' @return  An integer of \code{mix.type} value appropriate for a distribuion model
-#'          represented by given flags or the default value indicated other arguments.
-#'          \code{integer(0)} is returned for \code{NULL}.
+#'          represented by \code{grad} value or the default value indicated other arguments.
+#'          If the indicated default value is \code{NULL},
+#'          \code{integer(0)} is returned when \code{grad} is \code{"default"}.
+#'
+#'          Although the length of \code{grad} argument must be 1 (or 0 as the default),
+#'          but lengths of other arguments are not checked in this function consciously.
+#'          So if \code{grad} is \code{"default"}, a vector of 2 or more length can be returned.
+#'          That means, the length of other arguments or the return value must be checked
+#'          by the caller of this function if necessary.
 #'
 #' @seealso \code{\link[ggd]{ggd.mix.type.for.kind.index}}, \code{\link[ggd]{ggd.ncmp.for}}
 #' @examples
@@ -1052,11 +1057,6 @@ ggd.kind <- function( objs )
 ggd.mix.type.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
                               kind = NULL, mix.type = NULL )
 {
-    if ( length( mix.type ) > 1 )
-    {
-        mix.type <- mix.type[1]
-    }
-
     grad <- match.arg( grad )
     if ( grad == "v" )
     {
@@ -1069,8 +1069,7 @@ ggd.mix.type.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3
     else if ( grad == "hv" )                mix.type <- 4L
     else if ( length( mix.type ) == 0 && !is.null( kind ) )
     {
-        mix.type <- ggd.mix.type.for.kind.index(
-                        ggd.kind.index( kind, undef.err = TRUE )[min( length( kind ), 1 )] )
+        mix.type <- ggd.mix.type.for.kind.index( ggd.kind.index( kind, undef.err = TRUE ) )
     }
 
     return ( as.integer( mix.type ) )
@@ -1136,7 +1135,7 @@ ggd.mix.type.for.kind.index <- function( kind.index )
 #'                      If the length is longer than 1, only the first element is valid.
 #'
 #' @return  Appropriate number of components.
-#'          If all flags are \code{FALSE} and \code{mix.type} is invalid,
+#'          If \code{grad} is \code{"default"} and \code{mix.type} is invalid,
 #'          \code{NA} will be returned.
 #'
 #' @seealso \code{\link[ggd]{ggd.mix.type.for}}
@@ -1670,12 +1669,12 @@ GGD$methods(
 #'  a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## normal flag is allowed (though, it does little work in this function).
+#'  ## "normal" for "grad" argument is allowed, though, it does little work in this function.
 #'  a <- ggd.set.cmp( data.frame( mean = 1, sd = 2 ), grad = "normal" )
 #'  a$mix.type; a$cmp
 #'
 #'  ## Where the number of the cmp field rows is 2,
-#'  ## it is recommended to indicate "mix.type" or "kind" or flags to avoid confusing.
+#'  ## it is recommended to indicate "grad" or "mix.type" or "kind" to avoid confusing.
 #'  rm( a )
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.2, 0.8 ) ),
 #'                    kind = "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
@@ -1712,7 +1711,7 @@ GGD$methods(
 #'  a$cmp       ## with 2 rows
 #'
 #'  ## If you want not to simplify "mix.type" and "cmp" fields,
-#'  ## indicate "this.mix.type" argument or flags.
+#'  ## indicate "mix.type" / "this.mix.type" or one of other arguments for the condition.
 #'
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
 #'             this.mix.type = 4 )
@@ -1730,7 +1729,7 @@ GGD$methods(
 #'  ## However, if the components indicated by "cmp" or "this.cmp" are inconsistent
 #'  ## with the value of "kind" / "this.kind" argument,
 #'  ## the "kind" and "kind.index" fields will be set to different values with a warning.
-#'  ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or flags instead.
+#'  ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or "grad" instead.
 #'
 #'  ## This sample will work with a warning.
 #'  a$set.cmp(
@@ -1805,15 +1804,18 @@ GGD$methods(
         this.kind.index <- NULL
         if ( !is.null( this.kind ) )
         {
-            this.kind.index <- ggd.kind.index( this.kind,
-                                               undef.err = TRUE )[min( length( this.kind ), 1 )]
+            this.kind.index <- ggd.kind.index( this.kind, undef.err = TRUE )
+            if ( length( this.kind.index ) > 1 )
+            {
+                stop( paste( "Error: kind should be valid single value or a GGD object." ) )
+            }
         }
 
         # Check this.mix.type
         new.mix.type <- ggd.mix.type.for( grad, kind = this.kind, mix.type = this.mix.type )
         if ( length( new.mix.type ) > 0 )
         {
-            if ( is.na( new.mix.type ) )
+            if ( length( new.mix.type ) == 1 && is.na( new.mix.type ) )
             {
                 if ( nrow( this.cmp ) > 0 )
                 {
@@ -1821,9 +1823,9 @@ GGD$methods(
                                         "only if cmp has no rows." ) )
                 }
             }
-            else if ( !any( new.mix.type == 0:4 ) )
+            else if ( length( new.mix.type ) > 1 || !any( new.mix.type == 0:4 ) )
             {
-                stop( paste( "Error: mix.type" , new.mix.type, "is undefined." ) )
+                stop( paste( "Error: mix.type should be single integer from 0 to 4." ) )
             }
         }
 
@@ -1920,7 +1922,7 @@ GGD$methods(
 #'
 #'                      If \code{NULL} (the default), \code{mix.type} field will be set to
 #'                      the smallest number which can represent the distribution model.
-#'                      Normally, it must be in \code{0:4}.
+#'                      Normally, it should be an integer from \code{0} to \code{4}.
 #'                      \code{NA} is allowed only if \code{cmp} field has no rows.
 #'
 #' @param   grad        A character string indicating the method of gradation.
@@ -2005,10 +2007,11 @@ GGD$methods(
 
         this.mix.type <- ggd.mix.type.for( grad, mix.type = this.mix.type )
 
-        if ( length( this.mix.type ) > 0 && !is.na( this.mix.type ) &&
-             !any( this.mix.type == 0:4 ) )
+        if ( length( this.mix.type ) > 1 ||
+             ( length( this.mix.type ) == 1 &&
+               !is.na( this.mix.type ) && !any( this.mix.type == 0:4 ) ) )
         {
-            stop( paste( "Error: mix.type", this.mix.type, "is undefined." ) )
+            stop( paste( "Error: mix.type should be single integer from 0 to 4." ) )
         }
 
         if ( nrow( cmp ) == 0 )
@@ -2106,7 +2109,7 @@ GGD$methods(
 
             new.mix.type <- current.mix.type    # the new value for mix.type
 
-            # Second, give redundancy to the "cmp" if this.mix.type or flags are given.
+            # Second, give redundancy to the "cmp" if this.mix.type or grad argument is given.
             if ( length( this.mix.type ) > 0 )
             {
                 # new.ncmp: number of cmp rows to have
@@ -2765,7 +2768,7 @@ GGD$methods(
 #'                      of the generator function (signature '\code{NULL}').
 #'
 #'                      If this method is called without \code{this.kind} argument,
-#'                      flags, or other conditions, it attempt to retain the value of
+#'                      \code{grad}, or other conditions, it attempt to retain the value of
 #'                      \code{mix.type} field as much as possible, but not the value of
 #'                      \code{kind} field, i.e., the condition whether the mean value or
 #'                      standard deviation of each component is aligned may not be retained.
@@ -2774,7 +2777,7 @@ GGD$methods(
 #'                      \code{obj$trace.q(quantiles, this.kind = obj)}.
 #'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field as an integer.
-#'                      You can specify a value in \code{0:4} or \code{NULL}.
+#'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
 #'
 #'                      Each value represents the following type of distribution:
 #'                      \itemize{
@@ -2795,7 +2798,7 @@ GGD$methods(
 #'                      this argument will be ignored.
 #'
 #' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
-#'                          You can specify a value in \code{0:4} or \code{NULL}.
+#'                          It should be an integer from \code{0} to \code{4} or \code{NULL}.
 #'
 #'                      If \code{NULL}, the current \code{mix.type} field will be retained
 #'                      (and number of components, too) if it could trace the quantiles.
@@ -3168,8 +3171,17 @@ GGD$methods(
         if ( !is.null( this.kind ) )
         {
             this.kind.index <- withCallingHandlers(
-                                ggd.kind.index( this.kind, undef.err = TRUE )[1],
+                                ggd.kind.index( this.kind, undef.err = TRUE ),
                                 error = function( e ) clear() )
+            if ( length( this.kind.index ) > 1 )
+            {
+                clear()
+                stop( "Error: kind should be valid single value or a GGD object." )
+            }
+            else if ( length( this.kind.index ) == 0 )
+            {
+                this.kind.index <- NA_integer_
+            }
 
             if ( !is.na( this.kind.index ) )
             {
@@ -3206,22 +3218,24 @@ GGD$methods(
         }
 
         is.v3.ind <- ( grad == "v3" )   # The flag if grad = "v3" is indicated as the argument.
-                                        #   This is used for retrying.
+                                        # This is used for retrying.
 
-        # Note: Error check has already done at ggd.kind.index.
+        # Note: Error check for this.kind has already done at ggd.kind.index.
+        #       So, now this.kind has a valid value or the length of it is 0.
         new.mix.type <- ggd.mix.type.for( grad, kind = this.kind, mix.type = this.mix.type )
 
         # Check indicated new mix.type.
-        if ( length( new.mix.type ) == 0 || is.na( new.mix.type ) ||
+        if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
              !any( new.mix.type == 0:4 ) )
         {
             if ( !is.null( this.mix.type ) )
             {
                 clear()
-                stop( "Error: mix.type should be single integer in 0:4." )
+                stop( "Error: mix.type should be single integer from 0 to 4." )
             }
             else if ( !is.null( this.kind ) )
             {
+                # This code will run if this.kind = character( 0 ).
                 clear()
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
@@ -4777,7 +4791,7 @@ v2.crossover <- function( qt, control )
             sds <- sd.norm.mxp( means, qt$x[i], qt$p[i] )
 
             cmp <- ggd.get.t3.cmp( c( means[1], means[2], means[1] ),
-                                   c( sds[1], sds[2], sds[1] ), grad )
+                                   c( sds[1], sds[2], sds[1] ), "v2" )
             successed <- TRUE
             break
         }
@@ -5149,7 +5163,7 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field of
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
-#'                      You can specify a value in \code{0:4}.
+#'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
 #'
 #'                      The type of the distribution model will be as:
 #'                      \itemize{
@@ -5479,7 +5493,7 @@ GGD$methods(
                   is.infinite( total ) || total <= 0 )
         {
             clear()
-            stop( "Error: total must be positive finite single value." )
+            stop( "Error: total should be positive finite single value." )
         }
 
         ################################################################
@@ -5493,9 +5507,14 @@ GGD$methods(
         if ( !is.null( this.kind ) )
         {
             this.kind.index <- withCallingHandlers(
-                                    ggd.kind.index( this.kind, undef.err = TRUE )[1],
+                                    ggd.kind.index( this.kind, undef.err = TRUE ),
                                     error = function( e ) clear() )
-            if ( !is.na( this.kind.index ) )
+            if ( length( this.kind.index ) > 1 )
+            {
+                clear()
+                stop( "Error: kind should be valid single value or a GGD object." )
+            }
+            else if ( length( this.kind.index ) == 1 && !is.na( this.kind.index ) )
             {
                 if ( is.null( this.mix.type ) )
                 {
@@ -5554,17 +5573,18 @@ GGD$methods(
                             ggd.mix.type.for( grad,
                                               kind = this.kind, mix.type = this.mix.type ),
                             error = function( e ) clear() )
-        if ( length( new.mix.type ) == 0 || is.na( new.mix.type ) ||
-             !any( new.mix.type[1] == 0:4 ) )
+        if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
+             !any( new.mix.type == 0:4 ) )
         {
             clear()
             if ( !is.null( this.kind ) )
             {
+                # This code will run if this.kind = character( 0 ).
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
             else
             {
-                stop( "Error: mix.type should be single integer in 0:4." )
+                stop( "Error: mix.type should be single integer from 0 to 4." )
             }
         }
 
@@ -6572,7 +6592,7 @@ ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), method = NULL )
 #' @param   kind        An object indicating the \code{kind} of \code{\link[ggd]{GGD}} object.
 #' @param   mix.type    A numeric value to set into \code{mix.type} field of
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
-#'                      You can specify a value in \code{0:4}.
+#'                      It is an integer from \code{0} to \code{4} or \code{NULL}.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      See \code{\link[ggd]{nls.freq}} for more information.
 #' @param   eq.mean     A logical. If \code{TRUE}, all of the mean values of of the components
@@ -6890,7 +6910,7 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
     else if ( length( total ) != 1 || !is.numeric( total ) || is.na( total ) ||
               is.infinite( total ) || total <= 0 )
     {
-        stop( "Error: total must be positive finite single value." )
+        stop( "Error: total should be positive finite single value." )
     }
 
     # Check start.level.

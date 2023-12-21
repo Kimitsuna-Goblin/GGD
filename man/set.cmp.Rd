@@ -150,12 +150,12 @@ Remark! Never set any values into the \code{cmp} fields directly without using t
  a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## normal flag is allowed (though, it does little work in this function).
+ ## "normal" for "grad" argument is allowed, though, it does little work in this function.
  a <- ggd.set.cmp( data.frame( mean = 1, sd = 2 ), grad = "normal" )
  a$mix.type; a$cmp
 
  ## Where the number of the cmp field rows is 2,
- ## it is recommended to indicate "mix.type" or "kind" or flags to avoid confusing.
+ ## it is recommended to indicate "grad" or "mix.type" or "kind" to avoid confusing.
  rm( a )
  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.2, 0.8 ) ),
                    kind = "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
@@ -192,7 +192,7 @@ Remark! Never set any values into the \code{cmp} fields directly without using t
  a$cmp       ## with 2 rows
 
  ## If you want not to simplify "mix.type" and "cmp" fields,
- ## indicate "this.mix.type" argument or flags.
+ ## indicate "mix.type" / "this.mix.type" or one of other arguments for the condition.
 
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
             this.mix.type = 4 )
@@ -210,7 +210,7 @@ Remark! Never set any values into the \code{cmp} fields directly without using t
  ## However, if the components indicated by "cmp" or "this.cmp" are inconsistent
  ## with the value of "kind" / "this.kind" argument,
  ## the "kind" and "kind.index" fields will be set to different values with a warning.
- ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or flags instead.
+ ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or "grad" instead.
 
  ## This sample will work with a warning.
  a$set.cmp(

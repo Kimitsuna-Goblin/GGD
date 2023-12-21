@@ -2,7 +2,7 @@
 % Please edit documentation in R/GGD.R
 \name{ggd.mix.type.for}
 \alias{ggd.mix.type.for}
-\title{Get mix.type according to the flags}
+\title{Get mix.type according to grad}
 \usage{
 ggd.mix.type.for(
   grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
@@ -24,8 +24,7 @@ ggd.mix.type.for(
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
                      which indicates the kind of distribution model.
                      This argument is enabled when the length of \code{mix.type} argument
-                     is \code{0}, and is used for deciding default value which is returned
-                     if all flags are \code{FALSE}.
+                     is \code{0}, and \code{grad} is \code{"default"}.
 
                      The matching method of this argument follows that of elements of
                      the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
@@ -34,15 +33,21 @@ ggd.mix.type.for(
                      If indicated character string pattern or index number does not match
                      to any element of \code{ggd:::kind}, an error will occur.}
 
-\item{mix.type}{Default value which is returned if all flags are \code{FALSE}.
-                     If the length is longer than 1, only the first element is valid.
-
-                     This function does not check if the value of this argument is valid.}
+\item{mix.type}{Default value which is returned if \code{grad} is \code{"default"}.
+Although return value will become in integer class,
+this function does not check if the value of this argument is valid.}
 }
 \value{
 An integer of \code{mix.type} value appropriate for a distribuion model
-         represented by given flags or the default value indicated other arguments.
-         \code{integer(0)} is returned for \code{NULL}.
+         represented by \code{grad} value or the default value indicated other arguments.
+         If the indicated default value is \code{NULL},
+         \code{integer(0)} is returned when \code{grad} is \code{"default"}.
+
+         Although the length of \code{grad} argument must be 1 (or 0 as the default),
+         but lengths of other arguments are not checked in this function consciously.
+         So if \code{grad} is \code{"default"}, a vector of 2 or more length can be returned.
+         That means, the length of other arguments or the return value must be checked
+         by the caller of this function if necessary.
 }
 \description{
 Gets the value for \code{mix.type} field of \code{GGD} object which is appropriate to

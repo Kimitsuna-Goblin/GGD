@@ -24,7 +24,7 @@ If the length is longer than 1, only the first element is valid.}
 }
 \value{
 Appropriate number of components.
-         If all flags are \code{FALSE} and \code{mix.type} is invalid,
+         If \code{grad} is \code{"default"} and \code{mix.type} is invalid,
          \code{NA} will be returned.
 }
 \description{
