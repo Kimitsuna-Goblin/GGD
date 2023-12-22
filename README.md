@@ -396,7 +396,7 @@ Sample images of probability density functions are:
 
 + 3-component models
 
-![Fig.3-a](image/GGD_mix.type_3-3.png) ![Fig.3-b](image/GGD_mix.type_4-2.png)
+![Fig.3-a](image/GGD_mix.type_3-3.png) ![Fig.3-b](image/GGD_mix.type_3-4.png)
 
 
 ### 4. Horizontal-Vertical Gradational Distribution
