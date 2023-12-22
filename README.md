@@ -388,6 +388,16 @@ for example $p = 0.1, 0.4, 0.6, 0.9$.
 For symmetrical distributions, it is also useful to choose quantiles biased to one side,
 for example $p = 0.1, 0.4, 0.5$. 
 
+Sample images of probability density functions are:
+
++ 2-component models
+
+![Fig.2-a](image/GGD_mix.type_3-1.png) ![Fig.2-b](image/GGD_mix.type_3-2.png)
+
++ 3-component models
+
+![Fig.3-a](image/GGD_mix.type_3-3.png) ![Fig.3-b](image/GGD_mix.type_4-2.png)
+
 
 ### 4. Horizontal-Vertical Gradational Distribution
 
@@ -420,6 +430,10 @@ For example, quantiles of $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$ can be trace
 
 More than 8 quantiles cannot be traced with any models in this package.
 If you have more than 8 quantiles, make a frequency distribution and try ggd.nls.freq instead.
+
+Sample images of probability density functions are:
+
+![Fig.3-a](image/GGD_mix.type_4-1.png) ![Fig.3-b](image/GGD_mix.type_4-2.png)
 
 
 ## Postscript
