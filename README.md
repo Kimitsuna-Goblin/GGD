@@ -8,7 +8,8 @@ It can approximates asymmetric frequency distributions or traces quantiles accur
 
 ## What is the Gradational Gaussian Distribution?
 
-The **Gradational Gaussian Distribution (GGD)** is one of continuous distribution models
+The **Gradational Gaussian Distribution (GGD)** (Named by the author on his own)
+is one of continuous distribution models
 for mainly modeling asymmetric unimodal data which do not follow a normal distribution.
 It can represent distributions which do not follow a normal distribution:
 skewed distributions, heavy-tailed or flat-topped distributions.
