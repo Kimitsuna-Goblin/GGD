@@ -1,6 +1,6 @@
 # GGD -  Gradational Gaussian Distribution
 
-これは **Gradational Gaussian Distribution (GGD; グラデーションガウス分布 あるいは 傾斜ガウス分布)**
+これは **Gradational Gaussian Distribution (GGD; グラデーションガウス分布 あるいは 傾斜ガウス分布)** (作者が勝手に命名w)
 のリファレンスクラスの R パッケージです。
 GGD によって度数分布を近似したり、分位点をトレースすることができます。
 
