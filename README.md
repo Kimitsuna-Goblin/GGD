@@ -307,7 +307,6 @@ This is a kind of the Gaussian mixture model (GMM).
 It is provided to compare the adequacy of data modeling with GMM and GGD.
 Also, it can trace 3 or 4 quantiles with the cumulative density function.
 
-
 ### 2. Horizontal Gradational Distribution
 
 #### Distribution function and cumulative distribution function
@@ -327,6 +326,10 @@ $$
 
 The horizontal gradational distribution model
 can trace left- or right-skewed 3 or 4 quantiles with the cumulative density function.
+
+Sample images of probability density functions are:
+
+![Fig.1-a](image/GGD_mix.type_2-1.png) ![Fig.1-b](image/GGD_mix.type_2-2.png)
 
 
 ### 3. Vertical Gradational Distribution
