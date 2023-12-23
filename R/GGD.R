@@ -5606,7 +5606,11 @@ GGD$methods(
 
         ################################################################
         # Check start.level.
-        if ( is.null( start ) )
+        if ( !is.null( start ) )
+        {
+            start.level <- NA_integer_
+        }
+        else
         {
             if ( length( start.level ) != 1 || !is.numeric( start.level ) ||
                  is.na( start.level ) || !any( start.level == c( 0:3, 100 ) ) )
@@ -5615,17 +5619,10 @@ GGD$methods(
                 stop( "Error: start.level should be single integer in 0:3 or 100." )
             }
         }
-        else
-        {
-            start.level <- NA_integer_
-        }
 
-        if ( isTRUE( not.use.nls ) && ( !( length( start.level ) == 1 ) ||
-                                        !any( start.level == c( 0:3 ) ) ) )
+        if ( isTRUE( not.use.nls ) && !is.na( start.level ) && start.level == 100 )
         {
-print.cov( "[489]" )
-            warning( paste( "Warning: not.use.nls works only if",
-                                     "start.level is indicated a value from 0 to 3." ) )
+            warning( paste( "Warning: not.use.nls does not work with start.level is default 100." ) )
             not.use.nls <- FALSE
         }
 
@@ -6931,12 +6928,10 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
         stop( "Error: start.level should be single integer in 0:3 or 100." )
     }
 
-    if ( isTRUE( not.use.nls ) && ( !( length( start.level ) == 1 ) ||
-                                    !any( start.level == c( 0:3 ) ) ) )
+    if ( isTRUE( not.use.nls ) && start.level == 100 )
     {
 print.cov( "[597]" )
-        warning( paste( "Warning: not.use.nls works only if",
-                                 "start.level is indicated a value from 0 to 3." ) )
+        warning( paste( "Warning: not.use.nls does not work with start.level is default 100." ) )
         not.use.nls <- FALSE
     }
 

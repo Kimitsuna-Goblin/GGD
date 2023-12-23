@@ -738,6 +738,7 @@ expect_true( all( vapply( ( 1:16 )[-14][-5],
                           function( i ) ggds$detail[[i]]$start.level == 1, TRUE ) ) )
 expect_equal( ggds$best$kind.index, 16 )
 expect_true( ggds$best.cor > 0.9964 )
+# 'lists' will be used later at not.use.nls (ggd.nls.freq.all) test.
 
 #### Dent-center data
 freq <- c(  11.378, 19.732, 24.927, 31.538, 47.720,
@@ -750,15 +751,23 @@ df <- data.frame( x = x, freq = freq )
 ## ggd.nls.freq
 
 ## not.use.nls
+# start.level = 0
 result <- a$nls.freq( df, start.level = 0, not.use.nls = TRUE, grad = "normal" )
-expect_identical( result$obj, a )       # Identical to the output.
+expect_identical( result$obj, a )       # The output must be identical to the object a.
 expect_equal( result$nls.out, NULL )
 expect_equal( result$start.level, 0 )
-expect_equal_ggd( result$start.obj, a ) # Equal to an object with input condition, but not necessarily identical.
+expect_equal_ggd( result$start.obj, a ) # The start condition equals to the result, but not necessarily identical.
 expect_equal( a$kind, "Normal Distribution" )
+
+data.mean <- sum( x * freq ) / sum( freq )
+data.sd <- sqrt( sum( ( data.mean - x )^2 * freq ) / sum( freq ) )
+expect_equal( a$mean, data.mean )
+expect_equal( a$sd, data.sd )
+
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# start.level = 1
 result <- a$nls.freq( df, start.level = 1, not.use.nls = TRUE, this.mix.type = 1 )
 expect_identical( result$obj, a )
 expect_equal( result$nls.out, NULL )
@@ -768,6 +777,7 @@ expect_equal( a$mix.type, 1 )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# start.level = 2
 result <- a$nls.freq( df, start.level = 2, not.use.nls = TRUE, this.mix.type = 1, eq.sd = TRUE )
 expect_identical( result$obj, a )
 expect_equal( result$nls.out, NULL )
@@ -778,6 +788,7 @@ expect_equal( a$is.eq.sd(), TRUE )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# start.level = 3
 result <- a$nls.freq( df, start.level = 3, not.use.nls = TRUE, this.mix.type = 2 )
 expect_identical( result$obj, a )
 expect_equal( result$nls.out, NULL )
@@ -787,6 +798,7 @@ expect_equal( a$mix.type, 2 )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# eq.sd affects the starting value for start.level = 1.
 result <- ggd.nls.freq( df, start.level = 1, not.use.nls = TRUE, eq.sd = TRUE )
 expect_equal( result$nls.out, NULL )
 expect_equal( result$start.level, 1 )
@@ -796,6 +808,7 @@ expect_equal( result$obj$is.eq.sd(), TRUE )
 plot.freq.and.d( result$obj, x, freq )
 diff.check( result$obj, x, freq )
 
+# eq.mean does not affect the starting value for start.level = 2, mix.type = 2.
 result <- ggd.nls.freq( df, start.level = 2, not.use.nls = TRUE, mix.type = 2, eq.mean = FALSE )
 expect_equal( result$nls.out, NULL )
 expect_equal( result$start.level, 2 )
@@ -805,6 +818,7 @@ expect_equal( result$obj$is.eq.mean(), TRUE )
 plot.freq.and.d( result$obj, x, freq )
 diff.check( result$obj, x, freq )
 
+# both eq.mean and eq.sd affects the starting value for start.level = 3.
 result <- ggd.nls.freq( df, start.level = 3, not.use.nls = TRUE, grad = "v2" )
 expect_equal( result$nls.out, NULL )
 expect_equal( result$start.level, 3 )
@@ -816,16 +830,24 @@ expect_equal( result$obj$is.eq.sd(), FALSE )
 plot.freq.and.d( result$obj, x, freq )
 diff.check( result$obj, x, freq )
 
-result <- ggd.nls.freq( df, start.level = 0, not.use.nls = TRUE, mix.type = 3 )
+# start.level = 0
+result <- ggd.nls.freq( df, total = sum( freq ) * 1.5, start.level = 0, not.use.nls = TRUE, mix.type = 3 )
 expect_equal( result$nls.out, NULL )
 expect_equal( result$start.level, 0 )
 expect_equal_ggd( result$start.obj, result$obj )
 expect_equal( result$obj$mix.type, 3 )
 expect_equal( result$obj$is.eq.mean(), TRUE )
 expect_equal( result$obj$is.eq.sd(), TRUE )
+
+data.mean <- sum( x * freq ) / ( sum( freq ) * 1.5 )
+data.sd <- sqrt( sum( ( data.mean - x )^2 * freq ) / ( sum( freq ) * 1.5 ) )
+expect_equal( result$obj$mean, data.mean )
+expect_equal( result$obj$sd, data.sd )
+
 plot.freq.and.d( result$obj, x, freq )
 diff.check( result$obj, x, freq )
 
+# start.level = 1, mix.type = 3
 result <- a$nls.freq( df, start.level = 1, not.use.nls = TRUE, this.mix.type = 3, eq.mean = TRUE )
 expect_identical( result$obj, a )
 expect_equal( result$nls.out, NULL )
@@ -859,6 +881,7 @@ expect_equal( a$is.eq.sd(), FALSE )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# mix.type = 4
 result <- a$nls.freq( df, start.level = 2, not.use.nls = TRUE, this.mix.type = 4, eq.sd = TRUE )
 expect_identical( result$obj, a )
 expect_equal( result$nls.out, NULL )
@@ -881,8 +904,53 @@ expect_equal( a$is.eq.sd(), FALSE )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
 
+# start will be set to result directly and start.level of the result will be NA.
+result <- a$nls.freq( df, start.level = 1,
+                      start = list( mean.1 = 1.25, mean.2 = 2,
+                                    sqrt.sd.1 = 1.2, sqrt.sd.2 = 1.5 ),
+                      not.use.nls = TRUE, this.mix.type = 2 )
+expect_identical( result$obj, a )
+expect_equal( result$nls.out, NULL )
+expect_identical( result$start.level, NA_integer_ ) # start.level is ignored if start is indicated.
+expect_equal_ggd( result$start.obj, a )
+expect_equal( a$mix.type, 2 )
+expect_true( all( a$cmp == data.frame( mean = c( 1.25, 2 ), sd = c( 1.44, 2.25 ) ) ) )
+
+result <- a$nls.freq( df,
+                      start = list( mean.1 = -0.5, mean.2 = 1,
+                                    sqrt.sd.1 = 1.5, sqrt.sd.2 = 1.2 ),
+                      not.use.nls = TRUE, grad = "v" )
+expect_identical( result$obj, a )
+expect_equal( result$nls.out, NULL )
+expect_identical( result$start.level, NA_integer_ )
+expect_equal_ggd( result$start.obj, a )
+expect_equal( a$mix.type, 3 )
+expect_true( all( a$cmp == data.frame( mean = c( -0.5, 1 ), sd = c( 2.25, 1.44 ) ) ) )
+
+result <- ggd.nls.freq( df, start.level = 1,
+                        start = list( mean.1 = 1.25, mean.2 = 2,
+                                      sqrt.sd.1 = 1.2, sqrt.sd.2 = 1.5 ),
+                        not.use.nls = TRUE, mix.type = 1 )
+expect_equal( result$nls.out, NULL )
+expect_identical( result$start.level, NA_integer_ ) # start.level is ignored if start is indicated.
+expect_equal_ggd( result$start.obj, result$obj )
+expect_equal( result$obj$mix.type, 1 )
+expect_true( all( result$obj$cmp == data.frame( mean = c( 1.25, 2 ), sd = c( 1.44, 2.25 ) ) ) )
+
+result <- ggd.nls.freq( df,
+                        start = list( mean.1 = -0.5, mean.2 = 1,
+                                      sqrt.sd.1 = 1.5, sqrt.sd.2 = 1.2 ),
+                        not.use.nls = TRUE, grad = "h" )
+expect_equal( result$nls.out, NULL )
+expect_identical( result$start.level, NA_integer_ )
+expect_equal_ggd( result$start.obj, result$obj )
+expect_equal( result$obj$mix.type, 2 )
+expect_true( all( result$obj$cmp == data.frame( mean = c( -0.5, 1 ), sd = c( 2.25, 1.44 ) ) ) )
+
 # not.use.nls = TRUE is ignored where start.level = 100.
-result <- a$nls.freq( df, start.level = 100, not.use.nls = TRUE, this.mix.type = 2 )
+expect_warning(
+    result <- a$nls.freq( df, start.level = 100, not.use.nls = TRUE, this.mix.type = 2 ),
+    "not.use.nls does not work with start.level is default 100" )
 expect_identical( result$obj, a )
 expect_equal( is.null( result$nls.out ), FALSE )
 expect_equal( all( result$start.obj$cmp == a$cmp ), FALSE )
@@ -892,6 +960,93 @@ expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 plot.freq.and.d( a, x, freq )
 diff.check( a, x, freq )
+
+expect_warning(
+    result <- a$nls.freq( df, not.use.nls = TRUE, this.mix.type = 2, eq.sd = TRUE ),
+    "not.use.nls does not work with start.level is default 100" )
+expect_identical( result$obj, a )
+expect_equal( is.null( result$nls.out ), FALSE )
+expect_equal( all( result$start.obj$cmp == a$cmp ), FALSE )
+expect_equal( length( result$cor ) >= 4, TRUE )
+expect_equal( a$mix.type, 2 )
+expect_equal( a$is.eq.mean(), FALSE )
+expect_equal( a$is.eq.sd(), TRUE )
+plot.freq.and.d( a, x, freq )
+diff.check( a, x, freq )
+
+expect_warning(
+    result <- ggd.nls.freq( df, start.level = 100, not.use.nls = TRUE, mix.type = 2, eq.sd = TRUE ),
+    "not.use.nls does not work with start.level is default 100" )
+expect_equal( length( result$cor ) >= 4, TRUE )
+expect_equal( result$obj$mix.type, 2 )
+expect_equal( result$obj$is.eq.mean(), FALSE )
+expect_equal( result$obj$is.eq.sd(), TRUE )
+plot.freq.and.d( result$obj, x, freq )
+diff.check( result$obj, x, freq )
+
+expect_warning(
+    result <- ggd.nls.freq( df, start.level = 100, not.use.nls = TRUE, mix.type = 2 ),
+    "not.use.nls does not work with start.level is default 100" )
+expect_equal( length( result$cor ) >= 4, TRUE )
+expect_equal( result$obj$mix.type, 2 )
+expect_equal( result$obj$is.eq.mean(), FALSE )
+expect_equal( result$obj$is.eq.sd(), FALSE )
+plot.freq.and.d( result$obj, x, freq )
+diff.check( result$obj, x, freq )
+
+## not.use.nls (ggd.nls.freq.all)
+ggds <- ggd.nls.freq.all( df, start.level = 0, not.use.nls = TRUE )
+expect_true( all( vapply( 1:16, function( i ) ggds$obj[[i]]$kind == "Normal Distribution", TRUE ) ) )
+
+data.mean <- sum( x * freq ) / sum( freq )
+data.sd <- sqrt( sum( ( data.mean - x )^2 * freq ) / sum( freq ) )
+expect_true( all( vapply( 1:16, function( i )
+    {
+        expect_equal( ggds$obj[[i]]$mean, data.mean )
+        expect_equal( ggds$obj[[i]]$sd, data.sd )
+        TRUE
+    }, TRUE ) ) )
+
+# using total
+ggds <- ggd.nls.freq.all( df, total = sum( freq ) * 1.25, start.level = 0, not.use.nls = TRUE )
+expect_true( all( vapply( 1:16, function( i ) ggds$obj[[i]]$kind == "Normal Distribution", TRUE ) ) )
+
+data.mean <- sum( x * freq ) / ( sum( freq ) * 1.25 )
+data.sd <- sqrt( sum( ( data.mean - x )^2 * freq ) / ( sum( freq ) * 1.25 ) )
+expect_true( all( vapply( 1:16, function( i )
+    {
+        expect_equal( ggds$obj[[i]]$mean, data.mean )
+        expect_equal( ggds$obj[[i]]$sd, data.sd )
+        TRUE
+    }, TRUE ) ) )
+
+
+# using lists
+expect_type( lists[[5]], "list" )
+expect_type( lists[[14]], "list" )
+ggds <- ggd.nls.freq.all( df, start.level = 0, not.use.nls = TRUE, start = lists )
+
+expect_true( all( ggds$obj[[5]]$cmp == data.frame( mean = c( lists[[5]]$mean.1, lists[[5]]$mean.2 ),
+                                                     sd = rep( lists[[5]]$sqrt.sd^2, 2 ) ) ) )
+expect_true( all( ggds$obj[[14]]$cmp == data.frame( mean = c( lists[[14]]$mean.1.1, lists[[14]]$mean.1.2,
+                                                              lists[[14]]$mean.2.1, lists[[14]]$mean.2.2 ),
+                                                     sd = rep( lists[[14]]$sqrt.sd^2, 4 ) ) ) )
+
+expect_true( all( vapply( ( 1:16 )[-14][-5], function( i ) ggds$obj[[i]]$kind == "Normal Distribution", TRUE ) ) )
+
+data.mean <- sum( x * freq ) / sum( freq )
+data.sd <- sqrt( sum( ( data.mean - x )^2 * freq ) / sum( freq ) )
+expect_true( all( vapply( ( 1:16 )[-14][-5], function( i )
+    {
+        expect_equal( ggds$obj[[i]]$mean, data.mean )
+        expect_equal( ggds$obj[[i]]$sd, data.sd )
+        TRUE
+    }, TRUE ) ) )
+
+rm( lists )
+rm( data.mean )
+rm( data.sd )
+
 
 ## run nls
 # normal test
