@@ -1,4 +1,4 @@
-# GGD -  Gradational Gaussian Distribution
+# GGD -  Gradational Gaussian Distribution <img src='man/figures/ggdsticker.png' align="right" height="139" />
 
 これは **Gradational Gaussian Distribution (GGD; グラデーションガウス分布 あるいは 傾斜ガウス分布)** (作者が勝手に命名)
 のリファレンスクラスの R パッケージです。
