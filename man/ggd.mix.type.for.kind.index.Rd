@@ -16,8 +16,8 @@ A vector of integers of the mix.type which accepts the indicated
          kind of distribution.
 }
 \description{
-Gets a vector of integers indicating \code{mix.type}s
-which are appropriate to the indicated destributions by index numbers.
+Gets a vector of integers of \code{mix.type}s
+which are appropriate to the indicated index numbers of \code{ggd:::kinds}.
 }
 \examples{
  ggd.mix.type.for.kind.index( 1:7 )

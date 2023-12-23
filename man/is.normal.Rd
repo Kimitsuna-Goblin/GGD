@@ -11,7 +11,7 @@
 \code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
 }
 \description{
-Refering only \code{cmp} field, checks if the distribution is a normal distribution.
+Referring only \code{cmp} field, checks if the distribution is a normal distribution.
 Note, this function does not check \code{kind} and \code{kind.index} fields.
 }
 \examples{

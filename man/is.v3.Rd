@@ -22,7 +22,7 @@
          3 normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 a vertical gradation of 3 normal distributions.
 Note! when \code{mix.type = 4},
 if the right-top-side and left-top-side components are the same

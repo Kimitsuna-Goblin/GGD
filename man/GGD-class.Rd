@@ -66,7 +66,7 @@ The class provides the Gradational Gaussian Distribution.
      where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
      \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_2}, respectively.
 
-     You can devide the tail-side distribution along x-axis into left (lower) side
+     You can divide the tail-side distribution along x-axis into left (lower) side
      and right (upper) side.
 
      In this case, the distribution
@@ -191,12 +191,12 @@ The class provides the Gradational Gaussian Distribution.
 \section{Fields}{
 
 \describe{
-\item{\code{kind.index}}{An interger; the index number of the kind of the distribution model.}
+\item{\code{kind.index}}{An integer; the index number of the kind of the distribution model.}
 
 \item{\code{kind}}{A string; the name of the kind of the distribution model.}
 
-\item{\code{mix.type}}{An interger which represents how to mix normal distributions
-                         of the components. It classificates the distribution model.
+\item{\code{mix.type}}{An integer which represents how to mix normal distributions
+                         of the components.
 
                          The type of the distribution model and the row number of \code{cmp}
                          field will be as follows with this value:

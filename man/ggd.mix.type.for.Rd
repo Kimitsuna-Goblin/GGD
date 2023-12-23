@@ -38,7 +38,7 @@ Although return value will become in integer class,
 this function does not check if the value of this argument is valid.}
 }
 \value{
-An integer of \code{mix.type} value appropriate for a distribuion model
+An integer of \code{mix.type} value appropriate for a distribution model
          represented by \code{grad} value or the default value indicated other arguments.
          If the indicated default value is \code{NULL},
          \code{integer(0)} is returned when \code{grad} is \code{"default"}.

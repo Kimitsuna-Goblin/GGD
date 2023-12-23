@@ -307,7 +307,7 @@ $$
 
 確率密度関数のグラフの概形は、例えば以下のサンプルのようになります。
 
-![Fig.1-a](image/GGD_mix.type_2-1.png) ![Fig.1-b](image/GGD_mix.type_2-2.png)
+![Fig.1-a](man/figures/GGD_mix.type_2-1.png) ![Fig.1-b](man/figures/GGD_mix.type_2-2.png)
 
 
 
@@ -369,11 +369,11 @@ $p = 0.25, 0.5, 0.75$ のように、等間隔な少数の分位点のトレー�
 
 + 2-コンポーネント
 
-![Fig.2-a](image/GGD_mix.type_3-1.png) ![Fig.2-b](image/GGD_mix.type_3-2.png)
+![Fig.2-a](man/figures/GGD_mix.type_3-1.png) ![Fig.2-b](man/figures/GGD_mix.type_3-2.png)
 
 + 3-コンポーネント
 
-![Fig.3-a](image/GGD_mix.type_3-3.png) ![Fig.3-b](image/GGD_mix.type_3-4.png)
+![Fig.3-a](man/figures/GGD_mix.type_3-3.png) ![Fig.3-b](man/figures/GGD_mix.type_3-4.png)
 
 
 ### 4. 横-縦グラデーション分布
@@ -408,7 +408,7 @@ $$
 
 確率密度関数のグラフの概形は、例えば以下のサンプルのようになります。
 
-![Fig.3-a](image/GGD_mix.type_4-1.png) ![Fig.3-b](image/GGD_mix.type_4-2.png)
+![Fig.3-a](man/figures/GGD_mix.type_4-1.png) ![Fig.3-b](man/figures/GGD_mix.type_4-2.png)
 
 
 #### 終わりに

@@ -1,6 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^image$
 ^backup$
 ^work$
 ^.*\.lnk$

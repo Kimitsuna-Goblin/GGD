@@ -9,11 +9,11 @@
 }
 \value{
 \code{TRUE} if the probability density function of the distribution model is
-         symmectric about the mean, otherwise \code{FALSE}.
+         symmetric about the mean, otherwise \code{FALSE}.
 }
 \description{
-Refering \code{mix.type} and \code{cmp} field,
-checks if the probability density function is symmectric about the mean.
+Referring \code{mix.type} and \code{cmp} field,
+checks if the probability density function is symmetric about the mean.
 }
 \details{
 This function judges that the distribution model is symmetric if either:

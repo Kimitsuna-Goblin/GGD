@@ -19,7 +19,7 @@
          otherwise \code{FALSE}.
 }
 \description{
-Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 a horizontal gradational distribution.
 When \code{mix.type = 4}, if it is essentially a horizontal gradational distribution,
 this function returns \code{TRUE}.

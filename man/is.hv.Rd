@@ -18,10 +18,10 @@
 }
 \value{
 \code{TRUE} if the object shows a kind of horizontal-vertical gradation of
-         4 (2x2) normal distributions, therwise \code{FALSE}.
+         4 (2x2) normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 a horizontal-vertical gradation of 4 (2x2) normal distributions.
 }
 \examples{

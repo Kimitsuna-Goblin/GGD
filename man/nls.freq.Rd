@@ -107,7 +107,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      are forced to be equal.
 
                      If \code{FALSE} or \code{logical(0)},
-                     the mean values of the components can be dirrerent to each other,
+                     the mean values of the components can be different to each other,
                      and may be equal in very rare cases.
 
                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
@@ -117,7 +117,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      the components are forced to be equal.
 
                      If \code{FALSE} or \code{logical(0)},
-                     the standard deviation of the components can be dirrerent to
+                     the standard deviation of the components can be different to
                      each other, and may be equal in very rare cases.
 
                      If both \code{eq.mean} and \code{eq.sd} are \code{TRUE},
@@ -279,7 +279,7 @@ constructs a \code{\link[ggd]{GGD}} object which (locally) most closely approxim
 the given frequency distribution. "Locally" means that if the start value is modified,
 more closely approximating model may be generated.
 The outliers of the frequency distribution will not be excluded in this function.
-If necessary, outliers should be excluded by pre-processing.
+If necessary, outliers should be excluded by preprocessing.
 }
 \details{
 \subsection{Why the standard deviations for "start" are square-rooted?}{

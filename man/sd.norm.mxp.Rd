@@ -10,7 +10,7 @@ sd.norm.mxp(mean, x, p)
 \item{mean}{A vector of the mean values of the normal distributions.}
 
 \item{x}{A vector of x-coordinates of the quantiles.
-Each value of \code{x} must not be eqaul to the mean value.}
+Each value of \code{x} must not be equal to the mean value.}
 
 \item{p}{A vector of the probabilities for the quantiles.
 In other word, the value of the cumulative distribution function of

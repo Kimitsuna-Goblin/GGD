@@ -14,9 +14,9 @@ mean value and standard deviation. See \code{\link[ggd]{tex}}.}
 }
 \value{
 TeX-formatted texts to represent the mean values and standard deviations of
-         the normal dintributions of the components.
+         the normal distributions of the components.
 }
 \description{
 Gets the TeX-formatted texts to represent the mean values and standard deviations of
-the normal dintributions of the components.
+the normal distributions of the components.
 }

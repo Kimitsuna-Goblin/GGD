@@ -30,5 +30,5 @@ A list containing components
 }
 \description{
 Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-with 3 normal distribuions of the components.
+with 3 normal distributions of the components.
 }

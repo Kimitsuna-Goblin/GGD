@@ -19,7 +19,7 @@
          2 normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 a vertical gradation of 2 normal distributions.
 Even when \code{cmp} field has 3 rows with \code{mix.type = 3}, if the components of
 the left-tail side and the right-tail side are the same, this function returns \code{TRUE},

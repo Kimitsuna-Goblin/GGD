@@ -62,11 +62,12 @@ Gets index numbers which represent the kinds of distributions.
  a <- GGD$new()
  ggd.kind.index( a )
 
+ ## ggd.nls.freq.all returns a list of GGD objects to $obj.
  df <- data.frame( x = seq( -2, 2, 0.2 ),
                    freq = c(     57,    277,   1002,   3178,   9646,  22109, 42723,
                               80646, 117625, 139181, 162319, 150870, 109947, 78736,
                               46616,  21058,   9211,   3466,    976,    260,    61 ) )
- result <- ggd.nls.freq.all( df )
+ result <- ggd.nls.freq.all( df, not.use.nls = TRUE, start.level = 2 )
  ggd.kind.index( result$obj )
 }
 \seealso{

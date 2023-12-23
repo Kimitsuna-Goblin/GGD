@@ -138,7 +138,7 @@ Remark! Never set any values into the \code{cmp} fields directly without using t
          \item \code{nrow([this.]cmp) = 1} : \code{mix.type} will be \code{0}.
          \item \code{nrow([this.]cmp) = 2} : If the current \code{mix.type} field
                                              is in \code{1:3}, it will be retained.
-                                             Otherwize, \code{mix.type} will be \code{2}.
+                                             Otherwise, \code{mix.type} will be \code{2}.
          \item \code{nrow([this.]cmp) = 3} : \code{mix.type} will be \code{3}.
          \item \code{nrow([this.]cmp) = 4} : \code{mix.type} will be \code{4}.
      }

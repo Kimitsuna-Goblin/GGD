@@ -26,14 +26,14 @@ calc.v(
 \item{symmetric}{If \code{TRUE}, the distribution model is treated as symmetric.
 This option may help reduce calculation errors.}
 
-\item{get.lv}{If \code{TRUE}, this function culculates the lower half variance.}
+\item{get.lv}{If \code{TRUE}, this function calculates the lower half variance.}
 
-\item{get.uv}{If \code{TRUE}, this function culculates the upper half variance.
+\item{get.uv}{If \code{TRUE}, this function calculates the upper half variance.
 
                      Only one of \code{get.lv = TRUE} and \code{get.uv = TRUE} are valid;
                      if both are \code{TRUE}, \code{get.lv} takes priority.
                      If both are \code{FALSE} (the default),
-                     this function culculates the whole variance.}
+                     this function calculates the whole variance.}
 }
 \value{
 The value of the whole/half variance.

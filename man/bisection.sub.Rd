@@ -2,7 +2,7 @@
 % Please edit documentation in R/bisection.R
 \name{bisection.sub}
 \alias{bisection.sub}
-\title{[Non-exported] Subfunction for bisection method}
+\title{[Non-exported] Sub-function for bisection method}
 \usage{
 bisection.sub(f, interval, ftol, xtol)
 }

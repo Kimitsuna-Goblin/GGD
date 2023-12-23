@@ -28,7 +28,7 @@ ggd.read.csv(file)
                      see \code{file} argument of \link[utils]{read.table}.}
 }
 \value{
-The ganarated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
+The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
 
          For \code{GGD} method: If failed to read, the object will be cleared.
 }

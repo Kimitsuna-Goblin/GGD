@@ -2,7 +2,7 @@
 % Please edit documentation in R/GGD.R
 \name{calc.v.sub}
 \alias{calc.v.sub}
-\title{[Non-exported] Subfunctions for variance calculation for mix.type = 2, 3}
+\title{[Non-exported] Sub-functions for variance calculation for mix.type = 2, 3}
 \usage{
 calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0)
 }
@@ -27,7 +27,7 @@ This argument is for \code{mix.type = 3}.}
 Calculated value of the expression shown in "Details".
 }
 \description{
-A subfunction for culculating the variance of a GGD model.
+A sub-function for calculating the variance of a GGD model.
 The meaning of this function is depend on \code{mix.type} (see "Details").
 This function dose not use \code{\link[stats]{integrate}}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/GGD.R
 \name{calc.mean.t4.sub}
 \alias{calc.mean.t4.sub}
-\title{[Non-exported] Subfunction of the mean calculation for mix.type = 4}
+\title{[Non-exported] Sub-function of the mean calculation for mix.type = 4}
 \usage{
 calc.mean.t4.sub(means, sds)
 }
@@ -17,7 +17,7 @@ calc.mean.t4.sub(means, sds)
 The value of \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx}.
 }
 \description{
-A subfunction which is used for calculating the mean value where \code{mix.type = 4}.
+A sub-function which is used for calculating the mean value where \code{mix.type = 4}.
 It calculates \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx},
 where
 \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +

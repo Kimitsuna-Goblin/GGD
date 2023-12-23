@@ -48,7 +48,7 @@ bisection <- function( f, interval, ftol = .Machine$double.eps * 16, xtol = ftol
 }
 
 ################################################################################################
-#' [Non-exported] Subfunction for bisection method
+#' [Non-exported] Sub-function for bisection method
 #'
 #' The entity that processes bisection method.
 #' @param   f           The destination function to solve.

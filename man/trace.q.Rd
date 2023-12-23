@@ -170,7 +170,7 @@ A list containing components (invisible for \code{GGD} method)
                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
          \item{nleqslv.out}{
                  The list of the output of \code{\link[nleqslv]{nleqslv}}
-                 which has successed to solve tracing quantiles.}
+                 which has succeeded to solve tracing quantiles.}
 
          For \code{GGD} method: If an error occur, the object will be cleared in most cases.
 }
@@ -182,7 +182,7 @@ accurately with its cumulative distribution function.
 \subsection{Allowed number of quantiles}{
      The allowed numbers of quantiles depends on the value of \code{mix.type} argument/field.
      Because the value determines the number of components in \code{cmd} field,
-     and resultingly determines the degrees of freedom of the distribution model.
+     and also determines the degrees of freedom of the distribution model.
      The allowed numbers of quantiles are as follows:
      \itemize{
          \item \code{mix.type = 0} : 2 quantiles only.

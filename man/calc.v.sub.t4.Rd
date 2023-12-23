@@ -2,7 +2,7 @@
 % Please edit documentation in R/GGD.R
 \name{calc.v.sub.t4}
 \alias{calc.v.sub.t4}
-\title{[Non-exported] A subfunction for variance calculation for mix.type = 4}
+\title{[Non-exported] A sub-function for variance calculation for mix.type = 4}
 \usage{
 calc.v.sub.t4(means, sds)
 }
@@ -17,7 +17,7 @@ calc.v.sub.t4(means, sds)
 The value of \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx}.
 }
 \description{
-A subfunction for culculating the variance of a GGD model where \code{mix.type = 4}.
+A sub-function for calculating the variance of a GGD model where \code{mix.type = 4}.
 This function calculates \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx},
 where
 \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +

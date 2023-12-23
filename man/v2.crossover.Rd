@@ -21,7 +21,7 @@ A list containing components
 }
 \description{
 Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 3 quantiles
-with mean-differed 2 normal distribuions of the components by crossover-tracing.
+with mean-differed 2 normal distributions of the components by crossover-tracing.
 }
 \details{
 \subsection{Crossover-tracing}{

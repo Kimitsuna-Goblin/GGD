@@ -24,7 +24,7 @@ with the result of \code{\link[stats]{nls}}.}
                      either \code{grad = "v2"} or \code{"v3"} must be indicated.}
 
 \item{eq.mean}{A logical; the flag whether to make all of the mean values of
-the normaldistributions of the components to be equal.}
+the normal distributions of the components to be equal.}
 
 \item{eq.sd}{A logical; the flag whether to make all of the standard deviations of
 the normal distributions of the components to be equal.}

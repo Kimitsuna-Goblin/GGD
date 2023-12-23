@@ -68,7 +68,7 @@ See \code{\link[stats]{nls.control}} for more information.}
                      other than \code{100}.
 
                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-                 it outputs adistribution models using initial values directly.
+                 it outputs an object of a distribution model using initial values directly.
                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 
                  You can use \code{not.use.nls = TRUE} to check the initial values
@@ -100,7 +100,7 @@ A list containing components (invisible for \code{GGD} method)
          \item{obj}{
                  The list of all 16 \code{\link[ggd]{GGD}} objects
                  ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
-                 If an error has occured, the element will be a cleared object.}
+                 If an error has occurred, the element will be a cleared object.}
 
          \item{cor}{
                  The vector of the correlation coefficient of each model for the given
@@ -111,7 +111,7 @@ A list containing components (invisible for \code{GGD} method)
                  The list of the all outputs of each \code{\link[ggd]{nls.freq}}.
                  Normally, each element is a list of the output of
                  \code{\link[ggd]{nls.freq}}.
-                 If an error has occured, the element will be an error condition object.
+                 If an error has occurred, the element will be an error condition object.
                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{

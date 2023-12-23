@@ -1,7 +1,7 @@
 # GGD -  Gradational Gaussian Distribution
 
 Here is an R package of a reference class provides a Gradational Gaussian Distribution (GGD).
-It can approximates asymmetric frequency distributions or traces quantiles accuratelies with GGD models.
+It can approximates asymmetric frequency distributions or traces quantiles accurately with GGD models.
 
 [日本語](README.ja.md)
 
@@ -129,7 +129,7 @@ and $v_2(x) = f_2(x) / f_2(\mu_1)$.
 
 ### Vertical Gradational Distribution (3 components)
 
-You can devide the tail-side distribution along x-axis into left (lower) side
+You can divide the tail-side distribution along x-axis into left (lower) side
 and right (upper) side.
 
 In other words, we can consider a skewed distribution model in which the probability density function
@@ -198,7 +198,7 @@ G_2 =
     v_{2,1}(x) \ N_{2,1} + v_{2,2}(x) \ N_{2,2}
 $$
 
-where each $N_{i,j}$ is a normal distribuion
+where each $N_{i,j}$ is a normal distribution
 and $v_{i,1}(x)$ and $v_{i,2}(x)$ are as same as $v_1(x)$ and $v_2(x)$ for the vertical gradational distribution.
 
 This model is suitable for, for example, representing skewed and heavy-tailed distributions. 
@@ -220,9 +220,9 @@ They can be used as criteria to determine if it is appropriate to use GGD as a d
 Each of 1 to 4 of above can be further classified
 according to the conditions of the normal distribution of the components as follows:
 
-+ Mean-Differed Sigma-Equaled: a distribuion with components of different means and equal standard deviations
-+ Mean-Equaled Sigma-Differed: a distribuion with components of equal means and different standard deviations
-+ Mean-Differed Sigma-Differed: a distribuion with components of both means and standard deviations are different
++ Mean-Differed Sigma-Equaled: a distribution with components of different means and equal standard deviations
++ Mean-Equaled Sigma-Differed: a distribution with components of equal means and different standard deviations
++ Mean-Differed Sigma-Differed: a distribution with components of both means and standard deviations are different
 
 Therefore, there are a total of 16 kinds of distribution models.
 
@@ -243,14 +243,14 @@ But simple models may be easier to use for analyzing data.
 | 〃        | mean                  | The mean value of the distribution.                       |
 | 〃        | sd, usd, lsd          | The standard deviation, upper semi-standard deviation and lower semi-standard deviation. |
 | RC Method | d                     | Returns the values of the probability density function.   |
-| 〃        | p                     | Returns the values of the cummulative probability function.    |
+| 〃        | p                     | Returns the values of the cumulative probability function.    |
 | 〃        | q                     | Returns the values of the quantile function.              |
 | 〃        | r                     | Returns random samples following the distribution.        |
 | 〃        | tex                   | Displays the formulas of the probability density function and the cumulative distribution function in TeX format. |
 | 〃        | read.csv              | Read the composition of a GGD object from a CSV file.     |
 | 〃        | write.csv             | Write the composition of a GGD object to a CSV file.      |
 
-The mean and standard deviation are calculated using the dnorm and pnorm functions in 'stats' pachage and four arithmetic operations
+The mean and standard deviation are calculated using the dnorm and pnorm functions in 'stats' package and four arithmetic operations
 (semi-standard deviations of the horizontal-vertical gradational distribution are computed with numerical integration).
 Therefore, the accuracy of the them depends on the dnorm and pnorm functions.
 
@@ -330,7 +330,7 @@ can trace left- or right-skewed 3 or 4 quantiles with the cumulative density fun
 
 Sample images of probability density functions are:
 
-![Fig.1-a](image/GGD_mix.type_2-1.png) ![Fig.1-b](image/GGD_mix.type_2-2.png)
+![Fig.1-a](man/figures/GGD_mix.type_2-1.png) ![Fig.1-b](man/figures/GGD_mix.type_2-2.png)
 
 
 ### 3. Vertical Gradational Distribution
@@ -393,11 +393,11 @@ Sample images of probability density functions are:
 
 + 2-component models
 
-![Fig.2-a](image/GGD_mix.type_3-1.png) ![Fig.2-b](image/GGD_mix.type_3-2.png)
+![Fig.2-a](man/figures/GGD_mix.type_3-1.png) ![Fig.2-b](man/figures/GGD_mix.type_3-2.png)
 
 + 3-component models
 
-![Fig.3-a](image/GGD_mix.type_3-3.png) ![Fig.3-b](image/GGD_mix.type_3-4.png)
+![Fig.3-a](man/figures/GGD_mix.type_3-3.png) ![Fig.3-b](man/figures/GGD_mix.type_3-4.png)
 
 
 ### 4. Horizontal-Vertical Gradational Distribution
@@ -424,7 +424,7 @@ $$
 
 #### Description
 
-The horizontal-tovertical gradational distribution has the most degrees of freedom in this package
+The horizontal-vertical gradational distribution has the most degrees of freedom in this package
 and can represent the most complex distributions.
 This model can trace 5 to 8 quantiles with the cumulative density function.
 For example, quantiles of $p = 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9$ can be traced.  
@@ -434,7 +434,7 @@ If you have more than 8 quantiles, make a frequency distribution and try ggd.nls
 
 Sample images of probability density functions are:
 
-![Fig.3-a](image/GGD_mix.type_4-1.png) ![Fig.3-b](image/GGD_mix.type_4-2.png)
+![Fig.3-a](man/figures/GGD_mix.type_4-1.png) ![Fig.3-b](man/figures/GGD_mix.type_4-2.png)
 
 
 ## Postscript

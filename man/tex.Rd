@@ -63,9 +63,9 @@ with \code{\link[base]{writeLines}}.
      Where \code{mix.type} field is from \code{0} to \code{3},
      this function outputs 3 parts divided with one empty line as:
      \itemize{
-         \item Fomulas of the probability density function \eqn{g(x)}
+         \item Formulas of the probability density function \eqn{g(x)}
              and the cumulative distribution function \eqn{\Psi(x)} of the model.
-         \item Fomulas of the probability density function \eqn{f_i(x)}
+         \item Formulas of the probability density function \eqn{f_i(x)}
              and the cumulative distribution function \eqn{\Phi_i(x)} of the components.
          \item Values of parameters of the mean values \eqn{\mu_i} and
              the standard deviations \eqn{\sigma_i} of the components.
@@ -79,11 +79,11 @@ with \code{\link[base]{writeLines}}.
 
      \code{tex.p} outputs the formulas of cumulative distribution function only.
 
-     In these mothods, the formulas are output according to \code{mix.type}
+     In these methods, the formulas are output according to \code{mix.type}
      and the number of components in \code{cmp} field, not \code{kind} or \code{kind.index}.
      That is, for example, if the \code{kind} is \code{"Normal Distribution"}
      and \code{mix.type = 2},
-     \code{tex} outputs fomulas of a horizontal gradational distribution.
+     \code{tex} outputs formulas of a horizontal gradational distribution.
      In such a case, if you want to display a normal distribution formula,
      you should simplify \code{mix.type} with \code{\link[ggd]{adjust.cmp}} in advance.
 

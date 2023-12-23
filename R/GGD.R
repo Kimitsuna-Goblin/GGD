@@ -283,7 +283,7 @@ sqnorm <- function( p )
 #' @export
 #' @param   mean    A vector of the mean values of the normal distributions.
 #' @param   x       A vector of x-coordinates of the quantiles.
-#'                  Each value of \code{x} must not be eqaul to the mean value.
+#'                  Each value of \code{x} must not be equal to the mean value.
 #' @param   p       A vector of the probabilities for the quantiles.
 #'                  In other word, the value of the cumulative distribution function of
 #'                  a normal distribution for the \code{x}. The value must not be \code{0.5}.
@@ -328,9 +328,9 @@ ms.norm.xp <- function( x, p )
 }
 
 ################################################################################################
-#' [Non-exported] Subfunction of the mean calculation for mix.type = 4
+#' [Non-exported] Sub-function of the mean calculation for mix.type = 4
 #'
-#' A subfunction which is used for calculating the mean value where \code{mix.type = 4}.
+#' A sub-function which is used for calculating the mean value where \code{mix.type = 4}.
 #' It calculates \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx},
 #' where
 #' \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
@@ -412,9 +412,9 @@ calc.mean <- function( mix.type, means, sds )
 }
 
 ################################################################################################
-#' [Non-exported] Subfunctions for variance calculation for mix.type = 2, 3
+#' [Non-exported] Sub-functions for variance calculation for mix.type = 2, 3
 #'
-#' A subfunction for culculating the variance of a GGD model.
+#' A sub-function for calculating the variance of a GGD model.
 #' The meaning of this function is depend on \code{mix.type} (see "Details").
 #' This function dose not use \code{\link[stats]{integrate}}.
 #' @param   mix.type    The value which represent the way to mix the normal distributions.
@@ -501,9 +501,9 @@ calc.v.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0 )
 }
 
 ################################################################################################
-#' [Non-exported] A subfunction for variance calculation for mix.type = 4
+#' [Non-exported] A sub-function for variance calculation for mix.type = 4
 #'
-#' A subfunction for culculating the variance of a GGD model where \code{mix.type = 4}.
+#' A sub-function for calculating the variance of a GGD model where \code{mix.type = 4}.
 #' This function calculates \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx},
 #' where
 #' \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
@@ -556,13 +556,13 @@ calc.v.sub.t4 <- function( means, sds )
 #' @param   mean        The mean of the whole distribution.
 #' @param   symmetric   If \code{TRUE}, the distribution model is treated as symmetric.
 #'                      This option may help reduce calculation errors.
-#' @param   get.lv      If \code{TRUE}, this function culculates the lower half variance.
-#' @param   get.uv      If \code{TRUE}, this function culculates the upper half variance.
+#' @param   get.lv      If \code{TRUE}, this function calculates the lower half variance.
+#' @param   get.uv      If \code{TRUE}, this function calculates the upper half variance.
 #'
 #'                      Only one of \code{get.lv = TRUE} and \code{get.uv = TRUE} are valid;
 #'                      if both are \code{TRUE}, \code{get.lv} takes priority.
 #'                      If both are \code{FALSE} (the default),
-#'                      this function culculates the whole variance.
+#'                      this function calculates the whole variance.
 #' @return  The value of the whole/half variance.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
@@ -877,11 +877,12 @@ calc.v.t4.via.integrate <- function( means, sds, mean = calc.mean( 4, means, sds
 #'  a <- GGD$new()
 #'  ggd.kind.index( a )
 #'
+#'  ## ggd.nls.freq.all returns a list of GGD objects to $obj.
 #'  df <- data.frame( x = seq( -2, 2, 0.2 ),
 #'                    freq = c(     57,    277,   1002,   3178,   9646,  22109, 42723,
 #'                               80646, 117625, 139181, 162319, 150870, 109947, 78736,
 #'                               46616,  21058,   9211,   3466,    976,    260,    61 ) )
-#'  result <- ggd.nls.freq.all( df )
+#'  result <- ggd.nls.freq.all( df, not.use.nls = TRUE, start.level = 2 )
 #'  ggd.kind.index( result$obj )
 ################################################################################################
 ggd.kind.index <- function( objs, undef.err = FALSE )
@@ -987,11 +988,12 @@ ggd.kind.index <- function( objs, undef.err = FALSE )
 #'  a <- GGD$new()
 #'  ggd.kind( a )
 #'
+#'  ## ggd.nls.freq.all returns a list of GGD objects to $obj.
 #'  df <- data.frame( x = seq( -2, 2, 0.2 ),
 #'                    freq = c(     57,    277,   1002,   3178,   9646,  22109, 42723,
 #'                               80646, 117625, 139181, 162319, 150870, 109947, 78736,
 #'                               46616,  21058,   9211,   3466,    976,    260,    61 ) )
-#'  result <- ggd.nls.freq.all( df )
+#'  result <- ggd.nls.freq.all( df, not.use.nls = TRUE, start.level = 2 )
 #'  ggd.kind( result$obj )
 ################################################################################################
 ggd.kind <- function( objs )
@@ -1033,7 +1035,7 @@ ggd.kind <- function( objs )
 #'                      Although return value will become in integer class,
 #'                      this function does not check if the value of this argument is valid.
 #'
-#' @return  An integer of \code{mix.type} value appropriate for a distribuion model
+#' @return  An integer of \code{mix.type} value appropriate for a distribution model
 #'          represented by \code{grad} value or the default value indicated other arguments.
 #'          If the indicated default value is \code{NULL},
 #'          \code{integer(0)} is returned when \code{grad} is \code{"default"}.
@@ -1078,8 +1080,8 @@ ggd.mix.type.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3
 ################################################################################################
 #' Get mix.type according to kind.index
 #'
-#' Gets a vector of integers indicating \code{mix.type}s
-#' which are appropriate to the indicated destributions by index numbers.
+#' Gets a vector of integers of \code{mix.type}s
+#' which are appropriate to the indicated index numbers of \code{ggd:::kinds}.
 #' @export
 #' @param   kind.index      A vector of index numbers of the kinds of distributions.
 #'                          Values in \code{1:length( ggd:::kinds )} and \code{NA} are
@@ -1185,10 +1187,10 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #' The class provides the Gradational Gaussian Distribution.
 #' @export      GGD
 #' @exportClass GGD
-#' @field   kind.index      An interger; the index number of the kind of the distribution model.
+#' @field   kind.index      An integer; the index number of the kind of the distribution model.
 #' @field   kind            A string; the name of the kind of the distribution model.
-#' @field   mix.type        An interger which represents how to mix normal distributions
-#'                          of the components. It classificates the distribution model.
+#' @field   mix.type        An integer which represents how to mix normal distributions
+#'                          of the components.
 #'
 #'                          The type of the distribution model and the row number of \code{cmp}
 #'                          field will be as follows with this value:
@@ -1299,7 +1301,7 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #'      where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
 #'      \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_2}, respectively.
 #'
-#'      You can devide the tail-side distribution along x-axis into left (lower) side
+#'      You can divide the tail-side distribution along x-axis into left (lower) side
 #'      and right (upper) side.
 #'
 #'      In this case, the distribution
@@ -1657,7 +1659,7 @@ GGD$methods(
 #'          \item \code{nrow([this.]cmp) = 1} : \code{mix.type} will be \code{0}.
 #'          \item \code{nrow([this.]cmp) = 2} : If the current \code{mix.type} field
 #'                                              is in \code{1:3}, it will be retained.
-#'                                              Otherwize, \code{mix.type} will be \code{2}.
+#'                                              Otherwise, \code{mix.type} will be \code{2}.
 #'          \item \code{nrow([this.]cmp) = 3} : \code{mix.type} will be \code{3}.
 #'          \item \code{nrow([this.]cmp) = 4} : \code{mix.type} will be \code{4}.
 #'      }
@@ -2566,7 +2568,7 @@ GGD$methods(
 #'                      For more information about the properties of this argument,
 #'                      see \code{file} argument of \link[utils]{read.table}.
 #'
-#' @return  The ganarated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
+#' @return  The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
 #'
 #'          For \code{GGD} method: If failed to read, the object will be cleared.
 #'
@@ -2874,7 +2876,7 @@ GGD$methods(
 #'                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
 #'          \item{nleqslv.out}{
 #'                  The list of the output of \code{\link[nleqslv]{nleqslv}}
-#'                  which has successed to solve tracing quantiles.}
+#'                  which has succeeded to solve tracing quantiles.}
 #'
 #'          For \code{GGD} method: If an error occur, the object will be cleared in most cases.
 #'
@@ -2885,7 +2887,7 @@ GGD$methods(
 #'  \subsection{Allowed number of quantiles}{
 #'      The allowed numbers of quantiles depends on the value of \code{mix.type} argument/field.
 #'      Because the value determines the number of components in \code{cmd} field,
-#'      and resultingly determines the degrees of freedom of the distribution model.
+#'      and also determines the degrees of freedom of the distribution model.
 #'      The allowed numbers of quantiles are as follows:
 #'      \itemize{
 #'          \item \code{mix.type = 0} : 2 quantiles only.
@@ -4010,7 +4012,7 @@ GGD$methods(
                                     # ( #lower, #upper ) = ( 2, 1 ) or ( 1, 2 )
                                     # i.last: index of qt for the quantile on the other side.
 
-                                    # First, get 2 SDs of the normal distribuions which
+                                    # First, get 2 SDs of the normal distributions which
                                     # trace each of 2 quantiles on the 2-quantiles side.
                                     if ( num.lower == 2 )
                                     {
@@ -4717,7 +4719,7 @@ dp.t3 <- function( x, means, sds, f.t3 )
 #' [Non-exported] Crossover-tracing (3 quantiles, vertical gradation of 2 normal distributions)
 #'
 #' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 3 quantiles
-#' with mean-differed 2 normal distribuions of the components by crossover-tracing.
+#' with mean-differed 2 normal distributions of the components by crossover-tracing.
 #' @param   qt          A data frame; the quantiles to be traced,
 #'                      If the median is specified, median must be included.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
@@ -4743,7 +4745,7 @@ v2.crossover <- function( qt, control )
                              nrow( qt ) ) )
     }
 
-    successed <- FALSE
+    succeeded <- FALSE
     cmp <- result <- NULL
 
     # First, make crossover at the middle (2nd) quantile.
@@ -4792,7 +4794,7 @@ v2.crossover <- function( qt, control )
 
             cmp <- ggd.get.t3.cmp( c( means[1], means[2], means[1] ),
                                    c( sds[1], sds[2], sds[1] ), "v2" )
-            successed <- TRUE
+            succeeded <- TRUE
             break
         }
 
@@ -4803,7 +4805,7 @@ v2.crossover <- function( qt, control )
                         " The result may distort heavily." ) )
     }
 
-    if ( !successed )
+    if ( !succeeded )
     {
         stop( "Error: Failed to construct components." )
     }
@@ -4815,7 +4817,7 @@ v2.crossover <- function( qt, control )
 #' [Non-exported] Gets cmp field (4 quantiles, vertical gradation of 2 normal distributions)
 #'
 #' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-#' with 2 normal distribuions of the components.
+#' with 2 normal distributions of the components.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #' @param   retriable   A logical; the flag if retrying is enable.
@@ -4904,7 +4906,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 #' [Non-exported] Gets cmp field (4 quantiles, vertical gradation of 3 normal distributions)
 #'
 #' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-#' with 3 normal distribuions of the components.
+#' with 3 normal distributions of the components.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   eq.mean     A logical; the flag to be equal all of the mean values.
 #' @param   eq.sd       A logical; the flag to be equal all of the standard deviations.
@@ -5077,7 +5079,7 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #' the given frequency distribution. "Locally" means that if the start value is modified,
 #' more closely approximating model may be generated.
 #' The outliers of the frequency distribution will not be excluded in this function.
-#' If necessary, outliers should be excluded by pre-processing.
+#' If necessary, outliers should be excluded by preprocessing.
 #' @export
 #' @name    nls.freq
 #' @aliases ggd.nls.freq
@@ -5209,7 +5211,7 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'                      are forced to be equal.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
-#'                      the mean values of the components can be dirrerent to each other,
+#'                      the mean values of the components can be different to each other,
 #'                      and may be equal in very rare cases.
 #'
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
@@ -5219,7 +5221,7 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'                      the components are forced to be equal.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
-#'                      the standard deviation of the components can be dirrerent to
+#'                      the standard deviation of the components can be different to
 #'                      each other, and may be equal in very rare cases.
 #'
 #'                      If both \code{eq.mean} and \code{eq.sd} are \code{TRUE},
@@ -5616,6 +5618,15 @@ GGD$methods(
         else
         {
             start.level <- NA_integer_
+        }
+
+        if ( isTRUE( not.use.nls ) && ( !( length( start.level ) == 1 ) ||
+                                        !any( start.level == c( 0:3 ) ) ) )
+        {
+print.cov( "[489]" )
+            warning( paste( "Warning: not.use.nls works only if",
+                                     "start.level is indicated a value from 0 to 3." ) )
+            not.use.nls <- FALSE
         }
 
         if ( isTRUE( start.level == 100 ) )
@@ -6411,7 +6422,7 @@ separate.data.quarter <- function( x, data, data.mean )
 #'                      either \code{grad = "v2"} or \code{"v3"} must be indicated.
 #'
 #' @param   eq.mean     A logical; the flag whether to make all of the mean values of
-#'                      the normaldistributions of the components to be equal.
+#'                      the normal distributions of the components to be equal.
 #' @param   eq.sd       A logical; the flag whether to make all of the standard deviations of
 #'                      the normal distributions of the components to be equal.
 #' @return  A data frame for \code{cmp} field
@@ -6772,7 +6783,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                      other than \code{100}.
 #'
 #'                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-#'                  it outputs adistribution models using initial values directly.
+#'                  it outputs an object of a distribution model using initial values directly.
 #'                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 #'
 #'                  You can use \code{not.use.nls = TRUE} to check the initial values
@@ -6803,7 +6814,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'          \item{obj}{
 #'                  The list of all 16 \code{\link[ggd]{GGD}} objects
 #'                  ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
-#'                  If an error has occured, the element will be a cleared object.}
+#'                  If an error has occurred, the element will be a cleared object.}
 #'
 #'          \item{cor}{
 #'                  The vector of the correlation coefficient of each model for the given
@@ -6814,7 +6825,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                  The list of the all outputs of each \code{\link[ggd]{nls.freq}}.
 #'                  Normally, each element is a list of the output of
 #'                  \code{\link[ggd]{nls.freq}}.
-#'                  If an error has occured, the element will be an error condition object.
+#'                  If an error has occurred, the element will be an error condition object.
 #'                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 #'
 #' @importFrom  methods     new
@@ -6918,6 +6929,15 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
          !any( start.level == c( 0:3, 100 ) ) )
     {
         stop( "Error: start.level should be single integer in 0:3 or 100." )
+    }
+
+    if ( isTRUE( not.use.nls ) && ( !( length( start.level ) == 1 ) ||
+                                    !any( start.level == c( 0:3 ) ) ) )
+    {
+print.cov( "[597]" )
+        warning( paste( "Warning: not.use.nls works only if",
+                                 "start.level is indicated a value from 0 to 3." ) )
+        not.use.nls <- FALSE
     }
 
     # Initialize the output object list.
@@ -7261,7 +7281,7 @@ GGD$methods(
 ################################################################################################
 #' Judge if normal distribution
 #'
-#' Refering only \code{cmp} field, checks if the distribution is a normal distribution.
+#' Referring only \code{cmp} field, checks if the distribution is a normal distribution.
 #' Note, this function does not check \code{kind} and \code{kind.index} fields.
 #' @name    is.normal
 #' @aliases is.normal
@@ -7292,7 +7312,7 @@ GGD$methods(
 ################################################################################################
 #' Judge if horizontal gradational distribution
 #'
-#' Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 #' a horizontal gradational distribution.
 #' When \code{mix.type = 4}, if it is essentially a horizontal gradational distribution,
 #' this function returns \code{TRUE}.
@@ -7351,7 +7371,7 @@ GGD$methods(
 ################################################################################################
 #' Judge if vertical gradation of 2 normal distributions
 #'
-#' Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 #' a vertical gradation of 2 normal distributions.
 #' Even when \code{cmp} field has 3 rows with \code{mix.type = 3}, if the components of
 #' the left-tail side and the right-tail side are the same, this function returns \code{TRUE},
@@ -7416,7 +7436,7 @@ GGD$methods(
 ################################################################################################
 #' Judge if vertical gradation of 3 normal distributions
 #'
-#' Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 #' a vertical gradation of 3 normal distributions.
 #' Note! when \code{mix.type = 4},
 #' if the right-top-side and left-top-side components are the same
@@ -7478,7 +7498,7 @@ GGD$methods(
 ################################################################################################
 #' Judge if horizontal-vertical gradation
 #'
-#' Refering \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
 #' a horizontal-vertical gradation of 4 (2x2) normal distributions.
 #' @name    is.hv
 #' @aliases is.hv
@@ -7493,7 +7513,7 @@ GGD$methods(
 #'                      and a 2-component vertical gradational distribution.
 #'
 #' @return  \code{TRUE} if the object shows a kind of horizontal-vertical gradation of
-#'          4 (2x2) normal distributions, therwise \code{FALSE}.
+#'          4 (2x2) normal distributions, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
 #'  a$kind; a$cmp
@@ -7538,8 +7558,8 @@ GGD$methods(
 ################################################################################################
 #' Judge if symmetric distribution
 #'
-#' Refering \code{mix.type} and \code{cmp} field,
-#' checks if the probability density function is symmectric about the mean.
+#' Referring \code{mix.type} and \code{cmp} field,
+#' checks if the probability density function is symmetric about the mean.
 #'
 #' This function judges that the distribution model is symmetric if either:
 #' \enumerate{
@@ -7563,7 +7583,7 @@ GGD$methods(
 #' @aliases \S4method{is.symmetric}{GGD}
 #' @usage   \S4method{is.symmetric}{GGD}()
 #' @return  \code{TRUE} if the probability density function of the distribution model is
-#'          symmectric about the mean, otherwise \code{FALSE}.
+#'          symmetric about the mean, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
 #'  a$is.symmetric()    ## TRUE
@@ -8262,9 +8282,9 @@ apply.math2.cmp <- function( math2.f, dg.mean, dg.sd, obj )
 #'      Where \code{mix.type} field is from \code{0} to \code{3},
 #'      this function outputs 3 parts divided with one empty line as:
 #'      \itemize{
-#'          \item Fomulas of the probability density function \eqn{g(x)}
+#'          \item Formulas of the probability density function \eqn{g(x)}
 #'              and the cumulative distribution function \eqn{\Psi(x)} of the model.
-#'          \item Fomulas of the probability density function \eqn{f_i(x)}
+#'          \item Formulas of the probability density function \eqn{f_i(x)}
 #'              and the cumulative distribution function \eqn{\Phi_i(x)} of the components.
 #'          \item Values of parameters of the mean values \eqn{\mu_i} and
 #'              the standard deviations \eqn{\sigma_i} of the components.
@@ -8278,11 +8298,11 @@ apply.math2.cmp <- function( math2.f, dg.mean, dg.sd, obj )
 #'
 #'      \code{tex.p} outputs the formulas of cumulative distribution function only.
 #'
-#'      In these mothods, the formulas are output according to \code{mix.type}
+#'      In these methods, the formulas are output according to \code{mix.type}
 #'      and the number of components in \code{cmp} field, not \code{kind} or \code{kind.index}.
 #'      That is, for example, if the \code{kind} is \code{"Normal Distribution"}
 #'      and \code{mix.type = 2},
-#'      \code{tex} outputs fomulas of a horizontal gradational distribution.
+#'      \code{tex} outputs formulas of a horizontal gradational distribution.
 #'      In such a case, if you want to display a normal distribution formula,
 #'      you should simplify \code{mix.type} with \code{\link[ggd]{adjust.cmp}} in advance.
 #'
@@ -8514,12 +8534,12 @@ GGD$methods(
 #' [Non-exported] TeX format for mean and standard deviation
 #'
 #' Gets the TeX-formatted texts to represent the mean values and standard deviations of
-#' the normal dintributions of the components.
+#' the normal distributions of the components.
 #' @param   obj         A \code{\link[ggd]{GGD}} object.
 #' @param   format.num  A function to format each number of value of a parameter;
 #'                      mean value and standard deviation. See \code{\link[ggd]{tex}}.
 #' @return  TeX-formatted texts to represent the mean values and standard deviations of
-#'          the normal dintributions of the components.
+#'          the normal distributions of the components.
 ################################################################################################
 get.cmp.tex <- function( obj, format.num )
 {
