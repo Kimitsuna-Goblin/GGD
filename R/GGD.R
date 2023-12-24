@@ -1021,7 +1021,7 @@ ggd.kind <- function( objs )
 #'
 #' @param   kind        A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model.
-#'                      This argument is enabled when the length of \code{mix.type} argument
+#'                      This argument works when the length of \code{mix.type} argument
 #'                      is \code{0}, and \code{grad} is \code{"default"}.
 #'
 #'                      The matching method of this argument follows that of elements of
@@ -5090,13 +5090,13 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
 #'          eq.mean = logical(), eq.sd = logical(),
 #'          start.level = 100, start = NULL, control = list(),
-#'          not.use.nls = FALSE, method = NULL, ...)
+#'          not.use.nls = FALSE, cor.method = NULL, ...)
 #' @usage   \S4method{nls.freq}{GGD}(data, x = "x", freq = "freq", total = NULL,
 #'          this.kind = NULL, this.mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
 #'          eq.mean = logical(), eq.sd = logical(),
 #'          start.level = 100, start = NULL, control = list(),
-#'          not.use.nls = FALSE, method = NULL, ...)
+#'          not.use.nls = FALSE, cor.method = NULL, ...)
 #'
 #' @param   data        A data frame which represents the frequency distribution.
 #'                      It must contain at least 2 numeric columns for \code{x} and \code{freq}.
@@ -5230,7 +5230,7 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
 #'                      \code{kind} or \code{this.kind} argument.
 #'
-#' @param   start.level A numeric value of integer from \code{0} to \code{3} and \code{100}
+#' @param   start.level A numeric value of integer in from \code{0} to \code{3} or \code{100}
 #'                      with default \code{100}; the level at which to guess the initial
 #'                      \code{start} parameters of \code{\link[stats]{nls}}.
 #'
@@ -5287,18 +5287,20 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'                      See \code{\link[stats]{nls.control}} for more information.
 #'
 #' @param   not.use.nls A logical.
-#'                      This argument is enabled when \code{start.level} argument is
-#'                      other than \code{100}.
-#'
 #'                      If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-#'                      it outputs a distribution model using initial values directly.
+#'                      it outputs an object having the initial values in the \code{cmp} field
+#'                      as the result.
 #'                      If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
+#'
+#'                      This argument works when \code{start.level} argument is
+#'                      other than \code{100}. A warning will occur if \code{TRUE}
+#'                      when \code{start.level} is \code{100}.
 #'
 #'                      You can use \code{not.use.nls = TRUE} to check the initial values
 #'                      when an error has occurred at this function.
 #'
-#' @param   method      The \code{method} argument for \code{\link[stats]{cor}},
-#'                      which represents the correlation coefficient method.
+#' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
+#'                      It represents the correlation coefficient method.
 #'                      This argument is used only if \code{start.level = 100}.
 #'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 #'                      See \code{\link[stats]{cor}} for more information.
@@ -5314,36 +5316,38 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
 #'          \item{nls.out}{
 #'                  The list of the output of \code{\link[stats]{nls}}.
+#'                  If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
 #'                  See "Value" of \code{\link[stats]{nls}} for more information.}
 #'          \item{start.level}{
-#'                  An integer of the indicated value of \code{start.level}.
-#'                  If not-\code{NULL} \code{start} argument is indicated,
-#'                  it will be \code{NA_integer_}.}
+#'                  The initial guessing level which is used actually to gain \code{obj}.
+#'                  If \code{start.level = 100} is indicated,
+#'                  the level for the best result will be set.
+#'                  When \code{start.level = 3} is indicated
+#'                  and if initial guessing has failed, \code{2} will be set.
+#'                  If \code{start} argument (not-\code{NULL}) is indicated,
+#'                  \code{NA} will be set.}
 #'          \item{start}{
 #'                  The used \code{start} argument for the initial values
-#'                  in \code{\link[stats]{nls}}.}
+#'                  for \code{\link[stats]{nls}}.}
 #'          \item{start.obj}{
 #'                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
-#'                  That is, a \code{\link[ggd]{GGD}} object in which each parameter in
-#'                  the used \code{start} argument is directly given to the field.}
+#'                  That is, a \code{\link[ggd]{GGD}} object in which
+#'                  values of the above \code{start} are set directly to the \code{cmp} field.}
 #'          \item{cor}{
-#'                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
-#'                  That is, a \code{\link[ggd]{GGD}} object in which each parameter in
+#'                  The vector of the correlation coefficient of between the result for
+#'                  each level of initial guessing in from \code{0} to \code{3}
+#'                  and the frequency distribution.
 #'                  This component is given only if \code{start.level = 100}.}
 #'          \item{errors}{
-#'                  A list of information about errors which have occurred
-#'                  at \code{\link[stats]{nls}}.
+#'                  A list of information about errors occurred in \code{\link[stats]{nls}}.
 #'                  This component is given only if \code{start.level = 100}.
 #'                  Each element in the list contains:
 #'                  \itemize{
-#'                      \item level: The level of initial guessing.
-#'                                   That is, the value of \code{start.level}
-#'                                   other than \code{100}.
+#'                      \item level: The level of initial guessing when the error has occurred.
 #'                      \item message: The error message.
 #'                  }}
 #'          \item{warnings}{
-#'                  A list of information about warnings which have occurred
-#'                  at \code{\link[stats]{nls}}.
+#'                  A list of information about warnings occurred in \code{\link[stats]{nls}}.
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is as same as for \code{errors}.}
 #'
@@ -5358,8 +5362,8 @@ ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 #'  \subsection{Why the standard deviations for "start" are square-rooted?}{
 #'      You know a standard deviation must be a non-zero positive value.
 #'      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
-#'      they will sometimes drop into negative values while the Gauss-Newton algorithm
-#'      and the algorithm will fail, even if it can reach to convergence when done well.
+#'      they will sometimes drop into negative values while the Gauss-Newton algorithm is running
+#'      and the algorithm will fail, even if it can reach to convergence if done better.
 #'
 #'      So, to avoid such failures, we use square roots of standard deviations and
 #'      take squares of them in the formula for \code{\link[stats]{nls}}.
@@ -5443,7 +5447,7 @@ ggd.nls.freq <- function( data, x = "x", freq = "freq", total = NULL,
                           grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
                           eq.mean = logical(), eq.sd = logical(),
                           start.level = 100, start = NULL, control = list(),
-                          not.use.nls = FALSE, method = NULL, ... )
+                          not.use.nls = FALSE, cor.method = NULL, ... )
 {
     obj <- GGD$new()
     return ( withVisible( obj$nls.freq( data            = data,
@@ -5459,7 +5463,7 @@ ggd.nls.freq <- function( data, x = "x", freq = "freq", total = NULL,
                                         start           = start,
                                         control         = control,
                                         not.use.nls     = not.use.nls,
-                                        method          = method, ... ) )$value )
+                                        cor.method      = cor.method, ... ) )$value )
 }
 
 GGD$methods(
@@ -5468,7 +5472,7 @@ GGD$methods(
                          grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
                          eq.mean = logical(), eq.sd = logical(),
                          start.level = 100, start = NULL, control = list(),
-                         not.use.nls = FALSE, method = NULL, ...)
+                         not.use.nls = FALSE, cor.method = NULL, ...)
     {
         # Note:
         # In this function, when a error occur,
@@ -5632,7 +5636,7 @@ GGD$methods(
             # Loop with each level.
             result <- try( nls.freq.level.100( data.ext, total, this.kind, this.mix.type,
                                                grad, eq.mean, eq.sd, control,
-                                               not.use.nls = FALSE, method, ... ),
+                                               not.use.nls = FALSE, cor.method, ... ),
                            silent = TRUE )
             if ( inherits( result, "try-error" ) )
             {
@@ -5652,7 +5656,7 @@ GGD$methods(
                                       new.mix.type, grad, eq.mean, eq.sd, start.level )
 
             # Output start paramaters.
-            result$start.level <- as.integer( start.level )
+            result$start.level <- as.integer( params$start.level )
             if ( is.null( start ) )
             {
                 result$start <- params$start
@@ -5928,10 +5932,10 @@ exclude.freq.edge <- function( x, freq )
 #'          \itemize{
 #'              \item from \code{0} to \code{3}:
 #'                      Same as \code{start.level} in arguments of \code{\link[ggd]{nls.freq}}.
-#'              \item \code{NA}: All of mean values and standard deviations are \code{NA_real_}.
+#'              \item \code{NA}: All values of \code{start} will be set to \code{NA}.
 #'          }
 #' @return  A list containing \code{formula} and \code{start} for the arguments of
-#'          \code{\link[stats]{nls}}.
+#'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
 get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, start.level )
@@ -6094,6 +6098,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                 {
                     warning( paste( "Warning: Level 3 initial guessing has failed.",
                                              "Level 2 has been used instead." ) )
+                    start.level <- 2
                 }
                 else
                 {
@@ -6326,7 +6331,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
         }
     }
 
-    return ( list( formula = fm, start = start ) )
+    return ( list( formula = fm, start = start, start.level = start.level ) )
 }
 
 ################################################################################################
@@ -6531,18 +6536,19 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
 #' Note, in this function, the arguments to give the frequency distribution are
 #' two numeric vectors like as other non-exported functions, not a data frame.
 #' @export
-#' @param   objs    A \code{\link[ggd]{GGD}} object or a list of \code{\link[ggd]{GGD}} objects.
-#' @param   x       The vector of the x-coordinates of the frequency distribution.
-#' @param   freq    The vector of the frequencies of the frequency distribution.
-#' @param   total   Total value of the frequencies.
-#' @param   method  The \code{method} argument for \code{\link[stats]{cor}},
-#'                  which represents the correlation coefficient method.
-#'                  If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
-#'                  See \code{\link[stats]{cor}} for more information.
+#' @param   objs        A \code{\link[ggd]{GGD}} object or a list of
+#'                      \code{\link[ggd]{GGD}} objects.
+#' @param   x           The vector of the x-coordinates of the frequency distribution.
+#' @param   freq        The vector of the frequencies of the frequency distribution.
+#' @param   total       Total value of the frequencies.
+#' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
+#'                      It represents the correlation coefficient method.
+#'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+#'                      See \code{\link[stats]{cor}} for more information.
 #' @return  A vector of correlation coefficients.
 #'          Its order follows the order of the elements of the \code{objs} argument.
 #'          If \code{cmp} field of an \code{\link[ggd]{GGD}} object in \code{objs} has no rows,
-#'          \code{NA_real_} is set to the element.
+#'          \code{NA} will be set to the element.
 #' @importFrom  stats   cor
 #' @examples
 #'  df <- data.frame( x     = seq( -2, 2, 0.2 ),
@@ -6557,14 +6563,14 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
 #'                ggd.nls.freq( df, kind = "Mean-Diff.*Sigma-Diff.*Vertical" )$obj )
 #'  ggd.cor.vs.freq( objs, df$x, df$freq )
 ################################################################################################
-ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), method = NULL )
+ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), cor.method = NULL )
 {
     if ( inherits( objs, "GGD" ) )
     {
         objs <- list( objs )
     }
 
-    if ( is.null( method ) )
+    if ( is.null( cor.method ) )
     {
         cor.f <- function( cd, fd, m ) cor( cd, fd )
     }
@@ -6583,7 +6589,7 @@ ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), method = NULL )
                                     return ( NA_real_ )
                                 }
 
-                                cor.f( obj$d( x ), get.d.freq( x, freq, total ), method )
+                                cor.f( obj$d( x ), get.d.freq( x, freq, total ), cor.method )
                             }, 0 ) ) )
 
     return ( cors )
@@ -6609,15 +6615,14 @@ ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), method = NULL )
 #'                      the components are forced to be equal.
 #' @param   control     The list for \code{control} argument of \code{\link[stats]{nls}}.
 #'                      See \code{\link[stats]{nls.control}} for more information.
-#' @param   method      The \code{method} argument for \code{\link[stats]{cor}},
-#'                      which represents the correlation coefficient method.
+#' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                      See "Arguments" of \code{\link[stats]{nls}} for more information.
 #' @return  A list conforming the return value of \code{\link[ggd]{nls.freq}}.
 #' @seealso \code{\link[ggd]{nls.freq}}
 ################################################################################################
 nls.freq.level.100 <- function( data, total, kind, mix.type,
-                                grad, eq.mean, eq.sd, control, method, ... )
+                                grad, eq.mean, eq.sd, control, cor.method, ... )
 {
     outl <- errl <- wrnl <- NULL
 
@@ -6650,7 +6655,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 
 
     cors <- ggd.cor.vs.freq( lapply( outl, function( out ) out$obj ),
-                             data$x, data$freq, total, method )
+                             data$x, data$freq, total, cor.method )
     max.cor <- max( ifelse( is.na( cors ), -Inf, cors ) )
     if ( max.cor == -Inf )
     {
@@ -6746,8 +6751,8 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #' @param   total   Total value of the frequencies.
 #'                  See \code{\link[ggd]{nls.freq}} for more information.
 #'
-#' @param   start.level A numeric value of integer from \code{0} to \code{3} and \code{100}
-#'                      with default \code{1};
+#' @param   start.level A numeric value of integer in from \code{0} to \code{3} or \code{100}
+#'                      with default \code{100};
 #'                      the level at which to guess the initial \code{start} parameters
 #'                      of \code{\link[stats]{nls}}.
 #'                      See \code{\link[ggd]{nls.freq}} for more information.
@@ -6776,20 +6781,23 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #' @param   control The \code{control} argument for \code{\link[stats]{nls}}.
 #'                  See \code{\link[stats]{nls.control}} for more information.
 #'
-#' @param   not.use.nls A logical. This argument is enabled when \code{start.level} argument is
-#'                      other than \code{100}.
-#'
-#'                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-#'                  it outputs an object of a distribution model using initial values directly.
+#' @param   not.use.nls A logical.
+#'                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}}
+#'                  and it outputs objects having the initial values in the \code{cmp} field
+#'                  as the results.
 #'                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
+#'
+#'                  This argument works when \code{start.level} argument is
+#'                  other than \code{100}.
+#'                  A warning will occur if \code{TRUE} when \code{start.level} is \code{100}.
 #'
 #'                  You can use \code{not.use.nls = TRUE} to check the initial values
 #'                  when an error has occurred at this function.
 #'
-#' @param   method  The \code{method} argument for \code{\link[stats]{cor}},
-#'                  which represents the correlation coefficient method.
-#'                  If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
-#'                  See \code{\link[stats]{cor}} for more information.
+#' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
+#'                      It represents the correlation coefficient method.
+#'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+#'                      See \code{\link[stats]{cor}} for more information.
 #'
 #' @param   ...     Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                  See "Arguments" of \code{\link[stats]{nls}} for more information.
@@ -6809,20 +6817,20 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                  frequency distribution.}
 #'
 #'          \item{obj}{
-#'                  The list of all 16 \code{\link[ggd]{GGD}} objects
+#'                  The list of 16 \code{\link[ggd]{GGD}} objects
 #'                  ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
 #'                  If an error has occurred, the element will be a cleared object.}
 #'
 #'          \item{cor}{
-#'                  The vector of the correlation coefficient of each model for the given
-#'                  frequency distribution.
-#'                  \code{NA_real_} will be given for an error case or an extremely bad result.}
+#'                  The vector of the correlation coefficient of
+#'                  between the result of each model and the frequency distribution.
+#'                  \code{NA} will be given for an error case or an extremely bad result.}
 #'
 #'          \item{detail}{
-#'                  The list of the all outputs of each \code{\link[ggd]{nls.freq}}.
+#'                  The list of 16 elements of outputs of \code{\link[ggd]{nls.freq}}.
 #'                  Normally, each element is a list of the output of
-#'                  \code{\link[ggd]{nls.freq}}.
-#'                  If an error has occurred, the element will be an error condition object.
+#'                  \code{\link[ggd]{nls.freq}},
+#'                  but if an error has occurred, the element will be an error condition.
 #'                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 #'
 #' @importFrom  methods     new
@@ -6905,7 +6913,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
                               start.level = 100, start = NULL,
                               control = list( maxiter = 300, warnOnly = TRUE ),
-                              not.use.nls = FALSE, method = NULL, ... )
+                              not.use.nls = FALSE, cor.method = NULL, ... )
 {
     # Check errors and discard NA and NaN from data.
     data.ext <- extract.freq.data( data, x, freq )
@@ -6930,7 +6938,6 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
 
     if ( isTRUE( not.use.nls ) && start.level == 100 )
     {
-print.cov( "[597]" )
         warning( paste( "Warning: not.use.nls does not work with start.level is default 100." ) )
         not.use.nls <- FALSE
     }
@@ -6975,7 +6982,7 @@ print.cov( "[597]" )
                                        start            = start[[i]],
                                        control          = control,
                                        not.use.nls      = not.use.nls,
-                                       method           = method, ... ),
+                                       cor.method       = cor.method, ... ),
                          silent = TRUE ),
                     warning = function( w )
                     {
@@ -6995,7 +7002,7 @@ print.cov( "[597]" )
     objs <- lapply( results, function( result ) result[[1]] )
     details <- lapply( results, function( result ) result[[2]] )
 
-    cors <- ggd.cor.vs.freq( objs, data.ext$x, data.ext$freq, total, method )
+    cors <- ggd.cor.vs.freq( objs, data.ext$x, data.ext$freq, total, cor.method )
 
     best.cor <- max( cors, na.rm = TRUE )
 

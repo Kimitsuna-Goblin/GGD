@@ -23,7 +23,7 @@ ggd.mix.type.for(
 
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
                      which indicates the kind of distribution model.
-                     This argument is enabled when the length of \code{mix.type} argument
+                     This argument works when the length of \code{mix.type} argument
                      is \code{0}, and \code{grad} is \code{"default"}.
 
                      The matching method of this argument follows that of elements of

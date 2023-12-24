@@ -392,7 +392,7 @@ expect_cleared( a ); a <- GGD$new()
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
-  	kind = character() ),
+    kind = character() ),
     "kind should be valid single value or a GGD object" )
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
@@ -403,7 +403,7 @@ expect_cleared( a ); a <- GGD$new()
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
-  	kind = 2:3 ),
+    kind = 2:3 ),
     "kind should be valid single value or a GGD object" )
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
@@ -414,7 +414,7 @@ expect_cleared( a ); a <- GGD$new()
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
-  	kind = c( "Horizontal", NA ) ),
+    kind = c( "Horizontal", NA ) ),
     "kind should be valid single value or a GGD object" )
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
@@ -583,7 +583,7 @@ expect_true( withVisible(
 #### Normal Distribution
 # normal test
 a <- GGD$new()
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$kind, "Normal Distribution" )
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
@@ -594,7 +594,7 @@ expect_false( withVisible(
         data.frame(
         p = c( 0.25, 0.75 ),
         x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ) ) )$visible )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a, c( 0.25, 0.75 ), c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ), c( -3, 3 ) )
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
@@ -607,7 +607,7 @@ a$trace.q(
     data.frame(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ) )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a, c( 0.25, 0.75 ), c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ), c( -3, 3 ) )
 
@@ -616,7 +616,7 @@ a <- ggd.trace.q(
         data.frame(
         p = c( 0.25, 0.75 ),
         x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ) )$obj
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a, c( 0.25, 0.75 ), c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ), c( -3, 3 ) )
 
@@ -627,7 +627,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     this.mix.type = 3, eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test
@@ -637,7 +637,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     this.kind = 10, eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test
@@ -647,7 +647,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     grad = "h", eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test
@@ -657,7 +657,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     grad = "v2", eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test
@@ -667,7 +667,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     grad = "v3", eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test
@@ -677,7 +677,7 @@ a$trace.q(
     p = c( 0.25, 0.75 ),
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     grad = "hv", eq.mean = TRUE, eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # Error case
@@ -700,7 +700,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         FALSE )
 expect_equal( a$is.h( TRUE ),   FALSE )
@@ -748,7 +748,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.mix.type = 1, eq.mean = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         FALSE )
 expect_equal( a$is.v2(),        FALSE )
@@ -780,7 +780,7 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.5, 0.61 ),
     x = xs ) )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.61 ), tolerance = 5e-7 )
@@ -795,7 +795,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.mix.type = 1, eq.mean = FALSE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(),   FALSE )
 expect_equal( a$is.eq.sd(),     FALSE )
 expect_equal( a$is.symmetric(), FALSE )
@@ -821,7 +821,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.mix.type = 1, eq.mean = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median, -0.5 )
 expect_equal( a$mean, -0.5 )
@@ -840,7 +840,7 @@ a$trace.q(
     p = c( 0.5, 0.1, 0.7 ),
     x = xs ),
     this.mix.type = 1, eq.mean = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median, -0.5 )
 expect_equal( a$mean, -0.5 )
@@ -893,7 +893,7 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.6 ), x = xs ),
     this.mix.type = 1, eq.mean = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$median, a$mean )
@@ -911,7 +911,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = c( qnorm( 0.1, 0, 1.9 ), 0, qnorm( 0.7, 0, 0.4 ) ) ),
     this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.7 ), tolerance = 5e-7 )
@@ -927,7 +927,7 @@ xs <- c( qnorm( 0.1, 0, 0.9 ), 0, qnorm( 0.6, 0, 1 ) )
         p = c( 0.1, 0.5, 0.6 ),
         x = xs ),
         this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.6 ), tolerance = 5e-7 )
@@ -988,7 +988,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
     c( 0.1, 0.25, 0.75, 0.9 ), xs, c( -3, 3 ) )
@@ -1001,7 +1001,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 1, control = control )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.75, 0.9 ) )
 show.results()
 
@@ -1021,7 +1021,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
     c( 0.1, 0.25, 0.5, 0.9 ), xs, c( -3, 3 ) )
@@ -1150,7 +1150,7 @@ expect_equal( a$is.v3(),        FALSE )
 expect_equal( a$is.v3( TRUE ),  FALSE )
 expect_equal( a$is.hv(),        TRUE )
 expect_equal( a$is.hv( TRUE ),  FALSE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$p( xs ), c( 0.3, 0.5, 0.7 ), tolerance = 5e-7 )
@@ -1223,7 +1223,7 @@ a$trace.q(
     p = c( 0.3, 0.5, 0.9 ),
     x = xs ),
     this.mix.type = 1, grad = "h", eq.mean = TRUE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.h( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median, 0.2 )
@@ -1239,7 +1239,7 @@ a$trace.q(
     p = c( 0.3, 0.5, 0.9 ),
     x = xs ),
     this.mix.type = 1, grad = "default", eq.mean = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.h( TRUE ), FALSE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median, 0.2 )
@@ -1255,7 +1255,7 @@ a$trace.q(
     p = c( 0.3, 0.5, 0.9 ),
     x = xs ),
     this.mix.type = 2, grad = NULL )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.3, 0.5, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -1269,7 +1269,7 @@ a$trace.q(
     data.frame(
     p = c( 0.3, 0.5, 0.9 ),
     x = xs ) )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.h( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -1315,7 +1315,7 @@ a <- ggd.trace.q(
         p = c( 0.52, 0.6, 0.9 ),
         x = xs ),
         grad = "h" )$obj
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.h( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -1364,22 +1364,22 @@ df <- data.frame(
         p.2 = c( 0.3, NA, 0.5, 0.9 ),
         p.3 = c( 0.3, 0.5, NA, 0.9 ) )
 a <- ggd.trace.q( df, x = "x.1", p = "p.1" )$obj
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( xs.1[3:4] ), c( 0.5, 0.9 ), tolerance = 5e-7 )
 
 a$trace.q( df, x = "x.1", p = "p.2", this.mix.type = 2, eq.mean = TRUE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$median, 0.2 )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( c( a$sd, a$lsd, a$usd ), c( 0.8858638, 0.7846082, 0.9766777 ), tolerance = 5e-7 )
 expect_equal( a$p( xs.1 ), c( 0.3, NA, 0.5, 0.9 ), tolerance = 5e-7 )
 
 a$trace.q( df, x = "x.1", p = "p.3" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( xs.1[c( 1, 4 )] ), c( 0.3, 0.9 ), tolerance = 5e-7 )
 
 a$trace.q( df, x = "x.2", p = "p.3", this.mix.type = 2, eq.mean = TRUE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$median, -0.2 )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( c( a$sd, a$lsd, a$usd ), c( 0.833052, 0.7543257, 0.9049563 ), tolerance = 5e-7 )
@@ -1387,7 +1387,7 @@ expect_equal( a$p( xs.2 ), c( 0.3, 0.5, NA, 0.9 ), tolerance = 5e-7 )
 
 a$clear()
 a$trace.q( df, x = "x.3", p = "p.2", this.mix.type = 2, eq.mean = TRUE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$median, -0.2 )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( c( a$sd, a$lsd, a$usd ), c( 1.1249, 0.9402237, 1.283269 ), tolerance = 5e-7 )
@@ -1483,7 +1483,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         TRUE )
 expect_equal( a$is.h( TRUE ),   TRUE )
@@ -1523,7 +1523,7 @@ a <- ggd.trace.q(
         data.frame(
         p = c( 0.1, 0.25, 0.75, 0.9 ),
         x = xs ) )$obj
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.h( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -1673,7 +1673,7 @@ a$trace.q(
     p = c( 0.1, 0.3, 0.4 ),
     x = xs ),
     this.mix.type = 2, grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.3, 0.4 ), tolerance = 5e-7 )
@@ -1688,7 +1688,7 @@ a$trace.q(
     p = c( 0.1, 0.3, 0.4 ),
     x = xs ),
     this.mix.type = 4, grad = "v2", control = control )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_near( a$p( xs ), c( 0.1, 0.3, 0.4 ) )
@@ -1702,7 +1702,7 @@ a$trace.q(
     x = xs ),
     this.mix.type = 3, grad = "v2" )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2(), TRUE )
 expect_equal( a$is.v2( TRUE ), FALSE )
 expect_equal( a$is.eq.mean(), TRUE )
@@ -2288,7 +2288,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$is.v2(), TRUE )
@@ -2307,7 +2307,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     this.mix.type = 3, control = control )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_near( a$p( xs ), c( 0.1, 0.4, 0.5 ) )
@@ -2326,7 +2326,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     this.mix.type = 3, eq.mean = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.v3( FALSE ), TRUE )
 expect_equal( a$is.symmetric(), TRUE )
@@ -2347,7 +2347,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     this.mix.type = 3, eq.mean = TRUE, control = control )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 expect_equal( a$median, 0 )
@@ -2363,7 +2363,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), FALSE )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.symmetric(), FALSE )
@@ -2382,7 +2382,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     this.mix.type = 4, grad = "v3", eq.mean = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), FALSE )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.symmetric(), FALSE )
@@ -2414,7 +2414,7 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ) )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), FALSE )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
@@ -2428,7 +2428,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     grad = "v3", eq.mean = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.4, 0.5 ), tolerance = 5e-7 )
@@ -2445,7 +2445,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ),
     grad = "v3", eq.mean = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.4, 0.5 ), tolerance = 5e-7 )
@@ -3432,7 +3432,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6, 0.9 ),
     x = xs ),
     this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 plot.quantiles.and.p( a,
@@ -3864,7 +3864,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -3879,7 +3879,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 3, control = control )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ) )
 show.results()
@@ -3889,7 +3889,7 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ) )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
 show.results()
@@ -3899,7 +3899,7 @@ a <- ggd.trace.q(
         data.frame(
         p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
         x = xs ) )$obj
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         FALSE )
 expect_equal( a$is.h( TRUE ),   FALSE )
@@ -4161,7 +4161,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -4176,7 +4176,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4, control = control )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ) )
@@ -4187,7 +4187,7 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ) )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -4204,7 +4204,7 @@ expect_message(
         this.mix.type = 4 ),
     paste( "Initial guessing with 3-quantile-tracing for left-side mean-differed components has failed.",
            "2-quantile-tracing has used instead" ) )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4221,7 +4221,7 @@ expect_message(
         this.mix.type = 4 ),
     paste( "Initial guessing with 3-quantile-tracing for right-side mean-differed components has failed.",
            "2-quantile-tracing has used instead" ) )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.5, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4255,7 +4255,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4, eq.mean = TRUE )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median == 0, TRUE )
@@ -4272,7 +4272,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4, eq.mean = FALSE )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -4294,7 +4294,7 @@ expect_message(
         x = xs ),
         this.mix.type = 3, grad = "hv", eq.mean = TRUE ),
     "Initial guessing with 3-quantile-tracing for right-side mean-equaled components" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$median == 0, TRUE )
@@ -4334,7 +4334,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     grad = "hv" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -4352,7 +4352,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -4498,7 +4498,7 @@ expect_message( expect_message(
         grad = "hv" ),
     "nleqslv has once failed. Message:" ),  # This message may be different depending on the environment.
     "Tracing with 6 degrees of freedom has failed" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$p( xs ), c( 0.25, 0.48, 0.5, 0.52, 0.75 ), tolerance = 5e-7 )
@@ -4517,7 +4517,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4564,7 +4564,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.6, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.5, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4583,7 +4583,7 @@ expect_message( expect_message(
         this.mix.type = 4 ),
     "nleqslv has once failed. Message: No better point found" ),
     "Tracing with 6 degrees of freedom has failed" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4787,7 +4787,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4, control = list( maxit = 1000 ) )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -4842,7 +4842,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ),
     x = xs ),
     this.mix.type = 4, control = list( maxit = 1000 ) )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -5077,7 +5077,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.mix.type = 1, eq.sd = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.sd(), TRUE )
 expect_equal( a$is.eq.sigma(), TRUE )
 expect_equal( a$is.symmetric(), TRUE )
@@ -5093,7 +5093,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.6 ),
     x = xs ),
     this.mix.type = 1, eq.sd = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.sd(), TRUE )
 expect_equal( a$is.symmetric(), TRUE )
 expect_equal( c( a$sd, a$lsd, a$usd ), c( 0.9697424, 0.9697424, 0.9697424 ), tolerance = 5e-7 )
@@ -5619,7 +5619,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.5, 0.6, 0.8 ),
     x = xs ),
     this.mix.type = 4, eq.sd = TRUE )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         FALSE )
 expect_equal( a$is.h( TRUE ),   FALSE )
@@ -5724,7 +5724,7 @@ a$trace.q(
     p = c( 0.25, 0.5, 0.75 ),
     x = xs ),
     this.mix.type = 1, eq.sd = TRUE )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_equal( a$is.normal(),    TRUE )
 expect_equal( a$is.h(),         TRUE )
@@ -5752,7 +5752,7 @@ a$trace.q(
     p = c( 0.25, 0.5, 0.75 ),
     x = xs ),
     this.mix.type = 2, eq.sd = TRUE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_equal( a$is.normal(),    FALSE )
 expect_equal( a$is.h(),         TRUE )
@@ -5780,7 +5780,7 @@ a$trace.q(
     p = c( 0.25, 0.5, 0.75 ),
     x = xs ),
     grad = "v2", eq.sd = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_equal( a$is.normal(),    TRUE )
 expect_equal( a$is.h(),         TRUE )
@@ -5808,7 +5808,7 @@ a$trace.q(
     p = c( 0.25, 0.5, 0.75 ),
     x = xs ),
     this.mix.type = 3, eq.sd = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_equal( a$is.normal(),    TRUE )
 expect_equal( a$is.h(),         TRUE )
@@ -5836,7 +5836,7 @@ a$trace.q(
     p = c( 0.25, 0.5, 0.75 ),
     x = xs ),
     grad = "v3", eq.sd = TRUE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_equal( a$is.normal(),    TRUE )
 expect_equal( a$is.h(),         TRUE )
@@ -5865,7 +5865,7 @@ a$trace.q(
     p = c( 0.125, 0.25, 0.5, 0.75, 0.875 ),
     x = xs ),
     this.mix.type = 4, eq.sd = TRUE )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_equal( a$is.normal(),    TRUE )
 expect_equal( a$is.h(),         TRUE )
@@ -6042,7 +6042,7 @@ expect_message( expect_message(
         "At mix.type = 4, an error has occurred .then retried.:" ),
         "nleqslv has once failed. Message: No better point found" ),
         "Tracing with 6 degrees of freedom has failed" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -6056,7 +6056,7 @@ a$trace.q(
         p = c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ),
         x = xs ),
         grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
@@ -6127,7 +6127,7 @@ a <- ggd.trace.q(
         data.frame(
         p = c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ),
         x = xs ) )$obj
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.hv( TRUE ), TRUE )
 expect_false( a$is.eq.mean() )
 expect_equal( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ), tolerance = 5e-7 )
@@ -6170,7 +6170,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.kind = "Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6181,7 +6181,7 @@ a <- ggd.trace.q(
         p = c( 0.1, 0.4, 0.6 ),
         x = xs ),
         kind = "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )$obj
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6192,7 +6192,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.6 ),
     x = xs ),
     this.kind = "Mean of Mean-Differed Sigma-Differed 2 Normal Distributions" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6204,7 +6204,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.kind = "Mean-Differed Sigma-Equaled Horizontal Gradational Distribution" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6215,7 +6215,7 @@ a <- ggd.trace.q(
         p = c( 0.3, 0.5, 0.7 ),
         x = xs ),
         kind = "Mean-Equaled Sigma-Differed Horizontal Gradational Distribution" )$obj
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6226,7 +6226,7 @@ a$trace.q(
     p = c( 0.3, 0.5, 0.7 ),
     x = xs ),
     this.kind = "Mean-Differed Sigma-Differed Horizontal Gradational Distribution" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6309,7 +6309,7 @@ expect_message(
         x = xs ),
         this.kind = "Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution" ),
     "Initial guessing with 3-quantile-tracing for left-side sigma-equaled components has failed" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6320,7 +6320,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6331,7 +6331,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.kind = "Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6353,7 +6353,7 @@ a <- ggd.trace.q(
         p = c( 0.1, 0.5, 0.6 ),
         x = xs ),
         kind = 2 )$obj
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6365,7 +6365,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.6 ),
     x = xs ),
     this.kind = 3 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6377,7 +6377,7 @@ a$trace.q(
     p = c( 0.1, 0.4, 0.6 ),
     x = xs ),
     this.kind = 4 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6389,7 +6389,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.6 ),
     x = xs ),
     this.kind = 5 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6401,7 +6401,7 @@ a$trace.q(
     p = c( 0.3, 0.5, 0.7 ),
     x = xs ),
     this.kind = 6 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6411,7 +6411,7 @@ a <- ggd.trace.q(
         p = c( 0.3, 0.5, 0.7 ),
         x = xs ),
         kind = 7 )$obj
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6423,7 +6423,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 8 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
@@ -6435,7 +6435,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 9 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6447,7 +6447,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 10 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6459,7 +6459,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 11 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
@@ -6471,7 +6471,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 12 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6483,7 +6483,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = 13 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6500,7 +6500,7 @@ expect_message(
         x = xs ),
         this.kind = 14 ),
     "Initial guessing with 3-quantile-tracing for left-side sigma-equaled components has failed" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
 
@@ -6511,7 +6511,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.kind = 15 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6522,7 +6522,7 @@ a$trace.q(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
     x = xs ),
     this.kind = 16 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6536,7 +6536,7 @@ a$trace.q(
     x = xs ),
     this.kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical",
     this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6549,7 +6549,7 @@ a$trace.q(
     x = xs ),
     this.kind = "Mean-Differed Sigma-Equaled Horizontal-Vertical",
     grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), TRUE )
@@ -6586,7 +6586,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = a, eq.mean = TRUE, eq.sd = FALSE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6597,7 +6597,7 @@ a$trace.q(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
     this.kind = a, grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6610,7 +6610,7 @@ a$trace.q(
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     this.kind = "Mean-Differed Sigma-Equaled Horizontal-Vertical",
     grad = "normal" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 
 # normal test (overwrite by flag)
 xs <- c( qnorm( 0.1, 0, 1 ), qnorm( 0.4, 0, 0.8 ), qnorm( 0.6, 0, 0.8 ) )
@@ -6621,7 +6621,7 @@ a$trace.q(
     x = xs ),
     this.kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical",
     grad = "h" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), TRUE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6634,7 +6634,7 @@ a$trace.q(
     x = xs ),
     this.kind = "3-Mean-Equaled Sigma-Differed Vertical",
     grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.v3( TRUE ), FALSE )
 expect_equal( a$is.eq.mean(), TRUE )
@@ -6647,7 +6647,7 @@ a <- ggd.trace.q(
         x = xs ),
         kind = "2-Mean-Equaled Sigma-Differed Vertical",
         grad = "v3" )$obj
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), FALSE )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), TRUE )
@@ -6661,7 +6661,7 @@ a$trace.q(
     x = xs ),
     this.kind = "Normal Distribution",
     grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v3( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6687,7 +6687,7 @@ a$trace.q(
     x = xs ),
     this.kind = "3-Mean-Differed Sigma-Differed Vertical",
     grad = "hv" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -6700,7 +6700,7 @@ a$trace.q(
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     this.kind = "Mean-Differed Sigma-Equaled Horizontal",
     eq.mean = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test (change eq.sd from FALSE to TRUE)
@@ -6711,7 +6711,7 @@ a$trace.q(
     x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
     this.kind = "2-Mean-Equaled Sigma-Differed Vertical",
     eq.sd = TRUE )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test (change eq.mean from FALSE to TRUE)
@@ -6721,7 +6721,7 @@ a <- ggd.trace.q(
         x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
         kind = "3-Mean-Differed Sigma-Equaled Vertical",
         eq.mean = TRUE )$obj
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 # normal test (change eq.sd from FALSE to TRUE)
@@ -6731,7 +6731,7 @@ a <- ggd.trace.q(
         x = c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ),
         kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical",
         eq.sd = TRUE )$obj
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( a$p( c( qnorm( 0.25, 0, 1 ), qnorm( 0.75, 1, 1 ) ) ), c( 0.25, 0.75 ), tolerance = 5e-7 )
 
 
@@ -6744,7 +6744,7 @@ a$trace.q(
     x = xs ),
     this.kind = "Mean-Equaled Sigma-Differed Horizontal",
     eq.mean = FALSE )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.h(), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6757,7 +6757,7 @@ a$trace.q(
     x = xs ),
     this.kind = "2-Mean-Differed Sigma-Equaled Vertical",
     eq.sd = FALSE )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6769,7 +6769,7 @@ a <- ggd.trace.q(
         x = xs ),
         kind = "2-Mean-Equaled Sigma-Differed Vertical",
         eq.mean = FALSE )$obj
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2( TRUE ), TRUE )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
@@ -6781,7 +6781,7 @@ a <- ggd.trace.q(
         x = xs ),
         kind = "Mean-Differed Sigma-Equaled Horizontal",
         eq.sd = FALSE )$obj
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$is.eq.mean(), FALSE )
 expect_equal( a$is.eq.sd(), FALSE )
 

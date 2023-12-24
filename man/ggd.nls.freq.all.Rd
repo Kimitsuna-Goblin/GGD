@@ -13,7 +13,7 @@ ggd.nls.freq.all(
   start = NULL,
   control = list(maxiter = 300, warnOnly = TRUE),
   not.use.nls = FALSE,
-  method = NULL,
+  cor.method = NULL,
   ...
 )
 }
@@ -34,8 +34,8 @@ in \code{data}.}
 \item{total}{Total value of the frequencies.
 See \code{\link[ggd]{nls.freq}} for more information.}
 
-\item{start.level}{A numeric value of integer from \code{0} to \code{3} and \code{100}
-with default \code{1};
+\item{start.level}{A numeric value of integer in from \code{0} to \code{3} or \code{100}
+with default \code{100};
 the level at which to guess the initial \code{start} parameters
 of \code{\link[stats]{nls}}.
 See \code{\link[ggd]{nls.freq}} for more information.}
@@ -64,18 +64,21 @@ See \code{\link[ggd]{nls.freq}} for more information.}
 \item{control}{The \code{control} argument for \code{\link[stats]{nls}}.
 See \code{\link[stats]{nls.control}} for more information.}
 
-\item{not.use.nls}{A logical. This argument is enabled when \code{start.level} argument is
-                     other than \code{100}.
-
-                 If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-                 it outputs an object of a distribution model using initial values directly.
+\item{not.use.nls}{A logical.
+                 If \code{TRUE}, this function does not use \code{\link[stats]{nls}}
+                 and it outputs objects having the initial values in the \code{cmp} field
+                 as the results.
                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
+
+                 This argument works when \code{start.level} argument is
+                 other than \code{100}.
+                 A warning will occur if \code{TRUE} when \code{start.level} is \code{100}.
 
                  You can use \code{not.use.nls = TRUE} to check the initial values
                  when an error has occurred at this function.}
 
-\item{method}{The \code{method} argument for \code{\link[stats]{cor}},
-which represents the correlation coefficient method.
+\item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
+It represents the correlation coefficient method.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
 
@@ -98,20 +101,20 @@ A list containing components (invisible for \code{GGD} method)
                  frequency distribution.}
 
          \item{obj}{
-                 The list of all 16 \code{\link[ggd]{GGD}} objects
+                 The list of 16 \code{\link[ggd]{GGD}} objects
                  ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
                  If an error has occurred, the element will be a cleared object.}
 
          \item{cor}{
-                 The vector of the correlation coefficient of each model for the given
-                 frequency distribution.
-                 \code{NA_real_} will be given for an error case or an extremely bad result.}
+                 The vector of the correlation coefficient of
+                 between the result of each model and the frequency distribution.
+                 \code{NA} will be given for an error case or an extremely bad result.}
 
          \item{detail}{
-                 The list of the all outputs of each \code{\link[ggd]{nls.freq}}.
+                 The list of 16 elements of outputs of \code{\link[ggd]{nls.freq}}.
                  Normally, each element is a list of the output of
-                 \code{\link[ggd]{nls.freq}}.
-                 If an error has occurred, the element will be an error condition object.
+                 \code{\link[ggd]{nls.freq}},
+                 but if an error has occurred, the element will be an error condition.
                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{

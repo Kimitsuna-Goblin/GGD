@@ -41,12 +41,12 @@ the normal distributions of the components to be equal.}
          \itemize{
              \item from \code{0} to \code{3}:
                      Same as \code{start.level} in arguments of \code{\link[ggd]{nls.freq}}.
-             \item \code{NA}: All of mean values and standard deviations are \code{NA_real_}.
+             \item \code{NA}: All values of \code{start} will be set to \code{NA}.
          }}
 }
 \value{
 A list containing \code{formula} and \code{start} for the arguments of
-         \code{\link[stats]{nls}}.
+         \code{\link[stats]{nls}} and adopted \code{start.level} value.
 }
 \description{
 Gets a list of main arguments for \code{\link[stats]{nls}} (except for \code{data}),

@@ -13,7 +13,7 @@ nls.freq.level.100(
   eq.mean,
   eq.sd,
   control,
-  method,
+  cor.method,
   ...
 )
 }
@@ -41,8 +41,7 @@ the components are forced to be equal.}
 \item{control}{The list for \code{control} argument of \code{\link[stats]{nls}}.
 See \code{\link[stats]{nls.control}} for more information.}
 
-\item{method}{The \code{method} argument for \code{\link[stats]{cor}},
-which represents the correlation coefficient method.}
+\item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
 See "Arguments" of \code{\link[stats]{nls}} for more information.}

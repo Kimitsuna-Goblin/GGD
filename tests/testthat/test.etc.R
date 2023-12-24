@@ -157,7 +157,7 @@ expect_identical( ggd.mix.type.for( NULL, kind = c( "2.*Ver", "Hor" ) ), c( 3L, 
 expect_identical( ggd.mix.type.for( NULL, mix.type = 1:10 ), 1:10 )
 
 # "v" for analias of "v2"
-expect_equal( ggd.mix.type.for( "v" ), 3 )
+expect_identical( ggd.mix.type.for( "v" ), 3L )
 
 #### sd.norm.mxp with various length vectors
 sds <- sd.norm.mxp( -1, 1:5 * 0.5, pnorm( 1:5 * 0.5, -1, 2 ) )
@@ -1317,7 +1317,7 @@ a$apply.cmp(
     } )
 expect_identical( a$cmp$mean, rep( b$mean, 3 ) )
 expect_identical( a$cmp$sd,   rep( b$sd, 3 ) )
-expect_equal( a$kind.index, 1 )
+expect_identical( a$kind.index, 1L )
 
 ## only f.mean is indicated
 a$set.cmp( data.frame( mean = c( -1, 0, 1, 0.5 ),

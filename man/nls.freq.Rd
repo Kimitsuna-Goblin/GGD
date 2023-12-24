@@ -11,14 +11,14 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
          eq.mean = logical(), eq.sd = logical(),
          start.level = 100, start = NULL, control = list(),
-         not.use.nls = FALSE, method = NULL, ...)
+         not.use.nls = FALSE, cor.method = NULL, ...)
 
 \S4method{nls.freq}{GGD}(data, x = "x", freq = "freq", total = NULL,
          this.kind = NULL, this.mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
          eq.mean = logical(), eq.sd = logical(),
          start.level = 100, start = NULL, control = list(),
-         not.use.nls = FALSE, method = NULL, ...)
+         not.use.nls = FALSE, cor.method = NULL, ...)
 }
 \arguments{
 \item{data}{A data frame which represents the frequency distribution.
@@ -126,7 +126,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
                      \code{kind} or \code{this.kind} argument.}
 
-\item{start.level}{A numeric value of integer from \code{0} to \code{3} and \code{100}
+\item{start.level}{A numeric value of integer in from \code{0} to \code{3} or \code{100}
                      with default \code{100}; the level at which to guess the initial
                      \code{start} parameters of \code{\link[stats]{nls}}.
 
@@ -183,18 +183,20 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 See \code{\link[stats]{nls.control}} for more information.}
 
 \item{not.use.nls}{A logical.
-                     This argument is enabled when \code{start.level} argument is
-                     other than \code{100}.
-
                      If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-                     it outputs a distribution model using initial values directly.
+                     it outputs an object having the initial values in the \code{cmp} field
+                     as the result.
                      If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
+
+                     This argument works when \code{start.level} argument is
+                     other than \code{100}. A warning will occur if \code{TRUE}
+                     when \code{start.level} is \code{100}.
 
                      You can use \code{not.use.nls = TRUE} to check the initial values
                      when an error has occurred at this function.}
 
-\item{method}{The \code{method} argument for \code{\link[stats]{cor}},
-which represents the correlation coefficient method.
+\item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
+It represents the correlation coefficient method.
 This argument is used only if \code{start.level = 100}.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
@@ -238,36 +240,38 @@ A list containing components (invisible for \code{GGD} method)
                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
          \item{nls.out}{
                  The list of the output of \code{\link[stats]{nls}}.
+                 If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
                  See "Value" of \code{\link[stats]{nls}} for more information.}
          \item{start.level}{
-                 An integer of the indicated value of \code{start.level}.
-                 If not-\code{NULL} \code{start} argument is indicated,
-                 it will be \code{NA_integer_}.}
+                 The initial guessing level which is used actually to gain \code{obj}.
+                 If \code{start.level = 100} is indicated,
+                 the level for the best result will be set.
+                 When \code{start.level = 3} is indicated
+                 and if initial guessing has failed, \code{2} will be set.
+                 If \code{start} argument (not-\code{NULL}) is indicated,
+                 \code{NA} will be set.}
          \item{start}{
                  The used \code{start} argument for the initial values
-                 in \code{\link[stats]{nls}}.}
+                 for \code{\link[stats]{nls}}.}
          \item{start.obj}{
                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
-                 That is, a \code{\link[ggd]{GGD}} object in which each parameter in
-                 the used \code{start} argument is directly given to the field.}
+                 That is, a \code{\link[ggd]{GGD}} object in which
+                 values of the above \code{start} are set directly to the \code{cmp} field.}
          \item{cor}{
-                 A \code{\link[ggd]{GGD}} object corresponding to the initial values.
-                 That is, a \code{\link[ggd]{GGD}} object in which each parameter in
+                 The vector of the correlation coefficient of between the result for
+                 each level of initial guessing in from \code{0} to \code{3}
+                 and the frequency distribution.
                  This component is given only if \code{start.level = 100}.}
          \item{errors}{
-                 A list of information about errors which have occurred
-                 at \code{\link[stats]{nls}}.
+                 A list of information about errors occurred in \code{\link[stats]{nls}}.
                  This component is given only if \code{start.level = 100}.
                  Each element in the list contains:
                  \itemize{
-                     \item level: The level of initial guessing.
-                                  That is, the value of \code{start.level}
-                                  other than \code{100}.
+                     \item level: The level of initial guessing when the error has occurred.
                      \item message: The error message.
                  }}
          \item{warnings}{
-                 A list of information about warnings which have occurred
-                 at \code{\link[stats]{nls}}.
+                 A list of information about warnings occurred in \code{\link[stats]{nls}}.
                  This component is given only if \code{start.level = 100}.
                  The composition of each element is as same as for \code{errors}.}
 
@@ -285,8 +289,8 @@ If necessary, outliers should be excluded by preprocessing.
 \subsection{Why the standard deviations for "start" are square-rooted?}{
      You know a standard deviation must be a non-zero positive value.
      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
-     they will sometimes drop into negative values while the Gauss-Newton algorithm
-     and the algorithm will fail, even if it can reach to convergence when done well.
+     they will sometimes drop into negative values while the Gauss-Newton algorithm is running
+     and the algorithm will fail, even if it can reach to convergence if done better.
 
      So, to avoid such failures, we use square roots of standard deviations and
      take squares of them in the formula for \code{\link[stats]{nls}}.

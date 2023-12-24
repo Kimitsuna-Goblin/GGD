@@ -4,10 +4,11 @@
 \alias{ggd.cor.vs.freq}
 \title{Correlation between GGD and a frequency distribution}
 \usage{
-ggd.cor.vs.freq(objs, x, freq, total = sum(freq), method = NULL)
+ggd.cor.vs.freq(objs, x, freq, total = sum(freq), cor.method = NULL)
 }
 \arguments{
-\item{objs}{A \code{\link[ggd]{GGD}} object or a list of \code{\link[ggd]{GGD}} objects.}
+\item{objs}{A \code{\link[ggd]{GGD}} object or a list of
+\code{\link[ggd]{GGD}} objects.}
 
 \item{x}{The vector of the x-coordinates of the frequency distribution.}
 
@@ -15,8 +16,8 @@ ggd.cor.vs.freq(objs, x, freq, total = sum(freq), method = NULL)
 
 \item{total}{Total value of the frequencies.}
 
-\item{method}{The \code{method} argument for \code{\link[stats]{cor}},
-which represents the correlation coefficient method.
+\item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
+It represents the correlation coefficient method.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
 }
@@ -24,7 +25,7 @@ See \code{\link[stats]{cor}} for more information.}
 A vector of correlation coefficients.
          Its order follows the order of the elements of the \code{objs} argument.
          If \code{cmp} field of an \code{\link[ggd]{GGD}} object in \code{objs} has no rows,
-         \code{NA_real_} is set to the element.
+         \code{NA} will be set to the element.
 }
 \description{
 Computes correlation coefficients between Gradational Gaussian Distributions and

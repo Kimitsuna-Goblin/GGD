@@ -83,7 +83,7 @@ expect_na_ggd( a, 1 )
 ## [this.]kind
 expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
               this.kind = "Mean-Differed Sigma-Differed Horizontal Gradational Distribution" )$mix.type, 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 2 ) )
 
@@ -91,21 +91,21 @@ expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            this.kind = "Horizontal",
                            this.mix.type = 3 ),
                 "Indicated kind does not match to the result." )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 2 ) )
 
 expect_warning( a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 1 ) ),
                               kind = "Mean-Differed Sigma-Differed Horizontal" ),
                 "Indicated kind does not match to the result" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$kind, "Mean-Differed Sigma-Equaled Horizontal Gradational Distribution" )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 1 ) )
 
 expect_no_warning( a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 1 ) ),
                                      kind = "Horizontal" ) )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$kind, "Mean-Differed Sigma-Equaled Horizontal Gradational Distribution" )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 1 ) )
@@ -113,29 +113,29 @@ expect_equal( a$cmp$sd, c( 1, 1 ) )
 expect_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1, 1.5 ) ),
                                   kind = 10 ),
                 "Indicated kind does not match to the result" )
-expect_equal( a$mix.type, 3 )
-expect_equal( a$kind.index, 9 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
+expect_identical( a$kind.index, 9L )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 1.5 ) )
 
 expect_no_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1.2, 1.5 ) ),
                                      kind = c( "Horizontal" ) ) )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( a$kind, "Mean-Equaled Sigma-Differed Horizontal Gradational Distribution" )
 expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1.2, 1.5 ) )
 
 expect_no_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1.2, 1.7 ) ),
                                      kind = 3 ) )
-expect_equal( a$mix.type, 1 )
-expect_equal( a$kind.index, 3 )
+expect_identical( a$mix.type, 1L )
+expect_identical( a$kind.index, 3L )
 expect_equal( a$cmp$mean, c( 0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1.2, 1.7 ) )
 
 expect_no_warning(
     b <- ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 1.5 ) ), kind = a ) )
-expect_equal( b$kind.index, 4 )
+expect_identical( b$kind.index, 4L )
 expect_equal( b$kind.index == a$kind.index, FALSE )
 expect_equal( b$mix.type, a$mix.type )
 expect_equal( b$cmp$mean, c( -0.5, 0.5 ) )
@@ -143,7 +143,7 @@ expect_equal( b$cmp$sd, c( 1, 1.5 ) )
 
 a$clear()
 a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 2, 3 ) ), this.kind = b )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$kind.index, b$kind.index )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 2, 3 ) )
@@ -151,24 +151,24 @@ expect_equal( a$cmp$sd, c( 2, 3 ) )
 rm( b )
 
 a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 2, 3 ) ), this.kind = a )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( a$kind, "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
 expect_equal( a$cmp$mean, c( 1, 1 ) )
 expect_equal( a$cmp$sd, c( 2, 3 ) )
 
 
 ## [this.]mix.type
-expect_equal( a$set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 2, 2 ) ), this.mix.type = 0 )$mix.type, 0 )
+expect_identical( a$set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 2, 2 ) ), this.mix.type = 0 )$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 1 )$mix.type, 1 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 1 )$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_false( a$is.h() )
 expect_false( a$is.v2() )
 expect_false( a$is.v3() )
 expect_false( a$is.hv() )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 2 )$mix.type, 2 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 2 )$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 expect_false( a$is.v2() )
@@ -184,15 +184,15 @@ expect_false( a$is.v2() )
 expect_false( a$is.v3() )
 expect_false( a$is.hv() )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 3 )$mix.type, 3 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 3 )$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_false( a$is.h() )
 expect_true( a$is.v2() )
 expect_true( a$is.v3() )
 expect_true( a$is.hv() )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5, -0.5 ), sd = c( 1, 2, 1 ) ),
-                         this.mix.type = 3 )$mix.type, 3 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5, -0.5 ), sd = c( 1, 2, 1 ) ),
+                             this.mix.type = 3 )$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 2 ) )
@@ -203,7 +203,7 @@ expect_true( a$is.hv() )
 
 # When this.mix.type = 4 for 2-rows data.frame, previous mix.type affects to construct cmp field.
 # This case is virtical gradation, follows previous mix.type = 3.
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 4 )$mix.type, 4 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 4 )$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_false( a$is.h() )
 expect_true( a$is.v2() )
@@ -213,30 +213,30 @@ expect_true( a$is.hv() )
 # When this.mix.type = 4 for 2-rows data.frame, previous mix.type affects to construct cmp field.
 # This case is horizontal gradation.
 expect_equal( a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1, 2 ) ), this.mix.type = 2 )$mix.type, 2 )
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 4 )$mix.type, 4 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 4 )$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.h() )
 expect_false( a$is.v2() )
 expect_false( a$is.v3() )
 expect_true( a$is.hv() )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1, 1.5, 2 ) ) )$mix.type, 3 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1, 1.5, 2 ) ) )$mix.type, 3L )
 expect_false( a$is.h() )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 expect_false( a$is.hv() )
 
-expect_equal( a$set.cmp( data.frame( mean = c( -0.5, -0.5, 0.5, 0.5 ), sd = c( 1, 1.5, 2, 2.5 ) ) )$mix.type, 4 )
+expect_identical( a$set.cmp( data.frame( mean = c( -0.5, -0.5, 0.5, 0.5 ), sd = c( 1, 1.5, 2, 2.5 ) ) )$mix.type, 4L )
 expect_false( a$is.h() )
 expect_false( a$is.v2() )
 expect_false( a$is.v3() )
 expect_true( a$is.hv() )
 
-expect_equal( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), mix.type = 1 )$mix.type, 1 )
+expect_identical( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), mix.type = 1 )$mix.type, 1L )
 
 ## grad
 a <- ggd.set.cmp( data.frame( mean = 1, sd = 0.5 ), grad = "normal" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 
 a$clear()
@@ -250,7 +250,7 @@ expect_equal( a$set.cmp( data.frame( mean = c( -0.5, -0.5 ), sd = c( 1, 1 ) ), g
 expect_equal( nrow( a$cmp ), 1 )
 
 a <- ggd.set.cmp( data.frame( mean = 1, sd = 0.5 ), grad = "h" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$clear()
@@ -259,7 +259,7 @@ expect_equal( a$set.cmp( data.frame( mean = c( -0.5 ), sd = c( 1 ) ), grad = "h"
 expect_equal( nrow( a$cmp ), 2 )
 
 a <- ggd.set.cmp( data.frame( mean = 1, sd = 0.5 ), grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$clear()
@@ -268,11 +268,11 @@ expect_warning(
                    this.kind = 7,
                    this.mix.type = 4 ),
         "Indicated kind does not match to the result" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a <- ggd.set.cmp( data.frame( mean = 1, sd = 0.5 ), grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 
 a$clear()
@@ -299,26 +299,26 @@ expect_true( a$is.h() )
 expect_false( a$is.v2() )
 
 a <- ggd.set.cmp( data.frame( mean = 1, sd = 0.5 ), grad = "hv" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 
 expect_equal( a$set.cmp( data.frame( mean = c( -0.5 ), sd = c( 1 ) ), grad = "h" )$mix.type, 2 )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), grad = "v" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 
 a$set.cmp( data.frame( mean = rep( 0, 4 ), sd = rep( 1, 4 ) ), grad = "h" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$set.cmp( data.frame( mean = rep( 0, 4 ), sd = rep( 1, 4 ) ), grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 
 
@@ -368,9 +368,9 @@ expect_error( ggd.set.cmp( data.frame( mean = 0, sd = 1 ), mix.type = NA ),
               "NA for kind or mix.type can be specified only if cmp has no rows" )
 
 
-expect_equal( ggd.kind.index( c( "Poisson Distribution", "Random Distribution",
-                                 "Normal Distribution", NULL ) ),
-              c( NA, NA, 1 ) )
+expect_identical( ggd.kind.index( c( "Poisson Distribution", "Random Distribution",
+                                     "Normal Distribution", NULL ) ),
+                  c( NA_integer_, NA_integer_, 1L ) )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.kind = "Poisson Distribution" ),
@@ -460,7 +460,7 @@ rm( b )
 ## Combinatorial tests
 a$set.cmp( data.frame( mean = c( 0, 1 ), sd = c( 1.1, 1.2 ) ), grad = "v3" )
 expect_equal( a$kind, "2-Mean-Differed Sigma-Differed Vertical Gradational Distribution" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( a$cmp$mean, c( 0, 1, 0 ) )
 expect_equal( a$cmp$sd, c( 1.1, 1.2, 1.1 ) )
 
@@ -491,7 +491,7 @@ rm( b )
 # Changing only mix.type
 a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 2 )
 a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 
 
 ################################################################################################
@@ -574,233 +574,233 @@ a$adjust.cmp( 2 )
 a$mix.type <- integer()     ## Don't do it! (this is just for test)
 a$adjust.cmp()
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp()
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 1 )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 2 )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 3 )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 4 )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( grad = "hv" )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( grad = "v3" )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( grad = "v2" )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( grad = "h" )
 expect_equal( a$kind, "Normal Distribution" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 ##
 
 a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 2, 2 ) ), this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( this.mix.type = 2,
               grad = "normal" )
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 
 a$set.cmp( data.frame( mean = c( 1 ), sd = c( 2 ) ), this.mix.type = 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( this.mix.type = 0,
               grad = "h" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 
 a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 2, 2 ) ), this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( this.mix.type = 1, grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.normal() )
 
 
 a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 2, 2 ) ), grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( this.mix.type = 3, grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.normal() )
 
 
 a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 2, 2 ) ), this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 0 )
+expect_identical( a$mix.type, 0L )
 expect_equal( nrow( a$cmp ), 1 )
 expect_true( a$is.normal() )
 
 a$adjust.cmp( this.mix.type = 3, grad = "hv" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.normal() )
 
@@ -808,81 +808,81 @@ expect_true( a$is.normal() )
 ## mean of 2 normal distributions
 
 a$set.cmp( data.frame( mean = 0:1, sd = 1:2 ), this.mix.type = 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 a$adjust.cmp()
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 a$adjust.cmp( 1 )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 expect_error( a$adjust.cmp( 2 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 expect_error( a$adjust.cmp( 3 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 expect_error( a$adjust.cmp( grad = "v3" ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 expect_error( a$adjust.cmp( 4 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 1 )
+expect_identical( a$mix.type, 1L )
 expect_equal( nrow( a$cmp ), 2 )
 
 
 ## horizontal gradation
 
 a$set.cmp( data.frame( mean = 0:1, sd = 1:2 ), this.mix.type = 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 expect_error( a$adjust.cmp( 1 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 expect_error( a$adjust.cmp( 3 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 expect_error( a$adjust.cmp( grad = "v3" ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.h() )
 
 a$adjust.cmp()
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.h() )
 
 a$adjust.cmp( 2 )
-expect_equal( a$mix.type, 2 )
+expect_identical( a$mix.type, 2L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.h() )
 
@@ -890,72 +890,72 @@ expect_true( a$is.h() )
 ## vertical gradation, 2 components
 
 a$set.cmp( data.frame( mean = 0:1, sd = 1:2 ), this.mix.type = 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 expect_error( a$adjust.cmp( 1 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 expect_error( a$adjust.cmp( 2 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.v3() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( grad = "v3" )
 a$adjust.cmp( grad = "v2" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp()
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.v2() )
 
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_true( a$is.v3() )
 
@@ -963,42 +963,42 @@ expect_true( a$is.v3() )
 ## vertical gradation, 3 components
 
 a$set.cmp( data.frame( mean = -1:1, sd = 1:3 ), grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 
 expect_error( a$adjust.cmp( 1 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 
 a$adjust.cmp( 3 )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 
 expect_error( a$adjust.cmp( grad = "v2" ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 
 a$adjust.cmp( grad = "v3" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
 
 expect_error( a$adjust.cmp( 4 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 3 )
+expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 expect_false( a$is.v2() )
 expect_true( a$is.v3() )
@@ -1007,36 +1007,36 @@ expect_true( a$is.v3() )
 ## horizontal-vertical gradation
 
 a$set.cmp( data.frame( mean = c( -1, 0, 0, 1 ), sd = 1:4 ), this.mix.type = 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 a$adjust.cmp()
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
 expect_error( a$adjust.cmp( 1 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
 expect_error( a$adjust.cmp( 2 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
 expect_error( a$adjust.cmp( 3 ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
 expect_error( a$adjust.cmp( grad = "v3" ), "Not appropriate for current distribution model" )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
 a$adjust.cmp( 4 )
-expect_equal( a$mix.type, 4 )
+expect_identical( a$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_true( a$is.hv() )
 
@@ -1047,10 +1047,10 @@ expect_true( a$is.hv() )
 
 expect_error( ggd.mix.type.for.kind.index( 0 ), "kind.index 0 is undefined" )
 expect_error( ggd.mix.type.for.kind.index( 17 ), "kind.index 17 is undefined" )
-expect_equal( ggd.mix.type.for.kind.index( 1 ), 0 )
-expect_equal( ggd.mix.type.for.kind.index( c( 2:7 ) ), c( 1, 1, 1, 2, 2, 2 ) )
-expect_equal( ggd.mix.type.for.kind.index( 8:16 ), c( rep( 3, 6 ), rep( 4, 3 ) ) )
-expect_equal( ggd.mix.type.for.kind.index( c( 1, 2, NA, 4, NaN, 6 ) ), c( 0, 1, NA, 1, NA, 2 ) )
+expect_identical( ggd.mix.type.for.kind.index( 1 ), 0L )
+expect_identical( ggd.mix.type.for.kind.index( c( 2:7 ) ), c( 1L, 1L, 1L, 2L, 2L, 2L ) )
+expect_identical( ggd.mix.type.for.kind.index( 8:16 ), c( rep( 3L, 6 ), rep( 4L, 3 ) ) )
+expect_identical( ggd.mix.type.for.kind.index( c( 1, 2, NA, 4, NaN, 6 ) ), c( 0L, 1L, NA, 1L, NA, 2L ) )
 
 
 ################################################################################################
