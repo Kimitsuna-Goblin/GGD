@@ -1,17 +1,18 @@
 Package: ggd
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Gradational Gaussian Distribution Reference Class
 Version: 1.0.0
-Author: Kimitsuna-Goblin
-Maintainer: Kimitsuna-Goblin <kimitsuna@i.softbank.jp>
+Author: Kimitsuna-Goblin (Ura, Kimitsuna)
+Maintainer: Kimitsuna-Goblin (Ura, Kimitsuna) <kimitsuna@i.softbank.jp>
 Description: Reference class of the Gradational Gaussian Distribution
     with methods of approximating frequency distributions and tracing quantiles.
-Depends: R (>= 2.12), methods
-Imports: nleqslv
 License: MIT + file LICENSE
+URL: https://github.com/Kimitsuna-Goblin/GGD
 Language: en_US
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 2.12), methods
+Imports: nleqslv
 Suggests:
     testthat (>= 3.0.0), rlang (>= 1.1.0)
 Config/testthat/edition: 3

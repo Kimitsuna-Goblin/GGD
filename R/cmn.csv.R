@@ -1,8 +1,8 @@
 ################################################################################################
 # Common functions about CSV files.
 # @file         cmn.csv.R
-# @author       Kimitsuna-Goblin
-# @copyright    Copyright (C) 2023 Ura Kimitsuna
+# @author       Kimitsuna-Goblin (Ura, Kimitsuna)
+# @copyright    Copyright (C) 2023 Kimitsuna-Goblin (Ura, Kimitsuna)
 # @license      Released under the MIT license. See https://opensource.org/licenses/MIT/
 ################################################################################################
 
