@@ -1086,14 +1086,18 @@
 
     Code
       a$set.cmp(data.frame(mean = c(1, 1, 2, 2), sd = c(1.5, 1.5, 2.5, 2.5)),
-      this.mix.type = 4)$tex.p()
+      this.mix.type = 4)$tex()
     Output
       \begin{align}
+      g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
       \Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
       \\
       \Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
       \Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
       \Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+      \\
+      g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+      f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
       \\
       & \begin{array}{ll}
       \mu_{1,1} = 1, & \sigma_{1,1} = 1.5,\\
@@ -1107,14 +1111,18 @@
 
     Code
       a$set.cmp(data.frame(mean = c(2, 1, 1, 2), sd = c(2.5, 1.5, 1.5, 2.5)),
-      this.mix.type = 4)$tex.p()
+      this.mix.type = 4)$tex()
     Output
       \begin{align}
+      g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
       \Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
       \\
       \Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
       \Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
       \Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+      \\
+      g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+      f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
       \\
       & \begin{array}{ll}
       \mu_{1,1} = 2, & \sigma_{1,1} = 2.5,\\
@@ -1128,14 +1136,17 @@
 
     Code
       a$set.cmp(data.frame(mean = c(1, 2, 1, 2), sd = c(1.5, 2.5, 1.5, 2.5)),
-      this.mix.type = 4)$tex.p()
+      this.mix.type = 4)$tex.d()
     Output
       \begin{align}
-      \Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+      g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
       \\
       \Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
       \Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
       \Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+      \\
+      g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+      f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
       \\
       & \begin{array}{ll}
       \mu_{1,1} = 1, & \sigma_{1,1} = 1.5,\\
@@ -1149,14 +1160,17 @@
 
     Code
       a$set.cmp(data.frame(mean = c(1, 2, 2, 2), sd = c(1.5, 2.5, 2.5, 2.5)),
-      this.mix.type = 4)$tex.p()
+      this.mix.type = 4)$tex.d()
     Output
       \begin{align}
-      \Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+      g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
       \\
       \Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
       \Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
       \Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+      \\
+      g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+      f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
       \\
       & \begin{array}{ll}
       \mu_{1,1} = 1, & \sigma_{1,1} = 1.5,\\
@@ -1170,14 +1184,17 @@
 
     Code
       a$set.cmp(data.frame(mean = c(1, 2, 1, 1), sd = c(1.5, 2.5, 1.5, 1.5)),
-      this.mix.type = 4)$tex.p()
+      this.mix.type = 4)$tex.d()
     Output
       \begin{align}
-      \Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+      g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
       \\
       \Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
       \Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
       \Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+      \\
+      g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+      f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
       \\
       & \begin{array}{ll}
       \mu_{1,1} = 1, & \sigma_{1,1} = 1.5,\\

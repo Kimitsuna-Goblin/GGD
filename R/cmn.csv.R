@@ -1,12 +1,13 @@
 ################################################################################################
-# Functions about CSV files.
-# @file         csv.R
-# @version      1.0.0
+# Common functions about CSV files.
+# @file         cmn.csv.R
 # @author       Kimitsuna-Goblin
 # @copyright    Copyright (C) 2023 Ura Kimitsuna
-# @license      Released under the MIT license.
-#               see https://opensource.org/licenses/MIT/
+# @license      Released under the MIT license. See https://opensource.org/licenses/MIT/
 ################################################################################################
+
+################################################################################################
+#  Functions
 
 ################################################################################################
 #' [Non-exported] Output a table to a file

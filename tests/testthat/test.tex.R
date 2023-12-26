@@ -486,15 +486,15 @@ test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 4 -- 1/2",
 test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 4 -- 2/2",
 {
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 2 ), sd = c( 1.5, 1.5, 2.5, 2.5 ) ),
-                                this.mix.type = 4 )$tex.p() )
+                                this.mix.type = 4 )$tex() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 2, 1, 1, 2 ), sd = c( 2.5, 1.5, 1.5, 2.5 ) ),
-                                this.mix.type = 4 )$tex.p() )
+                                this.mix.type = 4 )$tex() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 2 ), sd = c( 1.5, 2.5, 1.5, 2.5 ) ),
-                                this.mix.type = 4 )$tex.p() )
+                                this.mix.type = 4 )$tex.d() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 2, 2 ), sd = c( 1.5, 2.5, 2.5, 2.5 ) ),
-                                this.mix.type = 4 )$tex.p() )
+                                this.mix.type = 4 )$tex.d() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 2, 1, 1 ), sd = c( 1.5, 2.5, 1.5, 1.5 ) ),
-                                this.mix.type = 4 )$tex.p() )
+                                this.mix.type = 4 )$tex.d() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 2, 1 ), sd = c( 1.5, 1.5, 2.5, 1.5 ) ),
                                 this.mix.type = 4 )$tex.p() )
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1, 2 ), sd = c( 1.5, 1.5, 1.5, 2.5 ) ),
