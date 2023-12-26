@@ -7,7 +7,7 @@ Authors@R: c(
     person( given   = "Kimitsuna",
             family  = "Ura",
             email   = "kimitsuna@i.softbank.jp",
-            role    = c("aut", "cph", "cre")
+            role    = c("aut", "cph", "cre") )
     )
 Maintainer: Kimitsuna-Goblin (Ura, Kimitsuna) <kimitsuna@i.softbank.jp>
 Description: Reference class for non-normal distributions.
