@@ -11,8 +11,9 @@ It can approximates asymmetric frequency distributions or traces quantiles accur
 The **Gradational Gaussian Distribution (GGD)** (Named by the author on his own)
 is one of continuous distribution models
 for mainly modeling asymmetric unimodal data which do not follow a normal distribution.
-It can represent distributions which do not follow a normal distribution:
-skewed distributions, heavy-tailed or flat-topped distributions.
+Without $\log$ transformations,
+it can represent distributions which do not follow a normal distribution:
+skewed distributions, heavy-tailed or flat-topped distributions etc;.
 
 The GGD is alike the **Gaussian mixture model (GMM)** but different.
 The GMM is represented by linear combinations of some normal distributions,
