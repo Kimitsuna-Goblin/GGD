@@ -120,7 +120,7 @@ sd.via.integrate <- function( a, lower = -Inf, upper = Inf )
 #'                          If \code{FALSE}, if one of those differences is too large,
 #'                          an error will occur.
 ################################################################################################
-show.results <- function( obj = a, plot.range = 3, sample.num = 1000, is.extreme.case = FALSE )
+show.results <- function( obj = a, plot.range = 3, sample.num = 400, is.extreme.case = FALSE )
 {
     if ( wait.before.new.graph )
     {

@@ -1,6 +1,6 @@
 ################################################################################################
-## This file is to test integrals for both used in GGD.R and
-## not used directly in GGD.R but are important intermediate calculations.
+## This file is to test integrals for both used in the GGD package and
+## not used directly in the GGD package but are important intermediate calculations.
 ##
 ## Warning: If you run this file entirely with show.progress <- TRUE option,
 ##          it outputs over 1,000,000 lines of text (about 23MB size).
@@ -1049,10 +1049,10 @@ expect_equal( check.integ( integ.x.d.pstar, integ.x.d.pstar.via.integrate ), TRU
 
 
 ################################################################################################
-#' Test function for calc.mean function (type1.type = 3)
+#' Test function for calc.mean function (mix.type = 3)
 #'
 #' Calculates \eqn{\int_{-\infty}^{\infty} x g_k(x) dx}, \eqn{(k = 1, 2, 3)}
-#' where \eqn{g_k} is the PDF of cmp[k] of a GGD model of type1.type = 3.
+#' where \eqn{g_k} is the PDF of cmp[k] of a GGD model of mix.type = 3.
 #' @param   k           The number of the normal distribution member of a GGD model.
 #' @param   mean.k      The mean value of cmp[k].
 #' @param   sd.k        The standard deviation of cmp[k].
@@ -1113,10 +1113,10 @@ expect_equal( all( vapply( 1:3,
 
 
 ################################################################################################
-#' Test function for calc.v function (type1.type = 3)
+#' Test function for calc.v function (mix.type = 3)
 #'
 #' Calculates \eqn{\int_{-\infty}^{\infty} (x - \mu)^2 g_k(x) dx}, \eqn{(k = 1, 2, 3)}
-#' where \mu is the mean value of a GGD model of type1.type = 3 and
+#' where \mu is the mean value of a GGD model of mix.type = 3 and
 #' \eqn{g_k} is the PDF of cmp[k] of the model.
 #' @param   k           The number of the normal distribution member of a GGD model.
 #' @param   mean        The mean value of the GGD model.
@@ -1203,7 +1203,7 @@ expect_equal( all( vapply( 1:3,
 
 ################################################################################################
 #' Calculates \eqn{\int_{-x_1}^{x_2} (x - \mu)^2 f(x) dx}
-#' where \mu is the mean value of a GGD model of type1.type = 3 and
+#' where \mu is the mean value of a GGD model of mix.type = 3 and
 #' \eqn{f} is the PDF of N(mean.k, sd.k).
 #' @param   mean        The mean value of a GGD model.
 #' @param   mean.k      The mean value of cmp[k].
@@ -1235,7 +1235,7 @@ expect_equal( all( vapply( means, function( mean )
 
 ################################################################################################
 #' Calculates \eqn{\dfrac{1}{\sqrt{2}} \int_{-x_1}^{x_2} (x - \mu)^2 f^*(x) dx}
-#' where \mu is the mean value of a GGD model of type1.type = 3 and
+#' where \mu is the mean value of a GGD model of mix.type = 3 and
 #' \eqn{f^*} is the PDF of N(mean.k, sd.k/sqrt(2)).
 #' @param   mean        The mean value of a GGD model.
 #' @param   mean.k      The mean value of cmp[k].
@@ -1270,7 +1270,7 @@ expect_equal( all( vapply( means,
 
 ################################################################################################
 #' Calculates \eqn{\int_{-\infty}^{\mu} (x - \mu)^2 g_k(x) dx}
-#' where \mu is the mean value of a GGD model of type1.type = 3 and
+#' where \mu is the mean value of a GGD model of mix.type = 3 and
 #' \eqn{g_k} is the PDF of cmp[k] of the model.
 #' @param   k           The number of the normal distribution member of a GGD model.
 #' @param   mean        The mean value of the GGD model.
@@ -1366,7 +1366,7 @@ expect_equal( check.integ( function( mean, sd, x )
 
 ################################################################################################
 #' Calculates \eqn{\int_{\mu}^{\infty} (x - \mu)^2 g_k(x) dx}
-#' where \mu is the mean value of a GGD model of type1.type = 3 and
+#' where \mu is the mean value of a GGD model of mix.type = 3 and
 #' \eqn{g_k} is the PDF of cmp[k] of the model.
 #' @param   k           The number of the normal distribution member of a GGD model.
 #' @param   mean        The mean value of the GGD model.
@@ -1463,6 +1463,11 @@ expect_equal( check.integ(
         permit.d = function( d, abs.error, info, parent.info )
         { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
 
+################################################################################################
+## Check for partial integrals for mix.type = 4
+##
+## Here, R, G and B represent the colors of the markers in the author's Goodnotes app.
+## The author used three color markers for these complicating integral calculations.
 
 ## Integral of R1, R2 for t4.mean begin
 
@@ -1804,9 +1809,9 @@ expect_equal( check.integ( integ.x.d2.pstar.psqrt2, integ.x.d2.pstar.psqrt2.via.
 
 ################################################################################################
 #' Calculates \eqn{\int_{x_1}^{x_2} x \Psi_1(x) g_2(x) dx}
-#' where \eqn{\Psi_1} is the CDF of cmp[1] of a GGD model of type1.type = 4
+#' where \eqn{\Psi_1} is the CDF of cmp[1] of a GGD model of mix.type = 4
 #' and \eqn{g_2} is the PDF of cmp[2] of the model.
-#' Remark both cmp[1] and cmp[2] are GGD models of type1.type = 3.
+#' Remark both cmp[1] and cmp[2] are GGD models of mix.type = 3.
 #' @param   mean.1  The mean of cmp[1].
 #' @param   sd.1    The s.d. of cmp[1].
 #' @param   mean.2  The mean of cmp[2].
@@ -2037,8 +2042,8 @@ expect_equal( check.integ( integ.x2.d.pstar, integ.x2.d.pstar.via.integrate ), T
 
 ################################################################################################
 #' Calculates \eqn{\int_{x_1}^{x_2} x^2 g_i(x) dx}
-#' where \eqn{g_i} is the CDF of left/right side component of a GGD model of type1.type = 4.
-#' Remark cmp[i] is a GGD models of type1.type = 3.
+#' where \eqn{g_i} is the CDF of left/right side component of a GGD model of mix.type = 4.
+#' Remark cmp[i] is a GGD models of mix.type = 3.
 #' @param   mean.1  The mean of cmp[1 or 3].
 #' @param   sd.1    The s.d. of cmp[1 or 3].
 #' @param   mean.2  The mean of cmp[2 or 4].
@@ -2055,8 +2060,8 @@ integ.t4.x2.g <- function( mean.1, sd.1, mean.2, sd.2, x )
 
 ################################################################################################
 #' Calculates \eqn{\int_{-\infty}^{\infty} x^2 g_i(x) dx}
-#' where \eqn{g_i} is the CDF of left/right side component of a GGD model of type1.type = 4.
-#' Remark cmp[i] is a GGD models of type1.type = 3.
+#' where \eqn{g_i} is the CDF of left/right side component of a GGD model of mix.type = 4.
+#' Remark cmp[i] is a GGD models of mix.type = 3.
 #' @param   mean.1  The mean of cmp[1 or 3].
 #' @param   sd.1    The s.d. of cmp[1 or 3].
 #' @param   mean.2  The mean of cmp[2 or 4].
@@ -2684,10 +2689,10 @@ expect_equal( check.integ.2( integ.t4.x2.psi.g.inf,
 # functions in the package
 ################################
 
-calc.mean.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
+calc.mean.via.integrate <- function( mix.type, mean.1, sd.1, mean.2, sd.2,
                                      mean.3 = mean.1, sd.3 = sd.1, mean.4 = mean.4, sd.4 = sd.4 )
 {
-    if ( type1.type == 2 )
+    if ( mix.type == 2 )
     {
         f <- function( x )
         {
@@ -2697,7 +2702,7 @@ calc.mean.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
 
         result <- integrate( f, -Inf, Inf )
     }
-    else if ( type1.type == 3 )
+    else if ( mix.type == 3 )
     {
         if ( mean.1 == mean.3 && sd.1 == sd.3 )
         {
@@ -2740,7 +2745,7 @@ calc.mean.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
             result$abs.error <- result$abs.error + int.sub$abs.error
         }
     }
-    else if ( type1.type == 4 )
+    else if ( mix.type == 4 )
     {
         f <- function( x )
         {
@@ -2774,7 +2779,7 @@ expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
                 { calc.mean.via.integrate( 3, mean.1, sd.1, mean.2, sd.2 ) },
                 inf.to.inf = TRUE ), TRUE )
 
-## If some error have occurred in check.integ.2 for type1.type = 3, use this slower version.
+## If some error have occurred in check.integ.2 for mix.type = 3, use this slower version.
 #for ( mean.3 in means[abs( means ) < 3] )
 #{
 #   for ( sd.3 in sds[sds > 0.5] )
@@ -2889,13 +2894,13 @@ vapply( c( 1, 0.8, 1.21 ),
                         }, TRUE ), rep( TRUE, 3 ) ), rep( TRUE, 9 ) ), rep( TRUE, 27 ) ) ), TRUE )
 
 
-calc.v.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
+calc.v.via.integrate <- function( mix.type, mean.1, sd.1, mean.2, sd.2,
                                   mean.3 = mean.1, sd.3 = sd.1, mean.4 = mean.2, sd.4 = sd.2,
                                   get.lv = FALSE, get.uv = FALSE )
 {
-    mean <- ggd:::calc.mean( type1.type, c( mean.1, mean.2, mean.3, mean.4 ), c( sd.1, sd.2, sd.3, sd.4 ) )
+    mean <- ggd:::calc.mean( mix.type, c( mean.1, mean.2, mean.3, mean.4 ), c( sd.1, sd.2, sd.3, sd.4 ) )
 
-    if ( type1.type == 1 )
+    if ( mix.type == 1 )
     {
         f <- function( x )
         {
@@ -2916,7 +2921,7 @@ calc.v.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
             result <- integrate( f, -Inf, Inf )
         }
     }
-    else if ( type1.type == 2 )
+    else if ( mix.type == 2 )
     {
         f <- function( x )
         {
@@ -2938,7 +2943,7 @@ calc.v.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
             result <- integrate( f, -Inf, Inf )
         }
     }
-    else if ( type1.type == 3 )
+    else if ( mix.type == 3 )
     {
         if ( mean.1 == mean.3 && sd.1 == sd.3 )
         {
@@ -3049,9 +3054,9 @@ calc.v.via.integrate <- function( type1.type, mean.1, sd.1, mean.2, sd.2,
             result$abs.error <- result$abs.error + int.sub$abs.error
         }
     }
-    #else if ( type1.type == 4 )
+    #else if ( mix.type == 4 )
     #{
-    ##  For type1.type == 4, use cdg:::calc.v.t4.via.integrate instead of this fuction.
+    ##  For mix.type == 4, use cdg:::calc.v.t4.via.integrate instead of this fuction.
     #}
 
     return( result )
@@ -3378,11 +3383,12 @@ vapply( c( 1, 0.8, 1.21 ),
                                 } )
                         }, TRUE ), rep( TRUE, 3 ) ), rep( TRUE, 9 ) ), rep( TRUE, 27 ) ) ), TRUE )
 
-## These get.uv/get.lv options are not supported yet for type1.type = 4.
+## These get.uv/get.lv options are not supported yet for mix.type = 4.
 expect_error( ggd:::calc.v( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.uv = TRUE ), "not supported yet" )
 
 expect_error( ggd:::calc.v( 4, c( 0, 0, 0, 0 ), c( 1, 1, 1, 1 ), get.lv = TRUE ), "not supported yet" )
 ########
+## Forced numerical integration as horizontal-vertical gradational distribution for simpler distribution models.
 
 expect_equal( check.integ.2( function( mean.1, sd.1, mean.2, sd.2, x )
                 ggd:::calc.v( 2, c( mean.1, mean.2 ), c( sd.1, sd.2 ) ),
