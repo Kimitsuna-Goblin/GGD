@@ -3,4 +3,6 @@
 ^backup$
 ^work$
 ^.*\.lnk$
+^\.github$
 ^README(\.|\.[a-z]+\.)md$
+^LICENSE\.md$

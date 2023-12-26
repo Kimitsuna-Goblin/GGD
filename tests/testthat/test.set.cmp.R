@@ -1110,132 +1110,192 @@ sds <- seq( 0.4, 3.2, 0.4 )
 
 # normal distribution
 for ( mean in means )
-vapply( mean,
-function( mean )
 {
-    vapply( sds,
-    function( sd )
-    {
-        vapply( 1:4,
-        function( mix.type )
+    expect_true(
+        all( vapply( mean,
+        function( mean )
         {
-            a$set.cmp( data.frame( mean = mean, sd = sd ), this.mix.type = mix.type )
-            a$adjust.median.mean.sd()
-            expect_equal( nrow( a$cmp ), ifelse( mix.type < 4, 2, 4 ) )
-            expect_equal( a$median, mean )
-            expect_equal( a$mean, mean )
-            expect_equal( a$sd, sd )
-            expect_equal( a$lsd, sd )
-            expect_equal( a$usd, sd )
-            expect_equal( a$lsd.abs.error, 0 )
-            expect_equal( a$usd.abs.error, 0 )
-            TRUE
-        }, TRUE )
-        TRUE
-    }, TRUE )
-    TRUE
-}, TRUE )
+            all( vapply( sds,
+            function( sd )
+            {
+                all( vapply( 1:4,
+                function( mix.type )
+                {
+                    a$set.cmp( data.frame( mean = mean, sd = sd ), this.mix.type = mix.type )
+                    a$adjust.median.mean.sd()
 
-vapply( means,
-function( mean )
-{
-    vapply( sds,
-    function( sd )
+                    ( nrow( a$cmp ) == ifelse( mix.type < 4, 2, 4 ) ) &&
+                    ( a$median == mean ) &&
+                    ( a$mean == mean ) &&
+                    ( a$sd == sd ) &&
+                    ( a$lsd == sd ) &&
+                    ( a$usd == sd ) &&
+                    ( a$lsd.abs.error == 0 ) &&
+                    ( a$usd.abs.error == 0 )
+                }, TRUE ) )
+            }, TRUE ) )
+        }, TRUE ) )
+    )
+}
+
+expect_true(
+    all( vapply( means,
+    function( mean )
     {
-        a$set.cmp( data.frame( mean = mean, sd = sd ), grad = "v3" )
-        a$adjust.median.mean.sd()
-        expect_equal( nrow( a$cmp ), 3 )
-        expect_equal( a$median, mean )
-        expect_equal( a$mean, mean )
-        expect_equal( a$sd, sd )
-        expect_equal( a$lsd, sd )
-        expect_equal( a$usd, sd )
-        expect_equal( a$lsd.abs.error, 0 )
-        expect_equal( a$usd.abs.error, 0 )
-        TRUE
-    }, TRUE )
-    TRUE
-}, TRUE )
+        all( vapply( sds,
+        function( sd )
+        {
+            a$set.cmp( data.frame( mean = mean, sd = sd ), grad = "v3" )
+            a$adjust.median.mean.sd()
+
+            ( nrow( a$cmp ) == 3 ) &&
+            ( a$median == mean ) &&
+            ( a$mean == mean ) &&
+            ( a$sd == sd ) &&
+            ( a$lsd == sd ) &&
+            ( a$usd == sd ) &&
+            ( a$lsd.abs.error == 0 ) &&
+            ( a$usd.abs.error == 0 )
+        }, TRUE ) )
+    }, TRUE ) )
+)
 
 # horizontal gradation
-vapply( means,
-function( mean.1 )
-{
-    vapply( sds,
-    function( sd.1 )
+means <- seq( -2, 1.75, 0.75 )
+sds <- seq( 0.25, 3.25, 0.75 )
+expect_true(
+    all( vapply( means,
+    function( mean.1 )
     {
-        vapply( means,
-        function( mean.2 )
+        all( vapply( sds,
+        function( sd.1 )
         {
-            vapply( sds,
-            function( sd.2 )
-            {
-                a.1 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ), sd = c( sd.1, sd.2 ) ),
-                                    mix.type = 2 )
-                a.2 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ), sd = c( sd.1, sd.2 ) ),
-                                    mix.type = 4 )
-                a.2$adjust.median.mean.sd()
-                expect_equal( a.1$median,   a.2$median )
-                expect_equal( a.1$mean,     a.2$mean )
-                expect_equal( a.1$sd,       a.2$sd )
-                expect_equal( a.1$lsd,      a.2$lsd )
-                expect_equal( a.1$usd,      a.2$usd )
-                expect_equal( a.1$lsd.abs.error, 0 )
-                expect_equal( a.1$usd.abs.error, 0 )
-                expect_equal( a.2$lsd.abs.error, 0 )
-                expect_equal( a.2$usd.abs.error, 0 )
-                TRUE
-            }, TRUE )
+            expect_true(
+                all( vapply( means,
+                function( mean.2 )
+                {
+                    all( vapply( sds,
+                    function( sd.2 )
+                    {
+                        a.1 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ),
+                                                        sd = c( sd.1, sd.2 ) ),
+                                            mix.type = 2 )
+                        a.2 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ),
+                                                        sd = c( sd.1, sd.2 ) ),
+                                            mix.type = 4 )
+                        a.2$adjust.median.mean.sd()
+
+                        if ( abs( a.1$median - a.2$median ) < 1e-10 &&
+                                ( a.1$mean   == a.2$mean )      &&
+                                ( a.1$sd     == a.2$sd )        &&
+                                ( a.1$lsd    == a.2$lsd )       &&
+                                ( a.1$usd    == a.2$usd )       &&
+                                ( a.1$lsd.abs.error == 0 )      &&
+                                ( a.1$usd.abs.error == 0 )      &&
+                                ( a.2$lsd.abs.error == 0 )      &&
+                                ( a.2$usd.abs.error == 0 )      )
+                        {
+                            TRUE
+                        }
+                        else
+                        {
+                            print( "a.1:" )
+                            print( a.1 )
+                            print( "a.2:" )
+                            print( a.2 )
+                            print( paste( "abs( a.1$median - a.2$median ):", abs( a.1$median - a.2$median ) ) )
+                            print( paste( "( a.1$mean   ==  a.2$mean ):",   ( a.1$mean   == a.2$mean ) ) )
+                            print( paste( "( a.1$sd     == a.2$sd ):",      ( a.1$sd     == a.2$sd ) ) )
+                            print( paste( "( a.1$lsd    ==  a.2$lsd ):",    ( a.1$lsd    == a.2$lsd ) ) )
+                            print( paste( "( a.1$usd    ==  a.2$usd ):",    ( a.1$usd    == a.2$usd  ) ) )
+                            print( paste( "( a.1$lsd.abs.error == 0 ):",    ( a.1$lsd.abs.error == 0 ) ) )
+                            print( paste( "( a.1$usd.abs.error == 0 ):",    ( a.1$usd.abs.error == 0 ) ) )
+                            print( paste( "( a.2$lsd.abs.error == 0 ):",    ( a.2$lsd.abs.error == 0 ) ) )
+                            print( paste( "( a.2$usd.abs.error == 0 ):",    ( a.2$usd.abs.error == 0 ) ) )
+                            FALSE
+                        }
+                    }, TRUE ) )
+                }, TRUE ) )
+            )
             TRUE
-        }, TRUE )
-        TRUE
-    }, TRUE )
-    TRUE
-}, TRUE )
+        }, TRUE ) )
+    }, TRUE ) )
+)
 
 # vertical gradation
-vapply( means,
-function( mean.1 )
-{
-    vapply( sds,
-    function( sd.1 )
+expect_true(
+    all( vapply( means,
+    function( mean.1 )
     {
-        vapply( means,
-        function( mean.2 )
+        all( vapply( sds,
+        function( sd.1 )
         {
-            vapply( sds,
-            function( sd.2 )
+            all( vapply( means,
+            function( mean.2 )
             {
-                a.1 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ), sd = c( sd.1, sd.2 ) ),
-                                    mix.type = 3 )
-                a.2 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ), sd = c( sd.1, sd.2 ) ),
-                                    mix.type = 3 )$adjust.cmp( this.mix.type = 4 )
-                a.3 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ), sd = c( sd.1, sd.2 ) ),
-                                    grad = "v3" )
-                a.2$adjust.median.mean.sd()
-                expect_equal( a.1$median,   a.2$median )
-                expect_equal( a.1$mean,     a.2$mean )
-                expect_equal( a.1$sd,       a.2$sd )
-                expect_equal( a.1$lsd,      a.2$lsd )
-                expect_equal( a.1$usd,      a.2$usd )
-                expect_equal( a.1$lsd.abs.error, 0 )
-                expect_equal( a.1$usd.abs.error, 0 )
-                expect_equal( a.2$lsd.abs.error, 0 )
-                expect_equal( a.2$usd.abs.error, 0 )
+                all( vapply( sds,
+                function( sd.2 )
+                {
+                    a.1 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ),
+                                                    sd = c( sd.1, sd.2 ) ),
+                                        mix.type = 3 )
+                    a.2 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ),
+                                                    sd = c( sd.1, sd.2 ) ),
+                                        mix.type = 3 )$adjust.cmp( this.mix.type = 4 )
+                    a.3 <- ggd.set.cmp( data.frame( mean = c( mean.1, mean.2 ),
+                                                    sd = c( sd.1, sd.2 ) ),
+                                        grad = "v3" )
+                    a.2$adjust.median.mean.sd()
 
-                expect_equal( a.1$median,   a.3$median )
-                expect_equal( a.1$mean,     a.3$mean )
-                expect_equal( a.1$sd,       a.3$sd )
-                expect_equal( a.1$lsd,      a.3$lsd )
-                expect_equal( a.1$usd,      a.3$usd )
-                expect_equal( a.3$lsd.abs.error, 0 )
-                expect_equal( a.3$usd.abs.error, 0 )
-                TRUE
-            }, TRUE )
-            TRUE
-        }, TRUE )
-        TRUE
-    }, TRUE )
-    TRUE
-}, TRUE )
+                    if ( abs( a.1$median - a.2$median ) < 1e-10 &&
+                            ( a.1$mean   == a.2$mean )      &&
+                            ( a.1$sd     == a.2$sd )        &&
+                            ( a.1$lsd    == a.2$lsd )       &&
+                            ( a.1$usd    == a.2$usd )       &&
+                            ( a.1$lsd.abs.error == 0 )      &&
+                            ( a.1$usd.abs.error == 0 )      &&
+                            ( a.2$lsd.abs.error == 0 )      &&
+                            ( a.2$usd.abs.error == 0 )      &&
+                         abs( a.1$median - a.3$median ) < 1e-10 &&
+                            ( a.1$mean   == a.3$mean )      &&
+                            ( a.1$sd     == a.3$sd )        &&
+                            ( a.1$lsd    == a.3$lsd )       &&
+                            ( a.1$usd    == a.3$usd )       &&
+                            ( a.3$lsd.abs.error == 0 )      &&
+                            ( a.3$usd.abs.error == 0 )      )
+                    {
+                        TRUE
+                    }
+                    else
+                    {
+                        print( "a.1:" )
+                        print( a.1 )
+                        print( "a.2:" )
+                        print( a.2 )
+                        print( "a.3:" )
+                        print( a.3 )
+                        print( paste( "abs( a.1$median - a.2$median ):", abs( a.1$median - a.2$median ) ) )
+                        print( paste( "( a.1$median == a.2$median ) :", ( a.1$median == a.2$median )    ) )
+                        print( paste( "( a.1$mean   == a.2$mean )   :", ( a.1$mean   == a.2$mean )      ) )
+                        print( paste( "( a.1$sd     == a.2$sd )     :", ( a.1$sd     == a.2$sd )        ) )
+                        print( paste( "( a.1$lsd    == a.2$lsd )    :", ( a.1$lsd    == a.2$lsd )       ) )
+                        print( paste( "( a.1$usd    == a.2$usd )    :", ( a.1$usd    == a.2$usd )       ) )
+                        print( paste( "( a.1$lsd.abs.error == 0 )   :", ( a.1$lsd.abs.error == 0 )      ) )
+                        print( paste( "( a.1$usd.abs.error == 0 )   :", ( a.1$usd.abs.error == 0 )      ) )
+                        print( paste( "( a.2$lsd.abs.error == 0 )   :", ( a.2$lsd.abs.error == 0 )      ) )
+                        print( paste( "( a.2$usd.abs.error == 0 )   :", ( a.2$usd.abs.error == 0 )      ) )
+                        print( paste( "abs( a.1$median - a.3$median ):", abs( a.1$median - a.3$median ) ) )
+                        print( paste( "( a.1$mean   == a.3$mean )   :", ( a.1$mean   == a.3$mean )      ) )
+                        print( paste( "( a.1$sd     == a.3$sd )     :", ( a.1$sd     == a.3$sd )        ) )
+                        print( paste( "( a.1$lsd    == a.3$lsd )    :", ( a.1$lsd    == a.3$lsd )       ) )
+                        print( paste( "( a.1$usd    == a.3$usd )    :", ( a.1$usd    == a.3$usd )       ) )
+                        print( paste( "( a.3$lsd.abs.error == 0 )   :", ( a.3$lsd.abs.error == 0 )      ) )
+                        print( paste( "( a.3$usd.abs.error == 0 )   :", ( a.3$usd.abs.error == 0 )      ) )
+                        FALSE
+                    }
+                }, TRUE ) )
+            }, TRUE ) )
+        }, TRUE ) )
+    }, TRUE ) )
+)
 
