@@ -13,7 +13,7 @@ is one of continuous distribution models
 for mainly modeling asymmetric unimodal data which do not follow a normal distribution.
 Without $\log$ transformations,
 it can represent distributions which do not follow a normal distribution:
-skewed distributions, heavy-tailed or flat-topped distributions etc.
+skewed, heavy-tailed, flat-topped etc.
 
 The GGD is alike the **Gaussian mixture model (GMM)** but different.
 The GMM is represented by linear combinations of some normal distributions,
