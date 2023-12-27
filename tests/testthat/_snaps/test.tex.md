@@ -51,7 +51,7 @@
       \end{array}
       \end{align}
 
-# Normal output: mix.type = 3, vgrad.2
+# Normal output: mix.type = 3, v2
 
     Code
       cat(x.tex, sep = "\n")
@@ -70,7 +70,7 @@
       \end{array}
       \end{align}
 
-# Normal output: mix.type = 3, vgrad.3
+# Normal output: mix.type = 3, v3
 
     Code
       cat(x.tex, sep = "\n")
@@ -175,7 +175,7 @@
       \end{array}
       \end{align}
 
-# tex.d: mix.type = 3, vgrad.2
+# tex.d: mix.type = 3, v2
 
     Code
       cat(x.tex.d, sep = "\n")
@@ -191,7 +191,7 @@
       \end{array}
       \end{align}
 
-# tex.d: mix.type = 3, vgrad.3
+# tex.d: mix.type = 3, v3
 
     Code
       cat(x.tex.d, sep = "\n")
@@ -288,7 +288,7 @@
       \end{array}
       \end{align}
 
-# tex.p: mix.type = 3, vgrad.2
+# tex.p: mix.type = 3, v2
 
     Code
       cat(x.tex.p, sep = "\n")
@@ -305,7 +305,7 @@
       \end{array}
       \end{align}
 
-# tex.p: mix.type = 3, vgrad.3
+# tex.p: mix.type = 3, v3
 
     Code
       cat(x.tex.p, sep = "\n")
@@ -621,7 +621,7 @@
       \end{array}
       \end{align}
 
-# Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.2
+# Outputs of eq.mean and eq.sd objects: mix.type = 3, v2
 
     Code
       a$set.cmp(data.frame(mean = c(1, 1), sd = 1:2 + 0.5), grad = "v2")$tex()
@@ -711,7 +711,7 @@
       \end{array}
       \end{align}
 
-# Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.3
+# Outputs of eq.mean and eq.sd objects: mix.type = 3, v3
 
     Code
       a$set.cmp(data.frame(mean = c(1, 1, 1), sd = 1:3 + 0.5), grad = "v3")$tex()

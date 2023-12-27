@@ -131,7 +131,7 @@ expect_equal( ggd.ncmp.for( NULL, mix.type = NA ), 0 )
 expect_identical( ggd.ncmp.for( mix.type = -1 ), NA_integer_ )
 expect_identical( ggd.ncmp.for( mix.type = 5 ), NA_integer_ )
 
-# "v" for analias of "v2"
+# "v" for alias of "v2"
 expect_equal( ggd.ncmp.for( "v" ), 2 )
 
 #### ggd.mix.type.for empty or invalid kind, mix.type
@@ -156,7 +156,7 @@ expect_identical( ggd.mix.type.for( NULL, kind = 1:2 ), c( 0L, 1L ) )
 expect_identical( ggd.mix.type.for( NULL, kind = c( "2.*Ver", "Hor" ) ), c( 3L, 2L ) )
 expect_identical( ggd.mix.type.for( NULL, mix.type = 1:10 ), 1:10 )
 
-# "v" for analias of "v2"
+# "v" for alias of "v2"
 expect_identical( ggd.mix.type.for( "v" ), 3L )
 
 #### sd.norm.mxp with various length vectors
@@ -699,7 +699,7 @@ expect_cleared( a ); a <- GGD$new()
 expect_error( ggd.read.csv( csvfile ), "The value of mix.type is invalid" )
 unlink( csvfile )
 
-# unmatch between mix.type and cmp
+# not-appropriate mix.type
 csvfile <- tempfile( fileext = ".csv" )
 ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "NA" )
 expect_error( a$read.csv( csvfile ), "NA for kind or mix.type can be specified only if cmp has no rows" )
@@ -745,7 +745,7 @@ unlink( csvfile )
 ################################################################################################
 
 #### round.cmp
-# dg.mean and dg.sd are differnt
+# dg.mean and dg.sd are different
 a$set.cmp( data.frame( mean = c( 0.857, 1.264 ),
                          sd = c( 0.938, 1.254 ) ), grad = "h" )
 result <- withVisible( a$round.cmp( 2, 1 ) )
@@ -909,7 +909,7 @@ a$round.cmp( integer() )
 expect_equal_ggd( a, b )
 rm( b )
 
-# vecters with length > 1 are indicated
+# vectors with length > 1 are indicated
 a$set.cmp( data.frame( mean = c( 2.818943789, 2.214470148, 2.894672837, 2.98471434 ),
                          sd = c( 1.781436281, 1.981647894, 1.784123519, 1.64968712 ) ) )
 b <- a$copy()
@@ -946,7 +946,7 @@ a$set.cmp( data.frame( mean = c( 0.572, 1.069 ), sd = c( 0.046, 0.912 ) ) )
 expect_error( a$round.cmp( 1 ), "sd must be positive" )
 
 #### signif.cmp
-# dg.mean and dg.sd are differnt
+# dg.mean and dg.sd are different
 a$set.cmp( data.frame( mean = c( 0.857, 1.264 ),
                          sd = c( 0.938, 1.254 ) ), grad = "h" )
 result <- withVisible( a$signif.cmp( 2, 1 ) )
@@ -1112,7 +1112,7 @@ a$signif.cmp( integer() )
 expect_equal_ggd( a, b )
 rm( b )
 
-# vecters with length > 1 are indicated
+# vectors with length > 1 are indicated
 a$set.cmp( data.frame( mean = c( 2.818943789, 2.214470148, 2.894672837, 2.98471434 ),
                          sd = c( 1.781436281, 1.981647894, 1.784123519, 1.64968712 ) ) )
 b <- a$copy()

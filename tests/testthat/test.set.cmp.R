@@ -202,7 +202,7 @@ expect_true( a$is.v3() )
 expect_true( a$is.hv() )
 
 # When this.mix.type = 4 for 2-rows data.frame, previous mix.type affects to construct cmp field.
-# This case is virtical gradation, follows previous mix.type = 3.
+# This case is vertical gradation, follows previous mix.type = 3.
 expect_identical( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), this.mix.type = 4 )$mix.type, 4L )
 expect_equal( nrow( a$cmp ), 4 )
 expect_false( a$is.h() )
@@ -457,7 +457,7 @@ expect_equal_ggd( a, b )
 rm( b )
 
 
-## Combinatorial tests
+## Combinational tests
 a$set.cmp( data.frame( mean = c( 0, 1 ), sd = c( 1.1, 1.2 ) ), grad = "v3" )
 expect_equal( a$kind, "2-Mean-Differed Sigma-Differed Vertical Gradational Distribution" )
 expect_identical( a$mix.type, 3L )

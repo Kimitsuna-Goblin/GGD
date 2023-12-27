@@ -10,7 +10,7 @@ if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
 
-## The connection to ouput tex formatted texts
+## The connection to output tex formatted texts
 #TeX.output.connection <- stdout()
 TeX.output.connection <- file( tempfile( "tex-out", fileext = ".txt" ) )
 
@@ -321,7 +321,7 @@ df <- data.frame(
         freq = freq,
         freq.2 = freq.2 )
 
-# Error case (start values will be almost euqal to freq)
+# Error case (start values will be almost equal to freq)
 expect_error(
     a$nls.freq( df, grad = "normal" ),
     paste0( "All of nls functions have failed.*",
@@ -447,7 +447,7 @@ expect_equal_ggd( a, b )
 
 rm( b, df.2, df.3 )
 
-# normal test (previous mix.type is keeped)
+# normal test (previous mix.type is retained)
 a$nls.freq( df, eq.sd = TRUE )
 expect_identical( a$mix.type, 3L )
 expect_equal( a$is.v2(), TRUE )
@@ -739,7 +739,7 @@ expect_true( ggds$cor[8] < ggds$cor[14] )
 expect_identical( ggds$detail[[5]]$start.level, NA_integer_ )
 expect_identical( ggds$detail[[14]]$start.level, NA_integer_ )
 expect_true( all( vapply( ( 1:16 )[-14][-5],
-                          function( i ) identical( ggds$detail[[i]]$start.leve, 1L ), TRUE ) ) )
+                          function( i ) identical( ggds$detail[[i]]$start.level, 1L ), TRUE ) ) )
 expect_identical( ggds$best$kind.index, 16L )
 expect_true( ggds$best.cor > 0.9964 )
 # 'lists' will be used later at not.use.nls (ggd.nls.freq.all) test.
@@ -1733,7 +1733,7 @@ expect_warning( expect_warning(
     "Warning for kind = 3 :" ) )
 expect_true( ggds$best.cor > 0.984 )
 
-# normal test (althogh control is set NULL, warnOnly will be added)
+# normal test (although control is set NULL, warnOnly will be added)
 expect_warning( expect_warning(
 expect_warning( expect_warning(
 ggds <- ggd.nls.freq.all( df, control = NULL ),

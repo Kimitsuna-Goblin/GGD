@@ -46,8 +46,8 @@ test_that( "Normal output: mix.type = 2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.2
-test_that( "Normal output: mix.type = 3, vgrad.2",
+# mix.type = 3, v2
+test_that( "Normal output: mix.type = 3, v2",
 {
     a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
     a$tex( tmpfile )
@@ -56,8 +56,8 @@ test_that( "Normal output: mix.type = 3, vgrad.2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.3
-test_that( "Normal output: mix.type = 3, vgrad.3",
+# mix.type = 3, v3
+test_that( "Normal output: mix.type = 3, v3",
 {
     a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
     a$tex( tmpfile )
@@ -109,8 +109,8 @@ test_that( "tex.d: mix.type = 2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.2
-test_that( "tex.d: mix.type = 3, vgrad.2",
+# mix.type = 3, v2
+test_that( "tex.d: mix.type = 3, v2",
 {
     a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
     a$tex.d( tmpfile )
@@ -119,8 +119,8 @@ test_that( "tex.d: mix.type = 3, vgrad.2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.3
-test_that( "tex.d: mix.type = 3, vgrad.3",
+# mix.type = 3, v3
+test_that( "tex.d: mix.type = 3, v3",
 {
     a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
     a$tex.d( tmpfile )
@@ -172,8 +172,8 @@ test_that( "tex.p: mix.type = 2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.2
-test_that( "tex.p: mix.type = 3, vgrad.2",
+# mix.type = 3, v2
+test_that( "tex.p: mix.type = 3, v2",
 {
     a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
     a$tex.p( tmpfile )
@@ -182,8 +182,8 @@ test_that( "tex.p: mix.type = 3, vgrad.2",
     unlink( tmpfile )
 } )
 
-# mix.type = 3, vgrad.3
-test_that( "tex.p: mix.type = 3, vgrad.3",
+# mix.type = 3, v3
+test_that( "tex.p: mix.type = 3, v3",
 {
     a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
     a$tex.p( tmpfile )
@@ -288,13 +288,13 @@ expect_proper_tex_comma_output( a$tex )
 expect_proper_tex_comma_output( a$tex.d )
 expect_proper_tex_comma_output( a$tex.p )
 
-# mix.type = 3, vgrad.2
+# mix.type = 3, v2
 a$set.cmp( data.frame( mean = 1:2, sd = 1:2 * 0.5 ), grad = "v2" )
 expect_proper_tex_comma_output( a$tex )
 expect_proper_tex_comma_output( a$tex.d )
 expect_proper_tex_comma_output( a$tex.p )
 
-# mix.type = 3, vgrad.3
+# mix.type = 3, v3
 a$set.cmp( data.frame( mean = 1:3, sd = 1:3 * 0.5 ), grad = "v3" )
 expect_proper_tex_comma_output( a$tex )
 expect_proper_tex_comma_output( a$tex.d )
@@ -348,7 +348,7 @@ expect_output( a$tex( format.num = function( x ) sprintf( "%.5f", x ) ),
 expect_output( a$tex( format.num = function( x ) sprintf( "%.5f", x ) ),
     "[\\]mu_2[ =]+7[.]93238[^0-9].*[\\]sigma_2[ =]+7[.]16940[^0-9]" )       # 7.93238, 7.16940
 
-# mix.type = 3, vgrad.2
+# mix.type = 3, v2
 a$set.cmp( data.frame( mean = c( 3.141592653589, 7.932384624433 ),
                          sd = c( 8.327950288419, 7.169399375105 ) ), this.mix.type = 3 )
 expect_output( a$tex( format.num = function( x ) format( x, digit = 3 ) ),
@@ -361,7 +361,7 @@ expect_output( a$tex( format.num = function( x ) sprintf( "%.5f", x ) ),
 expect_output( a$tex( format.num = function( x ) sprintf( "%.5f", x ) ),
     "[\\]mu_2[ =]+7[.]93238[^0-9].*[\\]sigma_2[ =]+7[.]16940[^0-9]" )       # 7.93238, 7.16940
 
-# mix.type = 3, vgrad.3
+# mix.type = 3, v3
 a$set.cmp( data.frame( mean = c( 3.141592653589, 7.932384624433, 8.327950288419 ),
                          sd = c( 7.169399375105, 8.209749445923, 0.781640628620 ) ),
            this.mix.type = 3 )
@@ -449,8 +449,8 @@ test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 2",
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), this.mix.type = 2 )$tex.p() )
 } )
 
-# mix.type = 3, vgrad.2
-test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.2",
+# mix.type = 3, v2
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, v2",
 {
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = 1:2 + 0.5 ), grad = "v2" )$tex() )
     expect_snapshot( a$set.cmp( data.frame( mean = 1:2, sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex() )
@@ -459,8 +459,8 @@ test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.2",
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1 ), sd = c( 1.5, 1.5 ) ), grad = "v2" )$tex.p() )
 } )
 
-# mix.type = 3, vgrad.3
-test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, vgrad.3",
+# mix.type = 3, v3
+test_that( "Outputs of eq.mean and eq.sd objects: mix.type = 3, v3",
 {
     expect_snapshot( a$set.cmp( data.frame( mean = c( 1, 1, 1 ), sd = 1:3 + 0.5 ), grad = "v3" )$tex() )
     expect_snapshot( a$set.cmp( data.frame( mean = 1:3, sd = c( 1.5, 1.5, 1.5 ) ), grad = "v3" )$tex() )

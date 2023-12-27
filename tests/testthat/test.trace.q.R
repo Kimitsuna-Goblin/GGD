@@ -25,7 +25,7 @@ control <- list( ftol = 1e-4 )
 ################################################################################################
 #' Expect near but not equal
 #'
-#' Check if the values of two vectors are near but never eqaul to each other.
+#' Check if the values of two vectors are near but never equal to each other.
 #' @param   v1          A vector to be checked.
 #' @param   v2          The other vector to be checked.
 #' @param   tol.equal   Tolerance to consider that values of two vectors are equal.
@@ -44,8 +44,8 @@ expect_near <- function( v1, v2, tol.equal = 5e-9, tol.near = 1e-3 )
 #'
 #' @param   a       A GGD object.
 #' @param   p       A vector of probabilities of quantiles.
-#' @param   x       A vector of x-coodinates of quantiles.
-#' @param   xlim    A vector of the x-range for plottings.
+#' @param   x       A vector of x-coordinates of quantiles.
+#' @param   xlim    A vector of the x-range for plot.
 ################################################################################################
 plot.quantiles.and.p <- function( a, p, x, xlim = NULL )
 {
@@ -775,7 +775,7 @@ expect_equal( abs( a$lsd - sqrt( ggd:::calc.v( 1, a$cmp$mean, a$cmp$sd, get.lv =
 expect_equal( abs( a$usd - sqrt( ggd:::calc.v( 1, a$cmp$mean, a$cmp$sd, get.uv = TRUE ) * 2 ) ) <=
                 sqrt( .Machine$double.eps ), TRUE )
 
-# normal test (keep mix.type = 1)
+# normal test (retaining mix.type = 1)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.5, 0.61 ),
@@ -1133,7 +1133,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 2 (hgrad), 3 quantiles
+#### mix.type = 2 (horizontal), 3 quantiles
 # normal test
 xs <- c( qnorm( 0.3, -0.2, 1 ), 0, qnorm( 0.7, 0.2, 0.8 ) )
 a$trace.q(
@@ -1475,7 +1475,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 2 (hgrad), 4 quantiles
+#### mix.type = 2 (horizontal), 4 quantiles
 # normal test
 xs <- c( qnorm( 0.1, 0, 1.1 ), qnorm( 0.25, 0, 1 ), qnorm( 0.75, 0, 1.05 ), qnorm( 0.9, 0, 1.06 ) )
 a$trace.q(
@@ -1581,7 +1581,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, vgrad.2, basic tests
+#### mix.type = 3, v2, basic tests
 # Error case
 xs <- c( qnorm( 0.1, 0, 1 ), qnorm( 0.3, 0, 0.9 ), qnorm( 0.4, 0, 0.85 ), 0, qnorm( 0.6, 0, 0.85 )  )
 expect_error( a$trace.q(
@@ -1592,7 +1592,7 @@ expect_error( a$trace.q(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, vgrad.2, 3 quantiles
+#### mix.type = 3, v2, 3 quantiles
 # normal test
 xs <- c( qnorm( 0.1, 0, 1 ), 0, qnorm( 0.7, 0, 0.9 ) )
 a$trace.q(
@@ -1626,7 +1626,7 @@ expect_equal( c( a$sd, a$sd ), c( a$lsd, a$usd ) )
 expect_near( a$p( xs[c( 1, 3 )] ), c( 0.1, 0.7 ) )
 show.results()
 
-# normal test (keep vgrad.2)
+# normal test (retaining v2)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.5, 0.69 ),
@@ -1666,7 +1666,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (overwrite vgrad.2 to mix.type = 2)
+# normal test (overwrite v2 to mix.type = 2)
 xs <- c( qnorm( 0.1, 0, 1 ), qnorm( 0.3, 0, 0.9 ), qnorm( 0.4, 0, 0.85 ) )
 a$trace.q(
     data.frame(
@@ -2159,7 +2159,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, vgrad.2, 4 quantiles
+#### mix.type = 3, v2, 4 quantiles
 # normal test
 xs <- c( qnorm( 0.1, 0, 1 ), qnorm( 0.3, 0, 0.9 ), 0, qnorm( 0.6, 0, 0.85 )  )
 a$trace.q(
@@ -2248,7 +2248,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, without vgrad.*, basic tests
+#### mix.type = 3, without grad argument, basic tests
 # Error case
 expect_error( a$trace.q(
         data.frame(
@@ -2280,7 +2280,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, without vgrad.* / grad = "v3", 3 quantiles
+#### mix.type = 3, without grad argument / grad = "v3", 3 quantiles
 # normal test (median at an edge quantile)
 xs <- c( qnorm( 0.1, 0, 1.2 ), qnorm( 0.4, 0, 0.9 ), 0 )
 a$trace.q(
@@ -2313,7 +2313,7 @@ expect_equal( a$is.eq.sd(), FALSE )
 expect_near( a$p( xs ), c( 0.1, 0.4, 0.5 ) )
 show.results()
 
-# Error case for subfunction
+# Error case for sub-function
 expect_error( ggd:::v2.qt4.cmp(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
@@ -2357,7 +2357,7 @@ expect_equal( a$p( xs[3] ), 0.5 )
 expect_near( a$p( xs[1:2] ), c( 0.1, 0.4 ) )
 show.results()
 
-# normal test (vgrad.3)
+# normal test (v3)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
@@ -2376,7 +2376,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (overwrite vgrad.3, eq.mean = TRUE)
+# normal test (overwrite v3, eq.mean = TRUE)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
@@ -2395,21 +2395,21 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# Error case for subfunction
+# Error case for sub-function
 expect_error( ggd:::v2.qt4.cmp(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ), control = control ),
     "nrow.qt. must be 4 for v2.qt4.cmp. nrow: 3" )
 
-# Error case for subfunction
+# Error case for sub-function
 expect_error( ggd:::v3.qt4.cmp(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
     x = xs ), control = control ),
     "nrow.qt. must be 4 for v3.qt4.cmp. nrow: 3" )
 
-# normal test (keep vgrad.3)
+# normal test (retaining v3)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.5 ),
@@ -2474,7 +2474,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (keep vgrad.3)
+# normal test (retaining v3)
 a$trace.q(
     data.frame(
     p = c( 0.5, 0.6, 0.91 ),
@@ -3101,7 +3101,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### mix.type = 3, without vgrad.* / grad = "v3", 4 quantiles
+#### mix.type = 3, without grad argument / grad = "v3", 4 quantiles
 # normal test
 xs <- c( qnorm( 0.1, 0, 1 ), qnorm( 0.3, 0, 0.9 ), qnorm( 0.4, 0, 0.87 ), 0 )
 a$trace.q(
@@ -3159,7 +3159,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-# normal test (same quantiles, different optioins 1/4)
+# normal test (same quantiles, different options 1/4)
 xs <- c( -1, -0.1, 0.2, 1.3 )
 a$trace.q(
     data.frame(
@@ -3174,7 +3174,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (same quantiles, different optioins 2/4)
+# normal test (same quantiles, different options 2/4)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.6, 0.9 ),
@@ -3189,7 +3189,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (same quantiles, different optioins 3/4)
+# normal test (same quantiles, different options 3/4)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.4, 0.6, 0.9 ),
@@ -3204,7 +3204,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (same quantiles, different optioins 4/4)
+# normal test (same quantiles, different options 4/4)
 b <- ggd.trace.q(
         data.frame(
         p = c( 0.1, 0.4, 0.6, 0.9 ),
@@ -3423,8 +3423,8 @@ expect_cleared( a ); a <- GGD$new()
 
 # normal test (rare case 1/5)
 #   This case of xs and p is:
-#       if grad = "v2", it will succeed;
-#       if grad = "v3" and eather eq.mean or eq.sd = TRUE, it will succeeed;
+#       if grad = "v2", it will pass;
+#       if grad = "v3" and either eq.mean or eq.sd = TRUE, it will pass;
 #       if grad = "v3" and both eq.mean and eq.sd = FALSE, it will fail.
 xs <- c( -2, 0, 0.1, 2.3 )
 a$trace.q(
@@ -3884,7 +3884,7 @@ expect_equal( a$is.v3( TRUE ), TRUE )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ) )
 show.results()
 
-# normal test (keep mix.type = 3)
+# normal test (retaining mix.type = 3)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
@@ -4046,7 +4046,7 @@ expect_equal( a$is.v3( TRUE ), TRUE )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ) )
 show.results()
 
-# normal test (keep mix.type = 3)
+# normal test (retaining mix.type = 3)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ),
@@ -4182,7 +4182,7 @@ expect_equal( a$is.eq.mean(), FALSE )
 expect_near( a$p( xs ), c( 0.1, 0.25, 0.5, 0.75, 0.9 ) )
 show.results()
 
-# normal test (keep mix.type = 4)
+# normal test (retaining mix.type = 4)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.5, 0.75, 0.9 ),
@@ -4489,7 +4489,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# normat test
+# normal test
 expect_message( expect_message(
     a$trace.q(
         data.frame(
@@ -4691,7 +4691,7 @@ expect_near( a$p( xs[c( 1, 3, 5, 7 )] ), c( 0.10, 0.40, 0.60, 0.90 ), tol.near =
 show.results()
 
 
-# Error case (If maxit is increased, this case succeeds.)
+# Error case (If more maxit value, this case will be passed.)
 xs <- c( qnorm( 0.1, 0, 0.9 ), qnorm( 0.25, 0, 0.95 ), qnorm( 0.4, 0, 0.98 ),
          0,
          qnorm( 0.6, 0, 1.03 ), qnorm( 0.75, 0, 1.1 ), qnorm( 0.9, 0, 1.13 ) )
@@ -4780,7 +4780,7 @@ plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
 
-# normal test (Baltan)
+# normal test (Very strange)
 xs <- c( -1, -0.8, -0.3, 0, 0.32, 1, 1.2 )
 a$trace.q(
     data.frame(
@@ -4807,7 +4807,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# normal test (sub1 of Baltan)
+# normal test (sub1 of Very strange)
 xs <- c( -1, -0.8, -0.3 )
 a$trace.q(
     data.frame(
@@ -4821,7 +4821,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (sub2 of Baltan)
+# normal test (sub2 of Very strange)
 xs <- c( 0.32, 1, 1.2 )
 a$trace.q(
     data.frame(
@@ -4835,7 +4835,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (Baltan Rev.)
+# normal test (Very strange Rev.)
 xs <- c( -1, -0.8, -0.3, 0, 0.32, 1, 1.2 )
 a$trace.q(
     data.frame(
@@ -4859,7 +4859,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (Baltan Rev.) (for success, it needs about 1000 iterations)
+# normal test (Very strange Rev.) (for success, it needs about 1000 iterations)
 xs <- c( -1.2, -1, -0.32, 0, 0.3, 0.8, 1 )
 a$trace.q(
     data.frame(
@@ -5286,7 +5286,7 @@ plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
 
-#### eq.sd, mix.type = 3, vgrad.2
+#### eq.sd, mix.type = 3, v2
 # normal test
 xs <- c( qnorm( 0.1, -0.2, 1 ), qnorm( 0.4, 0, 1 ), 0 )
 a$trace.q(
@@ -5367,7 +5367,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### eq.sd, mix.type = 3, without vgrad.* / grad = "v3", 3 quantiles
+#### eq.sd, mix.type = 3, without grad argument / grad = "v3", 3 quantiles
 # normal test
 xs <- c( qnorm( 0.1, -0.2, 1 ), qnorm( 0.4, 0, 1 ), 0 )
 a$trace.q(
@@ -5463,7 +5463,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# Error case (process path test 3/4: vgrad.3, with median)
+# Error case (process path test 3/4: v3, with median)
 expect_error(
     expect_message(
         a$trace.q(
@@ -5475,7 +5475,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# Error case (process path test 4/4: vgrad.3, without median)
+# Error case (process path test 4/4: v3, without median)
 expect_error(
     expect_message(
         a$trace.q(
@@ -5488,7 +5488,7 @@ expect_error(
 expect_cleared( a ); a <- GGD$new()
 
 
-#### eq.sd, mix.type = 3, without vgrad.* / grad = "v3", 4 quantiles
+#### eq.sd, mix.type = 3, without grad argument / grad = "v3", 4 quantiles
 # normal test
 xs <- c( qnorm( 0.1, -0.2, 1 ), qnorm( 0.4, 0, 1 ), qnorm( 0.6, 0.1, 1 ), qnorm( 0.8, 0.4, 1 ) )
 a$trace.q(
@@ -5586,7 +5586,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# Error case (process path test 2/3: with vgrad.3, with median)
+# Error case (process path test 2/3: with v3, with median)
 expect_error(
     expect_message(
         a$trace.q(
@@ -5598,7 +5598,7 @@ expect_error(
     "Failed to construct components" )
 expect_cleared( a ); a <- GGD$new()
 
-# Error case (process path test 3/3: with vgrad.3, without median)
+# Error case (process path test 3/3: with v3, without median)
 expect_error(
     expect_message(
         a$trace.q(
@@ -6065,7 +6065,7 @@ plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
 
-# Error case (This test is expected that the current a$mixtype is 3.)
+# Error case (This test is expected that the current a$mix.type is 3.)
 xs <- c( -4, -( 2 + 2.25e-16 ), -2, 2, 2 + 2.25e-16, 4 )
 expect_error(
     expect_message(
@@ -6136,7 +6136,7 @@ plot.quantiles.and.p( a,
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
-# normal test (with mix.type = 3 in same consition as above)
+# normal test (with mix.type = 3 in same condition as above)
 a$trace.q(
     data.frame(
     p = c( 0.1, 0.25, 0.4, 0.6, 0.75, 0.9 ),
