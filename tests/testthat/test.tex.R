@@ -5,10 +5,16 @@
 # For interactive test, load setup.R expressly.
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
+################################
+# Preparing
+################################
+
 a <- GGD$new()
 tmpfile <- tempfile( fileext = ".txt" )
 
-#### Tests
+################################
+# Tests
+################################
 
 #### Normal output for each mix.type
 a$clear()

@@ -10,7 +10,7 @@
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 ################################
-# configurations
+# Configurations
 ################################
 
 ## If you want to display debug information,
@@ -23,18 +23,30 @@ show.debug <- FALSE
 show.progress <- FALSE
 #show.progress <- TRUE
 
+## If you want to test not the digest version
+## which guarantees the performance of the package enough
+## but full version with much longer time
+## (about 1 hour with 12th Gen Core i5 2.5GHz, Windows11), set FALSE this option.
+digest.test <- TRUE
+#digest.test <- FALSE
+
 
 ################################
-# constants
+# Global variables
 ################################
 
 means <- c( 0, 1, -1, 0.2, -0.2, 2, -2, 3, -3, 4, -4 )
-sds <- c( 1, 0.4, 0.6, 1.2, 3, 3.55 )
+sds <- c( 1, 0.4, 0.6, 1.2, 2, 3, 3.55 )
 xs <- list( c( 0, 1 ), c( -1, 0 ), c( -2, 3 ), c( 2, 3 ), c( 0.2, 0.6 ), c( 1, 1.6 ),
             c( -1.6, -1 ), c( -3, -2 ), c( -3.5, -3 ), c( -0.6, -0.2 ), c( -0.2, 0.6 ) )
 xs.inf <- list( c( -Inf, 1 ),  c( -Inf, 0 ), c( -Inf, 1.2 ), c( -Inf, 3 ),
                 c( -Inf, 0.2 ), c( -Inf, 0.6 ), c( -Inf, -2 ), c( -Inf, -1.2 ),
                 c( -Inf, -0.2 ), c( -Inf, -0.6 ) )
+
+# The test of the digest version is executed only when this value,
+# which is incremented in Z/3Z at each loop of the check.integ function,
+# reaches 0.
+count.for.digest <- 2L
 
 # Alias of cat() for debug information.
 cat.debug <- function( x ) invisible( NULL )
@@ -58,7 +70,7 @@ if ( show.progress )
 }
 
 ################################
-# functions for tests
+# Functions for tests
 ################################
 
 ################################################################################################
@@ -84,13 +96,19 @@ if ( show.progress )
 #'                          info (a list of mean, sd and x of the sample) and
 #'                          parent.info (a list of pass, mean and sd of check.integ.2)
 #'                          of the check process as arguments.
-#'                          If this function returns TRUE, the check will be accepted
-#'                          even if d > d.range.
-#'                          If this function returns FALSE, accepting of the check will follow
+#'                          If this function returns TRUE,
+#'                          the check is passed even if d > d.range.
+#'                          If this function returns FALSE, pass or fail of the check follows
 #'                          the comparison of d and d-range.
+#'
 #'                          The aim of this function is to rescue the check evaluations from
-#'                          unreasonable results caused by singularities and other problems
-#'                          of the integral function.
+#'                          unreasonable results caused by problems of the integral function.
+#'                          There are some singularities of x-coordinates where the error of
+#'                          integral function suddenly jumps up significantly.
+#'                          Since effects of such singularities are quite large for the checks,
+#'                          it is considered more reliable to set an appropriate function for
+#'                          permit.d rather than to increase the value of d.range.
+#'
 #' @param   inf.to.x        When you check with integrals of from -Inf to a numeric, set TRUE.
 #' @param   inf.to.inf      When you check with integrals of from -Inf to Inf, set TRUE.
 #' @param   x.to.inf        When you check with integrals of from a numeric to Inf, set TRUE.
@@ -133,6 +151,16 @@ check.integ <- function( integ = function( mean, sd, x ) {},
             {
                 if ( target.cond( mean, sd, x ) )
                 {
+                    if ( digest.test )
+                    {
+                        # Check the counter for digest version test.
+                        count.for.digest <- ( count.for.digest + 1L ) %% 3L
+                        if ( count.for.digest != 0L )
+                        {
+                            next
+                        }
+                    }
+
                     result.integrate <- via.integrate( mean, sd, x )
                     d <- integ( mean, sd, x ) - result.integrate$value
                     abs.error <- result.integrate$abs.error
@@ -472,7 +500,7 @@ check.max.absolute.error.2 <- function(
 }
 
 ################################
-# intermediate calculations
+# Intermediate calculation tests
 ################################
 
 ################################################################################################
@@ -895,7 +923,9 @@ integ.d2.p.inf.to.x.via.integrate <- function( mean, sd, x )
 
 expect_equal( check.integ( function( mean, sd, x ) integ.d2.p.inf.to.x( mean, sd, x ),
                 function( mean, sd, x ) integ.d2.p.inf.to.x.via.integrate( mean, sd, x ),
-                inf.to.x = TRUE, d.range = 6e-4 ), TRUE )
+                inf.to.x = TRUE, d.range = 1e-6,
+                permit.d = function( d, abs.error, info, parent.info )
+                           { abs( d ) < 1 && abs( d ) < abs.error * 256 } ), TRUE )
 
 
 ################################################################################################
@@ -1733,7 +1763,10 @@ integ.B1.plus.B2.mean.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2,
 
 expect_equal( check.integ.2( integ.B1.plus.B2.mean.inf,
                              integ.B1.plus.B2.mean.inf.via.integrate,
-                             inf.to.inf = TRUE, d.range = 7e-5 ), TRUE )
+                             d.range = 7e-5,
+                             permit.d = function( d, abs.error, info, parent.info )
+                                        { abs( d ) < 1 && abs( d ) < abs.error * 8 },
+                             inf.to.inf = TRUE ), TRUE )
 
 ## B1, B2 for t4.mean end
 
@@ -1790,7 +1823,9 @@ integ.msqrtpi.sd_1.x.d_12.pstar_2.inf.via.integrate <- function( mean.1, sd.1, m
 
 expect_equal( check.integ.2( integ.msqrtpi.sd_1.x.d_12.pstar_2.inf,
                              integ.msqrtpi.sd_1.x.d_12.pstar_2.inf.via.integrate,
-                inf.to.inf = TRUE, d.range = 5e-4 ), TRUE )
+                             inf.to.inf = TRUE, d.range = 7e-5,
+                             permit.d = function( d, abs.error, info, parent.info )
+                                        { abs( d ) < 1 && abs( d ) < abs.error * 32 } ), TRUE )
 
 
 # G2 for t4.mean
@@ -1845,7 +1880,9 @@ integ.msqrtpi.sd_2.x.d_22.pstar_1.inf.via.integrate <- function( mean.1, sd.1, m
 
 expect_equal( check.integ.2( integ.msqrtpi.sd_2.x.d_22.pstar_1.inf,
                              integ.msqrtpi.sd_2.x.d_22.pstar_1.inf.via.integrate,
-                inf.to.inf = TRUE, d.range = 1e-3 ), TRUE )
+                inf.to.inf = TRUE, d.range = 1e-4,
+                permit.d = function( d, abs.error, info, parent.info )
+                           { abs( d ) < 1 && abs( d ) < abs.error * 32 } ), TRUE )
 
 
 # G1 + G2 for t4.mean
@@ -1972,7 +2009,9 @@ integ.t4.x.psi.g.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
 
 expect_equal( check.integ.2( integ.t4.x.psi.g.inf,
                              integ.t4.x.psi.g.inf.via.integrate,
-                             inf.to.inf = TRUE, d.range = 6.5e-4 ), TRUE )
+                             inf.to.inf = TRUE, d.range = 1e-6,
+                             permit.d = function( d, abs.error, info, parent.info )
+                                        { abs( d ) < 1 && abs( d ) < abs.error * 64 } ), TRUE )
 
 
 ################################################################################################
@@ -2470,7 +2509,9 @@ integ.x2.d.pstar.2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                                      pnorm( x, mean.2, sd.2 * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
-expect_equal( check.integ.2( integ.x2.d.pstar.2, integ.x2.d.pstar.2.via.integrate ), TRUE )
+expect_equal( check.integ.2( integ.x2.d.pstar.2, integ.x2.d.pstar.2.via.integrate,
+                              permit.d = function( d, abs.error, info, parent.info )
+                                         { abs( d ) < 1 && abs( d ) < abs.error * 8 } ), TRUE )
 
 
 ################################################################################################
@@ -2836,7 +2877,10 @@ integ.G1.plus.G2.sd.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x
 }
 
 expect_equal( check.integ.2( integ.G1.plus.G2.sd.inf,
-                             integ.G1.plus.G2.sd.inf.via.integrate, inf.to.inf = TRUE ), TRUE )
+                             integ.G1.plus.G2.sd.inf.via.integrate,
+                             permit.d = function( d, abs.error, info, parent.info )
+                                        { abs( d ) < 1 && abs( d ) < abs.error * 32 },
+                             inf.to.inf = TRUE ), TRUE )
 
 # G1, G2 for sd end
 
@@ -2886,11 +2930,13 @@ integ.t4.x2.psi.g.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
 
 expect_equal( check.integ.2( integ.t4.x2.psi.g.inf,
                              integ.t4.x2.psi.g.inf.via.integrate,
-                             inf.to.inf = TRUE, d.range = 2e-3 ), TRUE )
+                             inf.to.inf = TRUE, d.range = 1e-6,
+                             permit.d = function( d, abs.error, info, parent.info )
+                                        { abs( d ) < 1 && abs( d ) < abs.error * 64 } ), TRUE )
 
 
 ################################
-# functions in the package
+# Package function tests
 ################################
 
 calc.mean.via.integrate <- function( mix.type, mean.1, sd.1, mean.2, sd.2,

@@ -5,7 +5,9 @@
 # For interactive test, load setup.R expressly.
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
-#### Preparing
+################################
+# Preparing
+################################
 
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
@@ -14,7 +16,9 @@ if ( dev.cur() == 1 ) { dev.new(); plot.new() }
 #TeX.output.connection <- stdout()
 TeX.output.connection <- file( tempfile( "tex-out", fileext = ".txt" ) )
 
-#### Functions
+################################
+# Functions for tests
+################################
 
 ################################################################################################
 #' Function for manually check difference from frequency distribution
@@ -59,7 +63,9 @@ plot.freq.and.d <- function( a, x, freq, total = sum( freq ) )
           type = "l", xlim = xlim, ylim = ylim, xlab = "" )
 }
 
-#### Tests
+################################
+# Tests
+################################
 
 #### Basic tests
 # normal test

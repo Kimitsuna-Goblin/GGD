@@ -5,7 +5,19 @@
 # For interactive test, load setup.R expressly.
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
-#### Preparing
+################################
+# Configurations
+################################
+
+## If you want to enable the result report with cat or print in show.results function,
+## set TRUE this option.
+enable.cat.print <- FALSE
+# enable.cat.print <- TRUE
+
+
+################################
+# Preparing
+################################
 
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
@@ -20,7 +32,9 @@ wait.before.new.graph <- FALSE
 control <- list( ftol = 1e-4 )
 
 
-#### Functions
+################################
+# Functions for tests
+################################
 
 ################################################################################################
 #' Expect near but not equal
@@ -99,6 +113,17 @@ sd.via.integrate <- function( a, lower = -Inf, upper = Inf )
 }
 
 ################################################################################################
+#' Display system time for a function
+#'
+#' @param   f       A function to be measured system time.
+#' @return  If enable.cat.print is TRUE, result of system.time. If FALSE, value of f.
+################################################################################################
+with.system.time <- function( f )
+{
+    if ( enable.cat.print ) print( system.time( f ) ) else f
+}
+
+################################################################################################
 #' Shows the result of tracing
 #'
 #' This function is for visual check for the result of tracing.
@@ -127,36 +152,36 @@ show.results <- function( obj = a, plot.range = 3, sample.num = 400, is.extreme.
         # Waiting a moment to check the last-drawn graph on a manual test.
         Sys.sleep( 3 )
     }
-    cat( "d:" )
-    print( system.time( plot( seq( -plot.range, plot.range, 0.01 ),
-                              obj$d( seq( -plot.range, plot.range, 0.01 ) ), type = "l" ) ) )
+    if ( enable.cat.print ) cat( "d:" )
+    with.system.time( plot( seq( -plot.range, plot.range, 0.01 ),
+                            obj$d( seq( -plot.range, plot.range, 0.01 ) ), type = "l" ) )
 
     if ( wait.before.new.graph )
     {
         # Waiting a moment to check the last-drawn graph on a manual test.
         Sys.sleep( 0.3 )
     }
-    cat( "p:" )
-    print( system.time( plot( seq( -plot.range, plot.range, 0.01 ),
-                              obj$p( seq( -plot.range, plot.range, 0.01 ) ), type = "l" ) ) )
+    if ( enable.cat.print ) cat( "p:" )
+    with.system.time( plot( seq( -plot.range, plot.range, 0.01 ),
+                            obj$p( seq( -plot.range, plot.range, 0.01 ) ), type = "l" ) )
 
     if ( wait.before.new.graph )
     {
         # Waiting a moment to check the last-drawn graph on a manual test.
         Sys.sleep( 0.3 )
     }
-    cat( "q:" )
-    print( system.time( plot( seq( 0, 1, 0.01 ), obj$q( seq( 0, 1, 0.01 ) ), type = "l" ) ) )
+    if ( enable.cat.print ) cat( "q:" )
+    with.system.time( plot( seq( 0, 1, 0.01 ), obj$q( seq( 0, 1, 0.01 ) ), type = "l" ) )
 
     if ( wait.before.new.graph )
     {
         # Waiting a moment to check the last-drawn graph on a manual test.
         Sys.sleep( 0.3 )
     }
-    cat( "r:" )
-    print( system.time( sample <- obj$r( sample.num ) ) ); hist( sample )
+    if ( enable.cat.print ) cat( "r:" )
+    with.system.time( sample <- obj$r( sample.num ) ); hist( sample )
 
-    print( obj )
+    if ( enable.cat.print ) print( obj )
 
     ## These values are just for reference
     ## because the accuracy guarantees of mean and sd
@@ -164,17 +189,17 @@ show.results <- function( obj = a, plot.range = 3, sample.num = 400, is.extreme.
     ## So in most cases the cause of a high difference value will be in the integrate function.
     ## Note, however, if there is grater than 0.1 of difference in a less extreme case,
     ## you should doubt that something wrongs may be in GGD.R.
-    cat ( "\nDifference vs integrate (for reference):\n" )
+    if ( enable.cat.print ) cat( "\nDifference vs integrate (for reference):\n" )
 
     mean.diff <- abs( obj$mean - mean.via.integrate( obj ) )
     sd.diff <- abs( ( obj$sd - sd.via.integrate( obj ) ) / obj$sd )
     lsd.diff <- abs( ( obj$lsd - sd.via.integrate( obj, -Inf, obj$mean ) * sqrt( 2 ) ) / obj$lsd )
     usd.diff <- abs( ( obj$usd - sd.via.integrate( obj, obj$mean, Inf ) * sqrt( 2 ) ) / obj$usd )
 
-    cat( paste( "diff of mean:", mean.diff, "\n" ) )
-    cat( paste( "diff of sd:  ", sd.diff, "\n" ) )
-    cat( paste( "diff of lsd: ", lsd.diff, "\n" ) )
-    cat( paste( "diff of usd: ", usd.diff, "\n" ) )
+    if ( enable.cat.print ) cat( paste( "diff of mean:", mean.diff, "\n" ) )
+    if ( enable.cat.print ) cat( paste( "diff of sd:  ", sd.diff, "\n" ) )
+    if ( enable.cat.print ) cat( paste( "diff of lsd: ", lsd.diff, "\n" ) )
+    if ( enable.cat.print ) cat( paste( "diff of usd: ", usd.diff, "\n" ) )
 
     if ( !is.extreme.case )
     {
@@ -185,7 +210,7 @@ show.results <- function( obj = a, plot.range = 3, sample.num = 400, is.extreme.
     }
     else
     {
-        cat( "** Differences have not been checked because is.extreme.case = TRUE. **\n" )
+        if ( enable.cat.print ) cat( "** Differences have not been checked because is.extreme.case = TRUE. **\n" )
     }
 }
 
@@ -194,17 +219,27 @@ system.time( plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" ) )
 system.time( plot( seq( -3, 3, 0.01 ), a$p( seq( -3, 3, 0.01 ) ), type = "l" ) )
 system.time( plot( seq( 0, 1, 0.01 ), a$q( seq( 0, 1, 0.01 ) ), type = "l" ) )
 system.time( sample <- a$r( 1000 ) ); hist( sample )
-a
-print( paste( "diff of mean:", abs( a$mean - mean.via.integrate( a ) ) ) )
-print( paste( "diff of sd:  ", abs( ( a$sd - sd.via.integrate( a ) ) / a$sd ) ) )
-print( paste( "diff of lsd: ", abs( ( a$lsd - sd.via.integrate( a, -Inf, a$mean ) * sqrt( 2 ) ) / a$lsd ) ) )
-print( paste( "diff of usd: ", abs( ( a$usd - sd.via.integrate( a, a$mean, Inf ) * sqrt( 2 ) ) / a$usd ) ) )
+if ( enable.cat.print ) a
+if ( enable.cat.print ) print( paste( "diff of mean:",
+                                      abs( a$mean - mean.via.integrate( a ) ) ) )
+if ( enable.cat.print ) print( paste( "diff of sd:  ",
+                                      abs( ( a$sd - sd.via.integrate( a ) ) / a$sd ) ) )
+if ( enable.cat.print ) print( paste( "diff of lsd: ",
+                                      abs( ( a$lsd - sd.via.integrate( a, -Inf, a$mean ) *
+                                                     sqrt( 2 ) ) / a$lsd ) ) )
+if ( enable.cat.print ) print( paste( "diff of usd: ",
+                                      abs( ( a$usd - sd.via.integrate( a, a$mean, Inf ) *
+                                                     sqrt( 2 ) ) / a$usd ) ) )
 expect_equal( abs( a$mean - mean.via.integrate( a ) ) < 0.1, TRUE )
 expect_equal( abs( ( a$sd - sd.via.integrate( a ) ) / a$sd ) < 0.1, TRUE )
-expect_equal( abs( ( a$lsd - sd.via.integrate( a, -Inf, a$mean ) * sqrt( 2 ) ) / a$lsd ) < 0.1, TRUE )
-expect_equal( abs( ( a$usd - sd.via.integrate( a, a$mean, Inf ) * sqrt( 2 ) ) / a$usd ) < 0.1, TRUE )
+expect_equal( abs( ( a$lsd - sd.via.integrate( a, -Inf, a$mean ) *
+                             sqrt( 2 ) ) / a$lsd ) < 0.1, TRUE )
+expect_equal( abs( ( a$usd - sd.via.integrate( a, a$mean, Inf ) *
+                             sqrt( 2 ) ) / a$usd ) < 0.1, TRUE )
 
-#### Tests
+################################
+# Tests
+################################
 
 #### Basic tests
 # Error case
