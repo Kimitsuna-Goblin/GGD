@@ -1670,9 +1670,7 @@ test_that( "Output TeX formatted texts",
 {
     expect_snapshot_file( tex.out.for.ggd.nls.freq.all( ggds ), "tex-out.txt" )
 } )
-
 rm( tex.out.for.ggd.nls.freq.all )
-unlink( texfile )
 
 plot.freq.and.d( ggds$obj[[1]], x, freq )
 plot.freq.and.d( ggds$obj[[2]], x, freq )

@@ -605,6 +605,7 @@ test_that( "Whether is symmetric correct",
 {
     test.is.symmetric.correct()
 } )
+rm( test.is.symmetric.correct )
 
 ################################################################################################
 ## Read/Write a GGD object with CSV file
