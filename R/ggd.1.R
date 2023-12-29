@@ -30,6 +30,22 @@ kinds <- c( "Normal Distribution",                                              
 ## Matching order of ggd:::kinds for regular expressions
 kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L )
 
+## Square root of 2 pi
+sqrt.2pi <- sqrt( 2 * pi )
+
+## Handle of the probability density function for mix.type = 3
+f.t3.d <- list( function( x, m, s )
+                { ( 1 - dnorm( x, m, s ) * sqrt.2pi * s ) * dnorm( x, m, s ) },
+                function( x, m, s )
+                { dnorm( x, m, s )^2 * sqrt.2pi * s },
+                0 )
+## Handle of the cumulative distribution function for mix.type = 3
+f.t3.p <- list( function( x, m, s )
+                { pnorm( x, m, s ) - pnorm( x, m, s * sqrt( 2 ) / 2 ) * sqrt( 2 ) / 2 },
+                function( x, m, s )
+                { pnorm( x, m, s * sqrt( 2 ) / 2 ) * sqrt( 2 ) / 2 },
+                ( ( 2 - sqrt( 2 ) ) / 4 ) )
+
 ################################################################################################
 #  Functions
 
