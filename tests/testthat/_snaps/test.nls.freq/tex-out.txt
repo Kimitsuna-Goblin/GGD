@@ -1,0 +1,793 @@
+################################################################
+## kind.index: 1
+# [tex.d] Normal Distribution
+\begin{align}
+g(x) &= f(x),\\
+\\
+f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu = 0.0353, & \sigma = 1.1.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Normal Distribution
+\begin{align}
+\Psi(x) &= \Phi(x),\\
+\\
+\Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu = 0.0353, & \sigma = 1.1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 2
+# [tex.d] Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.664, & \sigma_1 = 0.764,\\
+\mu_2 = 0.703, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
+\begin{align}
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.664, & \sigma_1 = 0.764,\\
+\mu_2 = 0.703, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 3
+# [tex.d] Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0413, & \sigma_1 = 1.04,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.07.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
+\begin{align}
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0413, & \sigma_1 = 1.04,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.07.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 4
+# [tex.d] Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.669, & \sigma_1 = 0.717,\\
+\mu_2 = -0.709, & \sigma_2 = 0.806.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
+\begin{align}
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.669, & \sigma_1 = 0.717,\\
+\mu_2 = -0.709, & \sigma_2 = 0.806.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 5
+# [tex.d] Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.204, & \sigma_1 = 0.89,\\
+\mu_2 = 0.244, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.204, & \sigma_1 = 0.89,\\
+\mu_2 = 0.244, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 6
+# [tex.d] Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0206, & \sigma_1 = 1.18,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.03.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0206, & \sigma_1 = 1.18,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.03.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 7
+# [tex.d] Mean-Differed Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.217, & \sigma_1 = 0.938,\\
+\mu_2 = 0.238, & \sigma_2 = 0.841.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Differed Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.217, & \sigma_1 = 0.938,\\
+\mu_2 = 0.238, & \sigma_2 = 0.841.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 8
+# [tex.d] 2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0852, & \sigma_1 = 1.1,\\
+\mu_2 = 0.0287, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0852, & \sigma_1 = 1.1,\\
+\mu_2 = 0.0287, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 9
+# [tex.d] 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0203, & \sigma_1 = 0.968,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.15.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0203, & \sigma_1 = 0.968,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.15.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 10
+# [tex.d] 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0984, & \sigma_1 = 0.963,\\
+\mu_2 = 0.0279, & \sigma_2 = 1.16.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0984, & \sigma_1 = 0.963,\\
+\mu_2 = 0.0279, & \sigma_2 = 1.16.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 11
+# [tex.d] 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.18, & \sigma_1 = 1.2,\\
+\mu_2 = 0.0379, & \sigma_2 = \sigma_1,\\
+\mu_3 = -0.388, & \sigma_3 = \sigma_1.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.18, & \sigma_1 = 1.2,\\
+\mu_2 = 0.0379, & \sigma_2 = \sigma_1,\\
+\mu_3 = -0.388, & \sigma_3 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 12
+# [tex.d] 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.00418, & \sigma_1 = 1.07,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.16,\\
+\mu_3 = \mu_1, & \sigma_3 = 0.863.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.00418, & \sigma_1 = 1.07,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.16,\\
+\mu_3 = \mu_1, & \sigma_3 = 0.863.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 13
+# [tex.d] 3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.115, & \sigma_1 = 0.986,\\
+\mu_2 = 0.0113, & \sigma_2 = 1.14,\\
+\mu_3 = 0.0373, & \sigma_3 = 0.857.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] 3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.115, & \sigma_1 = 0.986,\\
+\mu_2 = 0.0113, & \sigma_2 = 1.14,\\
+\mu_3 = 0.0373, & \sigma_3 = 0.857.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 14
+# [tex.d] Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.392, & \sigma_{1,1} = 0.868,\\
+\mu_{1,2} = -0.229, & \sigma_{1,2} = \sigma_{1,1},\\
+\mu_{2,1} = 0.124, & \sigma_{2,1} = \sigma_{1,1},\\
+\mu_{2,2} = 0.26, & \sigma_{2,2} = \sigma_{1,1}.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.392, & \sigma_{1,1} = 0.868,\\
+\mu_{1,2} = -0.229, & \sigma_{1,2} = \sigma_{1,1},\\
+\mu_{2,1} = 0.124, & \sigma_{2,1} = \sigma_{1,1},\\
+\mu_{2,2} = 0.26, & \sigma_{2,2} = \sigma_{1,1}.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 15
+# [tex.d] Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = 0.0135, & \sigma_{1,1} = 1.03,\\
+\mu_{1,2} = \mu_{1,1}, & \sigma_{1,2} = 1.25,\\
+\mu_{2,1} = \mu_{1,1}, & \sigma_{2,1} = 0.895,\\
+\mu_{2,2} = \mu_{1,1}, & \sigma_{2,2} = 1.07.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = 0.0135, & \sigma_{1,1} = 1.03,\\
+\mu_{1,2} = \mu_{1,1}, & \sigma_{1,2} = 1.25,\\
+\mu_{2,1} = \mu_{1,1}, & \sigma_{2,1} = 0.895,\\
+\mu_{2,2} = \mu_{1,1}, & \sigma_{2,2} = 1.07.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 16
+# [tex.d] Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.241, & \sigma_{1,1} = 0.853,\\
+\mu_{1,2} = -0.08, & \sigma_{1,2} = 1.03,\\
+\mu_{2,1} = -1.28, & \sigma_{2,1} = 0.562,\\
+\mu_{2,2} = 0.515, & \sigma_{2,2} = 1.04.
+\end{array}
+\end{align}
+##------------------------------------------------------------##
+# [tex.p] Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.241, & \sigma_{1,1} = 0.853,\\
+\mu_{1,2} = -0.08, & \sigma_{1,2} = 1.03,\\
+\mu_{2,1} = -1.28, & \sigma_{2,1} = 0.562,\\
+\mu_{2,2} = 0.515, & \sigma_{2,2} = 1.04.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 1
+# [tex] Normal Distribution
+\begin{align}
+g(x) &= f(x),\\
+\Psi(x) &= \Phi(x),\\
+\\
+f(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\dfrac{(x - \mu)^2}{2 \sigma^2} \right),\\
+\Phi(x) &= \dfrac{1}{\sqrt{2 \pi \sigma^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu)^2}{2 \sigma^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu = 0.0353, & \sigma = 1.1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 2
+# [tex] Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.664, & \sigma_1 = 0.764,\\
+\mu_2 = 0.703, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 3
+# [tex] Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0413, & \sigma_1 = 1.04,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.07.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 4
+# [tex] Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
+\begin{align}
+g(x) &= \dfrac{1}{2} ( f_1(x) + f_2(x) ),\\
+\Psi(x) &= \dfrac{1}{2} ( \Phi_1(x) + \Phi_2(x) ),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.669, & \sigma_1 = 0.717,\\
+\mu_2 = -0.709, & \sigma_2 = 0.806.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 5
+# [tex] Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.204, & \sigma_1 = 0.89,\\
+\mu_2 = 0.244, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 6
+# [tex] Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0206, & \sigma_1 = 1.18,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.03.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 7
+# [tex] Mean-Differed Sigma-Differed Horizontal Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Phi_1(x) \right) f_1(x) + \Phi_2(x) f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{2} \Phi_1(x)^2 + \dfrac{1}{2} \Phi_2(x)^2,\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.217, & \sigma_1 = 0.938,\\
+\mu_2 = 0.238, & \sigma_2 = 0.841.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 8
+# [tex] 2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0852, & \sigma_1 = 1.1,\\
+\mu_2 = 0.0287, & \sigma_2 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 9
+# [tex] 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.0203, & \sigma_1 = 0.968,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.15.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 10
+# [tex] 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) + \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+\Psi(x) &= \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.0984, & \sigma_1 = 0.963,\\
+\mu_2 = 0.0279, & \sigma_2 = 1.16.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 11
+# [tex] 3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.18, & \sigma_1 = 1.2,\\
+\mu_2 = 0.0379, & \sigma_2 = \sigma_1,\\
+\mu_3 = -0.388, & \sigma_3 = \sigma_1.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 12
+# [tex] 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = 0.00418, & \sigma_1 = 1.07,\\
+\mu_2 = \mu_1, & \sigma_2 = 1.16,\\
+\mu_3 = \mu_1, & \sigma_3 = 0.863.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 13
+# [tex] 3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+\begin{align}
+g(x) &= g_1(x) + g_2(x) + g_3(x) ,\\
+\Psi(x) &= \Psi_1(x) + \Psi_2(x) + \Psi_3(x),\\
+\\
+g_1(x) &= \left\lbrace
+\begin{array}{ll}
+\left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) & (x \leq \mu_1),\\
+0 & (x > \mu_1),\\
+\end{array} \right.\\
+g_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)} f_2(x),\\
+g_3(x) &= \left\lbrace \begin{array}{ll}0 & (x < \mu_3),\\
+\left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x) & (x \geq \mu_3),
+\end{array} \right.\\
+\Psi_1(x) &= \mathrm{min} \left( \Phi_1(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_1(x), \ \dfrac{2 - \sqrt{2}}{4} \right),\\
+\Psi_2(x) &= \dfrac{1}{\sqrt{2}} \Phi^\ast_2(x),\\
+\Psi_3(x) &= \mathrm{max} \left( 0, \ \Phi_3(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_3(x) - \dfrac{2 - \sqrt{2}}{4} \right),\\
+\\
+f_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \exp \left( -\dfrac{(x - \mu_i)^2}{2 \sigma_i^2} \right),\\
+\Phi_i(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_i^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_i)^2}{2 \sigma_i^2} \right) dt,\\
+\Phi^\ast_i(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_i)^2}{2 \left( \begin{array}{c} \dfrac{\sigma_i}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+& \begin{array}{ll}
+\mu_1 = -0.115, & \sigma_1 = 0.986,\\
+\mu_2 = 0.0113, & \sigma_2 = 1.14,\\
+\mu_3 = 0.0373, & \sigma_3 = 0.857.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 14
+# [tex] Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.392, & \sigma_{1,1} = 0.868,\\
+\mu_{1,2} = -0.229, & \sigma_{1,2} = \sigma_{1,1},\\
+\mu_{2,1} = 0.124, & \sigma_{2,1} = \sigma_{1,1},\\
+\mu_{2,2} = 0.26, & \sigma_{2,2} = \sigma_{1,1}.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 15
+# [tex] Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = 0.0135, & \sigma_{1,1} = 1.03,\\
+\mu_{1,2} = \mu_{1,1}, & \sigma_{1,2} = 1.25,\\
+\mu_{2,1} = \mu_{1,1}, & \sigma_{2,1} = 0.895,\\
+\mu_{2,2} = \mu_{1,1}, & \sigma_{2,2} = 1.07.
+\end{array}
+\end{align}
+################################################################
+## kind.index: 16
+# [tex] Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
+\begin{align}
+g(x) &= \left( 1 - \Psi_1(x) \right) g_1(x) + \Psi_2(x) g_2(x),\\
+\Psi(x) &= \Psi_1(x) - \dfrac{1}{2} \Psi_1(x)^2 + \dfrac{1}{2} \Psi_2(x)^2,\\
+\\
+\Psi_i(x) &= \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,1}(x) + \dfrac{1}{\sqrt{2}} \Phi^\ast_{i,2}(x),\\
+\Phi_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \int_{-\infty}^{x} \exp \left( -\dfrac{(t - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right) dt,\\
+\Phi^\ast_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2}} \int_{-\infty}^{x} \exp \left( \begin{array}{c} -\dfrac{(t - \mu_{i,j})^2}{2 \left( \begin{array}{c} \dfrac{\sigma_{i,j}}{\sqrt{2}} \end{array} \right)^2} \end{array} \right) dt,\\
+\\
+g_i(x) &= \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right) f_{i,1}(x) + \dfrac{f_{i,2}(x)}{f_{i,2}(\mu_{i,2})} f_{i,2}(x),\\
+f_{i,j}(x) &= \dfrac{1}{\sqrt{2 \pi \sigma_{i,j}^2}} \exp \left( -\dfrac{(x - \mu_{i,j})^2}{2 \sigma_{i,j}^2} \right),\\
+\\
+& \begin{array}{ll}
+\mu_{1,1} = -0.241, & \sigma_{1,1} = 0.853,\\
+\mu_{1,2} = -0.08, & \sigma_{1,2} = 1.03,\\
+\mu_{2,1} = -1.28, & \sigma_{2,1} = 0.562,\\
+\mu_{2,2} = 0.515, & \sigma_{2,2} = 1.04.
+\end{array}
+\end{align}

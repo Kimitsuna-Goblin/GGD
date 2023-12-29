@@ -6,7 +6,6 @@
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 a <- GGD$new()
-if ( dev.cur() == 1 ) { dev.new(); plot.new() }
 
 ################################################################################################
 ## Tests for various conditions
@@ -188,16 +187,28 @@ expect_equal( pnorm( -2:3 * 1.5, 1:6, sds ), c( 0.2, 0.4, 0.2, 0.4, 0.2, 0.4 ) )
 ################################################################################################
 
 ################################################################################################
-#' Plot the probability density function of object "a"
+#' Plot the probability density function of a GGD object
 #'
+#' @param   obj         A GGD object.
 #' @param   x.range     A vector of range of x-coordinates.
+#' @param   file        The file path of png file for output.
+#'                      If NULL, plot will be done to the current device.
+#' @return  The value of file argument.
 ################################################################################################
-plot.a <- function( x.range )
+plot.d <- function( obj, x.range, file = NULL )
 {
-    plot( seq( x.range[1], x.range[2], 0.01 ), a$d( seq( x.range[1], x.range[2], 0.01 ) ),
+    if ( !is.null( file ) )
+    {
+        png( file )
+        on.exit( dev.off() )
+    }
+
+    plot( seq( x.range[1], x.range[2], 0.01 ), obj$d( seq( x.range[1], x.range[2], 0.01 ) ),
           type = "l", xlab = "", ylab = "",
           xlim = x.range,
-          ylim = c( 0, max( a$d( seq( x.range[1], x.range[2], 0.01 ) ) ) ) )
+          ylim = c( 0, max( obj$d( seq( x.range[1], x.range[2], 0.01 ) ) ) ) )
+
+    file
 }
 
 ################################################################################################
@@ -210,308 +221,390 @@ lsd.via.integrate <- function( obj )
     sqrt( integrate( function( x ) ( x - obj$mean )^2 * obj$d( x ), -Inf, obj$mean )$value * 2 )
 }
 
-# mix.type = 0
-a <- ggd.set.cmp( data.frame( mean = -5, sd = 2.5 ) )
-expect_true( a$is.symmetric() )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( -12, 2 ) )
-
-# mix.type = 1
-a$set.cmp( data.frame( mean = c( 7, 7 ), sd = c( 2.8, 0.64 ) ), this.mix.type = 1 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( 0, 14 ) )
-
-a$set.cmp( data.frame( mean = c( -1.2, 7.6 ), sd = c( 3, 3 ) ), this.mix.type = 1 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( -8, 14 ) )
-
-# mix.type = 2
-a$set.cmp( data.frame( mean = c( 6.5, 6.5 ), sd = c( 1.6, 0.73 ) ), this.mix.type = 2 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( 1, 12 ) )
-
-a$set.cmp( data.frame( mean = c( -1.5, 0.5 ), sd = c( 1.2, 1.2 ) ), this.mix.type = 2 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( -6, 5 ) )
-
-# grad = "v2"
-a$set.cmp( data.frame( mean = c( 4.5, 4.5 ), sd = c( 1.7, 0.63 ) ), grad = "v2" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( 0, 9 ) )
-
-a$set.cmp( data.frame( mean = c( 1, 2 ), sd = c( 1.75, 1.75 ) ), grad = "v2" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 7 ) )
-
-# grad = "v3"
-a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 1.5, 0.75, 1.5 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 0.75, 1.5, 1.5 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 1.5, 1.5, 0.75 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-
-a$set.cmp( data.frame( mean = c( 1.5, 1, 1.5 ), sd = c( 1.5, 1.75, 1.5 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.5, 1.75, 1.5 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 1e-7 )
-expect_equal( a$sd, a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.75, 1.25, 1.25 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.25, 1.25, 1.75 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.5, 1.75, 1.5 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 5e-7 )
-expect_equal( a$sd, a$usd )
-plot.a( c( -6, 4 ) )
-
-a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.25, 1.25, 1.75 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -6, 4 ) )
-
-a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.75, 1.25, 1.25 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -6, 4 ) )
-
-a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 2, 1.75, 2 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-plot.a( c( -6, 5 ) )
-
-a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 1.5, 1.5, 2 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -6, 5 ) )
-
-a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 2, 1.5, 1.5 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -6, 5 ) )
-
-
-a$set.cmp( data.frame( mean = c( 1.5, 1, 1.5 ), sd = rep( 1, 3 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = rep( 1, 3 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 5e-8 )
-expect_equal( a$sd, a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 1.5, 1, 0.5 ), sd = rep( 1, 3 ) ), grad = "v3" )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 3e-6 )
-expect_equal( a$sd, a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 1.5, 0.5, 1 ), sd = rep( 1, 3 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-a$set.cmp( data.frame( mean = c( 0.5, 1.5, 1 ), sd = rep( 1, 3 ) ), grad = "v3" )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -4, 6 ) )
-
-# mix.type = 4
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 0.75, 1, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -3, 5 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 1, 0.75, 1 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -3, 5 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 1, 1, 0.75 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -3, 5 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 0.75, 0.75, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -3, 5 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 0.75, 1, 0.75 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -3, 5 ) )
-
-a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 1, 0.75, 0.75 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -3, 5 ) )
-
-means <- list( c( -1, 0, 1, 0 ), c( 0, -1, 1, 0 ), c( 1, 0, -1, 0 ), c( 0, 0, 1, -1 ),
-               c( -1, 1, 0, 0 ), c( -1, 0, 0, 1 ), c( 1, -1, 0, 0 ), c( 0, 1, -1, 0 ),
-               c( 0, -1, 0, 1 ), c( 1, 0, 0, -1 ), c( 0, 1, 0, -1 ), c( 0, 0, -1, 1 ) )
-expect_true( all( vapply( means, function( mean )
+test.is.symmetric.correct <- function()
 {
-    a$set.cmp( data.frame( mean = mean, sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-    if ( mean[1] == mean[3] || mean[2] == mean[4] )
+    # mix.type = 0
+    a <- ggd.set.cmp( data.frame( mean = -5, sd = 2.5 ) )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -12, 2 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.0_01.png" )
+
+    # mix.type = 1
+    a$set.cmp( data.frame( mean = c( 7, 7 ), sd = c( 2.8, 0.64 ) ), this.mix.type = 1 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( 0, 14 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.1_01.png" )
+
+    a$set.cmp( data.frame( mean = c( -1.2, 7.6 ), sd = c( 3, 3 ) ), this.mix.type = 1 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -8, 14 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.1_02.png" )
+
+    # mix.type = 2
+    a$set.cmp( data.frame( mean = c( 6.5, 6.5 ), sd = c( 1.6, 0.73 ) ), this.mix.type = 2 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( 1, 12 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.2_01.png" )
+
+    a$set.cmp( data.frame( mean = c( -1.5, 0.5 ), sd = c( 1.2, 1.2 ) ), this.mix.type = 2 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.2_02.png" )
+
+    # grad = "v2"
+    a$set.cmp( data.frame( mean = c( 4.5, 4.5 ), sd = c( 1.7, 0.63 ) ), grad = "v2" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( 0, 9 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v2_01.png" )
+
+    a$set.cmp( data.frame( mean = c( 1, 2 ), sd = c( 1.75, 1.75 ) ), grad = "v2" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 7 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v2_02.png" )
+
+    # grad = "v3"
+    a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 1.5, 0.75, 1.5 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_01.png" )
+
+    a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 0.75, 1.5, 1.5 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_02.png" )
+
+    a$set.cmp( data.frame( mean = rep( 1, 3 ), sd = c( 1.5, 1.5, 0.75 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_03.png" )
+
+
+    a$set.cmp( data.frame( mean = c( 1.5, 1, 1.5 ), sd = c( 1.5, 1.75, 1.5 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_04.png" )
+
+    a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.5, 1.75, 1.5 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 1e-7 )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_05.png" )
+
+    a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.75, 1.25, 1.25 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_06.png" )
+
+    a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = c( 1.25, 1.25, 1.75 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_07.png" )
+
+    a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.5, 1.75, 1.5 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 5e-7 )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_08.png" )
+
+    a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.25, 1.25, 1.75 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_09.png" )
+
+    a$set.cmp( data.frame( mean = c( -0.5, -1, -1.5 ), sd = c( 1.75, 1.25, 1.25 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_10.png" )
+
+    a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 2, 1.75, 2 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_11.png" )
+
+    a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 1.5, 1.5, 2 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_12.png" )
+
+    a$set.cmp( data.frame( mean = c( -1.5, -0.5, 0.5 ), sd = c( 2, 1.5, 1.5 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -6, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_13.png" )
+
+
+    a$set.cmp( data.frame( mean = c( 1.5, 1, 1.5 ), sd = rep( 1, 3 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_14.png" )
+
+    a$set.cmp( data.frame( mean = c( 0.5, 1, 1.5 ), sd = rep( 1, 3 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 5e-8 )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_15.png" )
+
+    a$set.cmp( data.frame( mean = c( 1.5, 1, 0.5 ), sd = rep( 1, 3 ) ),
+               grad = "v3" )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ), tolerance = 3e-6 )
+    expect_equal( a$sd, a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_16.png" )
+
+    a$set.cmp( data.frame( mean = c( 1.5, 0.5, 1 ), sd = rep( 1, 3 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_17.png" )
+
+    a$set.cmp( data.frame( mean = c( 0.5, 1.5, 1 ), sd = rep( 1, 3 ) ),
+               grad = "v3" )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -4, 6 ), tempfile( "graph", fileext = ".png" ) ),
+                          "graph_mix.type.3_v3_18.png" )
+
+    # mix.type = 4
+    file.no <- 0
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 0.75, 1, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 1, 0.75, 1 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 0.75, 1, 1, 0.75 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 0.75, 0.75, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 0.75, 1, 0.75 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    a$set.cmp( data.frame( mean = rep( 1, 4 ), sd = c( 1, 1, 0.75, 0.75 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -3, 5 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+
+    means <- list( c( -1, 0, 1, 0 ), c( 0, -1, 1, 0 ), c( 1, 0, -1, 0 ), c( 0, 0, 1, -1 ),
+                   c( -1, 1, 0, 0 ), c( -1, 0, 0, 1 ), c( 1, -1, 0, 0 ), c( 0, 1, -1, 0 ),
+                   c( 0, -1, 0, 1 ), c( 1, 0, 0, -1 ), c( 0, 1, 0, -1 ), c( 0, 0, -1, 1 ) )
+    for ( mean in means )
     {
-        expect_true( a$is.symmetric() )
-        expect_equal( a$p( a$mean ), 0.5 )
-        expect_equal( a$sd, lsd.via.integrate( a ) )
-        expect_equal( a$sd, a$usd )
-        expect_equal( a$lsd.abs.error == 0, TRUE )
-        expect_equal( a$usd.abs.error == 0, TRUE )
+        a$set.cmp( data.frame( mean = mean, sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
+        if ( mean[1] == mean[3] || mean[2] == mean[4] )
+        {
+            expect_true( a$is.symmetric() )
+            expect_equal( a$p( a$mean ), 0.5 )
+            expect_equal( a$sd, lsd.via.integrate( a ) )
+            expect_equal( a$sd, a$usd )
+            expect_equal( a$lsd.abs.error == 0, TRUE )
+            expect_equal( a$usd.abs.error == 0, TRUE )
+        }
+        else
+        {
+            expect_false( a$is.symmetric() )
+            expect_false( a$sd == a$lsd )
+            expect_false( a$sd == a$usd )
+        }
+        expect_snapshot_file( plot.d( a, c( -4, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                              sprintf( "graph_mix.type.4_%02d.png",
+                              ( file.no <- file.no + 1 ) ) )
     }
-    else
-    {
-        expect_false( a$is.symmetric() )
-        expect_false( a$sd == a$lsd )
-        expect_false( a$sd == a$usd )
-    }
-    plot.a( c( -4, 4 ) )
-    TRUE
-}, TRUE ) ) )
-rm( means )
+    rm( means )
 
-a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -0.75, -2, 1, -0.25 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -0.75, -2, 1, -0.25 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( 1, -0.75, -2, -0.25 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( 1, -0.75, -2, -0.25 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -0.25, -0.75, 1, -2 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -0.25, -0.75, 1, -2 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -2, 1, -0.75, -0.25 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, 1, -0.75, -0.25 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -2, -0.75, -0.25, 1 ), sd = c( 2, 1, 2, 1 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, -0.75, -0.25, 1 ), sd = c( 2, 1, 2, 1 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 1, 2, 1, 2 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 1, 2, 1, 2 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 2, 1, 1, 2 ) ), this.mix.type = 4 )
-expect_false( a$is.symmetric() )
-expect_false( a$sd == a$lsd )
-expect_false( a$sd == a$usd )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = c( 2, 1, 1, 2 ) ),
+               this.mix.type = 4 )
+    expect_false( a$is.symmetric() )
+    expect_false( a$sd == a$lsd )
+    expect_false( a$sd == a$usd )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
 
-a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = rep( 2, 4 ) ), this.mix.type = 4 )
-expect_true( a$is.symmetric() )
-expect_equal( a$p( a$mean ), 0.5 )
-expect_equal( a$sd, lsd.via.integrate( a ) )
-expect_equal( a$sd, a$usd )
-expect_equal( a$lsd.abs.error == 0, TRUE )
-expect_equal( a$usd.abs.error == 0, TRUE )
-plot.a( c( -5, 4 ) )
+    a$set.cmp( data.frame( mean = c( -2, -0.75, 1, -0.25 ), sd = rep( 2, 4 ) ),
+               this.mix.type = 4 )
+    expect_true( a$is.symmetric() )
+    expect_equal( a$p( a$mean ), 0.5 )
+    expect_equal( a$sd, lsd.via.integrate( a ) )
+    expect_equal( a$sd, a$usd )
+    expect_equal( a$lsd.abs.error == 0, TRUE )
+    expect_equal( a$usd.abs.error == 0, TRUE )
+    expect_snapshot_file( plot.d( a, c( -5, 4 ), tempfile( "graph", fileext = ".png" ) ),
+                          sprintf( "graph_mix.type.4_%02d.png", ( file.no <- file.no + 1 ) ) )
+}
 
+test_that( "Whether is symmetric correct",
+{
+    test.is.symmetric.correct()
+} )
 
 ################################################################################################
 ## Read/Write a GGD object with CSV file

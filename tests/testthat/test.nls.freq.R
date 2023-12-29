@@ -2,6 +2,24 @@
 ## This file is to test nls.freq and nls.freq.all mainly. TeX output is tested also.
 ################################################################################################
 
+################################################################################################
+## ** Note **
+##
+## This test file outputs many graphs as results.
+## However, each result is easily affected by the execution environment, even on the same OS.
+## For this reason, we have determined that it is not suitable for automated snapshot testing,
+## and have placed sample results as {test}/graphs.pdf in the "reference_materials" directory
+## as references for test results instead.
+##
+## Developers and testers should refer to "reference_materials" as needed.
+## The most important point to check may be whether each graph of
+## probability distribution function passes near the points of the frequency distribution,
+## except for from #25 to #33 (especially #25, #29 and #31).
+##
+## However, important tests are evaluated using expect_ functions.
+## So, if all expect_ functions pass, the tests in this file are considered to have passed.
+################################################################################################
+
 # For interactive test, load setup.R expressly.
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
@@ -11,10 +29,6 @@ if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
-
-## The connection to output tex formatted texts
-#TeX.output.connection <- stdout()
-TeX.output.connection <- file( tempfile( "tex-out", fileext = ".txt" ) )
 
 ################################
 # Functions for tests
@@ -57,10 +71,14 @@ plot.freq.and.d <- function( a, x, freq, total = sum( freq ) )
 {
     xlim <- c( min( x ), max( x ) )
     ylim <- c( 0, max( ggd:::get.d.freq( x, freq, total ) ) * 1.2 )
+    diffs <- diff.check( a, x, freq, total )
+
     plot( x, ggd:::get.d.freq( x, freq, total ), xlim = xlim, ylim = ylim, ylab = "" )
     par( new = T )
     plot( seq( min( x ), max( x ), 0.01 ), a$d( seq( min( x ), max( x ), 0.01 ) ),
-          type = "l", xlim = xlim, ylim = ylim, xlab = "" )
+          type = "l", xlim = xlim, ylim = ylim, xlab = "",
+          sub = sprintf( "diff.mean : %f    diff.sd : %f    cor : %f",
+                         diffs$summary[3], diffs$summary[4], diffs$summary[5] ) )
 }
 
 ################################
@@ -1616,32 +1634,45 @@ expect_true( all( vapply( 1:16, function( i )
         !is.null( ggds$detail[[i]]$nls.out )
     }, TRUE ) ) )
 
-
 ## open connection to output TeX formatted texts.
-if ( TeX.output.connection != stdout() ) open( TeX.output.connection, "a" )
-
-for ( i in 1:length( ggds$obj ) )
+tex.out.for.ggd.nls.freq.all <- function( ggds )
 {
-    expect_identical( ggds$obj[[i]]$kind.index, as.integer( i ) )
-    writeLines( "################################################################", con = TeX.output.connection )
-    writeLines( paste( "## kind.index:", i ), con = TeX.output.connection )
-    writeLines( paste( "# [tex.d]", ggd:::kinds[i] ), con = TeX.output.connection )
-    ggds$obj[[i]]$tex.d( con = TeX.output.connection )
-    writeLines( "##------------------------------------------------------------##", con = TeX.output.connection )
-    writeLines( paste( "# [tex.p]", ggd:::kinds[i] ), con = TeX.output.connection )
-    ggds$obj[[i]]$tex.p( con = TeX.output.connection )
+    texfile <- tempfile( "tex-out", fileext = ".txt" )
+    TeX.output.connection <- file( texfile )
+    open( TeX.output.connection, "a" )
+    announce_snapshot_file( name = texfile )
+    on.exit( close( TeX.output.connection ) )
+
+    for ( i in 1:length( ggds$obj ) )
+    {
+        expect_identical( ggds$obj[[i]]$kind.index, as.integer( i ) )
+        writeLines( "################################################################", con = TeX.output.connection )
+        writeLines( paste( "## kind.index:", i ), con = TeX.output.connection )
+        writeLines( paste( "# [tex.d]", ggd:::kinds[i] ), con = TeX.output.connection )
+        ggds$obj[[i]]$tex.d( con = TeX.output.connection, format.num = function( x ) format( x, digits = 3 ) )
+        writeLines( "##------------------------------------------------------------##", con = TeX.output.connection )
+        writeLines( paste( "# [tex.p]", ggd:::kinds[i] ), con = TeX.output.connection )
+        ggds$obj[[i]]$tex.p( con = TeX.output.connection, format.num = function( x ) format( x, digits = 3 ) )
+    }
+
+    for ( i in 1:length( ggds$obj ) )
+    {
+        writeLines( "################################################################", con = TeX.output.connection )
+        writeLines( paste( "## kind.index:", i ), con = TeX.output.connection )
+        writeLines( paste( "# [tex]", ggd:::kinds[i] ), con = TeX.output.connection )
+        ggds$obj[[i]]$tex( con = TeX.output.connection, format.num = function( x ) format( x, digits = 3 ) )
+    }
+
+    texfile
 }
 
-for ( i in 1:length( ggds$obj ) )
+test_that( "Output TeX formatted texts",
 {
-    writeLines( "################################################################", con = TeX.output.connection )
-    writeLines( paste( "## kind.index:", i ), con = TeX.output.connection )
-    writeLines( paste( "# [tex]", ggd:::kinds[i] ), con = TeX.output.connection )
-    ggds$obj[[i]]$tex( con = TeX.output.connection )
-}
+    expect_snapshot_file( tex.out.for.ggd.nls.freq.all( ggds ), "tex-out.txt" )
+} )
 
-## close connection to output TeX formatted texts.
-if ( TeX.output.connection != stdout() ) close( TeX.output.connection )
+rm( tex.out.for.ggd.nls.freq.all )
+unlink( texfile )
 
 plot.freq.and.d( ggds$obj[[1]], x, freq )
 plot.freq.and.d( ggds$obj[[2]], x, freq )

@@ -23,12 +23,21 @@ show.debug <- FALSE
 show.progress <- FALSE
 #show.progress <- TRUE
 
-## If you want to test not the digest version
-## which guarantees the performance of the package enough
-## but full version with much longer time
-## (about 1 hour with 12th Gen Core i5 2.5GHz, Windows11), set FALSE this option.
+## If you want to test with full version with much longer time
+## (about 1 hour with 12th Gen Core i5 2.5GHz, Windows11)
+## instead of the digest version which guarantees the performance of the package enough,
+## set FALSE this option.
 digest.test <- TRUE
 #digest.test <- FALSE
+
+## If you want to skip the intermediate calculation tests,
+## set TRUE this option.
+## As they do not test any functions in the package directly,
+## you can skip them if you do not have interests about them.
+## They are 81 loop tests and may need some minutes.
+## See the comments at "Intermediate calculation tests" for more information.
+skip.intermediate.tests <- TRUE
+#skip.intermediate.tests <- FALSE
 
 
 ################################
@@ -43,10 +52,9 @@ xs.inf <- list( c( -Inf, 1 ),  c( -Inf, 0 ), c( -Inf, 1.2 ), c( -Inf, 3 ),
                 c( -Inf, 0.2 ), c( -Inf, 0.6 ), c( -Inf, -2 ), c( -Inf, -1.2 ),
                 c( -Inf, -0.2 ), c( -Inf, -0.6 ) )
 
-# The test of the digest version is executed only when this value,
-# which is incremented in Z/3Z at each loop of the check.integ function,
-# reaches 0.
-count.for.digest <- 2L
+# The test of the digest version is executed when digest.counter %% 4 == 0.
+# digest.counter will be incremented in Z/19Z at each loop in check.integ function.
+digest.counter <- 18L
 
 # Alias of cat() for debug information.
 cat.debug <- function( x ) invisible( NULL )
@@ -154,8 +162,8 @@ check.integ <- function( integ = function( mean, sd, x ) {},
                     if ( digest.test )
                     {
                         # Check the counter for digest version test.
-                        count.for.digest <- ( count.for.digest + 1L ) %% 3L
-                        if ( count.for.digest != 0L )
+                        digest.counter <- ( digest.counter + 1L ) %% 19L
+                        if ( ( digest.counter %% 4L ) != 0L )
                         {
                             next
                         }
@@ -504,6 +512,14 @@ check.max.absolute.error.2 <- function(
 ################################
 
 ################################################################################################
+# These tests are intended to verify that the intermediate calculations in the expressions used
+# in the package to calculate integrals by the four arithmetic operations with dnorm and pnorm.
+# Therefore, while these tests ensure the validity of the programs of the functions
+# in the package, they do not test those functions directly.
+# So, you can skip these tests if you do not have interests in verifying of those calculation.
+################################################################################################
+
+################################################################################################
 #' Calculates \eqn{\int_{x_1}^{x_2} x f(x) dx} where \eqn{f} is the PDF of N(mean, sd).
 #' @param   mean    The mean of N(mean, sd).
 #' @param   sd      The s.d. of N(mean, sd).
@@ -520,6 +536,7 @@ integ.x2.d.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x^2 * dnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( function( mean, sd, x ) { integ.x2.d.inf( mean, sd, x[2] ) },
               integ.x2.d.via.integrate, inf.to.x = TRUE ), TRUE )
 
@@ -544,6 +561,7 @@ integ.x2.dstar.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x^2 * dnorm( x, mean, sd * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x2.dstar, integ.x2.dstar.via.integrate ), TRUE )
 
 
@@ -565,9 +583,12 @@ integ.d2.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { dnorm( x, mean, sd )^2 }, x[1], x[2] )
 }
 
-expect_equal( check.integ( integ.d2, integ.d2.via.integrate ), TRUE )
-expect_equal( check.integ( integ.d2, integ.d2.via.integrate, inf.to.x = TRUE ), TRUE )
-expect_equal( check.integ( integ.d2, integ.d2.via.integrate, inf.to.inf = TRUE ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( integ.d2, integ.d2.via.integrate ), TRUE )
+    expect_equal( check.integ( integ.d2, integ.d2.via.integrate, inf.to.x = TRUE ), TRUE )
+    expect_equal( check.integ( integ.d2, integ.d2.via.integrate, inf.to.inf = TRUE ), TRUE )
+}
 
 
 ################################################################################################
@@ -590,12 +611,14 @@ integ.x.d2.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x * dnorm( x, mean, sd )^2 }, x[1], x[2] )
 }
 
-expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate ), TRUE )
-expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate,
-                           inf.to.x = TRUE, d.range = 1e-6 ), TRUE )
-expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate,
-                           inf.to.inf = TRUE ), TRUE )
-
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate ), TRUE )
+    expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate,
+                               inf.to.x = TRUE, d.range = 1e-6 ), TRUE )
+    expect_equal( check.integ( integ.x.d2, integ.x.d2.via.integrate,
+                               inf.to.inf = TRUE ), TRUE )
+}
 
 
 ################################################################################################
@@ -635,15 +658,20 @@ integ.xn.d.via.integrate <- function( n, mean, sd, x )
     integrate( function( x ) { x^n * dnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
-expect_equal( check.integ( function( mean, sd, x ) { integ.xn.d( 1, mean, sd, x ) },
-                function( mean, sd, x ) { integ.xn.d.via.integrate( 1, mean, sd, x ) } ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( function( mean, sd, x ) { integ.xn.d( 1, mean, sd, x ) },
+                    function( mean, sd, x ) { integ.xn.d.via.integrate( 1, mean, sd, x ) } ),
+                  TRUE )
 
-expect_equal( check.integ( function( mean, sd, x ) integ.xn.d( 2, mean, sd, x ),
-                function( mean, sd, x ) integ.xn.d.via.integrate( 2, mean, sd, x ) ), TRUE )
+    expect_equal( check.integ( function( mean, sd, x ) integ.xn.d( 2, mean, sd, x ),
+                    function( mean, sd, x ) integ.xn.d.via.integrate( 2, mean, sd, x ) ),
+                  TRUE )
 
-expect_equal( check.integ( function( mean, sd, x ) integ.xn.d( 2, mean, sd, x ),
-                function( mean, sd, x ) integ.xn.d.via.integrate( 2, mean, sd, x ),
-                inf.to.x = TRUE ), TRUE )
+    expect_equal( check.integ( function( mean, sd, x ) integ.xn.d( 2, mean, sd, x ),
+                    function( mean, sd, x ) integ.xn.d.via.integrate( 2, mean, sd, x ),
+                    inf.to.x = TRUE ), TRUE )
+}
 
 
 ################################################################################################
@@ -692,14 +720,20 @@ integ.xn.p.via.integrate <- function( n, mean, sd, x )
     integrate( function( x ) { x^n * pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
-expect_equal( check.integ( function( mean, sd, x ) { integ.xn.p( 0, mean, sd, x ) },
-                function( mean, sd, x ) { integ.xn.p.via.integrate( 0, mean, sd, x ) } ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( function( mean, sd, x ) { integ.xn.p( 0, mean, sd, x ) },
+                    function( mean, sd, x ) { integ.xn.p.via.integrate( 0, mean, sd, x ) } ),
+                  TRUE )
 
-expect_equal( check.integ( function( mean, sd, x ) { integ.xn.p( 1, mean, sd, x ) },
-                function( mean, sd, x ) { integ.xn.p.via.integrate( 1, mean, sd, x ) } ), TRUE )
+    expect_equal( check.integ( function( mean, sd, x ) { integ.xn.p( 1, mean, sd, x ) },
+                    function( mean, sd, x ) { integ.xn.p.via.integrate( 1, mean, sd, x ) } ),
+                  TRUE )
 
-expect_equal( check.integ( function( mean, sd, x ) integ.xn.p( 2, mean, sd, x ),
-                function( mean, sd, x ) integ.xn.p.via.integrate( 2, mean, sd, x ) ), TRUE )
+    expect_equal( check.integ( function( mean, sd, x ) integ.xn.p( 2, mean, sd, x ),
+                    function( mean, sd, x ) integ.xn.p.via.integrate( 2, mean, sd, x ) ),
+                  TRUE )
+}
 
 
 ################################################################################################
@@ -741,13 +775,16 @@ integ.2xn.d.p.via.integrate <- function( n, mean, sd, x )
                 x[1], x[2] )
 }
 
-expect_equal( check.integ( function( mean, sd, x ) { integ.2xn.d.p( 1, mean, sd, x ) },
-                function( mean, sd, x ) { integ.2xn.d.p.via.integrate( 1, mean, sd, x ) } ),
-                TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( function( mean, sd, x ) { integ.2xn.d.p( 1, mean, sd, x ) },
+                    function( mean, sd, x ) { integ.2xn.d.p.via.integrate( 1, mean, sd, x ) } ),
+                    TRUE )
 
-expect_equal( check.integ( function( mean, sd, x ) integ.2xn.d.p( 2, mean, sd, x ),
-                function( mean, sd, x ) integ.2xn.d.p.via.integrate( 2, mean, sd, x ) ),
-                TRUE )
+    expect_equal( check.integ( function( mean, sd, x ) integ.2xn.d.p( 2, mean, sd, x ),
+                    function( mean, sd, x ) integ.2xn.d.p.via.integrate( 2, mean, sd, x ) ),
+                    TRUE )
+}
 
 
 ################################################################################################
@@ -771,6 +808,7 @@ integ.pstar.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { pnorm( x, mean, sd * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.pstar, integ.pstar.via.integrate ), TRUE )
 
 
@@ -796,6 +834,7 @@ integ.p2.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { pnorm( x, mean, sd )^2 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.p2, integ.p2.via.integrate ), TRUE )
 
 
@@ -829,9 +868,12 @@ integ.x2.d2.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x^2 * dnorm( x, mean, sd )^2 }, x[1], x[2] )
 }
 
-expect_equal( check.integ( integ.x2.d2, integ.x2.d2.via.integrate ), TRUE )
-expect_equal( check.integ( integ.x2.d2, integ.x2.d2.via.integrate, inf.to.x = TRUE,
-                           d.range = 1e-6 ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( integ.x2.d2, integ.x2.d2.via.integrate ), TRUE )
+    expect_equal( check.integ( integ.x2.d2, integ.x2.d2.via.integrate, inf.to.x = TRUE,
+                               d.range = 1e-6 ), TRUE )
+}
 
 
 ################################################################################################
@@ -859,6 +901,7 @@ integ.d.integ.x2.d.via.integrate <- function( mean, sd, x )
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.d.integ.x2.d, integ.d.integ.x2.d.via.integrate ), TRUE )
 
 
@@ -887,6 +930,7 @@ integ.2x2.d.p.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( function( mean, sd, x ) integ.2x2.d.p( mean, sd, x ),
                 function( mean, sd, x ) integ.2x2.d.p.via.integrate( mean, sd, x ) ), TRUE )
 
@@ -921,6 +965,7 @@ integ.d2.p.inf.to.x.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { dnorm( x, mean, sd )^2 * pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( function( mean, sd, x ) integ.d2.p.inf.to.x( mean, sd, x ),
                 function( mean, sd, x ) integ.d2.p.inf.to.x.via.integrate( mean, sd, x ),
                 inf.to.x = TRUE, d.range = 1e-6,
@@ -957,6 +1002,7 @@ integ.d2.p.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { dnorm( x, mean, sd )^2 * pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.d2.p, integ.d2.p.via.integrate ), TRUE )
 
 
@@ -992,6 +1038,7 @@ integ.d.integ.x.d.p.via.integrate <- function( mean, sd, x )
                 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.d.integ.x.d.p, integ.d.integ.x.d.p.via.integrate ), TRUE )
 
 
@@ -1020,6 +1067,7 @@ integ.x.d2.p.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x * dnorm( x, mean, sd )^2 * pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x.d2.p, integ.x.d2.p.via.integrate ), TRUE )
 
 
@@ -1052,6 +1100,7 @@ integ.x.d.p2.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x * dnorm( x, mean, sd ) * pnorm( x, mean, sd )^2 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x.d.p2, integ.x.d.p2.via.integrate ), TRUE )
 
 
@@ -1081,6 +1130,7 @@ integ.d.pstar.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.d.pstar, integ.d.pstar.via.integrate ), TRUE )
 
 
@@ -1109,6 +1159,7 @@ integ.mmper2sqrtpisd.d.pstar.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.mmper2sqrtpisd.d.pstar,
                            integ.mmper2sqrtpisd.d.pstar.via.integrate ), TRUE )
 
@@ -1141,6 +1192,7 @@ integ.x.d.pstar.via.integrate <- function( mean, sd, x )
                                    pnorm( x, mean, sd * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x.d.pstar, integ.x.d.pstar.via.integrate ), TRUE )
 
 
@@ -1199,6 +1251,7 @@ calc.mean.t3.sub.via.integrate <- function( k, mean.k, sd.k )
     }
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( all( vapply( 1:3,
             function( k )
             check.integ( function( mean, sd, x )
@@ -1284,6 +1337,7 @@ calc.v.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k, x )
     }
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( all( vapply( 1:3,
         # Here using x[1] instead of mean for efficiency.
         function( k )
@@ -1323,6 +1377,7 @@ v.bound.t3.sub.d.via.integrate <- function( mean, mean.k, sd.k, x )
     integrate( function( x ) { ( x - mean )^2 * dnorm( x, mean.k, sd.k ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( all( vapply( means, function( mean )
                     check.integ( function( mean.k, sd.k, x )
                                  { v.bound.t3.sub.d( mean, mean.k, sd.k, x ) },
@@ -1358,6 +1413,7 @@ v.bound.t3.sub.dstar.psqrt2.via.integrate <- function( mean, mean.k, sd.k, x )
                                sqrt( 2 ) / 2 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( all( vapply( means,
         function( mean )
         check.integ( function( mean.k, sd.k, x )
@@ -1416,6 +1472,7 @@ lv.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k )
     }
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( all( vapply( 1:3,
         # Here using x[1] instead of mean for efficiency.
         function( k )
@@ -1430,37 +1487,41 @@ expect_equal( all( vapply( 1:3,
                         { abs( d ) < 1 && abs( d ) < abs.error * 4 } )
         }, TRUE ) ), TRUE )
 
-expect_equal( check.integ( function( mean, sd, x )
-            { lv.t3.sub( 1, x[1], mean, sd ) + lv.t3.sub( 2, x[1], mean + x[2], sd ) },
-            function( mean, sd, x )
-            {
-            lv.1 <- lv.t3.sub.via.integrate( 1, x[1], mean, sd )
-            lv.2 <- lv.t3.sub.via.integrate( 2, x[1], mean + x[2], sd )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ( function( mean, sd, x )
+                { lv.t3.sub( 1, x[1], mean, sd ) + lv.t3.sub( 2, x[1], mean + x[2], sd ) },
+                function( mean, sd, x )
+                {
+                    lv.1 <- lv.t3.sub.via.integrate( 1, x[1], mean, sd )
+                    lv.2 <- lv.t3.sub.via.integrate( 2, x[1], mean + x[2], sd )
 
-            list( value = lv.1$value + lv.2$value, abs.error = lv.1$abs.error + lv.2$abs.error )
-            },
-            d.range = 1e-6,
-            permit.d = function( d, abs.error, info, parent.info )
-            { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+                    list( value = lv.1$value + lv.2$value,
+                          abs.error = lv.1$abs.error + lv.2$abs.error )
+                },
+                d.range = 1e-6,
+                permit.d = function( d, abs.error, info, parent.info )
+                { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
 
-expect_equal( check.integ( function( mean, sd, x )
-            {
-                lv.t3.sub( 1, x[1], mean, sd ) +
-                lv.t3.sub( 2, x[1], mean + x[2] / 4, sd + 0.3 ) +
-                lv.t3.sub( 3, x[1], mean + x[2], sd + 0.1 )
-            },
-            function( mean, sd, x )
-            {
-                lv.1 <- lv.t3.sub.via.integrate( 1, x[1], mean, sd )
-                lv.2 <- lv.t3.sub.via.integrate( 2, x[1], mean + x[2] / 4, sd + 0.3 )
-                lv.3 <- lv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.1 )
+    expect_equal( check.integ( function( mean, sd, x )
+                {
+                    lv.t3.sub( 1, x[1], mean, sd ) +
+                    lv.t3.sub( 2, x[1], mean + x[2] / 4, sd + 0.3 ) +
+                    lv.t3.sub( 3, x[1], mean + x[2], sd + 0.1 )
+                },
+                function( mean, sd, x )
+                {
+                    lv.1 <- lv.t3.sub.via.integrate( 1, x[1], mean, sd )
+                    lv.2 <- lv.t3.sub.via.integrate( 2, x[1], mean + x[2] / 4, sd + 0.3 )
+                    lv.3 <- lv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.1 )
 
-                list( value = lv.1$value + lv.2$value + lv.3$value,
-                      abs.error = lv.1$abs.error + lv.2$abs.error + lv.3$abs.error )
-            },
-            d.range = 1e-6,
-            permit.d = function( d, abs.error, info, parent.info )
-            { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+                    list( value = lv.1$value + lv.2$value + lv.3$value,
+                          abs.error = lv.1$abs.error + lv.2$abs.error + lv.3$abs.error )
+                },
+                d.range = 1e-6,
+                permit.d = function( d, abs.error, info, parent.info )
+                { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+}
 
 
 ################################################################################################
@@ -1516,51 +1577,56 @@ uv.t3.sub.via.integrate <- function( k, mean, mean.k, sd.k )
     }
 }
 
-expect_equal( all( vapply( 1:3,
-        # Here using x[1] instead of mean for efficiency.
-        function( k )
-        {
-            print.debug( paste( "k:", k ) )
-            check.integ( function( mean, sd, x )
-                         { uv.t3.sub( k, x[1], mean, sd ) },
-                         function( mean, sd, x )
-                         { uv.t3.sub.via.integrate( k, x[1], mean, sd ) },
-                         d.range = 1e-6 )
-        }, TRUE ) ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( all( vapply( 1:3,
+            # Here using x[1] instead of mean for efficiency.
+            function( k )
+            {
+                print.debug( paste( "k:", k ) )
+                check.integ( function( mean, sd, x )
+                             { uv.t3.sub( k, x[1], mean, sd ) },
+                             function( mean, sd, x )
+                             { uv.t3.sub.via.integrate( k, x[1], mean, sd ) },
+                             d.range = 1e-6 )
+            }, TRUE ) ), TRUE )
 
-expect_equal( check.integ(
-        function( mean, sd, x )
-        { uv.t3.sub( 2, x[1], mean, sd ) + uv.t3.sub( 3, x[1], mean + x[2], sd + 0.3 ) },
-        function( mean, sd, x )
-        {
-            uv.2 <- uv.t3.sub.via.integrate( 2, x[1], mean, sd )
-            uv.3 <- uv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.3 )
+    expect_equal( check.integ(
+            function( mean, sd, x )
+            { uv.t3.sub( 2, x[1], mean, sd ) + uv.t3.sub( 3, x[1], mean + x[2], sd + 0.3 ) },
+            function( mean, sd, x )
+            {
+                uv.2 <- uv.t3.sub.via.integrate( 2, x[1], mean, sd )
+                uv.3 <- uv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.3 )
 
-            list( value = uv.2$value + uv.3$value, abs.error = uv.2$abs.error + uv.3$abs.error )
-        },
-        d.range = 1e-6,
-        permit.d = function( d, abs.error, info, parent.info )
-        { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+                list( value = uv.2$value + uv.3$value,
+                      abs.error = uv.2$abs.error + uv.3$abs.error )
+            },
+            d.range = 1e-6,
+            permit.d = function( d, abs.error, info, parent.info )
+            { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
 
-expect_equal( check.integ(
-        function( mean, sd, x )
-        {
-            uv.t3.sub( 1, x[1], mean, sd ) +
-            uv.t3.sub( 2, x[1], mean + x[2] / 2, sd + 0.1 ) +
-            uv.t3.sub( 3, x[1], mean + x[2], sd + 0.3 )
-        },
-        function( mean, sd, x )
-        {
-            uv.1 <- uv.t3.sub.via.integrate( 1, x[1], mean, sd )
-            uv.2 <- uv.t3.sub.via.integrate( 2, x[1], mean + x[2] / 2, sd + 0.1 )
-            uv.3 <- uv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.3 )
+    expect_equal( check.integ(
+            function( mean, sd, x )
+            {
+                uv.t3.sub( 1, x[1], mean, sd ) +
+                uv.t3.sub( 2, x[1], mean + x[2] / 2, sd + 0.1 ) +
+                uv.t3.sub( 3, x[1], mean + x[2], sd + 0.3 )
+            },
+            function( mean, sd, x )
+            {
+                uv.1 <- uv.t3.sub.via.integrate( 1, x[1], mean, sd )
+                uv.2 <- uv.t3.sub.via.integrate( 2, x[1], mean + x[2] / 2, sd + 0.1 )
+                uv.3 <- uv.t3.sub.via.integrate( 3, x[1], mean + x[2], sd + 0.3 )
 
-            list( value = uv.1$value + uv.2$value + uv.3$value,
-                  abs.error = uv.1$abs.error + uv.2$abs.error + uv.3$abs.error )
-        },
-        d.range = 1e-6,
-        permit.d = function( d, abs.error, info, parent.info )
-        { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+                list( value = uv.1$value + uv.2$value + uv.3$value,
+                      abs.error = uv.1$abs.error + uv.2$abs.error + uv.3$abs.error )
+            },
+            d.range = 1e-6,
+            permit.d = function( d, abs.error, info, parent.info )
+            { abs( d ) < 1 && abs( d ) < abs.error * 4 } ), TRUE )
+}
+
 
 ################################################################################################
 ## Check for partial integrals for mix.type = 4
@@ -1593,6 +1659,7 @@ integ.m.x.d.pstar.psqrt2.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.m.x.d.pstar.psqrt2,
                            integ.m.x.d.pstar.psqrt2.via.integrate ), TRUE )
 
@@ -1618,6 +1685,7 @@ integ.m.sqrt2pisd2.x.d2.p.via.integrate <- function( mean, sd, x )
                                dnorm( x, mean, sd )^2 * pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.m.sqrt2pisd2.x.d2.p,
                            integ.m.sqrt2pisd2.x.d2.p.via.integrate ), TRUE )
 
@@ -1645,6 +1713,7 @@ integ.m.x.d.pstar.psqrt2.m.sqrt2pisd2.x.d2.p.via.integrate <- function( mean, sd
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.m.x.d.pstar.psqrt2.m.sqrt2pisd2.x.d2.p,
                            integ.m.x.d.pstar.psqrt2.m.sqrt2pisd2.x.d2.p.via.integrate ),
               TRUE )
@@ -1678,6 +1747,7 @@ integ.x.d_1.pstar_2.psqrt2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.x.d_1.pstar_2.psqrt2,
                              integ.x.d_1.pstar_2.psqrt2.via.integrate ), TRUE )
 
@@ -1704,6 +1774,7 @@ integ.sqrt2pisd_22.x.d_22.pstar_1.via.integrate <- function( mean.1, sd.1, mean.
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.sqrt2pisd_22.x.d_22.pstar_1,
                              integ.sqrt2pisd_22.x.d_22.pstar_1.via.integrate, d.range = 3e-8 ),
               TRUE )
@@ -1742,6 +1813,7 @@ integ.B1.plus.B2.mean.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B1.plus.B2.mean, integ.B1.plus.B2.mean.via.integrate ),
               TRUE )
 
@@ -1761,6 +1833,7 @@ integ.B1.plus.B2.mean.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2,
     integ.B1.plus.B2.mean.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B1.plus.B2.mean.inf,
                              integ.B1.plus.B2.mean.inf.via.integrate,
                              d.range = 7e-5,
@@ -1801,6 +1874,7 @@ integ.msqrtpi.sd_1.x.d_12.pstar_2.via.integrate <- function( mean.1, sd.1, mean.
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.msqrtpi.sd_1.x.d_12.pstar_2,
                              integ.msqrtpi.sd_1.x.d_12.pstar_2.via.integrate, d.range = 3e-7 ),
               TRUE )
@@ -1821,6 +1895,7 @@ integ.msqrtpi.sd_1.x.d_12.pstar_2.inf.via.integrate <- function( mean.1, sd.1, m
     integ.msqrtpi.sd_1.x.d_12.pstar_2.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.msqrtpi.sd_1.x.d_12.pstar_2.inf,
                              integ.msqrtpi.sd_1.x.d_12.pstar_2.inf.via.integrate,
                              inf.to.inf = TRUE, d.range = 7e-5,
@@ -1857,6 +1932,7 @@ integ.msqrtpi.sd_2.x.d_22.pstar_1.via.integrate <- function( mean.1, sd.1, mean.
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.msqrtpi.sd_2.x.d_22.pstar_1,
                              integ.msqrtpi.sd_2.x.d_22.pstar_1.via.integrate, d.range = 3e-7 ),
               TRUE )
@@ -1878,6 +1954,7 @@ integ.msqrtpi.sd_2.x.d_22.pstar_1.inf.via.integrate <- function( mean.1, sd.1, m
     integ.msqrtpi.sd_2.x.d_22.pstar_1.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.msqrtpi.sd_2.x.d_22.pstar_1.inf,
                              integ.msqrtpi.sd_2.x.d_22.pstar_1.inf.via.integrate,
                 inf.to.inf = TRUE, d.range = 1e-4,
@@ -1913,6 +1990,7 @@ integ.G1.plus.G2.mean.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2,
     integ.G1.plus.G2.mean.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.G1.plus.G2.mean.inf,
                              integ.G1.plus.G2.mean.inf.via.integrate,
                              inf.to.inf = TRUE, d.range = 5e-4 ), TRUE )
@@ -1955,6 +2033,7 @@ integ.x.d2.pstar.psqrt2.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x.d2.pstar.psqrt2, integ.x.d2.pstar.psqrt2.via.integrate ),
               TRUE )
 
@@ -2007,6 +2086,7 @@ integ.t4.x.psi.g.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
     integ.t4.x.psi.g.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.t4.x.psi.g.inf,
                              integ.t4.x.psi.g.inf.via.integrate,
                              inf.to.inf = TRUE, d.range = 1e-6,
@@ -2032,6 +2112,7 @@ integ.d3.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { dnorm( x, mean, sd )^3 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.d3, integ.d3.via.integrate ), TRUE )
 
 
@@ -2061,6 +2142,7 @@ integ.p3star.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { pnorm( x, mean, sd * sqrt( 3 ) / 3 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.p3star, integ.p3star.via.integrate ), TRUE )
 
 
@@ -2089,6 +2171,7 @@ integ.x.d3.via.integrate <- function( mean, sd, x )
     integrate( function( x ) { x * dnorm( x, mean, sd )^3 }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x.d3, integ.x.d3.via.integrate ), TRUE )
 
 
@@ -2145,6 +2228,7 @@ integ.x2.d2.p.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x2.d2.p, integ.x2.d2.p.via.integrate ), TRUE )
 
 
@@ -2175,6 +2259,7 @@ integ.x2.d2.pstar.via.integrate <- function( mean, sd, x )
                                      pnorm( x, mean, sd * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x2.d2.pstar, integ.x2.d2.pstar.via.integrate ), TRUE )
 
 
@@ -2211,6 +2296,7 @@ integ.x2.d.pstar.via.integrate <- function( mean, sd, x )
                                      pnorm( x, mean, sd * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.x2.d.pstar, integ.x2.d.pstar.via.integrate ), TRUE )
 
 
@@ -2263,10 +2349,13 @@ integ.t4.x2.g.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
     integ.t4.x2.g.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
-expect_equal( check.integ.2( integ.t4.x2.g, integ.t4.x2.g.via.integrate ), TRUE )
+if ( !skip.intermediate.tests )
+{
+    expect_equal( check.integ.2( integ.t4.x2.g, integ.t4.x2.g.via.integrate ), TRUE )
 
-expect_equal( check.integ.2( integ.t4.x2.g.inf,
-                             integ.t4.x2.g.inf.via.integrate, inf.to.inf = TRUE ), TRUE )
+    expect_equal( check.integ.2( integ.t4.x2.g.inf,
+                                 integ.t4.x2.g.inf.via.integrate, inf.to.inf = TRUE ), TRUE )
+}
 
 
 ################################################################################################
@@ -2298,6 +2387,7 @@ integ.sqrtpisd2.x2.d2.pstar.via.integrate <- function( mean, sd, x )
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.sqrtpisd2.x2.d2.pstar,
                            integ.sqrtpisd2.x2.d2.pstar.via.integrate ), TRUE )
 
@@ -2321,6 +2411,7 @@ integ.sqrtpisd2.x2.d2.pstar.inf.via.integrate <- function( mean, sd, x )
     integ.sqrtpisd2.x2.d2.pstar.via.integrate( mean, sd, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.sqrtpisd2.x2.d2.pstar.inf,
                            integ.sqrtpisd2.x2.d2.pstar.inf.via.integrate, inf.to.inf = TRUE ),
               TRUE )
@@ -2355,6 +2446,7 @@ integ.R1.sd.via.integrate <- function( mean, sd, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.R1.sd, integ.R1.sd.via.integrate ), TRUE )
 
 
@@ -2384,6 +2476,7 @@ integ.R2.sd.via.integrate <- function( mean, sd, x )
                                                             pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.R2.sd, integ.R2.sd.via.integrate ), TRUE )
 
 
@@ -2417,6 +2510,7 @@ integ.R1.plus.R2.sd.via.integrate <- function( mean, sd, x )
                                                            pnorm( x, mean, sd ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.R1.plus.R2.sd, integ.R1.plus.R2.sd.via.integrate ), TRUE )
 
 integ.R1.plus.R2.sd.inf <- function( mean, sd, x )
@@ -2429,6 +2523,7 @@ integ.R1.plus.R2.sd.inf.via.integrate <- function( mean, sd, x )
     integ.R1.plus.R2.sd.via.integrate( mean, sd, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ( integ.R1.plus.R2.sd.inf,
                            integ.R1.plus.R2.sd.inf.via.integrate, inf.to.inf = TRUE ), TRUE )
 
@@ -2469,6 +2564,7 @@ integ.x.d.pstar.2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                                    pnorm( x, mean.2, sd.2 * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.x.d.pstar.2, integ.x.d.pstar.2.via.integrate ), TRUE )
 
 
@@ -2509,6 +2605,7 @@ integ.x2.d.pstar.2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                                      pnorm( x, mean.2, sd.2 * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.x2.d.pstar.2, integ.x2.d.pstar.2.via.integrate,
                               permit.d = function( d, abs.error, info, parent.info )
                                          { abs( d ) < 1 && abs( d ) < abs.error * 8 } ), TRUE )
@@ -2564,6 +2661,7 @@ integ.x.d.dstar.2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                                    dnorm( x, mean.2, sd.2 * sqrt( 2 ) / 2 ) }, x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 ## The d.range is need for the previous (comment-outed) integ.x.d.dstar.2 definition.
 #expect_equal( check.integ.2( integ.x.d.dstar.2,
 #                             integ.x.d.dstar.2.via.integrate, d.range = 1e-6 ), TRUE )
@@ -2602,6 +2700,7 @@ integ.B1.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B1.sd, integ.B1.sd.via.integrate ), TRUE )
 
 
@@ -2641,6 +2740,7 @@ integ.B2.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B2.sd, integ.B2.sd.via.integrate, d.range = 7e-7 ), TRUE )
 
 
@@ -2694,6 +2794,7 @@ integ.B1.plus.B2.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B1.plus.B2.sd,
                              integ.B1.plus.B2.sd.via.integrate, d.range = 5e-7 ), TRUE )
 
@@ -2713,6 +2814,7 @@ integ.B1.plus.B2.sd.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x
     integ.B1.plus.B2.sd.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.B1.plus.B2.sd.inf,
                              integ.B1.plus.B2.sd.inf.via.integrate,
                              inf.to.inf = TRUE, d.range = 1e-6 ), TRUE )
@@ -2741,6 +2843,7 @@ integ.x.dstar.dstar.2.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                 x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.x.dstar.dstar.2, integ.x.dstar.dstar.2.via.integrate ),
               TRUE )
 
@@ -2781,6 +2884,7 @@ integ.G1.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.G1.sd, integ.G1.sd.via.integrate ), TRUE )
 
 
@@ -2819,6 +2923,7 @@ integ.G2.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.G2.sd, integ.G2.sd.via.integrate ), TRUE )
 
 
@@ -2858,6 +2963,7 @@ integ.G1.plus.G2.sd.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
                x[1], x[2] )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.G1.plus.G2.sd, integ.G1.plus.G2.sd.via.integrate ), TRUE )
 
 
@@ -2876,6 +2982,7 @@ integ.G1.plus.G2.sd.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x
     integ.G1.plus.G2.sd.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.G1.plus.G2.sd.inf,
                              integ.G1.plus.G2.sd.inf.via.integrate,
                              permit.d = function( d, abs.error, info, parent.info )
@@ -2928,6 +3035,7 @@ integ.t4.x2.psi.g.inf.via.integrate <- function( mean.1, sd.1, mean.2, sd.2, x )
     integ.t4.x2.psi.g.via.integrate( mean.1, sd.1, mean.2, sd.2, x )
 }
 
+if ( !skip.intermediate.tests )
 expect_equal( check.integ.2( integ.t4.x2.psi.g.inf,
                              integ.t4.x2.psi.g.inf.via.integrate,
                              inf.to.inf = TRUE, d.range = 1e-6,

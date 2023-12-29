@@ -2,6 +2,25 @@
 ## This file is to test trace.q mainly.
 ################################################################################################
 
+################################################################################################
+## ** Note **
+##
+## This test file outputs many graphs as results.
+## However, each result is easily affected by the execution environment, even on the same OS.
+## In addition, many of them use random numbers, and the results change each time.
+## For these reasons, we have determined that it is not suitable for automated snapshot testing,
+## and have placed sample results as {test}/graphs.pdf in the "reference_materials" directory
+## as references for test results instead.
+##
+## Developers and testers should refer to "reference_materials" as needed.
+## The most important point to check may be whether each graph of
+## cumulative distribution function passes through all of the quantile points.
+##
+## However, important tests including above "the most important point"
+## which do not depend on random numbers are evaluated using expect_ functions.
+## So, if all expect_ functions pass, the tests in this file are considered to have passed.
+################################################################################################
+
 # For interactive test, load setup.R expressly.
 if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 
@@ -14,6 +33,15 @@ if ( file.exists( "tests/testthat" ) ) source( "tests/testthat/setup.R" )
 enable.cat.print <- FALSE
 # enable.cat.print <- TRUE
 
+## The number of samples for r method for drawing the histogram in show.results function.
+r.sample.num <- 200
+
+## For manual testing,
+## if you want to wait a moment before drawing a new graph
+## to watch the previous graph, set TRUE this option.
+wait.before.new.graph <- FALSE
+#wait.before.new.graph <- TRUE
+
 
 ################################
 # Preparing
@@ -21,12 +49,6 @@ enable.cat.print <- FALSE
 
 a <- GGD$new()
 if ( dev.cur() == 1 ) { dev.new(); plot.new() }
-
-## For manual testing,
-## if you want to wait a moment before drawing a new graph
-## to watch the previous graph, set TRUE this option.
-wait.before.new.graph <- FALSE
-#wait.before.new.graph <- TRUE
 
 ## for control option test
 control <- list( ftol = 1e-4 )
@@ -71,6 +93,12 @@ plot.quantiles.and.p <- function( a, p, x, xlim = NULL )
     plot( x, p, xlim = xlim, ylim = ylim, xlab = "", ylab = "" )
     par( new = TRUE )
     plot( seq( xlim[1], xlim[2], 0.01 ), a$p( seq( xlim[1], xlim[2], 0.01 ) ), type = "l", xlim = xlim, ylim = ylim )
+
+    if ( wait.before.new.graph )
+    {
+        # Waiting a moment to check the last-drawn graph on a manual test.
+        Sys.sleep( 1.5 )
+    }
 }
 
 ################################################################################################
@@ -145,7 +173,8 @@ with.system.time <- function( f )
 #'                          If \code{FALSE}, if one of those differences is too large,
 #'                          an error will occur.
 ################################################################################################
-show.results <- function( obj = a, plot.range = 3, sample.num = 400, is.extreme.case = FALSE )
+show.results <- function( obj = a, plot.range = 3, sample.num = r.sample.num,
+                          is.extreme.case = FALSE )
 {
     if ( wait.before.new.graph )
     {
@@ -1059,7 +1088,7 @@ a$trace.q(
 expect_identical( a$mix.type, 1L )
 expect_equal( a$p( xs ), c( 0.1, 0.5, 0.75, 0.9 ), tolerance = 5e-7 )
 plot.quantiles.and.p( a,
-    c( 0.1, 0.25, 0.5, 0.9 ), xs, c( -3, 3 ) )
+    c( 0.1, 0.5, 0.75, 0.9 ), xs, c( -3, 3 ) )
 plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 show.results()
 
@@ -6835,9 +6864,11 @@ rm( qt )
 
 #### Appendix
 
-## Plot of the burden ratio of the lower distribution for mix.type = 3, symmetric.
+## Plot of the burden ratio of the lower distribution for the PDF and the CDF
+## at a symmetric 2-component vertical gradational distribution.
 x <- seq( -5, 5, 0.01 )
-plot( x, pnorm( x, 0, 1 ) - pnorm( x, 0, 1/sqrt(2) ) / sqrt(2), type="l" )
+plot( x, 1 - dnorm( x, 0, 1 ) * sqrt( 2 * pi ), type="l" )
+plot( x, ( pnorm( x, 0, 1 ) - pnorm( x, 0, 1/sqrt(2) ) / sqrt(2) ) / pnorm( x, 0, 1 ), type="l" )
 
 
 ## Plots to show pnorm( x, 0, 1/sqrt(2) ) / pnorm( x, 0, 1 ) is bounded on [1, 1.107] where x > 0,
