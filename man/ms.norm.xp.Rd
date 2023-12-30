@@ -11,18 +11,18 @@ ms.norm.xp(x, p)
 
 \item{p}{The probabilities for the quantiles.
 In other word, the values of the cumulative distribution function of
-a normal distribution for the x. It must be also a vector with 2 numerics.}
+a normal distribution for \code{x}. It must be also a vector with 2 numerics.}
 }
 \value{
 A list containing components
          \item{mean}{
-                 The mean value of the normal distribution.}
+             The mean value of the normal distribution.}
          \item{sd}{
-                 The standard deviation of the normal distribution.}
+             The standard deviation of the normal distribution.}
 }
 \description{
 Calculates the mean and standard deviation of the normal distribution
-satisfying the given two quantiles (x-probability points).
+satisfying the given two quantiles.
 This is the body of \code{ggd.trace.q(kind = "Normal Distribution")}.
 }
 \examples{

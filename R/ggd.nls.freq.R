@@ -73,7 +73,7 @@
 #'                      the frequency distribution.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
@@ -776,14 +776,14 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #' By default, \code{\link[ggd]{nls.freq}} is called with \code{warnOnly = TRUE},
 #' so \code{\link[ggd]{nls.freq}} does not generate errors, but generates warnings often.
 #' When a warning occur, this function generates another warning like
-#' "Warning for kind = xx :" to inform which \code{kind.index} gets a poor result
+#' "\code{Warning for kind = xx :}" to inform which \code{kind.index} gets a poor result
 #' (poor, but may be accurate enough).
 #' So when one warning has occurred, two warnings will occur eventually.
 #'
 #' If you indicate \code{warnOnly = FALSE} in \code{control} argument
 #' and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
 #' If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
-#' this function throws messages like "Error for kind = xx :" and "Error in ..."
+#' this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
 #' instead of throwing error and does not stop,
 #' then tries other \code{\link[ggd]{nls.freq}} processes.
 #' For the result of error-occurred \code{kind.index}, a cleared \code{\link[ggd]{GGD}} object
@@ -1195,10 +1195,10 @@ get.d.freq <- function( x, freq, total = sum( freq ) )
 #' [Non-exported] Probabilities of frequency distribution
 #'
 #' Gets a vector of probabilities that the random variable is less than or equal to the value of
-#' x of the frequency distribution.
-#' This function assumes that each x of the frequency distribution is at the center of a cell
-#' and that an equal number of samples both above and below are excluded outside the range
-#' of the frequency distribution.
+#' the x-coordinate of the frequency distribution.
+#' This function assumes that each x-coordinate of the frequency distribution is at the center
+#' of a cell and that an equal number of samples of both upper and lower outside of the range
+#' have been excluded.
 #' @param   freq        A vector of frequencies.
 #'                      The x-coordinates corresponding to these frequencies are expected to be
 #'                      at the center of the cells of the frequency distribution.
@@ -1241,7 +1241,7 @@ get.p.freq <- function( freq, total )
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If "v3", constructing with 3 components is enforcedly,
+#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
 #'
 #'                      In this function, \code{grad} argument have no priority
@@ -1675,9 +1675,9 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
 #' @param   freq            A vector of frequencies of a frequency distribution.
 #' @return  A list containing components
 #'          \item{x}{
-#'                  The vectors of x-coordinates after the cutoff.}
+#'                  The vectors of x-coordinates after excluding.}
 #'          \item{freq}{
-#'                  The vectors of frequencies after the cutoff.}
+#'                  The vectors of frequencies after excluding.}
 ################################################################################################
 exclude.freq.edge <- function( x, freq )
 {
@@ -1707,13 +1707,13 @@ exclude.freq.edge <- function( x, freq )
 #'                  The vectors of x-coordinates of the 4 groups.}
 #'          \item{data}{
 #'                  The vectors of data of the 4 groups.}
-#'          \item{[x|data].lower}{
+#'          \item{(x|data).lower}{
 #'                  The vector of x-coordinates or data integrated the lower-side 2 groups.}
-#'          \item{[x|data].upper}{
+#'          \item{(x|data).upper}{
 #'                  The vector of x-coordinates or data integrated the upper-side 2 groups.}
-#'          \item{[x|data].outer}{
+#'          \item{(x|data).outer}{
 #'                  The vector of x-coordinates or data integrated the outer-side 2 groups.}
-#'          \item{[x|data].inner}{
+#'          \item{(x|data).inner}{
 #'                  The vector of x-coordinates or data integrated the inner-side 2 groups.}
 #' @importFrom  utils       head tail
 ################################################################################################
@@ -1766,7 +1766,7 @@ separate.data.quarter <- function( x, data, data.mean )
 #'                      with the result of \code{\link[stats]{nls}}.
 #' @param   mix.type    The value for \code{mix.type} field.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If "v3", constructing with 3 components is enforcedly,
+#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
 #'
 #'                      In this function, \code{grad} argument has no priority over

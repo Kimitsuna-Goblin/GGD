@@ -33,7 +33,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      which indicates the kind of the distribution model to create.
 
                      The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
                      \code{NA} is allowed when \code{cmp} has no rows.
 
                      If \code{mix.type} argument or other than \code{"default"} for
@@ -99,7 +99,7 @@ The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 Sets the normal distributions of the components to the \code{cmp} field.
 All fields of the \code{\link[ggd]{GGD}} object will be set as appropriate according to
 given components and other arguments, respectively.
-Remark! Never set any values into the \code{cmp} fields directly without using this method.
+You should never set any values into the \code{cmp} field directly without using this method.
 }
 \details{
 \subsection{About "kind" and "mix.type"}{

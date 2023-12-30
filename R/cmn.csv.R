@@ -14,8 +14,7 @@
 #'
 #' Prints the argument \code{x} (it should be a data frame or matrix)
 #' to a file or \link[base]{connection} with the CSV format.
-#' In particular, this function does not use any kind of \link[base]{paste} function to output,
-#' but only \link[base]{cat} function.
+#' This function use \link[base]{cat} to output.
 #' When outputting real numbers, the precision can be specified with \code{digits} argument.
 #' @param   x           The object to be written, should be a matrix or data frame.
 #' @param   file        A \link[base]{connection},
@@ -23,9 +22,9 @@
 #'                      If \code{""} (the default), it prints to the standard output connection,
 #'                      the console unless redirected by \link[base]{sink}.
 #' @param   top.text    A character string to be output as the first element of the header.
-#' @param   digits      The number of significant (see \link[base]{signif}) digits to print.
+#' @param   digits      The number of significant digits to print (see \link[base]{signif}).
 #'                      Valid values are integers from 1 to 22 with default 15.
-#' @return  An invisible NULL.
+#' @return  An invisible \code{NULL}.
 #' @examples
 #'  ggd:::cat.table( data.frame( a = 1:6 * pi, b = pi^(1:6) ), top.text = "PI", digits = 10 )
 ################################################################################################

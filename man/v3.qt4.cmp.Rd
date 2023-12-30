@@ -18,7 +18,7 @@ v3.qt4.cmp(qt, eq.mean, eq.sd, control, retriable, grad)
 \item{retriable}{A logical; the flag if retrying is enable.}
 
 \item{grad}{A character string indicating the method of gradation.
-If "v3", constructing with 3 components is enforcedly,
+If \code{"v3"}, constructing with 3 components is enforcedly,
 even if it is possible to construct with 2 components.}
 }
 \value{

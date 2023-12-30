@@ -13,7 +13,7 @@ with the result of \code{\link[stats]{nls}}.}
 \item{mix.type}{The value for \code{mix.type} field.}
 
 \item{grad}{A character string indicating the method of gradation.
-                     If "v3", constructing with 3 components is enforcedly,
+                     If \code{"v3"}, constructing with 3 components is enforcedly,
                      even if it is possible to construct with 2 components.
 
                      In this function, \code{grad} argument has no priority over

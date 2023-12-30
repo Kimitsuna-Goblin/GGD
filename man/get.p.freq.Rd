@@ -18,8 +18,8 @@ A vector of probabilities.
 }
 \description{
 Gets a vector of probabilities that the random variable is less than or equal to the value of
-x of the frequency distribution.
-This function assumes that each x of the frequency distribution is at the center of a cell
-and that an equal number of samples both above and below are excluded outside the range
-of the frequency distribution.
+the x-coordinate of the frequency distribution.
+This function assumes that each x-coordinate of the frequency distribution is at the center
+of a cell and that an equal number of samples of both upper and lower outside of the range
+have been excluded.
 }

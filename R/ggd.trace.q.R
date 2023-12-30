@@ -54,7 +54,7 @@
 #'                      which indicates the kind of the distribution model.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
@@ -1959,8 +1959,8 @@ GGD$methods(
 #'
 #' Calculates the values of the probability density function or
 #' the cumulative distribution function of the GGD model with \code{mix.type = 3}.
-#' Both \code{means} and \code{sds} vectors need 3 elements for this function;
-#' so where with two components, you must set \code{means[3]} and \code{sds[3]}
+#' Both \code{means} and \code{sds} vectors need 3 elements for this function.
+#' Where with two components, you must set \code{means[3]} and \code{sds[3]}
 #' the same values of \code{means[1]} and \code{sds[1]}.
 #' @param   x           A vector of x-coordinates.
 #' @param   means       The vector of mean values of the 3 components.
@@ -2192,7 +2192,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 #' @param   eq.mean     A logical; the flag to be equal all of the mean values.
 #' @param   eq.sd       A logical; the flag to be equal all of the standard deviations.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If "v3", constructing with 3 components is enforcedly,
+#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #' @param   retriable   A logical; the flag if retrying is enable.
@@ -2320,13 +2320,13 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
 #'
 #' Gets a data frame for \code{cmp} field for \code{mix.type = 3}.
 #' Each of \code{means} and \code{sds} arguments must has 3 elements in order of
-#' [1] left-tail side, [2] top side, [3] right-tail side.
+#' \code{[1]} left-tail side, \code{[2]} top side and \code{[3]} right-tail side.
 #' @export
 #' @param   means       A vector of mean values of the 3 normal distributions of the components.
 #' @param   sds         A vector of standard deviations of the 3 normal distributions of
 #'                      the components.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If "v3", the number of components is forced to be 3.
+#'                      If \code{"v3"}, the number of components is forced to be 3.
 #' @return  The data frame for \code{cmp} field.
 #' @examples
 #'  means <- c( 0.2, 0, 0.2 ); sds <- c( 1.2, 0.9, 1.2 )

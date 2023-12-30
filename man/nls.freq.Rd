@@ -58,7 +58,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      the frequency distribution.
 
                      The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
 
                      This argument gives the conditions of
                      the value of \code{mix.type} field,

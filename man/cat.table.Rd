@@ -16,17 +16,16 @@ the console unless redirected by \link[base]{sink}.}
 
 \item{top.text}{A character string to be output as the first element of the header.}
 
-\item{digits}{The number of significant (see \link[base]{signif}) digits to print.
+\item{digits}{The number of significant digits to print (see \link[base]{signif}).
 Valid values are integers from 1 to 22 with default 15.}
 }
 \value{
-An invisible NULL.
+An invisible \code{NULL}.
 }
 \description{
 Prints the argument \code{x} (it should be a data frame or matrix)
 to a file or \link[base]{connection} with the CSV format.
-In particular, this function does not use any kind of \link[base]{paste} function to output,
-but only \link[base]{cat} function.
+This function use \link[base]{cat} to output.
 When outputting real numbers, the precision can be specified with \code{digits} argument.
 }
 \examples{

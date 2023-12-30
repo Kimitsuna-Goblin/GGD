@@ -14,9 +14,9 @@ exclude.freq.edge(x, freq)
 \value{
 A list containing components
          \item{x}{
-                 The vectors of x-coordinates after the cutoff.}
+                 The vectors of x-coordinates after excluding.}
          \item{freq}{
-                 The vectors of frequencies after the cutoff.}
+                 The vectors of frequencies after excluding.}
 }
 \description{
 Excludes data with \code{0} or extremely small frequency on both edges of the range of

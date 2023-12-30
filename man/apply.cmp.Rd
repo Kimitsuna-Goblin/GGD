@@ -47,8 +47,8 @@ Each function indicated with \code{f.mean} or \code{f.sd} can receive
      this method does not clear the object,
      but retains the values of all fields before the method is called.
 
-     The 2nd argument, which is the \code{\link[ggd]{GGD}} object itself, should be used for
-     reference only, and it is not recommended to update the fields of it.
+     The 2nd argument, which is the \code{\link[ggd]{GGD}} object itself,
+     should be used for reference only; it is not recommended to update the fields of it.
      The results of such updating are not guaranteed.
      It is strongly recommended NOT to use methods which return
      the object itself

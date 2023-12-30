@@ -58,18 +58,18 @@ sd.norm.mxp <- function( mean, x, p )
 #' Mean and standard deviation of a normal distribution
 #'
 #' Calculates the mean and standard deviation of the normal distribution
-#' satisfying the given two quantiles (x-probability points).
+#' satisfying the given two quantiles.
 #' This is the body of \code{ggd.trace.q(kind = "Normal Distribution")}.
 #' @export
-#' @param   x       The x-coordinates of the quantiles. It must be a vector with 2 numerics.
-#' @param   p       The probabilities for the quantiles.
-#'                  In other word, the values of the cumulative distribution function of
-#'                  a normal distribution for the x. It must be also a vector with 2 numerics.
+#' @param   x   The x-coordinates of the quantiles. It must be a vector with 2 numerics.
+#' @param   p   The probabilities for the quantiles.
+#'              In other word, the values of the cumulative distribution function of
+#'              a normal distribution for \code{x}. It must be also a vector with 2 numerics.
 #' @return  A list containing components
 #'          \item{mean}{
-#'                  The mean value of the normal distribution.}
+#'              The mean value of the normal distribution.}
 #'          \item{sd}{
-#'                  The standard deviation of the normal distribution.}
+#'              The standard deviation of the normal distribution.}
 #' @examples
 #'  ms.norm.xp( x = c( -1, 1 ), p = pnorm( c( -1, 1 ), 0, 1 ) ) # list( mean = 0, sd = 1 )
 #'  ms.norm.xp( x = c(  0, 1 ), p = pnorm( c(  0, 1 ), 0, 2 ) ) # list( mean = 0, sd = 2 )

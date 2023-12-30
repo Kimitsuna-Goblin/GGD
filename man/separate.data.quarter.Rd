@@ -20,13 +20,13 @@ A list containing components
                  The vectors of x-coordinates of the 4 groups.}
          \item{data}{
                  The vectors of data of the 4 groups.}
-         \item{[x|data].lower}{
+         \item{(x|data).lower}{
                  The vector of x-coordinates or data integrated the lower-side 2 groups.}
-         \item{[x|data].upper}{
+         \item{(x|data).upper}{
                  The vector of x-coordinates or data integrated the upper-side 2 groups.}
-         \item{[x|data].outer}{
+         \item{(x|data).outer}{
                  The vector of x-coordinates or data integrated the outer-side 2 groups.}
-         \item{[x|data].inner}{
+         \item{(x|data).inner}{
                  The vector of x-coordinates or data integrated the inner-side 2 groups.}
 }
 \description{

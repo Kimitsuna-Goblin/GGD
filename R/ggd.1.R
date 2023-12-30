@@ -362,8 +362,8 @@ GGD$methods(
 ################################################################################################
 #' Clear fields
 #'
-#' Clears all fields.
-#' The lengths of all vector fields and the number of rows in the \code{cmp} field will be 0.
+#' Clears all fields. The lengths of all vector fields and the number of rows
+#' in the \code{cmp} field will be \code{0}.
 #' @name    clear
 #' @aliases clear
 #' @aliases \S4method{clear}{GGD}
@@ -816,7 +816,7 @@ ggd.kind <- function( objs )
 #'                      is \code{0}, and \code{grad} is \code{"default"}.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      If \code{NA} is indicated, \code{NA_integer_} will be returned.
 #'                      If indicated character string pattern or index number does not match
@@ -1747,8 +1747,9 @@ GGD$methods(
 #' @aliases \S4method{r}{GGD}
 #' @usage   \S4method{r}{GGD}(n, tol = 2^(-17))
 #' @param   n       Number of output values.
-#'                  If \code{length( n ) > 1}, the length is taken to be the number required.
-#' @param   tol     The tolerance level for the convergence criterion for \code{\link[ggd]{q}}.
+#'                  If \code{length(n) > 1}, the length is taken to be the number required.
+#' @param   tol     The tolerance level for the convergence criterion for
+#'                  \code{\link[ggd]{q}} method.
 #' @return  A vector of random numbers.
 #' @examples
 #'  a <- GGD$new()

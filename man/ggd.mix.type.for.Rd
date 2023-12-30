@@ -27,7 +27,7 @@ ggd.mix.type.for(
                      is \code{0}, and \code{grad} is \code{"default"}.
 
                      The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \link[ggd]{ggd.kind.index}.
+                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
 
                      If \code{NA} is indicated, \code{NA_integer_} will be returned.
                      If indicated character string pattern or index number does not match

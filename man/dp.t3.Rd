@@ -23,7 +23,7 @@ The vector of values of the probability density function
 \description{
 Calculates the values of the probability density function or
 the cumulative distribution function of the GGD model with \code{mix.type = 3}.
-Both \code{means} and \code{sds} vectors need 3 elements for this function;
-so where with two components, you must set \code{means[3]} and \code{sds[3]}
+Both \code{means} and \code{sds} vectors need 3 elements for this function.
+Where with two components, you must set \code{means[3]} and \code{sds[3]}
 the same values of \code{means[1]} and \code{sds[1]}.
 }

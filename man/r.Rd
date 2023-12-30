@@ -9,9 +9,10 @@
 }
 \arguments{
 \item{n}{Number of output values.
-If \code{length( n ) > 1}, the length is taken to be the number required.}
+If \code{length(n) > 1}, the length is taken to be the number required.}
 
-\item{tol}{The tolerance level for the convergence criterion for \code{\link[ggd]{q}}.}
+\item{tol}{The tolerance level for the convergence criterion for
+\code{\link[ggd]{q}} method.}
 }
 \value{
 A vector of random numbers.

@@ -151,14 +151,14 @@ calls \code{\link[ggd]{nls.freq}} method 16 times.
 By default, \code{\link[ggd]{nls.freq}} is called with \code{warnOnly = TRUE},
 so \code{\link[ggd]{nls.freq}} does not generate errors, but generates warnings often.
 When a warning occur, this function generates another warning like
-"Warning for kind = xx :" to inform which \code{kind.index} gets a poor result
+"\code{Warning for kind = xx :}" to inform which \code{kind.index} gets a poor result
 (poor, but may be accurate enough).
 So when one warning has occurred, two warnings will occur eventually.
 
 If you indicate \code{warnOnly = FALSE} in \code{control} argument
 and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
 If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
-this function throws messages like "Error for kind = xx :" and "Error in ..."
+this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
 instead of throwing error and does not stop,
 then tries other \code{\link[ggd]{nls.freq}} processes.
 For the result of error-occurred \code{kind.index}, a cleared \code{\link[ggd]{GGD}} object

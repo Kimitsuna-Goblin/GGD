@@ -48,7 +48,7 @@ If \code{"default"}, such fractions will be formatted as default of TeX
 form will depend on the TeX execution environment.}
 }
 \value{
-An invisible NULL.
+An invisible \code{NULL}.
 }
 \description{
 Outputs the TeX-formatted texts of the formulas for the probability density function
@@ -93,16 +93,16 @@ with \code{\link[base]{writeLines}}.
  \subsection{Equaled mean values or standard deviations}{
      For clarity, when all mean values or standard deviations of components are equal
      (i.e., when \code{\link[ggd]{is.eq.mean}} or \code{\link[ggd]{is.eq.sd}} method
-     returns \code{TRUE}), they are displayed with \eqn{=} to the 1st component parameter,
-     like as \eqn{\sigma_2 = \sigma_1}.
+     returns \code{TRUE}), they are displayed with "\eqn{=}" to the 1st component parameter,
+     like as "\eqn{\sigma_2 = \sigma_1}".
 
      If only the values of some parameters are equal (e.g., only \eqn{\sigma_2} and
      \eqn{\sigma_3} are equal and \eqn{\sigma_1} is different),
-     they are not displayed as \eqn{\sigma_3 = \sigma_2}, but displayed with values
+     they are not displayed as "\eqn{\sigma_3 = \sigma_2}", but displayed with values
      to avoid misreading the subscripts.
 
      Note that if the difference between the values of parameters is smaller than
-     the number of decimal places displayed, \eqn{\sigma_2 = \sigma_1} may not be displayed,
+     displayable number of decimal places, "\eqn{\sigma_2 = \sigma_1}" may not be displayed,
      but the same number may be displayed for each.
  }
 }

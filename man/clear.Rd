@@ -11,8 +11,8 @@
 The cleared \code{\link[ggd]{GGD}} object itself (invisible).
 }
 \description{
-Clears all fields.
-The lengths of all vector fields and the number of rows in the \code{cmp} field will be 0.
+Clears all fields. The lengths of all vector fields and the number of rows
+in the \code{cmp} field will be \code{0}.
 }
 \examples{
  a <- GGD$new()
