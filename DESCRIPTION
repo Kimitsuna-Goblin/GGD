@@ -2,7 +2,7 @@ Package: ggd
 Type: Package
 Title: Gradational Gaussian Distribution Reference Class
 Version: 1.0.0
-Author: Kimitsuna-Goblin (Ura, Kimitsuna)
+Author: Kimitsuna Ura
 Authors@R: c(
     person( given   = "Kimitsuna",
             family  = "Ura",
