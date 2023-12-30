@@ -2,14 +2,12 @@ Package: ggd
 Type: Package
 Title: Gradational Gaussian Distribution Reference Class
 Version: 1.0.0
-Author: Kimitsuna Ura
 Authors@R: c(
     person( given   = "Kimitsuna",
             family  = "Ura",
             email   = "kimitsuna@i.softbank.jp",
             role    = c("aut", "cph", "cre") )
     )
-Maintainer: "Kimitsuna Ura" <kimitsuna@i.softbank.jp>
 Description: Reference class for non-normal distributions.
     It can approximate skewed frequency distributions or trace quantiles
     without log transformations.
