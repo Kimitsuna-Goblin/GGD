@@ -14,7 +14,9 @@
 ## Developers and testers should refer to "reference_materials" as needed.
 ## The most important point to check may be whether each graph of
 ## probability distribution function passes near the points of the frequency distribution,
-## except for from #25 to #33 (especially #25, #29 and #31).
+## except for from #21 to #33 (especially #25, #29 and #31) where not.use.nls = TRUE.
+## Although #2 and #3 are also not.use.nls = TRUE,
+## because original data follow a normal distribution, both graphs pass near the points.
 ##
 ## However, important tests are evaluated using expect_ functions.
 ## So, if all expect_ functions pass, the tests in this file are considered to have passed.
