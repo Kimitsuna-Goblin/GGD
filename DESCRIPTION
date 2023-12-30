@@ -9,7 +9,7 @@ Authors@R: c(
             email   = "kimitsuna@i.softbank.jp",
             role    = c("aut", "cph", "cre") )
     )
-Maintainer: Kimitsuna-Goblin (Ura, Kimitsuna) <kimitsuna@i.softbank.jp>
+Maintainer: "Kimitsuna Ura" <kimitsuna@i.softbank.jp>
 Description: Reference class for non-normal distributions.
     It can approximate skewed frequency distributions or trace quantiles
     without log transformations.
