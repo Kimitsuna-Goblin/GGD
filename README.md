@@ -126,7 +126,7 @@ but $\forall x, v_i(x) \in [0,1]$ $(i = 1,2)$
 and $lim_{x \to -\infty} v_1(x) + v_2(x) = \lim_{x \to \infty} v_1(x) + v_2(x) = 1$ should hold. 
 
 In this package, we use $v_1(x) = 1 - f_1(x) / f_1(\mu_1)$
-and $v_2(x) = f_2(x) / f_2(\mu_1)$.
+and $v_2(x) = f_2(x) / f_2(\mu_2)$.
 
 ### Vertical Gradational Distribution (3 components)
 
