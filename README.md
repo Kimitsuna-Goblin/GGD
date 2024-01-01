@@ -133,8 +133,11 @@ x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 $$
 
-Note that $\mu_1$ and $\mu_2$ are not necessarily the top of the probability density function
-of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$.
+Note that $\mu_1$ and $\mu_2$ are not necessarily equal to each other.
+Therefore, depending on how $\mathcal{N}_1$ and $\mathcal{N}_2$ are taken,
+the top of the probability density function of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ may not be
+nearby the top of $f_2$ but in the neighborhood of the top of $f_1$.
+This is why I wrote "at least as an image" earlier.
 
 ### Vertical Gradational Distribution (3 components)
 
