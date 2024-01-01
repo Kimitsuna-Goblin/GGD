@@ -135,10 +135,11 @@ $$
 
 Note that $\mu_1$ and $\mu_2$ are not necessarily equal to each other.
 Therefore, depending on how $\mathcal{N}_1$ and $\mathcal{N}_2$ are taken,
-the top of the probability density function of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ may not be
-nearby the top of $f_2$ but in the neighborhood of the top of $f_1$.
+The tops of $f_1$ and $f_2$ could be far apart from each other,
+and moreover,
+the top of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ could be near the top of $f_1$, instead of $f_2$.
 This is why I wrote "at least as an image" earlier for about
-the way of changing the shape of the probability density function of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$.
+the shape changing of the probability density function of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$.
 
 ### Vertical Gradational Distribution (3 components)
 
