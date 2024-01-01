@@ -70,7 +70,7 @@ Y座標が $0 \to 1$ と漸増するにつれて、確率密度関数が
 正規分布 $\mathcal{N}_1$ のものから正規分布 $\mathcal{N}_2$ のものに徐々に変化することを表しています。
 このとき、 $\mathcal{N}_1$ を **裾側分布**、 $\mathcal{N}_2$ を **山側分布** と呼ぶことにします。
 
-一般に $\mathcal{G}[\mathcal{N}_1  \uparrow \mathcal{N}_2]$ は
+一般に、 $\mathcal{G}[\mathcal{N}_1  \uparrow \mathcal{N}_2]$ は
 
 $$
 \mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
@@ -89,14 +89,14 @@ v_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)}.
 $$
 
 のように定義されます。
-$v_1$ はY軸に沿って (すなわち $f_1(x)$ の値に伴って)
+$v_1$ はY軸に沿って (すなわち $f_1(x)$ の値に伴って)、
 
 $$
 f_1(x):0 \to \max_{x \in (-\infty, \infty)}f_1(x)
     \ \Rightarrow \ v_1(x):1 \to 0
 $$
 
-のように漸増し、 $v_2$ は逆に $f_2(x)$ の値に伴って
+のように漸増し、 $v_2$ は逆に、 $f_2(x)$ の値に伴って、
 
 $$
 f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
