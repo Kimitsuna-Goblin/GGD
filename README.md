@@ -171,17 +171,17 @@ v_1(x) =
 \end{cases}
 $$
 
-and $v_3$ is defined as
+$v_3$ is defined as
 
 $$
 v_3(x) =
 \begin{cases}
     0 & (x < \mu_3), \\
-    1 - \dfrac{f_3(x)}{f_3(\mu_3)} & (x \geq \mu_3).
+    1 - \dfrac{f_3(x)}{f_3(\mu_3)} & (x \geq \mu_3),
 \end{cases}
 $$
 
-Then, $v_2(x)$ for the top side is defined as same as with 2 components.
+and $v_2(x)$ for the top side is defined as same as with 2 components.
 
 Here, we call $\mathcal{N}_1$ the **left- (lower-) tail-side distribution**,
 and $\mathcal{N}_3$ the **right- (upper-) tail-side distribution**,
