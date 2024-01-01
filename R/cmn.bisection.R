@@ -2,7 +2,7 @@
 # Functions for the bisection method
 # @file         cmn.bisection.R
 # @author       Kimitsuna-Goblin (Ura, Kimitsuna)
-# @copyright    Copyright (C) 2023 Kimitsuna-Goblin (Ura, Kimitsuna)
+# @copyright    Copyright (C) 2024 Kimitsuna-Goblin (Ura, Kimitsuna)
 # @license      Released under the MIT license. See https://opensource.org/licenses/MIT/
 ################################################################################################
 

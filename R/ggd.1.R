@@ -2,7 +2,7 @@
 # Base of the Gradational Gaussian Distribution class
 # @file         ggd.1.R
 # @author       Kimitsuna-Goblin (Ura, Kimitsuna)
-# @copyright    Copyright (C) 2023 Kimitsuna-Goblin (Ura, Kimitsuna)
+# @copyright    Copyright (C) 2024 Kimitsuna-Goblin (Ura, Kimitsuna)
 # @license      Released under the MIT license. See https://opensource.org/licenses/MIT/
 ################################################################################################
 
@@ -129,37 +129,29 @@ f.t3.p <- list( function( x, m, s )
 #'      \eqn{\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]},
 #'      it is expressed as
 #'      \deqn{\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2] =
-#'            h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2}
-#'
-#'      where \eqn{h_1} is the mixing ratio decreasing gradually along x-axis as
-#'      \deqn{x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0,}
-#'      and \eqn{h_2} is the mixing ratio increasing gradually as
-#'      \deqn{x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1.}
+#'            h_1(x) \ \mathcal{N}_1 + h_2(x) \ \mathcal{N}_2,}
+#'      where \eqn{h_1} and \eqn{h_2} are the mixing ratio functions defined
+#'      using \eqn{\Phi_1} and \eqn{\Phi_2}, the cumulative distribution functions of
+#'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
+#'      \deqn{h_1(x) = 1 - \Phi_1(x), \\
+#'            h_2(x) = \Phi_2(x). \quad \ \ \ }
 #'
 #'      Because \eqn{\mathcal{N}_1} is dominant on the left (lower) side of x-axis,
 #'      and \eqn{\mathcal{N}_2} is on the right (upper) side,
 #'      we call \eqn{\mathcal{N}_1} the \bold{left- (lower-) side} distribution,
 #'      and \eqn{\mathcal{N}_2} the \bold{right- (upper-) side} distribution.
 #'
-#'      In this package, we use \eqn{h_1(x) = 1 - \Phi_1(x)} and \eqn{h_2(x) = \Phi_2(x)},
-#'      where \eqn{\Phi_1} and \eqn{\Phi_2} are the cumulative distribution functions
-#'      of \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, respectively.
-#'
 #'      About the \bold{vertical gradational Gaussian distribution}
 #'      \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]},
 #'      it is expressed as
 #'      \deqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2] =
-#'            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2.}
+#'            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2,}
 #'
-#'      Now, let \eqn{f_1} and \eqn{f_2} to be the probability density functions of
-#'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, respectively.
-#'      Then, the mixing ratio \eqn{v_1} decreases gradually along y-axis as
-#'      \deqn{f_1(x):0 \to \max_{x \in (-\infty, \infty)}(f_1(x))
-#'                   \ \Rightarrow \ v_1(x):1 \to 0,}
-#'
-#'      and \eqn{v_2} increases gradually as
-#'      \deqn{f_2(x):0 \to \max_{x \in (-\infty, \infty)}(f_2(x))
-#'                   \ \Rightarrow \ v_2(x):0 \to 1.}
+#'      where the mixing ratio functions \eqn{v_1} and \eqn{v_2} are defined
+#'      using \eqn{f_1} and \eqn{f_2}, the probability density functions of
+#'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
+#'      \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \\
+#'            v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}. \quad \ \ \ }
 #'
 #'      Here, we call \eqn{\mathcal{N}_1} the \bold{tail-side} distribution,
 #'      and \eqn{\mathcal{N}_2} the \bold{top-side} distribution.
@@ -177,17 +169,20 @@ f.t3.p <- list( function( x, m, s )
 #'      is expressed as
 #'      \deqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
 #'            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3,}
+#'      where the mixing ratio function \eqn{v_1} is defined as
+#'      \deqn{v_1(x) =
+#'            \begin{cases}
+#'            1 - \dfrac{f_1(x)}{f_1(\mu_1)} & (x \leq \mu_1), \\
+#'            0 & (x > \mu_1),
+#'            \end{cases}}
 #'
-#'      then the mixing ratio \eqn{v_1} decreases gradually as
-#'      \deqn{x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \
-#'            v_1(x) = 0 \ \ \mathrm{where} \ \ x > \mu_1,}
-#'
-#'      and \eqn{v_3} increases gradually as
-#'      \deqn{v_3(x) = 0 \ \ \mathrm{where} \ \ x < \mu_3, \
-#'            x:\mu_3 \to \infty \ \Rightarrow \ v_3(x):0 \to 1.}
-#'
-#'      Then, \eqn{v_2(x)} for top side is defined as same as
-#'      with 2 components.
+#'      \eqn{v_3} is defined as
+#'      \deqn{v_3(x) =
+#'            \begin{cases}
+#'            0 & (x < \mu_3), \\
+#'            1 - \dfrac{f_3(x)}{f_3(\mu_3)} & (x \geq \mu_3),
+#'            \end{cases}}
+#'      and \eqn{v_2(x)} for the top side is defined as same as with 2 components.
 #'
 #'      Here, \eqn{\mu_1} and \eqn{\mu_3} are the mean values of
 #'      \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_3}, respectively.
@@ -199,7 +194,7 @@ f.t3.p <- list( function( x, m, s )
 #'      \eqn{\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2]},
 #'      two vertical GGDs \eqn{\mathcal{G}_1} and \eqn{\mathcal{G}_2} can mixture
 #'      as same as normal distributions for the horizontal GGD as
-#'      \deqn{\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
+#'      \deqn{\ \ \ \ \mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
 #'            h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2,}
 #'      \deqn{\mathcal{G}_1 =
 #'                  \mathcal{G}[\mathcal{N}_{1,1} \uparrow \mathcal{N}_{1,2}] =
@@ -235,7 +230,7 @@ f.t3.p <- list( function( x, m, s )
 #'                      + \Phi_2(x) f_2(x) \\
 #'              \ \\
 #'              \Psi(x) = \Phi_1(x) - \dfrac{\Phi_1(x)^2}{2} +
-#'                          \dfrac{\Phi_2(x)^2}{2} \quad \; \; }}
+#'                          \dfrac{\Phi_2(x)^2}{2} \qquad \ \ }}
 #'
 #'          \item{\code{mix.type = 3}, \code{grad = "v2"} (2-component-vertical GGD)}{\deqn{
 #'              g(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) +
@@ -269,7 +264,7 @@ f.t3.p <- list( function( x, m, s )
 #'                       f_{i,1}(x) + \dfrac{f_{i,2}(x)^2}{f_{i,2}(\mu_{i,2})} \\
 #'              \ \\
 #'              \Psi(x) = \Psi_1(x) - \dfrac{\Psi_1(x)^2}{2} +
-#'                                    \dfrac{\Psi_2(x)^2}{2} \hspace{8.5em} \\
+#'                                    \dfrac{\Psi_2(x)^2}{2} \hspace{9em} \\
 #'              \ \\
 #'              \Psi_i(x) = \Phi_{i,1}(x) - \dfrac{\Phi^*_{i,1}(x)}{\sqrt{2}} +
 #'                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}} \hspace{3em} \ }}
