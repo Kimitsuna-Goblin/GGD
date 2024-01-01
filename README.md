@@ -133,6 +133,9 @@ x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 $$
 
+Note that $\mu_1$ and $\mu_2$ are not necessarily the top of the probability density function
+of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$.
+
 ### Vertical Gradational Distribution (3 components)
 
 You can divide the tail-side distribution along x-axis into left (lower) side
