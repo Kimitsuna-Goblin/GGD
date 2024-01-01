@@ -113,7 +113,7 @@ f_1(x):0 \to \max_{x \in (-\infty, \infty)}f_1(x)
     \ \Rightarrow \ v_1(x):1 \to 0,
 $$
 
-and inversly, $v_2$ is increasing gradually as
+and inversely, $v_2$ is increasing gradually as
 
 $$
 f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
