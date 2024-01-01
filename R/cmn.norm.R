@@ -1,8 +1,8 @@
 ################################################################################################
 # Functions about normal distribution
 # @file         cmn.norm.R
-# @author       Kimitsuna-Goblin (Ura, Kimitsuna)
-# @copyright    Copyright (C) 2024 Kimitsuna-Goblin (Ura, Kimitsuna)
+# @author       Kimitsuna Ura
+# @copyright    Copyright (C) 2024 Kimitsuna Ura
 # @license      Released under the MIT license. See https://opensource.org/licenses/MIT/
 ################################################################################################
 
