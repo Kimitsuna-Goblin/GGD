@@ -1,4 +1,4 @@
-# GGD -  Gradational Gaussian Distribution  <img src='man/figures/ggdsticker.png' align="right" height="139" />
+# GGD -  Gradational Gaussian Distribution <img src='man/figures/ggdsticker.png' align="right" height="139" />
 
 Here is an R package of a reference class provides a Gradational Gaussian Distribution (GGD).
 It can approximates asymmetric frequency distributions or traces quantiles accurately with GGD models.
