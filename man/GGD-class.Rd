@@ -33,9 +33,14 @@ The class provides the Gradational Gaussian Distribution.
      \deqn{h_1(x) = 1 - \Phi_1(x), \\
            h_2(x) = \Phi_2(x). \quad \ \ \ }
 
-     Because \eqn{\mathcal{N}_1} is dominant on the left (lower) side of x-axis,
-     and \eqn{\mathcal{N}_2} is on the right (upper) side,
-     we call \eqn{\mathcal{N}_1} the \bold{left- (lower-) side} distribution,
+     Therefore, \eqn{h_1(x)} decreases gradually along x-axis as
+     \eqn{x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0},
+     and \eqn{h_2(x)} increases gradually as
+     \eqn{x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1}.
+
+     Here, \eqn{\mathcal{N}_1} is dominant on the left (lower) side of x-axis,
+     and \eqn{\mathcal{N}_2} is on the right (upper) side.
+     So we call \eqn{\mathcal{N}_1} the \bold{left- (lower-) side} distribution,
      and \eqn{\mathcal{N}_2} the \bold{right- (upper-) side} distribution.
 
      About the \bold{vertical gradational Gaussian distribution}
@@ -48,39 +53,62 @@ The class provides the Gradational Gaussian Distribution.
      using \eqn{f_1} and \eqn{f_2}, the probability density functions of
      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
      \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \\
-           v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}. \quad \ \ \ }
+           v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}, \quad \ \ \ }
+     where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
+     \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, respectively.
+
+     Here, \eqn{v_1(x)} is decreasing gradually along y-axis,
+     i.e. value of \eqn{f_1(x)} as
+     \deqn{f_1(x):0 \to \max_{x \in (-\infty, \infty)}f_1(x) \ \Rightarrow \ v_1(x):1 \to 0,}
+
+     and inversely, \eqn{v_2} is increasing gradually as
+     \deqn{f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x) \ \Rightarrow \ v_2(x):0 \to 1.}
+
+     Or, using \eqn{\mu_1} and \eqn{\mu_2},
+     the mean values of \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, we can write as
+     \deqn{x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
+           x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1, \\
+           x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
+           x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.}
 
      Here, we call \eqn{\mathcal{N}_1} the \bold{tail-side} distribution,
      and \eqn{\mathcal{N}_2} the \bold{top-side} distribution.
+     Normally, the shape of the probability density function of
+     \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]} should be gradually
+     change from the shape of \eqn{f_1} to \eqn{f_2} along y-axis,
+     and the top of it should be same as or nearby the top of \eqn{f_2}.
 
-     In this package, we use \eqn{v_1(x) = 1 - f_1(x) / f_1(\mu_1)}
-     and \eqn{v_2(x) = f_2(x) / f_2(\mu_1)},
-     where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
-     \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_2}, respectively.
+     However, note that \eqn{\mu_1} and \eqn{\mu_2} are not necessarily equal to each other.
+     Therefore, depending on how \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} are taken,
+     The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
+     and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
+     could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
+     That may be contrary to the intuitive image of the "vertical gradational distribution",
+     but it is not prohibited.
 
-     You can divide the tail-side distribution along x-axis into left (lower) side
+     About the \bold{3-component vertical gradational Gaussian distribution},
+     you can divide the tail-side distribution along x-axis into left (lower) side
      and right (upper) side.
 
-     In this case, the distribution
-     \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]}
-     is expressed as
+     In this case, we write a sign of the distribution as
+     \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3]}.
+     Generally it is defined as
      \deqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2 \downarrow \mathcal{N}_3] =
            v_1(x) \ \mathcal{N}_1 + v_2(x) \ \mathcal{N}_2 + v_3(x) \ \mathcal{N}_3,}
-     where the mixing ratio function \eqn{v_1} is defined as
+
+     where the mixing ratio functions \eqn{v_1} and \eqn{v_3} are defined as
      \deqn{v_1(x) =
            \begin{cases}
            1 - \dfrac{f_1(x)}{f_1(\mu_1)} & (x \leq \mu_1), \\
            0 & (x > \mu_1),
-           \end{cases}}
-
-     \eqn{v_3} is defined as
-     \deqn{v_3(x) =
+           \end{cases} \\
+           v_3(x) =
            \begin{cases}
            0 & (x < \mu_3), \\
            1 - \dfrac{f_3(x)}{f_3(\mu_3)} & (x \geq \mu_3),
            \end{cases}}
-     and \eqn{v_2(x)} for the top side is defined as same as with 2 components.
 
+     and \eqn{v_2(x)} for the top side is defined as same as with 2 components.
      Here, \eqn{\mu_1} and \eqn{\mu_3} are the mean values of
      \eqn{\mathcal{N}_1} and  \eqn{\mathcal{N}_3}, respectively.
      We call \eqn{\mathcal{N}_1} the \bold{left- (lower-) tail-side} distribution,
@@ -89,8 +117,9 @@ The class provides the Gradational Gaussian Distribution.
 
      About the \bold{horizontal-vertical gradational Gaussian distribution}
      \eqn{\mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2]},
-     two vertical GGDs \eqn{\mathcal{G}_1} and \eqn{\mathcal{G}_2} can mixture
-     as same as normal distributions for the horizontal GGD as
+     2 vertical GGDs \eqn{\mathcal{G}_1} and \eqn{\mathcal{G}_2} can mixture
+     as same as 2 normal distributions \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}
+     for the horizontal GGD. It is expressed as
      \deqn{\ \ \ \ \mathcal{G}[\mathcal{G}_1 \rightarrow \mathcal{G}_2] =
            h_1(x) \ \mathcal{G}_1 + h_2(x) \ \mathcal{G}_2,}
      \deqn{\mathcal{G}_1 =
@@ -176,11 +205,13 @@ The class provides the Gradational Gaussian Distribution.
      of the normal distributions \eqn{\mathcal{N}(\mu_i, (\sigma_i / \sqrt{2})^2)} and
      \eqn{\mathcal{N}(\mu_{i,j}, (\sigma_{i,j} / \sqrt{2})^2)}, respectively.
 
-     Note, for each of above GGD models,
-     we can say that \eqn{\Psi(x)} is a \eqn{0 \to 1} monotonical increasing function.
-     This is because \eqn{g(x)}, the derivative of \eqn{\Psi(x)}, has \eqn{g(x) \geq 0} for
-     \eqn{\forall x \in (-\infty, \infty)}, moreover \eqn{\Psi(-\infty) = 0},
-     and \eqn{\Psi(\infty) = 1}.
+     For each of all above GGD models,
+     we can say that \eqn{\Psi(x)} is a \eqn{0 \to 1} monotonical increasing function,
+     regardless of how the normal distributions \eqn{\mathcal{N}_i} or
+     \eqn{\mathcal{N}_{i,j}} are taken.
+     This is because, \eqn{g(x)} is the derivative of \eqn{\Psi(x)} and it has
+     \eqn{g(x) \geq 0} for \eqn{\forall x \in (-\infty, \infty)},
+     moreover \eqn{\Psi(-\infty) = 0}, and \eqn{\Psi(\infty) = 1}.
  }
 }
 \section{Fields}{

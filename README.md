@@ -68,8 +68,8 @@ and $h_2(x)$ increases gradually as
 $x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
 
 Here, $\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
-and $\mathcal{N}_2$ is on the right (upper) side,
-so we call $\mathcal{N}_1$ the **left- (lower-) side distribution**,
+and $\mathcal{N}_2$ is on the right (upper) side.
+So we call $\mathcal{N}_1$ the **left- (lower-) side distribution**,
 and $\mathcal{N}_2$ the **right- (upper-) side distribution**.
 
 ### Vertical Gradational Distribution (2 components)
@@ -105,7 +105,7 @@ v_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)}.
 \end{align}
 $$
 
-Here,  $v_1(x)$ is decreasing gradually along y-axis,
+Here, $v_1(x)$ is decreasing gradually along y-axis,
 i.e. value of $f_1(x)$ as
 
 $$
@@ -120,24 +120,31 @@ f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
     \ \Rightarrow \ v_2(x):0 \to 1.
 $$
 
-Or, using $\mu_1$ and $\mu_2$, the mean values of $\mathcal{N}_1$ and  $\mathcal{N}_2$,
+Or, using $\mu_1$ and $\mu_2$, the mean values of $\mathcal{N}_1$ and $\mathcal{N}_2$,
 we can write as
 
 $$
+\begin{align}
 x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
-x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1,
-$$
-
-$$
+x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1, \\
 x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
+\end{align}
 $$
 
-Note that $\mu_1$ and $\mu_2$ are not necessarily equal to each other.
+Normally, the shape of the probability density function of
+$mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ should be gradually
+change from the shape of $f_1$ to $f_2$ along y-axis,
+and the top of it should be same as or nearby the top of $f_2$.
+
+However, note that $\mu_1$ and $\mu_2$ are not necessarily equal to each other.
 Therefore, depending on how $\mathcal{N}_1$ and $\mathcal{N}_2$ are taken,
 The tops of $f_1$ and $f_2$ could be far apart from each other,
-and moreover,
-the top of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ could be near the top of $f_1$, instead of $f_2$.
+and moreover, the top of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ could be
+nearby the top of $f_1$, instead of $f_2$.
+That may be contrary to the intuitive image of the "vertical gradational distribution",
+but it is not prohibited.
+
 This is why I wrote "at least as an image" earlier for about
 the shape changing of the probability density function of $\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$.
 
