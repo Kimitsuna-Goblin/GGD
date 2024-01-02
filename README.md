@@ -68,7 +68,7 @@ and $h_2(x)$ increases gradually as
 $x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
 Normalizer $1 - \Phi_1(x) + \Phi_2(x)$ to make $h_1 + h_2 = 1$ is not used
 in order to simplify the expression and make integral easier.
-Note that unlike GMM, normalization is not required for GGD
+Unlike GMM, normalization is not required for GGD
 to satisfy the conditions as a probability distribution.
 
 Here, $\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
