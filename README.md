@@ -140,7 +140,7 @@ Normalizer $1 - f_1(x)/f_1(\mu_1) + f_2(x)/f_2(\mu_2)$ to make $v_1 + v_2 = 1$
 is not used as in the horizontal case.
 
 Normally, the shape of the probability density function of
-$mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ should be gradually
+$\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ should be gradually
 change from the shape of $f_1$ to $f_2$ along y-axis,
 and the top of it should be same as or nearby the top of $f_2$.
 
