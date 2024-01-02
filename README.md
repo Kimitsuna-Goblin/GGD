@@ -105,9 +105,11 @@ $\mathcal{N}_1$ and $\mathcal{N}_2$ as
 $$
 \begin{align}
 v_1(x) &= 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \\
-v_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)}.
+v_2(x) &= \dfrac{f_2(x)}{f_2(\mu_2)},
 \end{align}
 $$
+
+where $\mu_1$ and $\mu_2$ are the mean values of $\mathcal{N}_1$ and $\mathcal{N}_2$, respectively.
 
 Here, $v_1(x)$ is decreasing gradually along y-axis,
 i.e. value of $f_1(x)$ as
@@ -124,8 +126,7 @@ f_2(x):0 \to \max_{x \in (-\infty, \infty)}f_2(x)
     \ \Rightarrow \ v_2(x):0 \to 1.
 $$
 
-Or, using $\mu_1$ and $\mu_2$, the mean values of $\mathcal{N}_1$ and $\mathcal{N}_2$,
-we can write as
+Or, we can write as
 
 $$
 \begin{align}
