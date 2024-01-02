@@ -66,6 +66,10 @@ Therefore, $h_1(x)$ decreases gradually along x-axis as
 $x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0$,
 and $h_2(x)$ increases gradually as
 $x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
+Normalizer $1 - \Phi_1(x) + \Phi_2(x)$ to make $h_1 + h_2 = 1$ is not used
+in order to simplify the expression and make integral easier.
+Note that unlike GMM, normalization is not required for GGD
+to satisfy the conditions as a probability distribution.
 
 Here, $\mathcal{N}_1$ is dominant on the left (lower) side of x-axis,
 and $\mathcal{N}_2$ is on the right (upper) side.
@@ -131,6 +135,9 @@ x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 \end{align}
 $$
+
+Normalizer $1 - f_1(x)/f_1(\mu_1) + f_2(x)/f_2(\mu_2)$ to make $v_1 + v_2 = 1$
+is not used as in the horizontal case.
 
 Normally, the shape of the probability density function of
 $mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]$ should be gradually
