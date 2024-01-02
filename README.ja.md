@@ -26,9 +26,9 @@ GGD はデータが正規分布に従わないとき、その原因が、離散�
 2つの正規分布の混合比がX軸に沿って徐々に変化する分布モデルです。
 左右に歪んだ分布を表すのに適しています。 
 
-X座標が $-\infty \to \infty$ と漸増するにつれて、確率密度関数の形状が
-正規分布 $\mathcal{N}_1$ のものから正規分布 $\mathcal{N}_2$ のものに徐々に変化するような
-水平 (横方向) グラデーション分布を $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ と書くことにします。
+水平 (横方向) グラデーション分布を $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ のように書くことにします。
+この記号はX座標が $-\infty$ から $\infty$ に向かうにつれて、確率密度関数の形状が
+正規分布 $\mathcal{N}_1$ のものから正規分布 $\mathcal{N}_2$ のものに徐々に変化することを意味します。
 
 一般に、 $\mathcal{G}[\mathcal{N}_1 \rightarrow \mathcal{N}_2]$ は
 
