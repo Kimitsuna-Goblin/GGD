@@ -250,7 +250,7 @@ f.t3.p <- list( function( x, m, s )
 #'              \Psi(x) = \Phi_1(x) }}
 #'
 #'          \item{\code{mix.type = 1} (mean of 2 normal distributions;
-#'                              a Gaussian mixture model, not a GGD)}{\deqn{
+#'                              a Gaussian mixture model (GMM), not a GGD)}{\deqn{
 #'              g(x) = \dfrac{f_1(x) + f_2(x)}{2} \ \\
 #'              \Psi(x) = \dfrac{\Phi_1(x) + \Phi_2(x)}{2} }}
 #'
@@ -261,14 +261,14 @@ f.t3.p <- list( function( x, m, s )
 #'              \Psi(x) = \Phi_1(x) - \dfrac{\Phi_1(x)^2}{2} +
 #'                          \dfrac{\Phi_2(x)^2}{2} \qquad \ \ }}
 #'
-#'          \item{\code{mix.type = 3}, \code{grad = "v2"} (2-component-vertical GGD)}{\deqn{
+#'          \item{\code{mix.type = 3}, \code{grad = "v2"} (2-component vertical GGD)}{\deqn{
 #'              g(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) +
 #'                     \dfrac{f_2(x)^2}{f_2(\mu_2)} \\
 #'              \ \\
 #'              \Psi(x) = \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}} +
 #'                        \dfrac{\Phi^*_2(x)}{\sqrt{2}} \qquad \; \: }}
 #'
-#'          \item{\code{mix.type = 3}, \code{grad = "v3"} (3-component-vertical GGD)}{\deqn{
+#'          \item{\code{mix.type = 3}, \code{grad = "v3"} (3-component vertical GGD)}{\deqn{
 #'              g(x) = g_1(x) + g_2(x) + g_3(x) \hspace{14.5em} \\
 #'              \ \\
 #'              g_1(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x)
