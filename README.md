@@ -66,7 +66,7 @@ Therefore, $h_1(x)$ decreases gradually along x-axis as
 $x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0$,
 and $h_2(x)$ increases gradually as
 $x:-\infty \to \infty \ \Rightarrow \ h_2(x):0 \to 1$.
-Normalizer $1 - \Phi_1(x) + \Phi_2(x)$ to make $h_1 + h_2 = 1$ is not used
+Normalizer $1 - \Phi_1(x) + \Phi_2(x)$ to make $\forall x, \ h_1 + h_2 = 1$ is not used
 in order to simplify the expression and make integral easier.
 Unlike GMM, normalization is not required for GGD
 to satisfy the conditions as a probability distribution.
