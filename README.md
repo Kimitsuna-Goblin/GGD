@@ -137,7 +137,7 @@ x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.
 \end{align}
 $$
 
-Normalizer $1 - f_1(x)/f_1(\mu_1) + f_2(x)/f_2(\mu_2)$ to make $v_1 + v_2 = 1$
+Normalizer $1 - f_1(x)/f_1(\mu_1) + f_2(x)/f_2(\mu_2)$ to make $\forall x, v_1 + v_2 = 1$
 is not used as in the horizontal case.
 
 Normally, the shape of the probability density function of
