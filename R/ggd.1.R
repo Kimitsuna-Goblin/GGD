@@ -25,10 +25,15 @@ kinds <- c( "Normal Distribution",                                              
             "3-Mean-Differed Sigma-Differed Vertical Gradational Distribution",             #13
             "Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution",     #14
             "Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution",     #15
-            "Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution" )   #16
+            "Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution",    #16
+            "Customized Distribution" )                                                     #17
 
 ## Matching order of ggd:::kinds for regular expressions
-kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L )
+kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L,
+                        10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L, 17L )
+
+## Default custom.d
+default.custom.d <- function(x, cmp) 0
 
 ## Square root of 2 pi
 sqrt.2pi <- sqrt( 2 * pi )
@@ -73,6 +78,10 @@ f.t3.p <- list( function( x, m, s )
 #'                                        \code{cmp} has 2 or 3 rows.
 #'                              \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                               \code{cmp} has 4 rows.
+#'                              \item \code{5} : Customized distribution.
+#'                                               The row number of \code{cmp} is free.
+#'                                               The customized probability density function
+#'                                               muse be given by user.
 #'                          }
 #'
 #'                          With \code{mix.type = 1}, the distribution model is not
@@ -91,11 +100,29 @@ f.t3.p <- list( function( x, m, s )
 #'                          Where \code{mix.type = 4},
 #'                          it has 4 rows named like "\code{n.i.j}".
 #'
+#' @field   custom.d        The probability density function for \code{mix.type = 5}.
+#'                          It must be a function which receives 2 arguments and
+#'                          returns a positive numeric value or \code{0}.
+#'
+#'              The 2 arguments for the function are
+#'              \itemize{
+#'                  \item   A numeric value (length = \code{1}) for the x-coordinate.
+#'                  \item   A data frame of the mean values and standard deviations
+#'                          of the components. That is, the \code{cmp} field.
+#'              }
+#'
+#'              If \code{mix.type} is other than \code{5},
+#'              \code{function(x, cmp) 0} is set as default.
+#'
 #' @field   median          A numeric; the median of the distribution.
 #' @field   mean            A numeric; the mean of the distribution.
 #' @field   sd              A numeric; the standard deviation of the distribution.
 #' @field   lsd             A numeric; the semi-standard deviation lower than mean.
 #' @field   usd             A numeric; the semi-standard deviation upper than mean.
+#' @field   mean.abs.error  A numeric;
+#'                          the estimated modulus of the absolute error for \code{mean}.
+#' @field   sd.abs.error    A numeric;
+#'                          the estimated modulus of the absolute error for \code{sd}.
 #' @field   lsd.abs.error   A numeric;
 #'                          the estimated modulus of the absolute error for \code{lsd}.
 #' @field   usd.abs.error   A numeric;
@@ -106,6 +133,12 @@ f.t3.p <- list( function( x, m, s )
 #'                          And the modulus of the absolute errors which
 #'                          \code{\link[stats]{integrate}} function has reported
 #'                          will be set into these \code{*.abs.error} fields.
+#'
+#'                          Where \code{mix.type = 5}, \code{mean} and \code{sd} fields
+#'                          will be also computed with \code{\link[stats]{integrate}} function.
+#'                          And the modulus of the absolute errors which
+#'                          \code{\link[stats]{integrate}} function has reported
+#'                          will be set into \code{*.abs.error} fields.
 #'
 #' @seealso \code{\link[ggd]{set.cmp}},
 #'          \code{\link[ggd]{nls.freq}}, \code{\link[ggd]{ggd.nls.freq.all}},
@@ -328,14 +361,17 @@ GGD <- setRefClass(
         kind        = "character",  # The name of the kind of the distribution model.
         mix.type    = "integer",    # The value which represent how to mix normal distributions.
         cmp         = "data.frame", # The mean and sd of the component normal distributions.
+        custom.d    = "function",   # The probability density function for mix.type = 5.
 
         median      = "numeric",    # The median value of the distribution.
         mean        = "numeric",    # The mean of the distribution.
         sd          = "numeric",    # The standard deviation of the distribution.
         lsd         = "numeric",    # The semi-standard deviation lower than mean.
         usd         = "numeric",    # The semi-standard deviation upper than mean.
-        lsd.abs.error = "numeric",  # The estimated modulus of the absolute error for lsd.
-        usd.abs.error = "numeric"   # The estimated modulus of the absolute error for usd.
+        mean.abs.error  = "numeric",  # The estimated modulus of the absolute error for mean.
+        sd.abs.error    = "numeric",  # The estimated modulus of the absolute error for sd.
+        lsd.abs.error   = "numeric",  # The estimated modulus of the absolute error for lsd.
+        usd.abs.error   = "numeric"   # The estimated modulus of the absolute error for usd.
     )
 )
 
@@ -374,11 +410,14 @@ GGD$methods(
                     kind            = kinds[1],
                     mix.type        = 2L,
                     cmp             = data.frame( mean = c( 0, 0 ), sd = c( 1, 1 ) ),
+                    custom.d        = default.custom.d,
                     median          = 0,
                     mean            = 0,
                     sd              = 1,
                     usd             = 1,
                     lsd             = 1,
+                    mean.abs.error  = 0,
+                    sd.abs.error    = 0,
                     lsd.abs.error   = 0,
                     usd.abs.error   = 0 )
         adjust.cmp.rownames()
@@ -407,10 +446,11 @@ GGD$methods(
     {
         mix.type    <<- integer()
         cmp         <<- data.frame( mean = numeric(), sd = numeric() )
+        custom.d    <<- default.custom.d
         adjust.kind.index()
 
         median <<- mean <<- sd <<- lsd <<- usd <<- numeric()
-        lsd.abs.error <<- usd.abs.error <<- numeric()
+        mean.abs.error <<- sd.abs.error <<- lsd.abs.error <<- usd.abs.error <<- numeric()
 
         return ( invisible( .self ) )
     }
@@ -463,6 +503,10 @@ GGD$methods(
         else if ( mix.type == 4 )
         {
             rownames( cmp ) <<- c( "n.1.1", "n.1.2", "n.2.1", "n.2.2" )
+        }
+        else if ( mix.type == 5 )
+        {
+            rownames( cmp ) <<- vapply( 1:nrow( cmp ), function( n ) sprintf( "n.%d", n ), "" )
         }
         else
         {
@@ -607,6 +651,10 @@ GGD$methods(
                         index <- 16L
                     }
                 }
+                else if ( real.mix.type == 5 )
+                {
+                    index <- 17L
+                }
                 else
                 {
                     stop( "Error: mix.type is invalid." )
@@ -651,7 +699,7 @@ GGD$methods(
 #'                      the first element along with the index order of
 #'                      \code{ggd:::kinds.match.order} which is
 #'                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
-#'                               16L, 14L, 15L)}.
+#'                               16L, 14L, 15L, 17L)}.
 #'
 #'                      The order of \code{ggd:::kinds.match.order} is designed,
 #'                      while \code{ggd:::kinds} is ordered by intuitive degrees of freedom,
@@ -778,7 +826,7 @@ ggd.kind.index <- function( objs, undef.err = FALSE )
 #'                  \code{ggd:::kinds} of the first element along with the index order of
 #'                  \code{ggd:::kinds.match.order} which is
 #'                  \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
-#'                           16L, 14L, 15L)}.
+#'                           16L, 14L, 15L, 17L)}.
 #'
 #'                  The order is designed, while \code{ggd:::kinds} is ordered by
 #'                  intuitive degrees of freedom, for practical purposes so that
@@ -1349,7 +1397,7 @@ GGD$methods(
         }
         else
         {
-            return ( isTRUE( mix.type == 4 ) && !is.h() && !is.v2() )
+            return ( isTRUE( mix.type == 4 ) )
         }
     }
 )
@@ -1454,6 +1502,10 @@ GGD$methods(
             {
                 result <- NaN
             }
+            else if ( mix.type == 5 )
+            {
+                result <- custom.d( x, cmp )
+            }
             else if ( is.normal() )
             {
                 result <- dnorm( x, cmp$mean[1], cmp$sd[1] )
@@ -1535,6 +1587,10 @@ GGD$methods(
             else if ( is.normal() )
             {
                 result <- pnorm( x, cmp$mean[1], cmp$sd[1] )
+            }
+            else if ( mix.type == 5 )
+            {
+                result <- integrate( function( x ) custom.d( x, cmp ), -Inf, x )$value
             }
             else if ( mix.type == 4 )
             {
@@ -1667,12 +1723,58 @@ GGD$methods(
             {
                 return ( Inf )
             }
-            else if ( prob == 0.5 )
+            else if ( prob == 0.5 && length( median ) == 1 && complete.cases( median ) )
             {
                 result <- median
             }
 
-            if ( is.normal() )
+            if ( mix.type == 5 )
+            {
+                p.0 <- p( 0 )
+                if ( p.0 > prob - tol && p.0 < prob + tol )
+                {
+                    result <- 0
+                }
+                else if ( prob < p.0 )
+                {
+                    q.range <- c( -1, 0 )
+                    p.lesser <- p( q.range[1] )
+                    while ( prob < p.lesser )
+                    {
+                        q.range <- c( q.range[1] * 2, q.range[1] )
+                        p.lesser <- p( q.range[1] )
+                    }
+
+                    if ( p.lesser > prob - tol && p.lesser < prob + tol )
+                    {
+                        result <- q.range[1]
+                    }
+                    else
+                    {
+                        result <- bisection( function( x ) { p( x ) - prob }, q.range, tol )
+                    }
+                }
+                else
+                {
+                    q.range <- c( 0, 1 )
+                    p.greater <- p( q.range[2] )
+                    while ( p.greater < prob )
+                    {
+                        q.range <- c( q.range[2], q.range[2] * 2 )
+                        p.greater <- p( q.range[2] )
+                    }
+
+                    if ( p.greater > prob - tol && p.greater < prob + tol )
+                    {
+                        result <- q.range[2]
+                    }
+                    else
+                    {
+                        result <- bisection( function( x ) { p( x ) - prob }, q.range, tol )
+                    }
+                }
+            }
+            else if ( is.normal() )
             {
                 result <- qnorm( prob, means[1], sds[1] )
             }

@@ -518,7 +518,7 @@ GGD$methods(
                                               kind = this.kind, mix.type = this.mix.type ),
                             error = function( e ) clear() )
         if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
-             !any( new.mix.type == 0:4 ) )
+             !any( new.mix.type == 0:5 ) )
         {
             clear()
             if ( !is.null( this.kind ) )
@@ -528,7 +528,7 @@ GGD$methods(
             }
             else
             {
-                stop( "Error: mix.type should be single integer from 0 to 4." )
+                stop( "Error: mix.type should be single integer from 0 to 5." )
             }
         }
 
@@ -744,8 +744,9 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 ################################################################################################
 #' Approximating a frequency distribution with all of supported models
 #'
-#' Approximates the given frequency distribution with all of distribution models
-#' available in this package (the number of models is 16), and compare their accuracies.
+#' Approximates the given frequency distribution with all of distribution models available in
+#' this package except for the customized distribution (the number of models is 16),
+#' and compare their accuracies.
 #' The accuracy is checked by the correlation coefficients with the frequency distribution
 #' computed by \code{\link[stats]{cor}}.
 #'
@@ -1018,7 +1019,7 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
 
     # Execule nls.
     # If an error occuer, the error message is displayed but other processes continue.
-    results <- lapply( 1:length( kinds ),
+    results <- lapply( 1:16,
     function( i )
     {
         # Remark if an error occur at nls.freq, obj will be a cleared object (not NULL).
@@ -1846,7 +1847,7 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
                                       unname( coefs["sqrt.sd.3"] )^2 ), grad )
         }
     }
-    else # if ( mix.type == 4 )
+    else if ( mix.type == 4 )
     {
         # Horizontal-Vertical Gradation of 4 Normal Distributions
         if ( eq.sd )
@@ -1996,7 +1997,7 @@ ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), cor.method = NU
 ################################################################################################
 ggd.init.start <- function()
 {
-    return ( lapply( 1:length( kinds ), function( x ) NULL ) )
+    return ( lapply( 1:16, function( x ) NULL ) )
 }
 
 ################################################################################################
@@ -2131,6 +2132,10 @@ ggd.start.template <- function( target )
     {
         temp <- list( mean.1.1 = 0, mean.1.2 = 0, sqrt.sd.1.1 = 1, sqrt.sd.1.2 = 1,
                       mean.2.1 = 0, mean.2.2 = 0, sqrt.sd.2.1 = 1, sqrt.sd.2.2 = 1 )
+    }
+    else if ( kind.index == 17 )
+    {
+        temp <- NULL
     }
 
     return ( temp )

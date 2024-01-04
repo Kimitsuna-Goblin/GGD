@@ -118,8 +118,9 @@ A list containing components (invisible for \code{GGD} method)
                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{
-Approximates the given frequency distribution with all of distribution models
-available in this package (the number of models is 16), and compare their accuracies.
+Approximates the given frequency distribution with all of distribution models available in
+this package except for the customized distribution (the number of models is 16),
+and compare their accuracies.
 The accuracy is checked by the correlation coefficients with the frequency distribution
 computed by \code{\link[stats]{cor}}.
 }

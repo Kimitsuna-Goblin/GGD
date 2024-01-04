@@ -317,20 +317,20 @@ expect_error( a$nls.freq( df, grad = "normal", start.level = a ),
               "start.level should be single integer in 0:3 or 100" )
 expect_cleared( a ); a <- GGD$new()
 
-expect_error( ggd.nls.freq( df, mix.type = -1 ),    "mix.type should be single integer from 0 to 4" )
-expect_error( a$nls.freq( df, this.mix.type = -1 ), "mix.type should be single integer from 0 to 4" )
+expect_error( ggd.nls.freq( df, mix.type = -1 ),    "mix.type should be single integer from 0 to 5" )
+expect_error( a$nls.freq( df, this.mix.type = -1 ), "mix.type should be single integer from 0 to 5" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = 5 ),     "mix.type should be single integer from 0 to 4" )
-expect_error( a$nls.freq( df, this.mix.type = 5 ),  "mix.type should be single integer from 0 to 4" )
+expect_error( ggd.nls.freq( df, mix.type = 6 ),     "mix.type should be single integer from 0 to 5" )
+expect_error( a$nls.freq( df, this.mix.type = 6 ),  "mix.type should be single integer from 0 to 5" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = NA ),    "mix.type should be single integer from 0 to 4" )
-expect_error( a$nls.freq( df, this.mix.type = NA ), "mix.type should be single integer from 0 to 4" )
+expect_error( ggd.nls.freq( df, mix.type = NA ),    "mix.type should be single integer from 0 to 5" )
+expect_error( a$nls.freq( df, this.mix.type = NA ), "mix.type should be single integer from 0 to 5" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = numeric() ),     "mix.type should be single integer from 0 to 4" )
-expect_error( a$nls.freq( df, this.mix.type = numeric() ),  "mix.type should be single integer from 0 to 4" )
+expect_error( ggd.nls.freq( df, mix.type = numeric() ),     "mix.type should be single integer from 0 to 5" )
+expect_error( a$nls.freq( df, this.mix.type = numeric() ),  "mix.type should be single integer from 0 to 5" )
 expect_cleared( a ); a <- GGD$new()
-expect_error( ggd.nls.freq( df, mix.type = 1:2 ),           "mix.type should be single integer from 0 to 4" )
-expect_error( a$nls.freq( df, this.mix.type = 1:2 ),  "mix.type should be single integer from 0 to 4" )
+expect_error( ggd.nls.freq( df, mix.type = 1:2 ),           "mix.type should be single integer from 0 to 5" )
+expect_error( a$nls.freq( df, this.mix.type = 1:2 ),  "mix.type should be single integer from 0 to 5" )
 expect_cleared( a ); a <- GGD$new()
 expect_error( a$nls.freq( df, start = list( mean = -10, sqrt.sd = 10 ), grad = "normal" ), "nls has failed" )
 expect_cleared( a ); a <- GGD$new()
@@ -589,7 +589,7 @@ expect_cleared( a ); a <- GGD$new()
 
 # Error case
 expect_error( a$nls.freq( df, this.mix.type = NA ),
-              "mix.type should be single integer from 0 to 4" )
+              "mix.type should be single integer from 0 to 5" )
 expect_cleared( a )
 expect_equal( a$is.eq.sd(), FALSE )
 
@@ -609,10 +609,10 @@ expect_cleared( a )
 ## ggd.nls.freq.all
 
 # normal test
-expect_equal( ggd.kind( 1:16 ), ggd:::kinds )
+expect_identical( ggd.kind( 1:16 ), ggd:::kinds[1:16] )
 expect_identical( ggd.kind.index( 1:16 ), 1:16 )
 expect_identical( ggd.kind.index( c( -1, 0, 1, 2, NA, -Inf, Inf,
-                                     NaN, 3, 4, 5, 15, 16, 17 ) ),
+                                     NaN, 3, 4, 5, 15, 16, 18 ) ),
                   c( NA_integer_, NA_integer_, 1L, 2L, NA_integer_, NA_integer_, NA_integer_,
                      NA_integer_, 3L, 4L, 5L, 15L, 16L, NA_integer_ ) )
 expect_identical( ggd.kind.index( c( NA, "Normal Distribution", "Null Distribution" ) ),
@@ -686,10 +686,10 @@ expect_equal( vapply( 1:length( ggds$obj ),
                         function( i )
                         {
                             expect_s4_class( ggds$obj[[i]], "GGD" )
-                            expect_equal( ggds$obj[[i]]$kind, ggd:::kinds[i] )
+                            expect_identical( ggds$obj[[i]]$kind, ggd:::kinds[i] )
                             expect_identical( ggds$obj[[i]], ggds$detail[[i]]$obj )
                             i
-                        }, 0 ), 1:length( ggd:::kinds ) )
+                        }, 0 ), 1:16 )
 
 expect_warning( expect_warning(
 expect_warning( expect_warning(
@@ -1393,7 +1393,7 @@ expect_true( all( vapply( 2:16,
 ## kind and overwriting
 # normal test (Indicated kind will be output as it is.)
 expect_true( all(
-    vapply( ggd:::kinds,
+    vapply( ggd:::kinds[1:16],
         function( kind )
         {
             if ( any( ggd.kind.index( kind ) == c( 3, 11 ) ) )

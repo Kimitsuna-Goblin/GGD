@@ -17,7 +17,7 @@ ggd.kind.index(objs, undef.err = FALSE)
                      the first element along with the index order of
                      \code{ggd:::kinds.match.order} which is
                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
-                              16L, 14L, 15L)}.
+                              16L, 14L, 15L, 17L)}.
 
                      The order of \code{ggd:::kinds.match.order} is designed,
                      while \code{ggd:::kinds} is ordered by intuitive degrees of freedom,

@@ -156,6 +156,12 @@ expect_equal( a$kind, "Mean of Mean-Equaled Sigma-Differed 2 Normal Distribution
 expect_equal( a$cmp$mean, c( 1, 1 ) )
 expect_equal( a$cmp$sd, c( 2, 3 ) )
 
+a$set.cmp( data.frame( mean = c( 2, 2 ), sd = c( 3, 4 ) ) )
+expect_identical( a$mix.type, 1L )
+expect_equal( a$kind, "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
+expect_equal( a$cmp$mean, c( 2, 2 ) )
+expect_equal( a$cmp$sd, c( 3, 4 ) )
+
 
 ## [this.]mix.type
 expect_identical( a$set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 2, 2 ) ), this.mix.type = 0 )$mix.type, 0L )
@@ -386,7 +392,15 @@ expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            kind = 17 ),
-              "kind for index 17 is undefined" )
+              "Your own function must be given to custom.d for a customized distribution" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.kind = 17 ),
+              "Your own function must be given to custom.d for a customized distribution" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           kind = 18 ),
+              "kind for index 18 is undefined" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.kind = 1:2 ),
@@ -414,19 +428,27 @@ expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.mix.type = -1 ),
-              "mix.type should be single integer from 0 to 4" )
+              "mix.type should be single integer from 0 to 5" )
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            mix.type = 5 ),
-              "mix.type should be single integer from 0 to 4" )
+              "Your own function must be given to custom.d for a customized distribution" )
+
+expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.mix.type = 5 ),
+              "Your own function must be given to custom.d for a customized distribution" )
+
+expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           mix.type = 6 ),
+              "mix.type should be single integer from 0 to 5" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.mix.type = 2:3 ),
-              "mix.type should be single integer from 0 to 4" )
+              "mix.type should be single integer from 0 to 5" )
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            mix.type = c( -3, NA ) ),
-              "mix.type should be single integer from 0 to 4" )
+              "mix.type should be single integer from 0 to 5" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          grad = "aaaaa" ), "should be one of" )
@@ -500,9 +522,9 @@ expect_identical( a$mix.type, 1L )
 
 ## Basic Errors
 a <- GGD$new()
-expect_error( a$adjust.cmp( -1 ),   "mix.type should be single integer from 0 to 4" )
-expect_error( a$adjust.cmp( 5 ),    "mix.type should be single integer from 0 to 4" )
-expect_error( a$adjust.cmp( 1:2 ),  "mix.type should be single integer from 0 to 4" )
+expect_error( a$adjust.cmp( -1 ),   "mix.type should be single integer from 0 to 5" )
+expect_error( a$adjust.cmp( 6 ),    "mix.type should be single integer from 0 to 5" )
+expect_error( a$adjust.cmp( 1:2 ),  "mix.type should be single integer from 0 to 5" )
 expect_error( a$adjust.cmp( NA ),   "NA for mix.type can be specified only if cmp has no rows" )
 
 a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1, 2 ) ) )
@@ -1046,7 +1068,7 @@ expect_true( a$is.hv() )
 ################################################################################################
 
 expect_error( ggd.mix.type.for.kind.index( 0 ), "kind.index 0 is undefined" )
-expect_error( ggd.mix.type.for.kind.index( 17 ), "kind.index 17 is undefined" )
+expect_error( ggd.mix.type.for.kind.index( 18 ), "kind.index 18 is undefined" )
 expect_identical( ggd.mix.type.for.kind.index( 1 ), 0L )
 expect_identical( ggd.mix.type.for.kind.index( c( 2:7 ) ), c( 1L, 1L, 1L, 2L, 2L, 2L ) )
 expect_identical( ggd.mix.type.for.kind.index( 8:16 ), c( rep( 3L, 6 ), rep( 4L, 3 ) ) )
@@ -1096,6 +1118,11 @@ expect_error( a$adjust.cmp.rownames() )
 
 a$mix.type <- 5L
 a$cmp <- data.frame( mean = rep( 0, 5 ), cmp = rep( 1.5, 5 ) )
+a$adjust.cmp.rownames()
+expect_equal( rownames( a$cmp ), c( "n.1", "n.2", "n.3", "n.4", "n.5" ) )
+
+a$mix.type <- 6L
+a$cmp <- data.frame( mean = rep( 0, 6 ), cmp = rep( 1.5, 6 ) )
 expect_error( a$adjust.cmp.rownames(), "mix.type is invalid" )
 
 a$clear()

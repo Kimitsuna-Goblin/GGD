@@ -22,10 +22,12 @@
 #' @aliases set.cmp
 #' @aliases \S4method{set.cmp}{GGD}
 #' @usage   ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
-#'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
+#'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+#'          custom.d = NULL)
 #' @usage   \S4method{set.cmp}{GGD}(this.cmp = .self$cmp,
 #'          this.kind = NULL, this.mix.type = NULL,
-#'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
+#'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+#'          this.custom.d = NULL)
 #'
 #' @param   cmp         A data frame for setting into the \code{cmp} field.
 #'
@@ -66,6 +68,10 @@
 #'                                           \code{cmp} has 2 or 3 rows.
 #'                          \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                           \code{cmp} has 4 rows.
+#'                          \item \code{5} : Customized distribution.
+#'                                           The row number of \code{cmp} is free.
+#'                                           The customized probability density function
+#'                                           muse be given by user.
 #'                      }
 #'
 #'                      If the number of rows in \code{cmp} argument is different from
@@ -93,6 +99,20 @@
 #'                      in the \code{cmp} argument. If the number of columns in cmp is \code{2},
 #'                      the current \code{mix.type} is retained or horizontal (default) is used.
 #'
+#' @param   custom.d    A function for the probability density function for \code{mix.type = 5}.
+#'                      It must be a function which receives 2 arguments and
+#'                      returns a positive numeric value or \code{0}.
+#'
+#'                      The 2 arguments for the function are
+#'                      \itemize{
+#'                          \item   A numeric value (length = \code{1}) for the x-coordinate.
+#'                          \item   A data frame of the mean values and standard deviations
+#'                                  of the components. That is, the \code{cmp} field.
+#'                      }
+#'
+#'                      Where \code{mix.type = 5} or \code{kind} indicates
+#'                      \code{"Custom Distribution"}, \code{custom.d} must be indicated.
+#'
 #' @param   this.cmp    A data frame for setting into the \code{cmp} field.
 #'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
 #'
@@ -102,6 +122,10 @@
 #'
 #' @param   this.mix.type   A numeric value represents how to mix the normal distributions.
 #'                          It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.
+#'
+#' @param   this.custom.d   A function for the probability density function for
+#'                          \code{mix.type = 5}.
+#'                          It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
 #'
 #' @return  The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 #'
@@ -228,19 +252,22 @@
 #'  a$kind      ## "2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution"
 ################################################################################################
 ggd.set.cmp <- function( cmp, kind = NULL, mix.type = NULL,
-                         grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ) )
+                         grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
+                         custom.d = NULL )
 {
     obj <- GGD$new()
     return ( withVisible( obj$set.cmp( this.cmp      = cmp,
                                        this.kind     = kind,
                                        this.mix.type = mix.type,
-                                       grad          = grad ) )$value )
+                                       grad          = grad,
+                                       this.custom.d = custom.d ) )$value )
 }
 
 GGD$methods(
     set.cmp = function( this.cmp = .self$cmp,
                         this.kind = NULL, this.mix.type = NULL,
-                        grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ) )
+                        grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
+                        this.custom.d = NULL )
     {
         # Error-check for this.cmp.
         #
@@ -257,10 +284,8 @@ GGD$methods(
             stop( "Error: cmp must have 2 columns named 'mean' and 'sd'" )
         }
 
-        if ( nrow( this.cmp ) > 4 )
-        {
-            stop( "Error: The number of cmp rows is too large." )
-        }
+        # Checking number of rows of this.cmp is moved from here to after fixing new mix.type
+        # because of mix.type = 5 implementation, which allows free number of rows.
 
         if ( !all( complete.cases( this.cmp ) ) )
         {
@@ -312,41 +337,54 @@ GGD$methods(
                                         "only if cmp has no rows." ) )
                 }
             }
-            else if ( length( new.mix.type ) > 1 || !any( new.mix.type == 0:4 ) )
+            else if ( length( new.mix.type ) > 1 || !any( new.mix.type == 0:5 ) )
             {
-                stop( paste( "Error: mix.type should be single integer from 0 to 4." ) )
+                stop( paste( "Error: mix.type should be single integer from 0 to 5." ) )
             }
         }
 
         # Check if the indicated new mix.type is suitable for nrow(this.cmp)
         tent.mix.type <- NA_integer_   # tentative (current) mix.type
-        if ( nrow( this.cmp ) == 0 )
+        if ( isTRUE( new.mix.type == 5 ) )
         {
-            tent.mix.type <- NA_integer_
-        }
-        else if ( nrow( this.cmp ) == 1 )
-        {
-            tent.mix.type <- 0L
-        }
-        else if ( nrow( this.cmp ) == 2 )
-        {
-            if ( length( new.mix.type ) > 0 && any( new.mix.type == 1:3 ) )
-            {
-                tent.mix.type <- as.integer( new.mix.type )
-            }
-            else if ( length( mix.type ) > 0 && !is.null( mix.type ) &&
-                      !is.na( mix.type ) && any( mix.type == 1:3 ) )
-            {
-                tent.mix.type <- mix.type
-            }
-            else
-            {
-                tent.mix.type <- 2L
-            }
+            tent.mix.type <- 5L
         }
         else
         {
-            tent.mix.type <- as.integer( nrow( this.cmp ) )
+            if ( nrow( this.cmp ) == 0 )
+            {
+                tent.mix.type <- NA_integer_
+            }
+            else if ( nrow( this.cmp ) == 1 )
+            {
+                tent.mix.type <- 0L
+            }
+            else if ( nrow( this.cmp ) == 2 )
+            {
+                if ( length( new.mix.type ) > 0 && any( new.mix.type == 1:3 ) )
+                {
+                    tent.mix.type <- as.integer( new.mix.type )
+                }
+                else if ( length( mix.type ) > 0 && !is.null( mix.type ) &&
+                          !is.na( mix.type ) && any( mix.type == 1:3 ) )
+                {
+                    tent.mix.type <- mix.type
+                }
+                else
+                {
+                    tent.mix.type <- 2L
+                }
+            }
+            else
+            {
+                tent.mix.type <- as.integer( min( nrow( this.cmp ), 4 ) )
+            }
+        }
+
+        # Checking number of rows of this.cmp
+        if ( nrow( this.cmp ) > 4 && tent.mix.type != 5 )
+        {
+            stop( "Error: The number of cmp rows is too large." )
         }
 
         backup <- copy()        # backup for rollback
@@ -376,6 +414,31 @@ GGD$methods(
                 indicated <- "kind"
             }
             stop( paste( "Error: Indicated", indicated, "is not appropriate for cmp." ) )
+        }
+
+        # Set custom.d
+        if ( isTRUE( mix.type == 5 ) )
+        {
+            if ( is.null( this.custom.d ) )
+            {
+                if ( identical( custom.d, default.custom.d ) )
+                {
+                    # rollback
+                    mix.type    <<- backup$mix.type
+                    cmp         <<- backup$cmp
+
+                    stop( paste( "Error: Your own function must be given to custom.d",
+                                        "for a customized distribution." ) )
+                }
+            }
+            else
+            {
+                custom.d <<- this.custom.d
+            }
+        }
+        else
+        {
+            custom.d <<- default.custom.d
         }
 
         # Set kind and kind.index.
@@ -498,9 +561,16 @@ GGD$methods(
 
         if ( length( this.mix.type ) > 1 ||
              ( length( this.mix.type ) == 1 &&
-               !is.na( this.mix.type ) && !any( this.mix.type == 0:4 ) ) )
+               !is.na( this.mix.type ) && !any( this.mix.type == 0:5 ) ) )
         {
-            stop( paste( "Error: mix.type should be single integer from 0 to 4." ) )
+            stop( paste( "Error: mix.type should be single integer from 0 to 5." ) )
+        }
+
+        # Where mix.type = 5, contents of cmp field is freedom, so it is retained.
+        if ( isTRUE( this.mix.type == 5 ) ||
+             ( length( this.mix.type ) == 0 && isTRUE( mix.type == 5 ) ) )
+        {
+            return ( adjust.cmp.rownames() )
         }
 
         if ( nrow( cmp ) == 0 )

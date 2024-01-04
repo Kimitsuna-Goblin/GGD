@@ -139,8 +139,8 @@ expect_identical( ggd.mix.type.for( NULL, kind = integer() ), integer() )
 expect_identical( ggd.mix.type.for( NULL, kind = NA ), NA_integer_ )
 expect_error( ggd.mix.type.for( kind = -1 ),
               "kind for index -1 is undefined" )
-expect_error( ggd.mix.type.for( kind = 17 ),
-              "kind for index 17 is undefined" )
+expect_error( ggd.mix.type.for( kind = 18 ),
+              "kind for index 18 is undefined" )
 expect_error( ggd.mix.type.for( kind = "Binomial Distribution" ),
               "'Binomial Distribution' does not match any character strings of kinds" )
 

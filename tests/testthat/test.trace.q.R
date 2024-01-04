@@ -411,8 +411,27 @@ expect_error( ggd.trace.q(
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.mix.type = 5 ),
+    "trace.q for a customized distribution has not been supported yet" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    mix.type = 5 ),
+    "trace.q for a customized distribution has not been supported yet" )
+
+# Error case
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.mix.type = 6 ),
     "mix.type should be single integer from 0 to 4" )
 expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    mix.type = 6 ),
+    "mix.type should be single integer from 0 to 4" )
 
 # Error case
 expect_error( ggd.trace.q(
@@ -500,10 +519,30 @@ expect_error( a$trace.q(
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.kind = 17 ),
+    "trace.q for a customized distribution has not been supported yet" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     kind = 17 ),
-    "kind for index 17 is undefined" )
+    "trace.q for a customized distribution has not been supported yet" )
+
+# Error case
+expect_error( a$trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    this.kind = 18 ),
+    "kind for index 18 is undefined" )
+expect_cleared( a ); a <- GGD$new()
+
+# Error case
+expect_error( ggd.trace.q(
+    data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
+    kind = 18 ),
+    "kind for index 18 is undefined" )
 
 # Error case
 expect_error( a$trace.q(

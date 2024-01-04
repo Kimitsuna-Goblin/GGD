@@ -521,14 +521,35 @@ GGD$methods(
         if ( length( means ) == 0 )
         {
             # No data
-            median <<- mean <<- sd <<- lsd <<- usd <<- lsd.abs.error <<- usd.abs.error <<- NaN
+            median <<- mean <<- sd <<- lsd <<- usd <<- NaN
+            mean.abs.error <<- sd.abs.error <<- lsd.abs.error <<- usd.abs.error <<- NaN
+        }
+        else if ( mix.type == 5 )
+        {
+            median <<- q( 0.5 )
+
+            mean.result <- integrate( function( x ) x * d( x ), -Inf, Inf )
+            mean <<- mean.result$value
+            mean.abs.error <<- mean.result$abs.error
+
+            sd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, Inf )
+            sd <<- sqrt( sd.result$value )
+            sd.abs.error <<- sqrt( sd.result$abs.error )
+
+            lsd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, mean )
+            lsd <<- sqrt( 2 * lsd.result$value )
+            lsd.abs.error <<- sqrt( 2 * lsd.result$abs.error )
+
+            usd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), mean, Inf )
+            usd <<- sqrt( 2 * usd.result$value )
+            usd.abs.error <<- sqrt( 2 * usd.result$abs.error )
         }
         else if ( is.normal() )
         {
             # Normal Distribution
             median <<- mean <<- means[1]
             sd <<- lsd <<- usd <<- sds[1]
-            lsd.abs.error <<- usd.abs.error <<- 0
+            mean.abs.error <<- sd.abs.error <<- lsd.abs.error <<- usd.abs.error <<- 0
         }
         else
         {
@@ -626,6 +647,7 @@ GGD$methods(
                     lsd.abs.error <<- usd.abs.error <<- 0
                 }
             }
+            mean.abs.error <<- sd.abs.error <<- 0
         }
 
         return ( invisible( .self ) )

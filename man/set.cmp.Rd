@@ -7,11 +7,13 @@
 \title{Setting components}
 \usage{
 ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
-         grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
+         grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+         custom.d = NULL)
 
 \S4method{set.cmp}{GGD}(this.cmp = .self$cmp,
          this.kind = NULL, this.mix.type = NULL,
-         grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
+         grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+         this.custom.d = NULL)
 }
 \arguments{
 \item{cmp}{A data frame for setting into the \code{cmp} field.
@@ -53,6 +55,10 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                                           \code{cmp} has 2 or 3 rows.
                          \item \code{4} : Horizontal-vertical gradational distribution.
                                           \code{cmp} has 4 rows.
+                         \item \code{5} : Customized distribution.
+                                          The row number of \code{cmp} is free.
+                                          The customized probability density function
+                                          muse be given by user.
                      }
 
                      If the number of rows in \code{cmp} argument is different from
@@ -80,6 +86,20 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      in the \code{cmp} argument. If the number of columns in cmp is \code{2},
                      the current \code{mix.type} is retained or horizontal (default) is used.}
 
+\item{custom.d}{A function for the probability density function for \code{mix.type = 5}.
+                     It must be a function which receives 2 arguments and
+                     returns a positive numeric value or \code{0}.
+
+                     The 2 arguments for the function are
+                     \itemize{
+                         \item   A numeric value (length = \code{1}) for the x-coordinate.
+                         \item   A data frame of the mean values and standard deviations
+                                 of the components. That is, the \code{cmp} field.
+                     }
+
+                     Where \code{mix.type = 5} or \code{kind} indicates
+                     \code{"Custom Distribution"}, \code{custom.d} must be indicated.}
+
 \item{this.cmp}{A data frame for setting into the \code{cmp} field.
 It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.}
 
@@ -89,6 +109,10 @@ It is equivalent to \code{kind} argument for \code{ggd.set.cmp}.}
 
 \item{this.mix.type}{A numeric value represents how to mix the normal distributions.
 It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.}
+
+\item{this.custom.d}{A function for the probability density function for
+\code{mix.type = 5}.
+It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.}
 }
 \value{
 The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).

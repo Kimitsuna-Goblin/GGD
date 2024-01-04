@@ -237,6 +237,10 @@ The class provides the Gradational Gaussian Distribution.
                                        \code{cmp} has 2 or 3 rows.
                              \item \code{4} : Horizontal-vertical gradational distribution.
                                               \code{cmp} has 4 rows.
+                             \item \code{5} : Customized distribution.
+                                              The row number of \code{cmp} is free.
+                                              The customized probability density function
+                                              muse be given by user.
                          }
 
                          With \code{mix.type = 1}, the distribution model is not
@@ -255,6 +259,20 @@ The class provides the Gradational Gaussian Distribution.
                          Where \code{mix.type = 4},
                          it has 4 rows named like "\code{n.i.j}".}
 
+\item{\code{custom.d}}{The probability density function for \code{mix.type = 5}.
+                         It must be a function which receives 2 arguments and
+                         returns a positive numeric value or \code{0}.
+
+             The 2 arguments for the function are
+             \itemize{
+                 \item   A numeric value (length = \code{1}) for the x-coordinate.
+                 \item   A data frame of the mean values and standard deviations
+                         of the components. That is, the \code{cmp} field.
+             }
+
+             If \code{mix.type} is other than \code{5},
+             \code{function(x, cmp) 0} is set as default.}
+
 \item{\code{median}}{A numeric; the median of the distribution.}
 
 \item{\code{mean}}{A numeric; the mean of the distribution.}
@@ -264,6 +282,12 @@ The class provides the Gradational Gaussian Distribution.
 \item{\code{lsd}}{A numeric; the semi-standard deviation lower than mean.}
 
 \item{\code{usd}}{A numeric; the semi-standard deviation upper than mean.}
+
+\item{\code{mean.abs.error}}{A numeric;
+the estimated modulus of the absolute error for \code{mean}.}
+
+\item{\code{sd.abs.error}}{A numeric;
+the estimated modulus of the absolute error for \code{sd}.}
 
 \item{\code{lsd.abs.error}}{A numeric;
 the estimated modulus of the absolute error for \code{lsd}.}
@@ -275,7 +299,13 @@ the estimated modulus of the absolute error for \code{lsd}.}
                          \code{\link[stats]{integrate}} function is used.
                          And the modulus of the absolute errors which
                          \code{\link[stats]{integrate}} function has reported
-                         will be set into these \code{*.abs.error} fields.}
+                         will be set into these \code{*.abs.error} fields.
+
+                         Where \code{mix.type = 5}, \code{mean} and \code{sd} fields
+                         will be also computed with \code{\link[stats]{integrate}} function.
+                         And the modulus of the absolute errors which
+                         \code{\link[stats]{integrate}} function has reported
+                         will be set into \code{*.abs.error} fields.}
 }}
 
 
