@@ -588,7 +588,7 @@ GGD$methods(
                     mix.type.seq <- c( mix.type,
                                        mix.type.seq[mix.type.seq != mix.type] )
 
-                    # In order to attempt to retain number of rows of cmp field when mix.type = 3,
+                    # In order to attempt to retain number of rows in cmp field when mix.type = 3,
                     # make sequences of values to set grad values.
                     if ( mix.type == 3 && nrow( cmp ) == 2 )
                     {

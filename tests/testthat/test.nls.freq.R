@@ -181,15 +181,15 @@ expect_error( a$nls.freq( df, x = 3 ),
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( data.frame( x = x[1:2], freq = freq[1:2] ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_error( a$nls.freq( data.frame( x = x[1:2], freq = freq[1:2] ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( data.frame( x = c( x[1:2], NA, x[3] ) , freq = c( freq[1:3], NaN ) ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_error( a$nls.freq( data.frame( x = c( x[1:2], NA, x[3] ) , freq = c( freq[1:3], NaN ) ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_cleared( a ); a <- GGD$new()
 
 expect_error( ggd.nls.freq( data.frame( x = -x, freq = -freq ), grad = "normal" ),
@@ -627,11 +627,11 @@ expect_error( ggd.nls.freq.all( data.frame( x = x, p = freq ) ),
 expect_error( ggd.nls.freq.all( df, x = "x.2" ),
               "Column 'x.2' is undefined" )
 expect_error( ggd.nls.freq.all( data.frame( x = x[1:2], freq = freq[1:2] ), grad = "normal" ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_error( ggd.nls.freq.all( data.frame( x = x[1:2], freq = freq[1:2] ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_error( ggd.nls.freq.all( data.frame( x = c( x[1:2], NA, x[3] ) , freq = c( freq[1:3], NaN ) ) ),
-              "The row number of data is too small" )
+              "Too few rows for data" )
 expect_error( ggd.nls.freq.all( data.frame( x = -x, freq = -freq ), grad = "normal" ),
               "Rows of x must have been sorted" )
 expect_error( ggd.nls.freq.all( data.frame( x = c( x[1:10], x[10:21] ), freq = c( freq[1:10], freq[10:21] ) ) ),

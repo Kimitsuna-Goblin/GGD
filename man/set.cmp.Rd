@@ -56,7 +56,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                          \item \code{4} : Horizontal-vertical gradational distribution.
                                           \code{cmp} has 4 rows.
                          \item \code{5} : Customized distribution.
-                                          The row number of \code{cmp} is free.
+                                          The number of rows in \code{cmp} is free.
                                           The customized probability density function
                                           muse be given by user.
                      }

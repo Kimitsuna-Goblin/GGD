@@ -69,7 +69,7 @@
 #'                          \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                           \code{cmp} has 4 rows.
 #'                          \item \code{5} : Customized distribution.
-#'                                           The row number of \code{cmp} is free.
+#'                                           The number of rows in \code{cmp} is free.
 #'                                           The customized probability density function
 #'                                           muse be given by user.
 #'                      }
@@ -284,7 +284,7 @@ GGD$methods(
             stop( "Error: cmp must have 2 columns named 'mean' and 'sd'" )
         }
 
-        # Checking number of rows of this.cmp is moved from here to after fixing new mix.type
+        # Checking number of rows in this.cmp is moved from here to after fixing new mix.type
         # because of mix.type = 5 implementation, which allows free number of rows.
 
         if ( !all( complete.cases( this.cmp ) ) )
@@ -381,7 +381,7 @@ GGD$methods(
             }
         }
 
-        # Checking number of rows of this.cmp
+        # Checking number of rows in this.cmp
         if ( nrow( this.cmp ) > 4 && tent.mix.type != 5 )
         {
             stop( "Error: The number of cmp rows is too large." )

@@ -65,8 +65,8 @@ f.t3.p <- list( function( x, m, s )
 #' @field   mix.type        An integer which represents how to mix normal distributions
 #'                          of the components.
 #'
-#'                          The type of the distribution model and the row number of \code{cmp}
-#'                          field will be as follows with this value:
+#'                          The type of the distribution model and the number of rows
+#'                          in \code{cmp} field will be as follows with this value:
 #'                          \itemize{
 #'                              \item \code{0} : Normal distribution.
 #'                                        \code{cmp} has only 1 row.
@@ -79,7 +79,7 @@ f.t3.p <- list( function( x, m, s )
 #'                              \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                               \code{cmp} has 4 rows.
 #'                              \item \code{5} : Customized distribution.
-#'                                               The row number of \code{cmp} is free.
+#'                                               The number of rows in \code{cmp} is free.
 #'                                               The customized probability density function
 #'                                               muse be given by user.
 #'                          }
@@ -428,7 +428,7 @@ GGD$methods(
 #' Clear fields
 #'
 #' Clears all fields. The lengths of all vector fields and the number of rows
-#' in the \code{cmp} field will be \code{0}.
+#' in \code{cmp} field will be \code{0}.
 #' @name    clear
 #' @aliases clear
 #' @aliases \S4method{clear}{GGD}

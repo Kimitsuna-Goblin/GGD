@@ -4,7 +4,17 @@
 \alias{get.nls.params}
 \title{[Non-exported] Parameters for nls}
 \usage{
-get.nls.params(x, freq, total, mix.type, grad, eq.mean, eq.sd, start.level)
+get.nls.params(
+  x,
+  freq,
+  total,
+  mix.type,
+  custom.d,
+  grad,
+  eq.mean,
+  eq.sd,
+  start.level
+)
 }
 \arguments{
 \item{x}{A vector of x-coordinates arranged in ascending order
@@ -15,6 +25,8 @@ and non-duplicated.}
 \item{total}{Total value of the frequencies.}
 
 \item{mix.type}{The value for \code{mix.type} field.}
+
+\item{custom.d}{The probability density function for \code{mix.type = 5}.}
 
 \item{grad}{A character string indicating the method of gradation.
                      If \code{"v3"}, constructing with 3 components is enforcedly,

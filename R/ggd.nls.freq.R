@@ -590,8 +590,8 @@ GGD$methods(
         {
             ################################################################
             # Get start paramaters for nls.
-            params <- get.nls.params( data.ext$x, data.ext$freq, total,
-                                      new.mix.type, grad, eq.mean, eq.sd, start.level )
+            params <- get.nls.params( data.ext$x, data.ext$freq, total, new.mix.type,
+                                      custom.d, grad, eq.mean, eq.sd, start.level )
 
             # Output start paramaters.
             result$start.level <- as.integer( params$start.level )
@@ -1124,7 +1124,7 @@ extract.freq.data <- function( data, x, freq )
     data.ext <- extract.complete.x.y( data, x, freq, "freq" )
     if ( nrow( data.ext ) < 3 )
     {
-        stop( "Error: The row number of data is too small." )
+        stop( "Error: Too few rows for data." )
     }
 
     # Check if rows are sorted.
@@ -1241,6 +1241,7 @@ get.p.freq <- function( freq, total )
 #' @param   freq        A vector of frequencies following \code{x}.
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
+#' @param   custom.d    The probability density function for \code{mix.type = 5}.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
@@ -1270,7 +1271,8 @@ get.p.freq <- function( freq, total )
 #'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
-get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, start.level )
+get.nls.params <- function( x, freq, total, mix.type, custom.d,
+                            grad, eq.mean, eq.sd, start.level )
 {
     fm <- NULL          # formula for return value
     start <- list()     # start for return value
@@ -1603,7 +1605,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                 }
             }
         }
-        else # if ( mix.type == 4 )
+        else if ( mix.type == 4 )
         {
             # via Horizontal-Vertical Gradation of 4 (2x2) normal distributions
             if ( eq.sd )
@@ -1660,6 +1662,10 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                                sqrt.sd.2.1 = sqrt.sds[4],
                                sqrt.sd.2.2 = sqrt.sds[3] )
             }
+        }
+        else # if ( mix.type == 5 )
+        {
+#           fm <- d ~ custom.d( x, data.frame( mean =
         }
     }
 
@@ -1877,6 +1883,12 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
                                        unname( coefs["sqrt.sd.2.1"] )^2,
                                        unname( coefs["sqrt.sd.2.2"] )^2 ) )
         }
+    }
+    else # if ( mix.type == 5 )
+    {
+        # Customized Distributions: number of components is nrow( cmp )
+        cmp <- data.frame( mean = c( unname( coefs[1:nrow( cmp )] ) ),
+                           sd   = c( unname( coefs[( nrow( cmp ) + 1 ):length( coefs )] )^2 ) )
     }
 
     return ( cmp )
