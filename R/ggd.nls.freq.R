@@ -591,7 +591,7 @@ GGD$methods(
             ################################################################
             # Get start paramaters for nls.
             params <- get.nls.params( data.ext$x, data.ext$freq, total, new.mix.type,
-                                      custom.d, grad, eq.mean, eq.sd, start.level )
+                                      nrow( cmp ), grad, eq.mean, eq.sd, start.level )
 
             # Output start paramaters.
             result$start.level <- as.integer( params$start.level )
@@ -1241,7 +1241,7 @@ get.p.freq <- function( freq, total )
 #' @param   freq        A vector of frequencies following \code{x}.
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
-#' @param   custom.d    The probability density function for \code{mix.type = 5}.
+#' @param   n.cmp       Number of componetns for \code{mix.type = 5}.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
@@ -1271,7 +1271,7 @@ get.p.freq <- function( freq, total )
 #'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
-get.nls.params <- function( x, freq, total, mix.type, custom.d,
+get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                             grad, eq.mean, eq.sd, start.level )
 {
     fm <- NULL          # formula for return value
@@ -1301,14 +1301,14 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
     #       but closer to mean of the frequency distribution than "means".
     #       These are used when we do not want the initial mean values to be dispersed.
     #
-    #   sqrt.sd.mid:
+    #   sqrt.sds.mid:
     #       Global or local standard deviation corresponding to around center of the range of
     #       the frequency distribution.
     if ( is.na( start.level ) )
     {
         # Level NA: all parameters are NA.
         means.mid <- means <- rep( NA_real_, 4 )
-        sqrt.sd.mid <- sqrt.sds <- rep( NA_real_, 4 )
+        sqrt.sds.mid <- sqrt.sds <- rep( NA_real_, 4 )
 
         mean.lower <- mean.upper <- mean.inner <- mean.outer <- NA_real_
         sqrt.sd.lower <- sqrt.sd.upper <- sqrt.sd.inner <- sqrt.sd.outer <- NA_real_
@@ -1323,7 +1323,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
         sqrt.sd.lower <- sqrt.sd.upper <- sqrt.sd.inner <- sqrt.sd.outer <- sqrt( data.sd )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
     }
     else if ( start.level == 1 )
     {
@@ -1355,7 +1355,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
         }, 0 )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
     }
     else if ( start.level >= 2 )
     {
@@ -1384,7 +1384,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
         sqrt.sd.outer <- sqrt( ( ms[[1]]$sd + ms[[4]]$sd ) / 2 )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
 
         if ( start.level == 3 )
         {
@@ -1396,7 +1396,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                                   c( sep$data[[1]][lengths[1]], sep$data[[4]][1] ) )
 
                 means.mid <- rep( ms$mean, 4 )
-                sqrt.sd.mid <- sqrt( ms$sd )
+                sqrt.sds.mid <- sqrt( ms$sd )
             }
             else
             {
@@ -1440,7 +1440,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                     {
                         means.mid <- means <- obj$cmp$mean[c( 1, 2, 4, 3 )]
                         sqrt.sds <- sqrt( obj$cmp$sd[c( 1, 2, 4, 3 )] )
-                        sqrt.sd.mid <- ( sqrt.sds[2] + sqrt.sds[3] ) / 2
+                        sqrt.sds.mid <- ( sqrt.sds[2] + sqrt.sds[3] ) / 2
                     }
                     else
                     {
@@ -1457,7 +1457,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                         sqrt.sd.inner <- sqrt.sds[2]
                         sqrt.sd.outer <- sqrt.sds[1]
 
-                        sqrt.sd.mid <- sqrt.sds[2]
+                        sqrt.sds.mid <- sqrt.sds[2]
                     }
                 }
             }
@@ -1469,7 +1469,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
         # via Normal Distribution
         fm <- d ~ dnorm( x, mean, sqrt.sd^2 )
 
-        start <- list( mean = means.mid[1], sqrt.sd = sqrt.sd.mid )
+        start <- list( mean = means.mid[1], sqrt.sd = sqrt.sds.mid )
     }
     else
     {
@@ -1481,7 +1481,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                 fm <- d ~ ( dnorm( x, mean.1, sqrt.sd^2 ) + dnorm( x, mean.2, sqrt.sd^2 ) ) / 2
                 start <- list( mean.1 = mean.lower,
                                mean.2 = mean.upper,
-                               sqrt.sd = sqrt.sd.mid )
+                               sqrt.sd = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
@@ -1510,7 +1510,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
 
                 start <- list( mean.1 = mean.lower,
                                mean.2 = mean.upper,
-                               sqrt.sd  = sqrt.sd.mid )
+                               sqrt.sd  = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
@@ -1546,7 +1546,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
 
                     start <- list( mean.1 = mean.outer,
                                    mean.2 = mean.inner,
-                                   sqrt.sd = sqrt.sd.mid )
+                                   sqrt.sd = sqrt.sds.mid )
                 }
                 else if ( eq.mean )
                 {
@@ -1579,7 +1579,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                     start <- list( mean.1 = means[1],
                                    mean.2 = mean.inner,
                                    mean.3 = means[4],
-                                   sqrt.sd = sqrt.sd.mid )
+                                   sqrt.sd = sqrt.sds.mid )
                 }
                 else if ( eq.mean )
                 {
@@ -1623,7 +1623,7 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
                                mean.1.2 = means[2],
                                mean.2.1 = means[4],
                                mean.2.2 = means[3],
-                               sqrt.sd = sqrt.sd.mid )
+                               sqrt.sd = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
@@ -1665,7 +1665,69 @@ get.nls.params <- function( x, freq, total, mix.type, custom.d,
         }
         else # if ( mix.type == 5 )
         {
-#           fm <- d ~ custom.d( x, data.frame( mean =
+            # This loop must be done in sequential.
+            mean.string <- sd.string <- ""
+            for ( i in 1:n.cmp )
+            {
+                mean.string <- paste0( mean.string, "mean.", i )
+                sd.string <- paste0( sd.string, "sqrt.sd.", i, "^2" )
+
+                if ( i < n.cmp )
+                {
+                    mean.string <- paste0( mean.string, ", " )
+                    sd.string <- paste0( sd.string, ", " )
+                }
+            }
+
+            fm <- as.formula( paste( "d ~ custom.d(x, data.frame(mean = c(",
+                                     mean.string, "), sd = c(", sd.string, ")))" ) )
+
+            # Assign start values as evenly as possible.
+            if ( n.cmp == 1 )
+            {
+                start <- list( mean.1    = ( means[2] + means[3] ) / 2,
+                               sqrt.sd.1 = ( sqrt.sds[2] + sqrt.sds[3] ) / 2 )
+            }
+            else if ( n.cmp == 2 )
+            {
+                start <- list( mean.1    = ( means[1] + means[3] ) / 2,
+                               mean.2    = ( means[2] + means[4] ) / 2,
+                               sqrt.sd.1 = ( sqrt.sds[1] + sqrt.sds[3] ) / 2,
+                               sqrt.sd.2 = ( sqrt.sds[2] + sqrt.sds[4] ) / 2 )
+            }
+            else if ( n.cmp == 3 )
+            {
+                start <- list( mean.1    = means[1],
+                               mean.2    = ( means[2] + means[3] ) / 2,
+                               mean.3    = means[4],
+                               sqrt.sd.1 = sqrt.sds[1],
+                               sqrt.sd.2 = ( sqrt.sds[2] + sqrt.sds[3] ) / 2,
+                               sqrt.sd.2 = sqrt.sds[4] )
+            }
+            else
+            {
+                # This loop must be done in sequential.
+                start.string <- "list("
+                for ( i in 1:n.cmp )
+                {
+                    start.string <- paste0( start.string,
+                                            "mean.", i, " = means[",
+                                            1 + floor( ( i - 1 ) * 4 / n.cmp ), "], ",
+                                            "sqrt.sd.", i, " = sqrt.sds[",
+                                            1 + floor( ( i - 1 ) * 4 / n.cmp ), "]" )
+                    if ( i < n.cmp )
+                    {
+                        start.string <- paste0( start.string, ", " )
+                    }
+                    else
+                    {
+                        start.string <- paste0( start.string, ")" )
+                    }
+                }
+
+                start <- eval( parse( text = start.string ) )
+            }
+
         }
     }
 

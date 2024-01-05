@@ -9,7 +9,7 @@ get.nls.params(
   freq,
   total,
   mix.type,
-  custom.d,
+  n.cmp,
   grad,
   eq.mean,
   eq.sd,
@@ -26,7 +26,7 @@ and non-duplicated.}
 
 \item{mix.type}{The value for \code{mix.type} field.}
 
-\item{custom.d}{The probability density function for \code{mix.type = 5}.}
+\item{n.cmp}{Number of componetns for \code{mix.type = 5}.}
 
 \item{grad}{A character string indicating the method of gradation.
                      If \code{"v3"}, constructing with 3 components is enforcedly,
