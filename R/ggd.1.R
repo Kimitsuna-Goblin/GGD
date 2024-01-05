@@ -33,7 +33,7 @@ kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L,
                         10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L, 17L )
 
 ## Default custom.d
-default.custom.d <- function(x, cmp) 0
+default.custom.d <- function(x, cmp) dnorm(x, 0, 1)
 
 ## Square root of 2 pi
 sqrt.2pi <- sqrt( 2 * pi )
@@ -112,7 +112,11 @@ f.t3.p <- list( function( x, m, s )
 #'              }
 #'
 #'              If \code{mix.type} is other than \code{5},
-#'              \code{function(x, cmp) 0} is set as default.
+#'              \code{function(x, cmp) dnorm(x, 0, 1)} is set as default.
+#'
+#'              The default value of \code{custom.d} can be changed without notice,
+#'              so you should not use it for a probability density function
+#'              of the standard normal distribution.
 #'
 #' @field   median          A numeric; the median of the distribution.
 #' @field   mean            A numeric; the mean of the distribution.

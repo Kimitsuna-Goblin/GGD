@@ -271,7 +271,11 @@ The class provides the Gradational Gaussian Distribution.
              }
 
              If \code{mix.type} is other than \code{5},
-             \code{function(x, cmp) 0} is set as default.}
+             \code{function(x, cmp) dnorm(x, 0, 1)} is set as default.
+
+             The default value of \code{custom.d} can be changed without notice,
+             so you should not use it for a probability density function
+             of the standard normal distribution.}
 
 \item{\code{median}}{A numeric; the median of the distribution.}
 
