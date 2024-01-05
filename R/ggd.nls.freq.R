@@ -1697,12 +1697,12 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
             }
             else if ( n.cmp == 3 )
             {
-                start <- list( mean.1    = means[1],
+                start <- list( mean.1    = ( means[1] + means[2] ) / 2,
                                mean.2    = ( means[2] + means[3] ) / 2,
-                               mean.3    = means[4],
-                               sqrt.sd.1 = sqrt.sds[1],
+                               mean.3    = ( means[3] + means[4] ) / 2,
+                               sqrt.sd.1 = ( sqrt.sds[1] + sqrt.sds[2] ) / 2,
                                sqrt.sd.2 = ( sqrt.sds[2] + sqrt.sds[3] ) / 2,
-                               sqrt.sd.2 = sqrt.sds[4] )
+                               sqrt.sd.2 = ( sqrt.sds[3] + sqrt.sds[4] ) / 2 )
             }
             else
             {
