@@ -4,13 +4,15 @@
 \alias{ggd.start.template}
 \title{Template for start of nls}
 \usage{
-ggd.start.template(target)
+ggd.start.template(target, n.cmp = 2)
 }
 \arguments{
 \item{target}{A variable that identifies the kind of distribution to which
 the template applies. The length should be 1.
 The type of the variable is valid for \code{\link[ggd]{GGD}} object,
 the string of an element of \code{ggd:::kinds}, or its index number.}
+
+\item{n.cmp}{Number of componetns for \code{mix.type = 5}.}
 }
 \value{
 A list containing components any of

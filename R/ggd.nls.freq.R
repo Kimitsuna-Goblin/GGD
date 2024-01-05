@@ -2088,6 +2088,7 @@ ggd.init.start <- function()
 #'                      the template applies. The length should be 1.
 #'                      The type of the variable is valid for \code{\link[ggd]{GGD}} object,
 #'                      the string of an element of \code{ggd:::kinds}, or its index number.
+#' @param   n.cmp       Number of componetns for \code{mix.type = 5}.
 #' @return  A list containing components any of
 #'          \item{mean}{
 #'                  The start value for mean values common to all normal distributions
@@ -2131,7 +2132,7 @@ ggd.init.start <- function()
 #'  ## try ggd.nls.freq
 #'  ggd.nls.freq( data.frame( x, freq ), start = start, kind = 14 )$obj
 ################################################################################################
-ggd.start.template <- function( target )
+ggd.start.template <- function( target, n.cmp = 2 )
 {
     kind.index <- ggd.kind.index( target, undef.err = FALSE )[1]
     if ( is.na( kind.index ) || is.null( kind.index ) )
@@ -2209,7 +2210,21 @@ ggd.start.template <- function( target )
     }
     else if ( kind.index == 17 )
     {
-        temp <- NULL
+        start.string <- "list("
+        for ( i in 1:n.cmp )
+        {
+            start.string <- paste0( start.string, "mean.", i, " = 0, ", "sqrt.sd.", i, " = 1" )
+            if ( i < n.cmp )
+            {
+                start.string <- paste0( start.string, ", " )
+            }
+            else
+            {
+                start.string <- paste0( start.string, ")" )
+            }
+        }
+
+        temp <- eval( parse( text = start.string ) )
     }
 
     return ( temp )
