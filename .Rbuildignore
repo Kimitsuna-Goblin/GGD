@@ -6,3 +6,4 @@
 ^\.github$
 ^README(\.|\.[a-z]+\.)md$
 ^LICENSE\.md$
+^cran.comments\.md$
