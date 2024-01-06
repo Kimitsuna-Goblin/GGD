@@ -1134,6 +1134,9 @@ GGD$methods(
 #'
 #' Referring only \code{cmp} field, checks if the distribution is a normal distribution.
 #' Note, this function does not check \code{kind} and \code{kind.index} fields.
+#'
+#' For \code{"Customized Distribution"}, this function returns always \code{FALSE}
+#' even if the object has only 1 component and \code{custom.d} shows a normal distribution.
 #' @name    is.normal
 #' @aliases is.normal
 #' @aliases \S4method{is.normal}{GGD}
@@ -1156,7 +1159,7 @@ NULL
 GGD$methods(
     is.normal = function()
     {
-        return ( is.eq.mean() && is.eq.sd() )
+        return ( !isTRUE( mix.type == 5 ) && is.eq.mean() && is.eq.sd() )
     }
 )
 

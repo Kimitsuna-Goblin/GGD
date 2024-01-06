@@ -347,7 +347,7 @@ GGD$methods(
 
         # Check if the indicated new mix.type is suitable for nrow(this.cmp)
         tent.mix.type <- NA_integer_   # tentative (current) mix.type
-        if ( isTRUE( new.mix.type == 5 ) )
+        if ( isTRUE( new.mix.type == 5 ) || isTRUE( mix.type == 5 ) )
         {
             tent.mix.type <- 5L
         }
