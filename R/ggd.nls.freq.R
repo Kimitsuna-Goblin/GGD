@@ -192,6 +192,9 @@
 #'                       of a \code{\link[ggd]{GGD}} object tracing some (2, 3 or 5) quantiles
 #'                       which are generated with the frequency distribution as initial values.
 #'                       If tracing fails, level \code{2} is used instead.
+#'
+#'                       Tracing will always fail for \code{"Customized Distribution"},
+#'                       because \code{\link[ggd]{trace_q}} has not been supported yet.
 #'              \item \code{100}:
 #'                       Try all of above levels and adopt the result with the highest
 #'                       \code{\link[stats]{cor}} value.
