@@ -293,7 +293,7 @@ If necessary, outliers should be excluded by preprocessing.
      You know a standard deviation must be a non-zero positive value.
      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
      they will sometimes drop into negative values while the Gauss-Newton algorithm is running
-     and the algorithm will fail, even if it can reach to convergence if done better.
+     and the algorithm will fail, even if it can reach convergence if done better.
 
      So, to avoid such failures, we use square roots of standard deviations and
      take squares of them in the formula for \code{\link[stats]{nls}}.
