@@ -142,7 +142,7 @@ apply.cmp.sub <- function( f, values, obj )
 #' Rounds the values of all elements in the \code{cmp} field and adjusts other fields
 #' accordingly.
 #' \code{\link[base]{round}} and \code{\link[base]{signif}} functions can apply.
-#' These functions does not change the number of rows of \code{cmp} field,
+#' These functions does not change the number of rows in \code{cmp} field,
 #' no matter what results are obtained.
 #' If an error occurs, these functions do not clear the object, but retains the values of
 #' all fields.

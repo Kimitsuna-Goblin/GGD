@@ -1,7 +1,7 @@
 Package: ggd
 Type: Package
 Title: Gradational Gaussian Distribution Reference Class
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
     person( given   = "Kimitsuna",
             family  = "Ura",

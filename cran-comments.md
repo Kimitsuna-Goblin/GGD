@@ -1,3 +1,8 @@
+── R CMD check results ────────────────────────────────────────── ggd 1.0.2 ────
+Duration: 15m 57.5s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
 ── R CMD check results ────────────────────────────── ggd 1.0.1 ────
 Duration: 15m 54.9s
 
