@@ -379,6 +379,9 @@ GGD$methods(
             }
             else
             {
+                # mix.type = 5 is allowed only when explicitly specified with
+                # this.kind, this.mix.type or mix.type field.
+                # Therefore, the maximum of mix.type if not explicitly specified is 4.
                 tent.mix.type <- as.integer( min( nrow( this.cmp ), 4 ) )
             }
         }
