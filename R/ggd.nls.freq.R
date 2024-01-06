@@ -1949,8 +1949,11 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
     else # if ( mix.type == 5 )
     {
         # Customized Distributions: number of components is nrow( cmp )
-        cmp <- data.frame( mean = c( unname( coefs[1:nrow( cmp )] ) ),
-                           sd   = c( unname( coefs[( nrow( cmp ) + 1 ):length( coefs )] )^2 ) )
+        mean.names  <- vapply( 1:nrow( cmp ), function( i ) paste0( "mean.", i ), "" )
+        sd.names    <- vapply( 1:nrow( cmp ), function( i ) paste0( "sqrt.sd.", i ), "" )
+
+        cmp <- data.frame( mean = c( unname( coefs[mean.names] ) ),
+                           sd   = c( unname( coefs[sd.names] )^2 ) )
     }
 
     return ( cmp )
