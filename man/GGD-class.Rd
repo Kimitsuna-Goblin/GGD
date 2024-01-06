@@ -259,7 +259,7 @@ The class provides the Gradational Gaussian Distribution.
                          Where \code{mix.type = 4},
                          it has 4 rows named like "\code{n.i.j}".}
 
-\item{\code{custom.d}}{The probability density function for \code{mix.type = 5}.
+\item{\code{custom.d}}{The probability density function of the custom distribution.
                          It must be a function which receives 2 arguments and
                          returns a positive numeric value or \code{0}.
 

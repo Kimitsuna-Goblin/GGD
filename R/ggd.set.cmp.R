@@ -99,9 +99,14 @@
 #'                      in the \code{cmp} argument. If the number of columns in cmp is \code{2},
 #'                      the current \code{mix.type} is retained or horizontal (default) is used.
 #'
-#' @param   custom.d    A function for the probability density function for \code{mix.type = 5}.
+#' @param   custom.d    A function for the probability density function
+#'                      of the custom distribution.
+#'
+#'                      If \code{kind} indicates \code{"Custom Distribution"} or
+#'                      \code{mix.type} is \code{5}, this argument must be indicated.
+#'
 #'                      It must be a function which receives 2 arguments and
-#'                      returns a positive numeric value or \code{0}.
+#'                      returns a positive numeric value (or \code{0}) as the density.
 #'
 #'                      The 2 arguments for the function are
 #'                      \itemize{
@@ -109,9 +114,6 @@
 #'                          \item   A data frame of the mean values and standard deviations
 #'                                  of the components. That is, the \code{cmp} field.
 #'                      }
-#'
-#'                      Where \code{mix.type = 5} or \code{kind} indicates
-#'                      \code{"Custom Distribution"}, \code{custom.d} must be indicated.
 #'
 #' @param   this.cmp    A data frame for setting into the \code{cmp} field.
 #'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
@@ -123,8 +125,8 @@
 #' @param   this.mix.type   A numeric value represents how to mix the normal distributions.
 #'                          It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.
 #'
-#' @param   this.custom.d   A function for the probability density function for
-#'                          \code{mix.type = 5}.
+#' @param   this.custom.d   A function for the probability density function of
+#'                          the custom distribution.
 #'                          It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
 #'
 #' @return  The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
@@ -285,7 +287,7 @@ GGD$methods(
         }
 
         # Checking number of rows in this.cmp is moved from here to after fixing new mix.type
-        # because of mix.type = 5 implementation, which allows free number of rows.
+        # because of "Custom Distribution" implementation, which allows free number of rows.
 
         if ( !all( complete.cases( this.cmp ) ) )
         {
@@ -566,7 +568,8 @@ GGD$methods(
             stop( paste( "Error: mix.type should be single integer from 0 to 5." ) )
         }
 
-        # Where mix.type = 5, contents of cmp field is freedom, so it is retained.
+        # Where mix.type = 5, contents of cmp field is completely left to user,
+        # so they are retained.
         if ( isTRUE( this.mix.type == 5 ) ||
              ( length( this.mix.type ) == 0 && isTRUE( mix.type == 5 ) ) )
         {

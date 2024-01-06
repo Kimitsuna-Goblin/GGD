@@ -529,7 +529,7 @@ GGD$methods(
         #       So, now this.kind has a valid value or the length of it is 0.
         new.mix.type <- ggd.mix.type.for( grad, kind = this.kind, mix.type = this.mix.type )
 
-        # trace.q for mix.type = 5 has not been supported yet.
+        # trace.q for custom distribution (mix.type = 5) has not been supported yet.
         if ( isTRUE( new.mix.type == 5 ) )
         {
             clear()

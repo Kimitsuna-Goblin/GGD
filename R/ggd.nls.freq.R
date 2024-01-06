@@ -1241,7 +1241,7 @@ get.p.freq <- function( freq, total )
 #' @param   freq        A vector of frequencies following \code{x}.
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
-#' @param   n.cmp       Number of componetns for \code{mix.type = 5}.
+#' @param   n.cmp       Number of components of the custom distribution.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
@@ -2088,7 +2088,17 @@ ggd.init.start <- function()
 #'                      the template applies. The length should be 1.
 #'                      The type of the variable is valid for \code{\link[ggd]{GGD}} object,
 #'                      the string of an element of \code{ggd:::kinds}, or its index number.
-#' @param   n.cmp       Number of componetns for \code{mix.type = 5}.
+#'
+#' @param   n.cmp       Number of components for the custom distribution.
+#'
+#'                      If \code{target} indicates \code{"Custom Distribution"} or \code{17},
+#'                      a positive integer must be indicated for this argument.
+#'
+#'                      If a \code{\link[ggd]{GGD}} object is indicated for \code{target},
+#'                      the number of rows of \code{cmp} field is used instead
+#'                      when \code{n.cmp} is \code{0} (the default).
+#'                      When \code{n.cmp} is a positive integer, the value of \code{n.cmp}
+#'                      takes priority.
 #' @return  A list containing components any of
 #'          \item{mean}{
 #'                  The start value for mean values common to all normal distributions
@@ -2132,7 +2142,7 @@ ggd.init.start <- function()
 #'  ## try ggd.nls.freq
 #'  ggd.nls.freq( data.frame( x, freq ), start = start, kind = 14 )$obj
 ################################################################################################
-ggd.start.template <- function( target, n.cmp = 2 )
+ggd.start.template <- function( target, n.cmp = 0 )
 {
     kind.index <- ggd.kind.index( target, undef.err = FALSE )[1]
     if ( is.na( kind.index ) || is.null( kind.index ) )
@@ -2210,6 +2220,24 @@ ggd.start.template <- function( target, n.cmp = 2 )
     }
     else if ( kind.index == 17 )
     {
+        n.cmp <- as.integer( n.cmp )
+        if ( n.cmp == 0 )
+        {
+            if ( inherits( target, "GGD" ) )
+            {
+                n.cmp <- nrow( target$cmp )
+            }
+            else
+            {
+                stop( paste( "Error: Number of components should be given to n.cmp",
+                                    "for a customized distribution." ) )
+            }
+        }
+        else if ( n.cmp < 0 )
+        {
+            stop( paste( "Error: n.cmp should be positive." ) )
+        }
+
         start.string <- "list("
         for ( i in 1:n.cmp )
         {

@@ -26,7 +26,7 @@ and non-duplicated.}
 
 \item{mix.type}{The value for \code{mix.type} field.}
 
-\item{n.cmp}{Number of componetns for \code{mix.type = 5}.}
+\item{n.cmp}{Number of components of the custom distribution.}
 
 \item{grad}{A character string indicating the method of gradation.
                      If \code{"v3"}, constructing with 3 components is enforcedly,

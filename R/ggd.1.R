@@ -100,7 +100,7 @@ f.t3.p <- list( function( x, m, s )
 #'                          Where \code{mix.type = 4},
 #'                          it has 4 rows named like "\code{n.i.j}".
 #'
-#' @field   custom.d        The probability density function for \code{mix.type = 5}.
+#' @field   custom.d        The probability density function of the custom distribution.
 #'                          It must be a function which receives 2 arguments and
 #'                          returns a positive numeric value or \code{0}.
 #'
@@ -365,7 +365,7 @@ GGD <- setRefClass(
         kind        = "character",  # The name of the kind of the distribution model.
         mix.type    = "integer",    # The value which represent how to mix normal distributions.
         cmp         = "data.frame", # The mean and sd of the component normal distributions.
-        custom.d    = "function",   # The probability density function for mix.type = 5.
+        custom.d    = "function",   # Probability density function of the custom distribution.
 
         median      = "numeric",    # The median value of the distribution.
         mean        = "numeric",    # The mean of the distribution.
