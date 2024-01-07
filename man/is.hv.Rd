@@ -3,7 +3,7 @@
 \name{is.hv}
 \alias{is.hv}
 \alias{\S4method{is.hv}{GGD}}
-\title{Judge if horizontal-vertical gradation}
+\title{Judge if horizontal-vertical}
 \usage{
 \S4method{is.hv}{GGD}(strict = FALSE)
 }
@@ -21,7 +21,7 @@
          4 (2x2) normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 a horizontal-vertical gradation of 4 (2x2) normal distributions.
 }
 \examples{

@@ -5,7 +5,7 @@
 \alias{signif.cmp}
 \alias{\S4method{round.cmp}{GGD}}
 \alias{\S4method{signif.cmp}{GGD}}
-\title{Rounding of numbers in cmp}
+\title{Rounding values in cmp}
 \usage{
 \S4method{round.cmp}{GGD}(dg.mean = 0, dg.sd = dg.mean)
 

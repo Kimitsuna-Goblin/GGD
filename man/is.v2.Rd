@@ -3,7 +3,7 @@
 \name{is.v2}
 \alias{is.v2}
 \alias{\S4method{is.v2}{GGD}}
-\title{Judge if vertical gradation of 2 normal distributions}
+\title{Judge if 2-component vertical}
 \usage{
 \S4method{is.v2}{GGD}(strict = FALSE)
 }
@@ -19,7 +19,7 @@
          2 normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 a vertical gradation of 2 normal distributions.
 Even when \code{cmp} field has 3 rows with \code{mix.type = 3}, if the components of
 the left-tail side and the right-tail side are the same, this function returns \code{TRUE},

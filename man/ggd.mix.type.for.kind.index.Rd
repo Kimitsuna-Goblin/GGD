@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.1.R
 \name{ggd.mix.type.for.kind.index}
 \alias{ggd.mix.type.for.kind.index}
-\title{Get mix.type according to kind.index}
+\title{mix.type according to kind.index}
 \usage{
 ggd.mix.type.for.kind.index(kind.index)
 }

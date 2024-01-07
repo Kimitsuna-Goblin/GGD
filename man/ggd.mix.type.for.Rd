@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.1.R
 \name{ggd.mix.type.for}
 \alias{ggd.mix.type.for}
-\title{Get mix.type according to grad}
+\title{mix.type according to grad}
 \usage{
 ggd.mix.type.for(
   grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),

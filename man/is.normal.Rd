@@ -3,7 +3,7 @@
 \name{is.normal}
 \alias{is.normal}
 \alias{\S4method{is.normal}{GGD}}
-\title{Judge if normal distribution}
+\title{Judge if normal}
 \usage{
 \S4method{is.normal}{GGD}()
 }
@@ -11,7 +11,7 @@
 \code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
 }
 \description{
-Referring only \code{cmp} field, checks if the distribution is a normal distribution.
+Referring \code{cmp} field, checks if the distribution is essentially a normal distribution.
 Note, this function does not check \code{kind} and \code{kind.index} fields.
 }
 \examples{

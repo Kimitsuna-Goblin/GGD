@@ -3,7 +3,7 @@
 \name{is.v3}
 \alias{is.v3}
 \alias{\S4method{is.v3}{GGD}}
-\title{Judge if vertical gradation of 3 normal distributions}
+\title{Judge if 3-component vertical}
 \usage{
 \S4method{is.v3}{GGD}(strict = FALSE)
 }
@@ -22,7 +22,7 @@
          3 normal distributions, otherwise \code{FALSE}.
 }
 \description{
-Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 a vertical gradation of 3 normal distributions.
 Note! when \code{mix.type = 4},
 if the right-top-side and left-top-side components are the same
