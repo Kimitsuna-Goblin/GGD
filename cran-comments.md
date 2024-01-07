@@ -1,14 +1,14 @@
-── R CMD check results ────────────────────────────────────────── ggd 1.0.2 ────
-Duration: 15m 57.5s
+── R CMD check results ─────────────────────────────── ggd 1.0.2 ────
+Duration: 16m 4.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ── ggd 1.0.2: NOTE
 
-  Build ID:   ggd_1.0.2.tar.gz-f73a1dcb02114f69a0ef482c597e3b44
+  Build ID:   ggd_1.0.2.tar.gz-9d7128aae7ec4518843c9e66b3186d41
   Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  2h 7m 45.7s ago
-  Build time: 30m 45.8s
+  Submitted:  47m 50.5s ago
+  Build time: 30m 21.8s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kimitsuna Ura <kimitsuna@i.softbank.jp>'
@@ -30,12 +30,12 @@ Duration: 15m 57.5s
 
 ── ggd 1.0.2: NOTE
 
-  Build ID:   ggd_1.0.2.tar.gz-e50ce7fbd92b4c3c9a0559c12dba4c7e
+  Build ID:   ggd_1.0.2.tar.gz-6cc10ab775894ac9b324ce8825dfac5f
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  2h 7m 45.8s ago
-  Build time: 36m 43.1s
+  Submitted:  47m 50.5s ago
+  Build time: 36m 44.5s
 
-❯ checking CRAN incoming feasibility ... [6s/17s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/16s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
@@ -44,10 +44,10 @@ Duration: 15m 57.5s
 
 ── ggd 1.0.2: NOTE
 
-  Build ID:   ggd_1.0.2.tar.gz-77283795affa466e98c52245e8055e66
+  Build ID:   ggd_1.0.2.tar.gz-1656b971e4eb45e5bb4a7d465c518026
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  2h 7m 45.8s ago
-  Build time: 36m 30.7s
+  Submitted:  47m 50.6s ago
+  Build time: 36m 33.4s
 
 ❯ checking CRAN incoming feasibility ... [6s/20s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
