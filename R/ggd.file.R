@@ -139,7 +139,8 @@ GGD$methods(
         obj <- ggd.read.csv( file )
         set.cmp( obj$cmp, this.mix.type = obj$mix.type,
                  grad = ifelse( ( obj$mix.type == 3 && nrow( obj$cmp ) == 3 ),
-                                "v3", "default" ) )
+                                "v3", "default" ),
+                 custom.d = obj$custom.d )
     }
 )
 
@@ -180,7 +181,7 @@ GGD$methods(
 #'      Instead, you can use \code{\link[base]{save}} or \code{\link[base]{save.image}}.
 #' }
 #'
-#' @importFrom  utils   getSrcref read.csv
+#' @importFrom  utils   read.csv
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),
 #'                    grad = "v2" )
@@ -193,9 +194,10 @@ ggd.write.csv <- function( obj, file = "" )
 {
     if ( isTRUE( obj$mix.type == 5 ) )
     {
-        append.str <- paste0( '"","', gsub( '"', '\\\\"',
-                                            paste( as.character( getSrcref( obj$custom.d ) ),
-                                                   collapse = "\\n" ) ),
+        append.str <- paste0( '"","',
+                              gsub( '"', '\\\\"',
+                                    paste( as.character( attributes( obj$custom.d )$srcref ),
+                                           collapse = "\\n" ) ),
                               '",""' )
     }
     else
