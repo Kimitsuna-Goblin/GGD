@@ -10,7 +10,7 @@
 #  Functions
 
 ################################################################################################
-#' Apply functions to elements of cmp
+#' Apply functions to cmp
 #'
 #' Applies a function to each element in the \code{cmp} field.
 #' Different functions can be applied to \code{mean} column and \code{sd} column.
@@ -58,7 +58,7 @@
 #'      (e.g., \code{\link[ggd]{adjust.cmp}}, \code{\link[ggd]{round.cmp}}, etc.)
 #'      for the object of the 2nd argument, since they may update the values of the fields.
 #'
-#'      This function does not change the number of rows of the \code{cmp} field,
+#'      This function does not change the number of rows in \code{cmp} field,
 #'      no matter what results are obtained.
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1, 0.8, 1.2 ) ) )
@@ -137,12 +137,12 @@ apply.cmp.sub <- function( f, values, obj )
 }
 
 ################################################################################################
-#' Rounding of numbers in cmp
+#' Rounding values in cmp
 #'
 #' Rounds the values of all elements in the \code{cmp} field and adjusts other fields
 #' accordingly.
 #' \code{\link[base]{round}} and \code{\link[base]{signif}} functions can apply.
-#' These functions does not change the number of rows of \code{cmp} field,
+#' These functions does not change the number of rows in \code{cmp} field,
 #' no matter what results are obtained.
 #' If an error occurs, these functions do not clear the object, but retains the values of
 #' all fields.

@@ -301,7 +301,7 @@
 #'      You know a standard deviation must be a non-zero positive value.
 #'      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
 #'      they will sometimes drop into negative values while the Gauss-Newton algorithm is running
-#'      and the algorithm will fail, even if it can reach to convergence if done better.
+#'      and the algorithm will fail, even if it can reach convergence if done better.
 #'
 #'      So, to avoid such failures, we use square roots of standard deviations and
 #'      take squares of them in the formula for \code{\link[stats]{nls}}.
@@ -1123,7 +1123,7 @@ extract.freq.data <- function( data, x, freq )
     data.ext <- extract.complete.x.y( data, x, freq, "freq" )
     if ( nrow( data.ext ) < 3 )
     {
-        stop( "Error: The row number of data is too small." )
+        stop( "Error: Too few rows for data." )
     }
 
     # Check if rows are sorted.
@@ -1298,14 +1298,14 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
     #       but closer to mean of the frequency distribution than "means".
     #       These are used when we do not want the initial mean values to be dispersed.
     #
-    #   sqrt.sd.mid:
+    #   sqrt.sds.mid:
     #       Global or local standard deviation corresponding to around center of the range of
     #       the frequency distribution.
     if ( is.na( start.level ) )
     {
         # Level NA: all parameters are NA.
         means.mid <- means <- rep( NA_real_, 4 )
-        sqrt.sd.mid <- sqrt.sds <- rep( NA_real_, 4 )
+        sqrt.sds.mid <- sqrt.sds <- rep( NA_real_, 4 )
 
         mean.lower <- mean.upper <- mean.inner <- mean.outer <- NA_real_
         sqrt.sd.lower <- sqrt.sd.upper <- sqrt.sd.inner <- sqrt.sd.outer <- NA_real_
@@ -1320,7 +1320,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
         sqrt.sd.lower <- sqrt.sd.upper <- sqrt.sd.inner <- sqrt.sd.outer <- sqrt( data.sd )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
     }
     else if ( start.level == 1 )
     {
@@ -1352,7 +1352,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
         }, 0 )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
     }
     else if ( start.level >= 2 )
     {
@@ -1381,7 +1381,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
         sqrt.sd.outer <- sqrt( ( ms[[1]]$sd + ms[[4]]$sd ) / 2 )
 
         means.mid <- rep( data.mean, 4 )
-        sqrt.sd.mid <- sqrt( data.sd )
+        sqrt.sds.mid <- sqrt( data.sd )
 
         if ( start.level == 3 )
         {
@@ -1393,7 +1393,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                                   c( sep$data[[1]][lengths[1]], sep$data[[4]][1] ) )
 
                 means.mid <- rep( ms$mean, 4 )
-                sqrt.sd.mid <- sqrt( ms$sd )
+                sqrt.sds.mid <- sqrt( ms$sd )
             }
             else
             {
@@ -1437,7 +1437,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                     {
                         means.mid <- means <- obj$cmp$mean[c( 1, 2, 4, 3 )]
                         sqrt.sds <- sqrt( obj$cmp$sd[c( 1, 2, 4, 3 )] )
-                        sqrt.sd.mid <- ( sqrt.sds[2] + sqrt.sds[3] ) / 2
+                        sqrt.sds.mid <- ( sqrt.sds[2] + sqrt.sds[3] ) / 2
                     }
                     else
                     {
@@ -1454,7 +1454,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                         sqrt.sd.inner <- sqrt.sds[2]
                         sqrt.sd.outer <- sqrt.sds[1]
 
-                        sqrt.sd.mid <- sqrt.sds[2]
+                        sqrt.sds.mid <- sqrt.sds[2]
                     }
                 }
             }
@@ -1466,7 +1466,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
         # via Normal Distribution
         fm <- d ~ dnorm( x, mean, sqrt.sd^2 )
 
-        start <- list( mean = means.mid[1], sqrt.sd = sqrt.sd.mid )
+        start <- list( mean = means.mid[1], sqrt.sd = sqrt.sds.mid )
     }
     else
     {
@@ -1478,7 +1478,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                 fm <- d ~ ( dnorm( x, mean.1, sqrt.sd^2 ) + dnorm( x, mean.2, sqrt.sd^2 ) ) / 2
                 start <- list( mean.1 = mean.lower,
                                mean.2 = mean.upper,
-                               sqrt.sd = sqrt.sd.mid )
+                               sqrt.sd = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
@@ -1507,7 +1507,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
 
                 start <- list( mean.1 = mean.lower,
                                mean.2 = mean.upper,
-                               sqrt.sd  = sqrt.sd.mid )
+                               sqrt.sd  = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
@@ -1543,7 +1543,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
 
                     start <- list( mean.1 = mean.outer,
                                    mean.2 = mean.inner,
-                                   sqrt.sd = sqrt.sd.mid )
+                                   sqrt.sd = sqrt.sds.mid )
                 }
                 else if ( eq.mean )
                 {
@@ -1576,7 +1576,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                     start <- list( mean.1 = means[1],
                                    mean.2 = mean.inner,
                                    mean.3 = means[4],
-                                   sqrt.sd = sqrt.sd.mid )
+                                   sqrt.sd = sqrt.sds.mid )
                 }
                 else if ( eq.mean )
                 {
@@ -1620,7 +1620,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, eq.mean, eq.sd, star
                                mean.1.2 = means[2],
                                mean.2.1 = means[4],
                                mean.2.2 = means[3],
-                               sqrt.sd = sqrt.sd.mid )
+                               sqrt.sd = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.1.R
 \name{ggd.kind.index}
 \alias{ggd.kind.index}
-\title{Index number of the kind of distribution}
+\title{Index number of the kind}
 \usage{
 ggd.kind.index(objs, undef.err = FALSE)
 }

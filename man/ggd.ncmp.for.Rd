@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.1.R
 \name{ggd.ncmp.for}
 \alias{ggd.ncmp.for}
-\title{Get number of components according to the grad value and others}
+\title{Number of components according to grad}
 \usage{
 ggd.ncmp.for(
   grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),

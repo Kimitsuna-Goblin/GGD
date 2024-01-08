@@ -3,7 +3,7 @@
 \name{apply.cmp}
 \alias{apply.cmp}
 \alias{\S4method{apply.cmp}{GGD}}
-\title{Apply functions to elements of cmp}
+\title{Apply functions to cmp}
 \usage{
 \S4method{apply.cmp}{GGD}(f.mean = NULL, f.sd = NULL)
 }
@@ -55,7 +55,7 @@ Each function indicated with \code{f.mean} or \code{f.sd} can receive
      (e.g., \code{\link[ggd]{adjust.cmp}}, \code{\link[ggd]{round.cmp}}, etc.)
      for the object of the 2nd argument, since they may update the values of the fields.
 
-     This function does not change the number of rows of the \code{cmp} field,
+     This function does not change the number of rows in \code{cmp} field,
      no matter what results are obtained.
 }
 \examples{

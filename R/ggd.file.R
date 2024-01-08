@@ -10,7 +10,7 @@
 #  Functions
 
 ################################################################################################
-#' Read a composition from a CSV file
+#' Read a composition
 #'
 #' Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object
 #' and generates a \code{\link[ggd]{GGD}} object.
@@ -132,7 +132,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Write the composition to a CSV file
+#' Write the composition
 #'
 #' Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
 #' Mean values and standard deviations of the components are recorded to a maximum length of

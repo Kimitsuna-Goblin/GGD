@@ -4,7 +4,7 @@
 \alias{read.csv}
 \alias{ggd.read.csv}
 \alias{\S4method{read.csv}{GGD}}
-\title{Read a composition from a CSV file}
+\title{Read a composition}
 \usage{
 ggd.read.csv(file)
 

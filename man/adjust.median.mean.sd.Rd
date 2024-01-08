@@ -3,7 +3,7 @@
 \name{adjust.median.mean.sd}
 \alias{adjust.median.mean.sd}
 \alias{\S4method{adjust.median.mean.sd}{GGD}}
-\title{Adjust the median, mean and sd fields}
+\title{Adjust median, mean and sd fields}
 \usage{
 \S4method{adjust.median.mean.sd}{GGD}()
 }

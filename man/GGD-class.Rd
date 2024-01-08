@@ -224,8 +224,8 @@ The class provides the Gradational Gaussian Distribution.
 \item{\code{mix.type}}{An integer which represents how to mix normal distributions
                          of the components.
 
-                         The type of the distribution model and the row number of \code{cmp}
-                         field will be as follows with this value:
+                         The type of the distribution model and the number of rows
+                         in \code{cmp} field will be as follows with this value:
                          \itemize{
                              \item \code{0} : Normal distribution.
                                        \code{cmp} has only 1 row.

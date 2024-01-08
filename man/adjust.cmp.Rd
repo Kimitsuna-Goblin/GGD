@@ -3,7 +3,7 @@
 \name{adjust.cmp}
 \alias{adjust.cmp}
 \alias{\S4method{adjust.cmp}{GGD}}
-\title{Adjust the cmp field}
+\title{Adjust cmp field}
 \usage{
 \S4method{adjust.cmp}{GGD}(this.mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))

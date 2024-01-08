@@ -3,7 +3,7 @@
 \name{is.symmetric}
 \alias{is.symmetric}
 \alias{\S4method{is.symmetric}{GGD}}
-\title{Judge if symmetric distribution}
+\title{Judge if symmetric}
 \usage{
 \S4method{is.symmetric}{GGD}()
 }

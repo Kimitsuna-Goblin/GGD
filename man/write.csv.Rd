@@ -4,7 +4,7 @@
 \alias{write.csv}
 \alias{ggd.write.csv}
 \alias{\S4method{write.csv}{GGD}}
-\title{Write the composition to a CSV file}
+\title{Write the composition}
 \usage{
 ggd.write.csv(obj, file = "")
 
