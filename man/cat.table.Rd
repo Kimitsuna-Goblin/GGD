@@ -4,7 +4,7 @@
 \alias{cat.table}
 \title{[Non-exported] Output a table to a file}
 \usage{
-cat.table(x, file = "", top.text = "", digits = 15)
+cat.table(x, file = "", top.text = "", append.str = "", digits = 15)
 }
 \arguments{
 \item{x}{The object to be written, should be a matrix or data frame.}
@@ -15,6 +15,8 @@ If \code{""} (the default), it prints to the standard output connection,
 the console unless redirected by \link[base]{sink}.}
 
 \item{top.text}{A character string to be output as the first element of the header.}
+
+\item{append.str}{A character string to be output after \code{x}.}
 
 \item{digits}{The number of significant digits to print (see \link[base]{signif}).
 Valid values are integers from 1 to 22 with default 15.}

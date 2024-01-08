@@ -93,7 +93,7 @@ ggd.read.csv <- function( file )
     }
 
     mix.type <- as.integer( table[1, 1] )
-    if ( length( mix.type ) != 1 || !( is.na( mix.type ) || any( mix.type == 0:4 ) ) )
+    if ( length( mix.type ) != 1 || !( is.na( mix.type ) || any( mix.type == 0:5 ) ) )
     {
         stop( "Error: The value of mix.type is invalid." )
     }
@@ -104,8 +104,20 @@ ggd.read.csv <- function( file )
     }
     else
     {
-        cmp <- data.frame( mean = as.numeric( table[2:nrow( table ), 2] ),
-                             sd = as.numeric( table[2:nrow( table ), 3] ) )
+        if ( isTRUE( mix.type == 5 ) )
+        {
+            cmp <- data.frame( mean = as.numeric( table[2:( nrow( table ) - 1 ), 2] ),
+                                 sd = as.numeric( table[2:( nrow( table ) - 1 ), 3] ) )
+
+            text <- gsub( "\\\\", '"', gsub( "\\\\n", "\n", table[nrow( table ), 2] ) )
+            custom.d <- eval( parse( text = text ) )
+        }
+        else
+        {
+            cmp <- data.frame( mean = as.numeric( table[2:nrow( table ), 2] ),
+                                 sd = as.numeric( table[2:nrow( table ), 3] ) )
+            custom.d <- NULL
+        }
     }
 
     if ( mix.type == 3 && nrow( cmp ) == 3 )
@@ -117,7 +129,7 @@ ggd.read.csv <- function( file )
         grad <- "default"
     }
 
-    return ( ggd.set.cmp( cmp, mix.type = mix.type, grad = grad ) )
+    return ( ggd.set.cmp( cmp, mix.type = mix.type, grad = grad, custom.d = custom.d ) )
 }
 
 GGD$methods(
@@ -135,13 +147,8 @@ GGD$methods(
 #' Write the composition
 #'
 #' Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
-#' Mean values and standard deviations of the components are recorded to a maximum length of
-#' the 22nd decimal place.
-#' The accuracy is sufficient to reconstruct the original object almost completely
-#' (at least the value of each field can be \code{TRUE} with \code{"=="})
-#' in most cases, in most systems.
-#' So, this function provides a simple way to export a \code{\link[ggd]{GGD}} object,
-#' regardless of the package or R version.
+#' This function provides a simple way to export a \code{\link[ggd]{GGD}} object,
+#' regardless of the package or R version. See "Details" for more information.
 #' @export
 #' @name    write.csv
 #' @aliases ggd.write.csv
@@ -154,6 +161,25 @@ GGD$methods(
 #'                  the composition of the object. \code{""} indicates output to the console.
 #' @return  An invisible NULL.
 #' @seealso \code{\link[ggd]{read.csv}}
+#'
+#' @details
+#' \subsection{Accuracy of saved data}{
+#'      Mean values and standard deviations of the components are recorded to
+#'      a maximum length of the 22nd decimal place.
+#'      The accuracy is sufficient to reconstruct the original object almost completely
+#'      (at least the value of each field can be \code{TRUE} with \code{"=="})
+#'      in most cases, in most systems.
+#' }
+#' \subsection{For customized distribution}{
+#'      Although it is possible to save an object of \code{"Customized Distribution"}
+#'      (\code{mix.type = 5}), it is not always a good idea to use this method.
+#'      This is because, \code{costom.d} is simply converted to a character string
+#'      and saved in the last row of the CSV file, so it is not guaranteed that objects loaded
+#'      with \code{\link[ggd]{read.csv}} will work well,
+#'      particularly if \code{custom.d} calls your own functions.
+#'      Instead, you can use \code{\link[base]{save}} or \code{\link[base]{save.image}}.
+#' }
+#'
 #' @importFrom  utils   read.csv
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),
@@ -165,7 +191,19 @@ GGD$methods(
 ################################################################################################
 ggd.write.csv <- function( obj, file = "" )
 {
-    cat.table( obj$cmp, file, obj$mix.type, 22 )
+    if ( isTRUE( obj$mix.type == 5 ) )
+    {
+        append.str <- paste0( '"","', gsub( '"', '\\\\"',
+                                            paste( as.character( getSrcref( obj$custom.d ) ),
+                                                   collapse = "\\n" ) ),
+                              '",""' )
+    }
+    else
+    {
+        append.str <- ""
+    }
+
+    cat.table( obj$cmp, file, obj$mix.type, append.str, 22 )
 }
 
 GGD$methods(

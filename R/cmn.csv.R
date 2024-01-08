@@ -22,13 +22,14 @@
 #'                      If \code{""} (the default), it prints to the standard output connection,
 #'                      the console unless redirected by \link[base]{sink}.
 #' @param   top.text    A character string to be output as the first element of the header.
+#' @param   append.str  A character string to be output after \code{x}.
 #' @param   digits      The number of significant digits to print (see \link[base]{signif}).
 #'                      Valid values are integers from 1 to 22 with default 15.
 #' @return  An invisible \code{NULL}.
 #' @examples
 #'  ggd:::cat.table( data.frame( a = 1:6 * pi, b = pi^(1:6) ), top.text = "PI", digits = 10 )
 ################################################################################################
-cat.table <- function( x, file = "", top.text = "", digits = 15 )
+cat.table <- function( x, file = "", top.text = "", append.str = "", digits = 15 )
 {
     digits.backup <- getOption( "digits" )
 
@@ -83,6 +84,12 @@ cat.table <- function( x, file = "", top.text = "", digits = 15 )
                     }
                 }
             }
+        }
+
+        if ( isTRUE( nchar( append.str ) > 0 ) )
+        {
+            cat( append.str, file = file, append = TRUE )
+            cat( "\n", file = file, append = TRUE )
         }
     },
     finally = { options( digits = digits.backup ) } )

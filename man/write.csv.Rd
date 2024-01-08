@@ -21,13 +21,26 @@ An invisible NULL.
 }
 \description{
 Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
-Mean values and standard deviations of the components are recorded to a maximum length of
-the 22nd decimal place.
-The accuracy is sufficient to reconstruct the original object almost completely
-(at least the value of each field can be \code{TRUE} with \code{"=="})
-in most cases, in most systems.
-So, this function provides a simple way to export a \code{\link[ggd]{GGD}} object,
-regardless of the package or R version.
+This function provides a simple way to export a \code{\link[ggd]{GGD}} object,
+regardless of the package or R version. See "Details" for more information.
+}
+\details{
+\subsection{Accuracy of saved data}{
+     Mean values and standard deviations of the components are recorded to
+     a maximum length of the 22nd decimal place.
+     The accuracy is sufficient to reconstruct the original object almost completely
+     (at least the value of each field can be \code{TRUE} with \code{"=="})
+     in most cases, in most systems.
+}
+\subsection{For customized distribution}{
+     Although it is possible to save an object of \code{"Customized Distribution"}
+     (\code{mix.type = 5}), it is not always a good idea to use this method.
+     This is because, \code{costom.d} is simply converted to a character string
+     and saved in the last row of the CSV file, so it is not guaranteed that objects loaded
+     with \code{\link[ggd]{read.csv}} will work well,
+     particularly if \code{custom.d} calls your own functions.
+     Instead, you can use \code{\link[base]{save}} or \code{\link[base]{save.image}}.
+}
 }
 \examples{
  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),
