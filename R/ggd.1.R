@@ -461,7 +461,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Adjust each row name of the cmp field.
+#' Adjust each row name of cmp
 #'
 #' Sets each row name of \code{cmp} field according to \code{mix.type} field.
 #' Normally, users of this class don't need to call this method directly.
@@ -522,7 +522,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Adjust the kind.index field
+#' Adjust kind and kind.index fields
 #'
 #' Sets \code{kind.index} and \code{kind} fields according to
 #' \code{mix.type} and \code{cmp} fields.
@@ -689,7 +689,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Index number of the kind of distribution
+#' Index number of the kind
 #'
 #' Gets index numbers which represent the kinds of distributions.
 #' @export
@@ -817,7 +817,7 @@ ggd.kind.index <- function( objs, undef.err = FALSE )
 }
 
 ################################################################################################
-#' String of the kind of distribution
+#' String of the kind
 #'
 #' Gets the strings which represent the kinds of distributions.
 #' @export
@@ -871,7 +871,7 @@ ggd.kind <- function( objs )
 }
 
 ################################################################################################
-#' Get mix.type according to grad
+#' mix.type according to grad
 #'
 #' Gets the value for \code{mix.type} field of \code{GGD} object which is appropriate to
 #' given \code{grad} value.
@@ -947,7 +947,7 @@ ggd.mix.type.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3
 }
 
 ################################################################################################
-#' Get mix.type according to kind.index
+#' mix.type according to kind.index
 #'
 #' Gets a vector of integers of \code{mix.type}s
 #' which are appropriate to the indicated index numbers of \code{ggd:::kinds}.
@@ -983,7 +983,7 @@ ggd.mix.type.for.kind.index <- function( kind.index )
 }
 
 ################################################################################################
-#' Get number of components according to the grad value and others
+#' Number of components according to grad
 #'
 #' Gets the number of components for \code{cmp} field of \code{GGD} object
 #' which is appropriate to given \code{grad} or \code{mix.type} argument.
@@ -1130,9 +1130,10 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if normal distribution
+#' Judge if normal
 #'
-#' Referring only \code{cmp} field, checks if the distribution is a normal distribution.
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
+#' a normal distribution.
 #' Note, this function does not check \code{kind} and \code{kind.index} fields.
 #'
 #' For \code{"Customized Distribution"}, this function returns always \code{FALSE}
@@ -1164,9 +1165,9 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if horizontal gradational distribution
+#' Judge if horizontal
 #'
-#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 #' a horizontal gradational distribution.
 #' When \code{mix.type = 4}, if it is essentially a horizontal gradational distribution,
 #' this function returns \code{TRUE}.
@@ -1223,9 +1224,9 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if vertical gradation of 2 normal distributions
+#' Judge if 2-component vertical
 #'
-#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 #' a vertical gradation of 2 normal distributions.
 #' Even when \code{cmp} field has 3 rows with \code{mix.type = 3}, if the components of
 #' the left-tail side and the right-tail side are the same, this function returns \code{TRUE},
@@ -1288,9 +1289,9 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if vertical gradation of 3 normal distributions
+#' Judge if 3-component vertical
 #'
-#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 #' a vertical gradation of 3 normal distributions.
 #' Note! when \code{mix.type = 4},
 #' if the right-top-side and left-top-side components are the same
@@ -1350,9 +1351,9 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if horizontal-vertical gradation
+#' Judge if horizontal-vertical
 #'
-#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 #' a horizontal-vertical gradation of 4 (2x2) normal distributions.
 #' @name    is.hv
 #' @aliases is.hv
@@ -1410,7 +1411,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Judge if symmetric distribution
+#' Judge if symmetric
 #'
 #' Referring \code{mix.type} and \code{cmp} field,
 #' checks if the probability density function is symmetric about the mean.

@@ -10,7 +10,7 @@
 #  Functions
 
 ################################################################################################
-#' Apply functions to elements of cmp
+#' Apply functions to cmp
 #'
 #' Applies a function to each element in the \code{cmp} field.
 #' Different functions can be applied to \code{mean} column and \code{sd} column.
@@ -137,7 +137,7 @@ apply.cmp.sub <- function( f, values, obj )
 }
 
 ################################################################################################
-#' Rounding of numbers in cmp
+#' Rounding values in cmp
 #'
 #' Rounds the values of all elements in the \code{cmp} field and adjusts other fields
 #' accordingly.

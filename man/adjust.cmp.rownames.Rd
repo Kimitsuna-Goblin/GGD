@@ -3,7 +3,7 @@
 \name{adjust.cmp.rownames}
 \alias{adjust.cmp.rownames}
 \alias{\S4method{adjust.cmp.rownames}{GGD}}
-\title{Adjust each row name of the cmp field.}
+\title{Adjust each row name of cmp}
 \usage{
 \S4method{adjust.cmp.rownames}{GGD}()
 }

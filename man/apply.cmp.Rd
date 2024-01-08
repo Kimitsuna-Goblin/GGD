@@ -3,7 +3,7 @@
 \name{apply.cmp}
 \alias{apply.cmp}
 \alias{\S4method{apply.cmp}{GGD}}
-\title{Apply functions to elements of cmp}
+\title{Apply functions to cmp}
 \usage{
 \S4method{apply.cmp}{GGD}(f.mean = NULL, f.sd = NULL)
 }

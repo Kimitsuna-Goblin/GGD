@@ -3,7 +3,7 @@
 \name{is.h}
 \alias{is.h}
 \alias{\S4method{is.h}{GGD}}
-\title{Judge if horizontal gradational distribution}
+\title{Judge if horizontal}
 \usage{
 \S4method{is.h}{GGD}(strict = FALSE)
 }
@@ -19,7 +19,7 @@
          otherwise \code{FALSE}.
 }
 \description{
-Referring \code{mix.type} and \code{cmp} field, checks if the distribution is constructed as
+Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
 a horizontal gradational distribution.
 When \code{mix.type = 4}, if it is essentially a horizontal gradational distribution,
 this function returns \code{TRUE}.

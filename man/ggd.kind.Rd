@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.1.R
 \name{ggd.kind}
 \alias{ggd.kind}
-\title{String of the kind of distribution}
+\title{String of the kind}
 \usage{
 ggd.kind(objs)
 }

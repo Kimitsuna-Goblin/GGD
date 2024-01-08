@@ -3,7 +3,7 @@
 \name{adjust.kind.index}
 \alias{adjust.kind.index}
 \alias{\S4method{adjust.kind.index}{GGD}}
-\title{Adjust the kind.index field}
+\title{Adjust kind and kind.index fields}
 \usage{
 \S4method{adjust.kind.index}{GGD}()
 }

@@ -464,7 +464,7 @@ GGD$methods(
 )
 
 ################################################################################################
-#' Adjust the cmp field
+#' Adjust cmp field
 #'
 #' Simplifies the components in \code{cmp} field with retaining
 #' the substance of the distribution. Also, you can make \code{cmp} field redundant inversely.

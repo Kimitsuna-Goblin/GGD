@@ -499,7 +499,7 @@ calc.v.t4.via.integrate <- function( means, sds, mean = calc.mean( 4, means, sds
 }
 
 ################################################################################################
-#' Adjust the median, mean and sd fields
+#' Adjust median, mean and sd fields
 #'
 #' Calculates the median, the mean and the standard deviation of the distribution model and
 #' sets those values into the fields.
