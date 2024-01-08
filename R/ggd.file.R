@@ -180,7 +180,7 @@ GGD$methods(
 #'      Instead, you can use \code{\link[base]{save}} or \code{\link[base]{save.image}}.
 #' }
 #'
-#' @importFrom  utils   read.csv
+#' @importFrom  utils   getSrcref read.csv
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),
 #'                    grad = "v2" )
