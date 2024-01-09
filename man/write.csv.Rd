@@ -26,11 +26,11 @@ regardless of the package or R version. See "Details" for more information.
 }
 \details{
 \subsection{Accuracy of saved data}{
-     Mean values and standard deviations of the components are recorded to
-     a maximum length of the 22nd decimal place.
+     Mean values and standard deviations are recorded to a maximum length of
+     the 22nd decimal place.
      The accuracy is sufficient to reconstruct the original object almost completely
      (at least the value of each field can be \code{TRUE} with \code{"=="})
-     in most cases, in most systems.
+     in most cases, and in most systems.
 }
 \subsection{For customized distribution}{
      Although it is possible to save an object of \code{"Customized Distribution"}

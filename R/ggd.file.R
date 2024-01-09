@@ -21,21 +21,24 @@
 #' @aliases \S4method{read.csv}{GGD}
 #' @usage   ggd.read.csv(file)
 #' @usage   \S4method{read.csv}{GGD}(file)
-#' @param   file        The name of the CSV file which the composition of
-#'                      a \code{\link[ggd]{GGD}} object is to be read from.
-#'                      The \code{file} can be a readable text-mode \link[base]{connection}.
+#' @param   file    The name of the CSV file which the composition of
+#'                  a \code{\link[ggd]{GGD}} object is to be read from.
+#'                  The \code{file} can be a readable text-mode \link[base]{connection}.
 #'
-#'                      The \code{file} must have a header consisting of
-#'                      the value of \code{mix.type}, the character string of "mean"
-#'                      and the character string of "sd".
-#'                      The order of each column is not interchangeable.
-#'                      The second and subsequent rows should be the name of the row
-#'                      (such as \code{"nd.1"}, but not be cared)
-#'                      and the mean value and standard deviation of the each components
-#'                      of the \code{cmp} field.
+#'          The \code{file} should be a CSV file with 3 columns.
+#'          The columns are 1:row header, 2:mean value, and 3:standard deviation
+#'          of the component. The columns cannot be reordered.
+#'          The \code{file} must have a header row consisting of the value of
+#'          the \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
+#'          The second and subsequent rows should have the row name (such as \code{"nd.1"}),
+#'          the mean value, and standard deviation of each component.
 #'
-#'                      For more information about the properties of this argument,
-#'                      see \code{file} argument of \link[utils]{read.table}.
+#'          If \code{mix.type = 5}, the function for \code{custom.d} must be written
+#'          as a character string in the row header of the last row.
+#'          In this case, the 2nd and 3rd columns of the last row are not used.
+#'
+#'          For more information about the properties of this argument,
+#'          see \code{file} argument of \link[utils]{read.table}.
 #'
 #' @return  The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
 #'
@@ -48,7 +51,7 @@
 #'      If the read file is one which is written with a cleared object,
 #'      \code{kind}/\code{kind.index} and \code{mix.type} fields of the generated object
 #'      will be \code{NA},
-#'      and \code{median} and \code{mean} and other numeric fields will be \code{NaN}.
+#'      and then \code{median}, \code{mean}, and other numeric fields will be \code{NaN}.
 #' }
 #' \subsection{Illegal format file}{
 #'      If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot
@@ -109,7 +112,7 @@ ggd.read.csv <- function( file )
             cmp <- data.frame( mean = as.numeric( table[2:( nrow( table ) - 1 ), 2] ),
                                  sd = as.numeric( table[2:( nrow( table ) - 1 ), 3] ) )
 
-            text <- gsub( "\\\\", '"', gsub( "\\\\n", "\n", table[nrow( table ), 2] ) )
+            text <- gsub( "\\\\", '"', gsub( "\\\\n", "\n", table[nrow( table ), 1] ) )
             custom.d <- eval( parse( text = text ) )
         }
         else
@@ -140,7 +143,7 @@ GGD$methods(
         set.cmp( obj$cmp, this.mix.type = obj$mix.type,
                  grad = ifelse( ( obj$mix.type == 3 && nrow( obj$cmp ) == 3 ),
                                 "v3", "default" ),
-                 custom.d = obj$custom.d )
+                 this.custom.d = obj$custom.d )
     }
 )
 
@@ -165,11 +168,11 @@ GGD$methods(
 #'
 #' @details
 #' \subsection{Accuracy of saved data}{
-#'      Mean values and standard deviations of the components are recorded to
-#'      a maximum length of the 22nd decimal place.
+#'      Mean values and standard deviations are recorded to a maximum length of
+#'      the 22nd decimal place.
 #'      The accuracy is sufficient to reconstruct the original object almost completely
 #'      (at least the value of each field can be \code{TRUE} with \code{"=="})
-#'      in most cases, in most systems.
+#'      in most cases, and in most systems.
 #' }
 #' \subsection{For customized distribution}{
 #'      Although it is possible to save an object of \code{"Customized Distribution"}
@@ -194,11 +197,11 @@ ggd.write.csv <- function( obj, file = "" )
 {
     if ( isTRUE( obj$mix.type == 5 ) )
     {
-        append.str <- paste0( '"","',
+        append.str <- paste0( '"',
                               gsub( '"', '\\\\"',
                                     paste( as.character( attributes( obj$custom.d )$srcref ),
                                            collapse = "\\n" ) ),
-                              '",""' )
+                              '","",""' )
     }
     else
     {
