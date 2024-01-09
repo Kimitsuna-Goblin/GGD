@@ -565,12 +565,12 @@ GGD$methods(
                 # Sequential tracing with changing mix.type
                 if ( qt.num < 5 )
                 {
-                    # mix.type = 4 and 0 are skipped because error shall occur always.
+                    # mix.type = 4 and 0 are skipped because error shall occur.
                     mix.type.seq <- c( 2, 3, 1 )
                 }
                 else # if ( qt.num in 5:8 )
                 {
-                    # mix.type = 2, 1 and 0 are skipped because error shall occur always.
+                    # mix.type = 2, 1, and 0 are skipped because error shall occur.
                     mix.type.seq <- c( 4, 3 )
                 }
 
@@ -1071,7 +1071,7 @@ GGD$methods(
                     if ( is.set.median )
                     {
                         # Median is specified:
-                        #   Unify mean values to the median and seek standard deviations.
+                        #   Unify mean values to the median, and then seek standard deviations.
                         x.0 <- c( 1, 1 )
 
                         mean.1 <- mean.2 <- 0
@@ -1081,7 +1081,7 @@ GGD$methods(
                     else
                     {
                         # Median is not specified:
-                        #   Seek the mean value to align and standard deviations.
+                        #   Seek the common mean value and uncommon standard deviations.
                         pseudo <- ms.norm.xp( qt$x[c( 1, 3 )], qt$p[c( 1, 3 )] )
                         x.0 <- c( pseudo$mean, sqrt( pseudo$sd ), sqrt( pseudo$sd ) )
 
@@ -1999,8 +1999,8 @@ dp.t3 <- function( x, means, sds, f.t3 )
 ################################################################################################
 #' [Non-exported] Crossover-tracing (3 quantiles, vertical gradation of 2 normal distributions)
 #'
-#' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 3 quantiles
-#' with mean-differed 2 normal distributions of the components by crossover-tracing.
+#' Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
+#' for a mean-differed 2-component vertical gradational distribution.
 #' @param   qt          A data frame; the quantiles to be traced,
 #'                      If the median is specified, median must be included.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
@@ -2012,7 +2012,7 @@ dp.t3 <- function( x, means, sds, f.t3 )
 #' @details
 #'  \subsection{Crossover-tracing}{
 #'      Let cumulative distribution functions of 2 mean-differed normal distributions
-#'      crossover at one of quantiles (except for median),
+#'      crossover at one of quantiles (except for the median),
 #'      and seek the mean values and standard deviations as tracing the other 2 quantiles.
 #'  }
 #' @importFrom  stats       pnorm
@@ -2095,10 +2095,10 @@ v2.crossover <- function( qt, control )
 }
 
 ################################################################################################
-#' [Non-exported] Gets cmp field (4 quantiles, vertical gradation of 2 normal distributions)
+#' [Non-exported] Gets cmp field (4 quantiles, 2-component vertical gradational distribution)
 #'
-#' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-#' with 2 normal distributions of the components.
+#' Tracing 4 quantiles with 2 normal distributions, makes the data frame for \code{cmp} field
+#' where \code{mix.type = 3}.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #' @param   retriable   A logical; the flag if retrying is enable.
@@ -2129,8 +2129,8 @@ v2.qt4.cmp <- function( qt, control, retriable )
     if ( qt$p[1] == qt$p[2] )
     {
         # If there are 2 same quantiles of the nearest to the median in qt,
-        # we use normal distributions through quantiles of the nearest and the farthest
-        # and through the quantiles of the nearest and the mid-distance.
+        # we use a normal distribution through quantiles of the nearest and the farthest
+        # and the other one through the quantiles of the nearest and the mid-distance.
         #
         # This can be the case when 3 quantiles are specified.
         pseudo.far  <- ms.norm.xp( qt$x[c( 2, 4 )], qt$p[c( 2, 4 )] )
@@ -2184,10 +2184,10 @@ v2.qt4.cmp <- function( qt, control, retriable )
 }
 
 ################################################################################################
-#' [Non-exported] Gets cmp field (4 quantiles, vertical gradation of 3 normal distributions)
+#' [Non-exported] Gets cmp field (4 quantiles, 3-component vertical gradational distribution)
 #'
-#' Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-#' with 3 normal distributions of the components.
+#' Tracing 4 quantiles with 3 normal distributions, makes the data frame for \code{cmp} field
+#' where \code{mix.type = 3}.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   eq.mean     A logical; the flag to be equal all of the mean values.
 #' @param   eq.sd       A logical; the flag to be equal all of the standard deviations.
@@ -2320,7 +2320,7 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
 #'
 #' Gets a data frame for \code{cmp} field for \code{mix.type = 3}.
 #' Each of \code{means} and \code{sds} arguments must has 3 elements in order of
-#' \code{[1]} left-tail side, \code{[2]} top side and \code{[3]} right-tail side.
+#' \code{[1]} left-tail side, \code{[2]} top side, and \code{[3]} right-tail side.
 #' @export
 #' @param   means       A vector of mean values of the 3 normal distributions of the components.
 #' @param   sds         A vector of standard deviations of the 3 normal distributions of

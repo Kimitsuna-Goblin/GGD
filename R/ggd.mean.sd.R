@@ -499,11 +499,11 @@ calc.v.t4.via.integrate <- function( means, sds, mean = calc.mean( 4, means, sds
 }
 
 ################################################################################################
-#' Adjust median, mean and sd fields
+#' Adjust median, mean, and sd fields
 #'
-#' Calculates the median, the mean and the standard deviation of the distribution model and
-#' sets those values into the fields.
-#' Before calling this method, you must set \code{cmp} field and \code{mix.type} field.
+#' Calculates the median, the mean, and the standard deviation of the distribution model and
+#' then sets those values into the fields.
+#' Before calling this method, you must set \code{cmp} and \code{mix.type} fields.
 #' Normally, users of this class don't need to call this method directly.
 #' @name    adjust.median.mean.sd
 #' @aliases adjust.median.mean.sd
