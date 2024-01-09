@@ -429,12 +429,8 @@ GGD$methods(
             {
                 if ( identical( custom.d, default.custom.d ) )
                 {
-                    # rollback
-                    mix.type    <<- backup$mix.type
-                    cmp         <<- backup$cmp
-
-                    stop( paste( "Error: Your own function must be given to custom.d",
-                                        "for a customized distribution." ) )
+                    warning( paste( "Warning: Your own function should be given to custom.d",
+                                             "for a customized distribution." ) )
                 }
             }
             else
@@ -460,7 +456,16 @@ GGD$methods(
         }
 
         # Set median, mean, sd and its family.
-        return ( adjust.median.mean.sd() )
+        withCallingHandlers(
+            adjust.median.mean.sd(),
+            error = function( e )
+            {
+                message( paste( "Message: Failed to adjust fields due to below error.\n\n",
+                            "You should check and correct cmp and custom.d fields\n",
+                            "and then call set.cmp or adjust.median.mean.sd again.\n" ) )
+            } )
+
+        return ( invisible( .self ) )
     }
 )
 

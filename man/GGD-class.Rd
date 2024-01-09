@@ -259,23 +259,27 @@ The class provides the Gradational Gaussian Distribution.
                          Where \code{mix.type = 4},
                          it has 4 rows named like "\code{n.i.j}".}
 
-\item{\code{custom.d}}{The probability density function of the custom distribution.
-                         It must be a function which receives 2 arguments and
-                         returns a positive numeric value or \code{0}.
+\item{\code{custom.d}}{The probability density function defined by user for
+                         the custom distribution.
+                         You should set your own function to this field
+                         to use \code{"Custom Distribution"} (\code{mix.type = 5}).
+                         The function must receive 2 arguments and
+                         return a vector of non-negative numeric values as the densities.
 
              The 2 arguments for the function are
              \itemize{
-                 \item   A numeric value (length = \code{1}) for the x-coordinate.
+                 \item   A vector of numeric values for the x-coordinates.
+                         \code{custom.d} must return a vector of same length
+                         as this argument.
                  \item   A data frame of the mean values and standard deviations
                          of the components. That is, the \code{cmp} field.
              }
 
-             If \code{mix.type} is other than \code{5},
-             \code{function(x, cmp) dnorm(x, 0, 1)} is set as default.
-
-             The default value of \code{custom.d} can be changed without notice,
-             so you should not use it for a probability density function
-             of the standard normal distribution.}
+             As the default, \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])} is set
+             when \code{mix.type} is other than \code{5}.
+             However, the default function can be changed without notice,
+             so you should not expect it to be a probability density function
+             of a normal distribution.}
 
 \item{\code{median}}{A numeric; the median of the distribution.}
 
