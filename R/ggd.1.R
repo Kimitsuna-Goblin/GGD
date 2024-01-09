@@ -79,9 +79,10 @@ f.t3.p <- list( function( x, m, s )
 #'                              \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                               \code{cmp} has 4 rows.
 #'                              \item \code{5} : Customized distribution.
+#'                                               Any probability distribution can be represented
+#'                                               by a user-defined probability density function
+#'                                               (but must be integrable).
 #'                                               The number of rows in \code{cmp} is free.
-#'                                               The customized probability density function
-#'                                               muse be given by user.
 #'                          }
 #'
 #'                          With \code{mix.type = 1}, the distribution model is not
