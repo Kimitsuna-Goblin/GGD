@@ -2004,7 +2004,7 @@ dp.t3 <- function( x, means, sds, f.t3 )
 }
 
 ################################################################################################
-#' [Non-exported] Crossover-tracing (3 quantiles, vertical gradation of 2 normal distributions)
+#' [Non-exported] Crossover-tracing (3 quantiles, v2)
 #'
 #' Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
 #' for a mean-differed 2-component vertical gradational distribution.
@@ -2102,7 +2102,7 @@ v2.crossover <- function( qt, control )
 }
 
 ################################################################################################
-#' [Non-exported] Gets cmp field (4 quantiles, 2-component vertical gradational distribution)
+#' [Non-exported] Gets cmp field (4 quantiles, v2)
 #'
 #' Tracing 4 quantiles with 2 normal distributions, makes the data frame for \code{cmp} field
 #' where \code{mix.type = 3}.
@@ -2191,7 +2191,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 }
 
 ################################################################################################
-#' [Non-exported] Gets cmp field (4 quantiles, 3-component vertical gradational distribution)
+#' [Non-exported] Gets cmp field (4 quantiles, v3)
 #'
 #' Tracing 4 quantiles with 3 normal distributions, makes the data frame for \code{cmp} field
 #' where \code{mix.type = 3}.
