@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.trace.q.R
 \name{v2.crossover}
 \alias{v2.crossover}
-\title{[Non-exported] Crossover-tracing (3 quantiles, vertical gradation of 2 normal distributions)}
+\title{[Non-exported] Crossover-tracing (3 quantiles, v2)}
 \usage{
 v2.crossover(qt, control)
 }

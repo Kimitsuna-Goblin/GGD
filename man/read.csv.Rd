@@ -12,20 +12,19 @@ ggd.read.csv(file)
 }
 \arguments{
 \item{file}{The name of the CSV file which the composition of
-                     a \code{\link[ggd]{GGD}} object is to be read from.
-                     The \code{file} can be a readable text-mode \link[base]{connection}.
+                 a \code{\link[ggd]{GGD}} object is to be read from.
+                 The \code{file} can be a readable text-mode \link[base]{connection}.
 
-                     The \code{file} must have a header consisting of
-                     the value of \code{mix.type}, the character string of "mean"
-                     and the character string of "sd".
-                     The order of each column is not interchangeable.
-                     The second and subsequent rows should be the name of the row
-                     (such as \code{"nd.1"}, but not be cared)
-                     and the mean value and standard deviation of the each components
-                     of the \code{cmp} field.
+         The \code{file} should be a CSV file with 3 columns.
+         The columns are 1:row header, 2:mean value, and 3:standard deviation
+         of the component. The columns cannot be reordered.
+         The \code{file} must have a header row consisting of the value of
+         the \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
+         The second and subsequent rows should have the row name (such as \code{"nd.1"}),
+         the mean value, and standard deviation of each component.
 
-                     For more information about the properties of this argument,
-                     see \code{file} argument of \link[utils]{read.table}.}
+         For more information about the properties of this argument,
+         see \code{file} argument of \link[utils]{read.table}.}
 }
 \value{
 The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
@@ -41,7 +40,7 @@ and generates a \code{\link[ggd]{GGD}} object.
      If the read file is one which is written with a cleared object,
      \code{kind}/\code{kind.index} and \code{mix.type} fields of the generated object
      will be \code{NA},
-     and \code{median} and \code{mean} and other numeric fields will be \code{NaN}.
+     and then \code{median}, \code{mean}, and other numeric fields will be \code{NaN}.
 }
 \subsection{Illegal format file}{
      If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot

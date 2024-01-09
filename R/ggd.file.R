@@ -21,21 +21,20 @@
 #' @aliases \S4method{read.csv}{GGD}
 #' @usage   ggd.read.csv(file)
 #' @usage   \S4method{read.csv}{GGD}(file)
-#' @param   file        The name of the CSV file which the composition of
-#'                      a \code{\link[ggd]{GGD}} object is to be read from.
-#'                      The \code{file} can be a readable text-mode \link[base]{connection}.
+#' @param   file    The name of the CSV file which the composition of
+#'                  a \code{\link[ggd]{GGD}} object is to be read from.
+#'                  The \code{file} can be a readable text-mode \link[base]{connection}.
 #'
-#'                      The \code{file} must have a header consisting of
-#'                      the value of \code{mix.type}, the character string of "mean"
-#'                      and the character string of "sd".
-#'                      The order of each column is not interchangeable.
-#'                      The second and subsequent rows should be the name of the row
-#'                      (such as \code{"nd.1"}, but not be cared)
-#'                      and the mean value and standard deviation of the each components
-#'                      of the \code{cmp} field.
+#'          The \code{file} should be a CSV file with 3 columns.
+#'          The columns are 1:row header, 2:mean value, and 3:standard deviation
+#'          of the component. The columns cannot be reordered.
+#'          The \code{file} must have a header row consisting of the value of
+#'          the \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
+#'          The second and subsequent rows should have the row name (such as \code{"nd.1"}),
+#'          the mean value, and standard deviation of each component.
 #'
-#'                      For more information about the properties of this argument,
-#'                      see \code{file} argument of \link[utils]{read.table}.
+#'          For more information about the properties of this argument,
+#'          see \code{file} argument of \link[utils]{read.table}.
 #'
 #' @return  The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
 #'
@@ -48,7 +47,7 @@
 #'      If the read file is one which is written with a cleared object,
 #'      \code{kind}/\code{kind.index} and \code{mix.type} fields of the generated object
 #'      will be \code{NA},
-#'      and \code{median} and \code{mean} and other numeric fields will be \code{NaN}.
+#'      and then \code{median}, \code{mean}, and other numeric fields will be \code{NaN}.
 #' }
 #' \subsection{Illegal format file}{
 #'      If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot
@@ -135,13 +134,8 @@ GGD$methods(
 #' Write the composition
 #'
 #' Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
-#' Mean values and standard deviations of the components are recorded to a maximum length of
-#' the 22nd decimal place.
-#' The accuracy is sufficient to reconstruct the original object almost completely
-#' (at least the value of each field can be \code{TRUE} with \code{"=="})
-#' in most cases, in most systems.
-#' So, this function provides a simple way to export a \code{\link[ggd]{GGD}} object,
-#' regardless of the package or R version.
+#' This function provides a simple way to export a \code{\link[ggd]{GGD}} object,
+#' regardless of the package or R version. See "Details" for more information.
 #' @export
 #' @name    write.csv
 #' @aliases ggd.write.csv
@@ -154,6 +148,16 @@ GGD$methods(
 #'                  the composition of the object. \code{""} indicates output to the console.
 #' @return  An invisible NULL.
 #' @seealso \code{\link[ggd]{read.csv}}
+#'
+#' @details
+#' \subsection{Accuracy of saved data}{
+#'      Mean values and standard deviations are recorded to a maximum length of
+#'      the 22nd decimal place.
+#'      The accuracy is sufficient to reconstruct the original object almost completely
+#'      (at least the value of each field can be \code{TRUE} with \code{"=="})
+#'      in most cases, and in most systems.
+#' }
+#'
 #' @importFrom  utils   read.csv
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0.223, 0.219 ), sd = c( 2.265, 2.176 ) ),

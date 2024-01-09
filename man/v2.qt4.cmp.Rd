@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.trace.q.R
 \name{v2.qt4.cmp}
 \alias{v2.qt4.cmp}
-\title{[Non-exported] Gets cmp field (4 quantiles, 2-component vertical gradational distribution)}
+\title{[Non-exported] Gets cmp field (4 quantiles, v2)}
 \usage{
 v2.qt4.cmp(qt, control, retriable)
 }
