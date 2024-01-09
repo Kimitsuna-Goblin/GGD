@@ -341,7 +341,7 @@ f.t3.p <- list( function( x, m, s )
 #'      \eqn{\Phi_i} and \eqn{\Phi_{i,j}} are the cumulative distribution functions of
 #'      \eqn{\mathcal{N}_i} and \eqn{\mathcal{N}_{i,j}},
 #'      and \eqn{\mu_i} is the mean value of \eqn{\mathcal{N}_i},
-#'      and \eqn{\Phi^*_i} and \eqn{\Phi^*_{i,j}} are the cumulative distribution function
+#'      and then \eqn{\Phi^*_i} and \eqn{\Phi^*_{i,j}} are the cumulative distribution function
 #'      of the normal distributions \eqn{\mathcal{N}(\mu_i, (\sigma_i / \sqrt{2})^2)} and
 #'      \eqn{\mathcal{N}(\mu_{i,j}, (\sigma_{i,j} / \sqrt{2})^2)}, respectively.
 #'

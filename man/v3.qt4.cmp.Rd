@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.trace.q.R
 \name{v3.qt4.cmp}
 \alias{v3.qt4.cmp}
-\title{[Non-exported] Gets cmp field (4 quantiles, vertical gradation of 3 normal distributions)}
+\title{[Non-exported] Gets cmp field (4 quantiles, 3-component vertical gradational distribution)}
 \usage{
 v3.qt4.cmp(qt, eq.mean, eq.sd, control, retriable, grad)
 }
@@ -29,6 +29,6 @@ A list containing components
                  The output of \code{\link[nleqslv]{nleqslv}}.}
 }
 \description{
-Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-with 3 normal distributions of the components.
+Tracing 4 quantiles with 3 normal distributions, makes the data frame for \code{cmp} field
+where \code{mix.type = 3}.
 }

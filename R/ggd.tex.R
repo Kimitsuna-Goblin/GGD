@@ -248,7 +248,7 @@ tex.end.frac.env = c( "array"       = "\\\\end{array} ",
 #' @seealso \code{\link[ggd]{adjust.cmp}}, \code{\link[ggd]{tex.d}}, \code{\link[ggd]{tex.p}}
 #' @details
 #'  \subsection{Composition of outputs}{
-#'      \code{tex} outputs the formulas of both probability density function
+#'      \code{tex} outputs the formulas for both probability density function
 #'      and cumulative distribution function.
 #'
 #'      Where \code{mix.type} field is from \code{0} to \code{3},
@@ -262,9 +262,9 @@ tex.end.frac.env = c( "array"       = "\\\\end{array} ",
 #'              the standard deviations \eqn{\sigma_i} of the components.
 #'      }
 #'
-#'      Where \code{mix.type = 4},
-#'      the formulas of \eqn{g(x)} and \eqn{\Psi(x)} are divided into 2 parts in addition,
-#'      and subscripts for \eqn{f(x)}, \eqn{\Phi(x)} and parameters are 2 like \eqn{f_{i,j}(x)}.
+#'      Where \code{mix.type = 4}, each of formulas for \eqn{g(x)} and \eqn{\Psi(x)} is
+#'      subdivided into 2 parts. And then there are 2 subscripts for
+#'      \eqn{f(x)}, \eqn{\Phi(x)} and parameters like \eqn{f_{i,j}(x)}.
 #'
 #'      \code{tex.d} outputs the formulas of probability density function only.
 #'
@@ -274,9 +274,7 @@ tex.end.frac.env = c( "array"       = "\\\\end{array} ",
 #'      and the number of components in \code{cmp} field, not \code{kind} or \code{kind.index}.
 #'      That is, for example, if the \code{kind} is \code{"Normal Distribution"}
 #'      and \code{mix.type = 2},
-#'      \code{tex} outputs formulas of a horizontal gradational distribution.
-#'      In such a case, if you want to display a normal distribution formula,
-#'      you should simplify \code{mix.type} with \code{\link[ggd]{adjust.cmp}} in advance.
+#'      \code{tex} outputs formulas for a horizontal gradational distribution.
 #'
 #'      If \code{cmp} field has no rows, nothing is output.
 #'  }

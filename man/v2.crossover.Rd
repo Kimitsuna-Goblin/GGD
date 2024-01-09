@@ -20,13 +20,13 @@ A list containing components
                  The output of \code{\link[nleqslv]{nleqslv}}.}
 }
 \description{
-Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 3 quantiles
-with mean-differed 2 normal distributions of the components by crossover-tracing.
+Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
+for a mean-differed 2-component vertical gradational distribution.
 }
 \details{
 \subsection{Crossover-tracing}{
      Let cumulative distribution functions of 2 mean-differed normal distributions
-     crossover at one of quantiles (except for median),
+     crossover at one of quantiles (except for the median),
      and seek the mean values and standard deviations as tracing the other 2 quantiles.
  }
 }
