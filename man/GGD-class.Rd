@@ -240,7 +240,8 @@ The class provides the Gradational Gaussian Distribution.
                              \item \code{5} : Customized distribution.
                                               Any probability distribution can be represented
                                               by a user-defined probability density function
-                                              (but must be integrable).
+                                              (should be integrable,
+                                               see \code{custom.d} field).
                                               The number of rows in \code{cmp} is free.
                          }
 
@@ -265,7 +266,7 @@ The class provides the Gradational Gaussian Distribution.
 
              The function for \code{custom.d} must receive 2 arguments and
              return a vector of non-negative numeric values as the densities.
-             The 2 arguments for the function are
+             The 2 arguments are
              \itemize{
                  \item   A vector of numeric values for the x-coordinates.
                          \code{custom.d} must return a vector of same length
@@ -308,10 +309,12 @@ the estimated modulus of the absolute error for \code{lsd}.}
                          will be set into these \code{*.abs.error} fields.
 
                          Where \code{mix.type = 5}, \code{mean} and \code{sd} fields
-                         will be also computed with \code{\link[stats]{integrate}} function.
-                         And the modulus of the absolute errors which
+                         are also computed with \code{\link[stats]{integrate}} function.
+                         And then the modulus of the absolute errors which
                          \code{\link[stats]{integrate}} function has reported
-                         will be set into \code{*.abs.error} fields.}
+                         will be set into \code{*.abs.error} fields.
+                         In addition, if a discrete function is given for \code{custom.d},
+                         these values will not be calculated correctly.}
 }}
 
 
