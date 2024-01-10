@@ -184,6 +184,8 @@
 #'          \item \code{nrow([this.]cmp) = 3} : \code{mix.type} will be \code{3}.
 #'          \item \code{nrow([this.]cmp) = 4} : \code{mix.type} will be \code{4}.
 #'      }
+#'      If the number of rows is \code{5} or more,
+#'      \code{mix.type} will not shift to \code{5} but an error will occur.
 #'  }
 #'
 #' @examples
