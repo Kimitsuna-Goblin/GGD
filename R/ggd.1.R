@@ -103,11 +103,9 @@ f.t3.p <- list( function( x, m, s )
 #'
 #' @field   custom.d        The probability density function defined by user for
 #'                          the custom distribution.
-#'                          You should set your own function to this field
-#'                          to use \code{"Custom Distribution"} (\code{mix.type = 5}).
-#'                          The function must receive 2 arguments and
-#'                          return a vector of non-negative numeric values as the densities.
 #'
+#'              The function for \code{custom.d} must receive 2 arguments and
+#'              return a vector of non-negative numeric values as the densities.
 #'              The 2 arguments for the function are
 #'              \itemize{
 #'                  \item   A vector of numeric values for the x-coordinates.
@@ -117,9 +115,8 @@ f.t3.p <- list( function( x, m, s )
 #'                          of the components. That is, the \code{cmp} field.
 #'              }
 #'
-#'              As the default, \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])} is set
-#'              when \code{mix.type} is other than \code{5}.
-#'              However, the default function can be changed without notice,
+#'              The default is \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}.
+#'              However, the default can be changed without notice,
 #'              so you should not expect it to be a probability density function
 #'              of a normal distribution.
 #'

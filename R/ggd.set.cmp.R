@@ -70,7 +70,8 @@
 #'                                           \code{cmp} has 4 rows.
 #'                          \item \code{5} : Customized distribution.
 #'                                           The number of rows in \code{cmp} is free.
-#'                                           User have to give the probability density function.
+#'                                           User have to give a own
+#'                                           probability density function to \code{custom.d}.
 #'                      }
 #'
 #'                      If the number of rows in \code{cmp} argument is different from
@@ -106,8 +107,7 @@
 #'
 #'                      The function must receive 2 arguments and
 #'                      return a vector of non-negative numeric values as the densities.
-#'
-#'                      The 2 arguments for the function are
+#'                      The 2 arguments are
 #'                      \itemize{
 #'                          \item   A vector of numeric values for the x-coordinates.
 #'                                  \code{custom.d} must return a vector of same length
@@ -116,10 +116,15 @@
 #'                                  of the components. That is, the \code{cmp} field.
 #'                      }
 #'
-#'                      \code{NULL} makes the current \code{custom.d} field retain,
-#'                      so the default function
-#'                      (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) will
-#'                      be set by \code{ggd.set.cmp}.
+#'                      The integral of the function over \eqn{(-\infty, \infty)}
+#'                      should be \code{1}.
+#'                      That is, for a \code{\link[ggd]{GGD}} object \code{obj},
+#'                      \code{integrate(function(x) obj$custom.d(x, obj$cmp), -Inf, Inf)$value}
+#'                      should give \code{1}.
+#'
+#'                      \code{NULL} for \code{custom.d} argument retains
+#'                      the current \code{custom.d} field, after the default
+#'                      (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) has been set.
 #'
 #' @param   this.cmp    A data frame for setting into the \code{cmp} field.
 #'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
@@ -133,9 +138,11 @@
 #'
 #' @param   this.custom.d   A function for the probability density function of
 #'                          the custom distribution.
-#'                          \code{NULL} is allowed to retain
-#'                          the current function in the \code{custom.d} field.
 #'                          It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
+#'                          \code{NULL} is allowed to retain
+#'                          the current \code{custom.d} field.
+#'                          However, a warning will occur if you retain the default for
+#'                          a custom distribution.
 #'
 #' @return  The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 #'
