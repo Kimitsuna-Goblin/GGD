@@ -79,11 +79,13 @@ f.t3.p <- list( function( x, m, s )
 #'                              \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                               \code{cmp} has 4 rows.
 #'                              \item \code{5} : Customized distribution.
-#'                                               Any probability distribution can be represented
-#'                                               by a user-defined probability density function
-#'                                               (should be integrable,
-#'                                                see \code{custom.d} field).
-#'                                               The number of rows in \code{cmp} is free.
+#'                                               Any distribution can be represented
+#'                                               by a user-defined density function
+#'                                               in \code{custom.d} field
+#'                                               (allowed even not representing
+#'                                                a probability distribution,
+#'                                                but should be integrable).
+#'                                               The number of rows in \code{cmp} is unlimited.
 #'                          }
 #'
 #'                          With \code{mix.type = 1}, the distribution model is not
@@ -102,11 +104,10 @@ f.t3.p <- list( function( x, m, s )
 #'                          Where \code{mix.type = 4},
 #'                          it has 4 rows named like "\code{n.i.j}".
 #'
-#' @field   custom.d        The probability density function defined by user for
-#'                          the custom distribution.
+#' @field   custom.d        The density function defined by user for the custom distribution.
 #'
 #'              The function for \code{custom.d} must receive 2 arguments and
-#'              return a vector of non-negative numeric values as the densities.
+#'              return a vector of numeric values as the densities.
 #'              The 2 arguments are
 #'              \itemize{
 #'                  \item   A vector of numeric values for the x-coordinates.

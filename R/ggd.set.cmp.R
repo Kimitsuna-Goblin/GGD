@@ -69,9 +69,9 @@
 #'                          \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                           \code{cmp} has 4 rows.
 #'                          \item \code{5} : Customized distribution.
-#'                                           The number of rows in \code{cmp} is free.
-#'                                           User have to give a own
-#'                                           probability density function to \code{custom.d}.
+#'                                           The number of rows in \code{cmp} is unlimited.
+#'                                           User have to give an own density function
+#'                                           to \code{custom.d}.
 #'                      }
 #'
 #'                      If the number of rows in \code{cmp} argument is different from
@@ -99,14 +99,13 @@
 #'                      in the \code{cmp} argument. If the number of columns in cmp is \code{2},
 #'                      the current \code{mix.type} is retained or horizontal (default) is used.
 #'
-#' @param   custom.d    A function for the probability density function
-#'                      of the custom distribution.
+#' @param   custom.d    A function for the density function of the custom distribution.
 #'
 #'                      If \code{kind} indicates \code{"Custom Distribution"} or
 #'                      \code{mix.type} is \code{5}, this argument should be indicated.
 #'
 #'                      The function must receive 2 arguments and
-#'                      return a vector of non-negative numeric values as the densities.
+#'                      return a vector of numeric values as the densities.
 #'                      The 2 arguments are
 #'                      \itemize{
 #'                          \item   A vector of numeric values for the x-coordinates.
@@ -115,12 +114,6 @@
 #'                          \item   A data frame of the mean values and standard deviations
 #'                                  of the components. That is, the \code{cmp} field.
 #'                      }
-#'
-#'                      The integral of the function over \eqn{(-\infty, \infty)}
-#'                      should be \code{1}.
-#'                      That is, for a \code{\link[ggd]{GGD}} object \code{obj},
-#'                      \code{integrate(function(x) obj$custom.d(x, obj$cmp), -Inf, Inf)$value}
-#'                      should give \code{1}.
 #'
 #'                      \code{NULL} for \code{custom.d} argument retains
 #'                      the current \code{custom.d} field, after the default
