@@ -1791,3 +1791,45 @@ GGD$methods(
         return ( q( runif( n, 0, 1 ), tol ) )
     }
 )
+
+################################################################################################
+#' [Non-exported] PDF/CDF for mix.type = 3
+#'
+#' Calculates the values of the probability density function or
+#' the cumulative distribution function of the GGD model with \code{mix.type = 3}.
+#' Both \code{means} and \code{sds} vectors need 3 elements for this function.
+#' Where with two components, you must set \code{means[3]} and \code{sds[3]}
+#' the same values of \code{means[1]} and \code{sds[1]}.
+#' @param   x           A vector of x-coordinates.
+#' @param   means       The vector of mean values of the 3 components.
+#' @param   sds         The vector of sd values of the 3 components.
+#' @param   f.t3        A function handle,
+#'                      \code{ggd:::f.t3.d} for PDF or \code{ggd:::f.t3.p} for CDF.
+#' @return  The vector of values of the probability density function
+#'          or the cumulative distribution function.
+################################################################################################
+dp.t3 <- function( x, means, sds, f.t3 )
+{
+    results <- vapply( x, function( x )
+    {
+        result <- f.t3[[2]]( x, means[2], sds[2] )
+
+        if ( x < means[1] )
+        {
+            result <- result + f.t3[[1]]( x, means[1], sds[1] )
+        }
+        else
+        {
+            result <- result + f.t3[[3]]
+        }
+
+        if ( x > means[3] )
+        {
+            result <- result + f.t3[[1]]( x, means[3], sds[3] ) - f.t3[[3]]
+        }
+
+        return ( result )
+    }, 0 )
+
+    return ( results )
+}

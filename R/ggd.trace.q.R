@@ -66,21 +66,6 @@
 #'                      or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
 #'                      can overwrite the conditions of this argument.
 #'
-#' @param   this.kind   A string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model to construct.
-#'
-#'                      This argument will work as same as \code{kind} argument
-#'                      of the generator function (signature '\code{NULL}').
-#'
-#'                      If this method is called without \code{this.kind} argument,
-#'                      \code{grad}, or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible, but not the value of
-#'                      \code{kind} field, i.e., the condition whether the mean value or
-#'                      standard deviation of each component is aligned may not be retained.
-#'                      If you want to retain the conditions as well,
-#'                      indicate the object itself to \code{this.kind} argument like as
-#'                      \code{obj$trace.q(quantiles, this.kind = obj)}.
-#'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field as an integer.
 #'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
 #'
@@ -101,17 +86,6 @@
 #'
 #'                      If other than \code{"defaule"} for \code{grad} argument is indicated,
 #'                      this argument will be ignored.
-#'
-#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
-#'                          It should be an integer from \code{0} to \code{4} or \code{NULL}.
-#'
-#'                      If \code{NULL}, the current \code{mix.type} field will be retained
-#'                      (and number of components, too) if it could trace the quantiles.
-#'                      But if could not, it tries to trace the quantiles
-#'                      with changing \code{mix.type} as same as the generator function
-#'                      (signature '\code{NULL}').
-#'                      Thus, the priority sequence of \code{mix.type} is
-#'                      current > 2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.
 #'
 #' @param   grad        A character string indicating the method of gradation.
 #'
@@ -172,6 +146,30 @@
 #'                      \code{allowSingular = TRUE} is set implicitly.
 #'                      However, if \code{allowSingular} is given to this argument,
 #'                      the given option takes priority.
+#'
+#' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+#'                      which indicates the kind of distribution model.
+#'                      It is equivalent to \code{kind} argument for \code{ggd.trace.q}.
+#'
+#'                      If this method is called without \code{this.kind} argument,
+#'                      \code{grad}, or other conditions, it attempt to retain the value of
+#'                      \code{mix.type} field as much as possible, but not the value of
+#'                      \code{kind} field, i.e., the condition whether the mean value or
+#'                      standard deviation of each component is aligned may not be retained.
+#'                      If you want to retain the conditions as well,
+#'                      indicate the object itself to \code{this.kind} argument like as
+#'                      \code{obj$trace.q(quantiles, this.kind = obj)}.
+#'
+#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
+#'                          It should be an integer from \code{0} to \code{4} or \code{NULL}.
+#'                          It is equivalent to \code{mix.type} argument for \code{ggd.trace.q}.
+#'
+#'                      If \code{NULL}, the current \code{mix.type} field will be retained
+#'                      (and number of components, too) if it could trace the quantiles.
+#'                      But if could not, it tries to trace the quantiles
+#'                      with changing \code{mix.type} as same as \code{ggd.trace.q}.
+#'                      Thus, the priority sequence of \code{mix.type} is
+#'                      current > 2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
 #'          \item{obj}{
@@ -1953,48 +1951,6 @@ GGD$methods(
         return ( invisible( list( obj = .self, nleqslv.out = result ) ) )
     }
 )
-
-################################################################################################
-#' [Non-exported] PDF/CDF for mix.type = 3
-#'
-#' Calculates the values of the probability density function or
-#' the cumulative distribution function of the GGD model with \code{mix.type = 3}.
-#' Both \code{means} and \code{sds} vectors need 3 elements for this function.
-#' Where with two components, you must set \code{means[3]} and \code{sds[3]}
-#' the same values of \code{means[1]} and \code{sds[1]}.
-#' @param   x           A vector of x-coordinates.
-#' @param   means       The vector of mean values of the 3 components.
-#' @param   sds         The vector of sd values of the 3 components.
-#' @param   f.t3        A function handle,
-#'                      \code{ggd:::f.t3.d} for PDF or \code{ggd:::f.t3.p} for CDF.
-#' @return  The vector of values of the probability density function
-#'          or the cumulative distribution function.
-################################################################################################
-dp.t3 <- function( x, means, sds, f.t3 )
-{
-    results <- vapply( x, function( x )
-    {
-        result <- f.t3[[2]]( x, means[2], sds[2] )
-
-        if ( x < means[1] )
-        {
-            result <- result + f.t3[[1]]( x, means[1], sds[1] )
-        }
-        else
-        {
-            result <- result + f.t3[[3]]
-        }
-
-        if ( x > means[3] )
-        {
-            result <- result + f.t3[[1]]( x, means[3], sds[3] ) - f.t3[[3]]
-        }
-
-        return ( result )
-    }, 0 )
-
-    return ( results )
-}
 
 ################################################################################################
 #' [Non-exported] Crossover-tracing (3 quantiles, v2)

@@ -137,11 +137,9 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      However, if \code{allowSingular} is given to this argument,
                      the given option takes priority.}
 
-\item{this.kind}{A string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of distribution model to construct.
-
-                     This argument will work as same as \code{kind} argument
-                     of the generator function (signature '\code{NULL}').
+\item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+                     which indicates the kind of distribution model.
+                     It is equivalent to \code{kind} argument for \code{ggd.trace.q}.
 
                      If this method is called without \code{this.kind} argument,
                      \code{grad}, or other conditions, it attempt to retain the value of
@@ -154,12 +152,12 @@ ggd.trace.q(quantiles, x = "x", p = "p",
 
 \item{this.mix.type}{A numeric value to set into \code{mix.type} field as an integer.
                          It should be an integer from \code{0} to \code{4} or \code{NULL}.
+                         It is equivalent to \code{mix.type} argument for \code{ggd.trace.q}.
 
                      If \code{NULL}, the current \code{mix.type} field will be retained
                      (and number of components, too) if it could trace the quantiles.
                      But if could not, it tries to trace the quantiles
-                     with changing \code{mix.type} as same as the generator function
-                     (signature '\code{NULL}').
+                     with changing \code{mix.type} as same as \code{ggd.trace.q}.
                      Thus, the priority sequence of \code{mix.type} is
                      current > 2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.}
 }

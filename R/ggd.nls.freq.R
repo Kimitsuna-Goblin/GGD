@@ -85,22 +85,6 @@
 #'                      or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
 #'                      can overwrite the conditions of this argument.
 #'
-#' @param   this.kind   A string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model for approximating
-#'                      the frequency distribution.
-#'
-#'                      This argument will work as same as \code{kind} argument
-#'                      of the generator function (signature '\code{NULL}').
-#'
-#'                      When this method is called without \code{this.kind} argument
-#'                      or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible, but not the value of
-#'                      \code{kind} field, i.e., the condition whether the mean value or
-#'                      standard deviation of each component is aligned may not be retained.
-#'                      If you want to retain these conditions as well,
-#'                      indicate the object itself to \code{this.kind} argument like as
-#'                      \code{obj$nls.freq(data, this.kind = obj)}.
-#'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field of
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
 #'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
@@ -118,17 +102,6 @@
 #'
 #'                      If other than \code{"default"} for \code{grad} argument is indicated,
 #'                      this argument will be ignored.
-#'
-#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
-#'                          This argument will work as same as \code{mix.type} of
-#'                          the generator function (signature '\code{NULL}').
-#'
-#'                      If both of \code{this.kind} and \code{this.mix.type} are not given
-#'                      and \code{grad} argument is \code{"default"},
-#'                      the current value of \code{mix.type} field will be retained,
-#'                      and number of components will also.
-#'                      But furthermore, the object has been cleared,
-#'                      the \code{mix.type} field will be set to \code{2}, the initial value.
 #'
 #' @param   grad        A character string indicating the method of gradation.
 #'
@@ -245,6 +218,30 @@
 #'
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                      See "Arguments" of \code{\link[stats]{nls}} for more information.
+#'
+#' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+#'                      which indicates the kind of distribution model.
+#'                      It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
+#'
+#'                      When this method is called without \code{this.kind} argument
+#'                      or other conditions, it attempt to retain the value of
+#'                      \code{mix.type} field as much as possible, but not the value of
+#'                      \code{kind} field, i.e., the condition whether the mean value or
+#'                      standard deviation of each component is aligned may not be retained.
+#'                      If you want to retain these conditions as well,
+#'                      indicate the object itself to \code{this.kind} argument like as
+#'                      \code{obj$nls.freq(data, this.kind = obj)}.
+#'
+#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
+#'                          It is equivalent to \code{mix.type} argument for
+#'                          \code{ggd.nls.freq}.
+#'
+#'                      If both of \code{this.kind} and \code{this.mix.type} are not given
+#'                      and \code{grad} argument is \code{"default"},
+#'                      the current value of \code{mix.type} field will be retained,
+#'                      and number of components will also.
+#'                      But furthermore, the object has been cleared,
+#'                      the \code{mix.type} field will be set to \code{2}, the initial value.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
 #'          \item{obj}{

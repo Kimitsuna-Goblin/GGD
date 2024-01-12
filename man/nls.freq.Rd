@@ -204,12 +204,9 @@ See \code{\link[stats]{cor}} for more information.}
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
 See "Arguments" of \code{\link[stats]{nls}} for more information.}
 
-\item{this.kind}{A string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of distribution model for approximating
-                     the frequency distribution.
-
-                     This argument will work as same as \code{kind} argument
-                     of the generator function (signature '\code{NULL}').
+\item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+                     which indicates the kind of distribution model.
+                     It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
 
                      When this method is called without \code{this.kind} argument
                      or other conditions, it attempt to retain the value of
@@ -221,8 +218,8 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      \code{obj$nls.freq(data, this.kind = obj)}.}
 
 \item{this.mix.type}{A numeric value to set into \code{mix.type} field as an integer.
-                         This argument will work as same as \code{mix.type} of
-                         the generator function (signature '\code{NULL}').
+                         It is equivalent to \code{mix.type} argument for
+                         \code{ggd.nls.freq}.
 
                      If both of \code{this.kind} and \code{this.mix.type} are not given
                      and \code{grad} argument is \code{"default"},
