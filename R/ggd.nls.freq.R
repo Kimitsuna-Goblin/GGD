@@ -953,7 +953,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'  start.list[[14]]$mean.1.2 <- result$obj[[8]]$cmp$mean[2]
 #'  start.list[[14]]$mean.2.1 <- result$obj[[8]]$cmp$mean[1]
 #'  start.list[[14]]$mean.2.2 <- result$obj[[8]]$cmp$mean[2]
-#'  start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Set sqrt for SD.
+#'  start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Take sqrt for SD.
 #'
 #'  ## Retry ggd.nls.freq.all.
 #'  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
