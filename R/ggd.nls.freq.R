@@ -1599,9 +1599,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 # via Vertical Gradation of 2 Normal Distributions
                 if ( eq.sd )
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.1 ),
-                                           c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.1 ),
+                                        c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ), f.t3.d )
 
                     start <- list( mean.1 = mean.outer,
                                    mean.2 = mean.inner,
@@ -1609,9 +1608,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
                 else if ( eq.mean )
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean, mean, mean ),
-                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean, mean, mean ),
+                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ), f.t3.d )
 
                     start <- list( mean = means.mid[1],
                                    sqrt.sd.1 = sqrt.sd.outer,
@@ -1619,9 +1617,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
                 else
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.1 ),
-                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.1 ),
+                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ), f.t3.d )
 
                     start <- list( mean.1 = means.mid[1],
                                    mean.2 = means.mid[2],
@@ -1634,9 +1631,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 # via Vertical Gradation of 3 Normal Distributions
                 if ( eq.sd )
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.3 ),
-                                           c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.3 ),
+                                        c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ), f.t3.d )
 
                     start <- list( mean.1 = means[1],
                                    mean.2 = mean.inner,
@@ -1645,9 +1641,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
                 else if ( eq.mean )
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean, mean, mean ),
-                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean, mean, mean ),
+                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ), f.t3.d )
 
                     start <- list( mean      = means.mid[1],
                                    sqrt.sd.1 = sqrt.sds[1],
@@ -1656,9 +1651,8 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
                 else
                 {
-                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.3 ),
-                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ),
-                                           ggd:::f.t3.d )
+                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.3 ),
+                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ), f.t3.d )
 
                     start <- list( mean.1 = means.mid[1],
                                    mean.2 = ( means.mid[2] + means.mid[3] ) / 2,
@@ -1674,14 +1668,14 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
             # via Horizontal-Vertical Gradation of 4 (2x2) normal distributions
             if ( eq.sd )
             {
-                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean.1.1, sqrt.sd^2 ) -
-                                ggd:::f.t3.p[[2]]( x, mean.1.2, sqrt.sd^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean.1.1, sqrt.sd^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean.1.2, sqrt.sd^2 ) ) +
-                          ( ggd:::f.t3.p[[1]]( x, mean.2.1, sqrt.sd^2 ) +
-                            ggd:::f.t3.p[[2]]( x, mean.2.2, sqrt.sd^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean.2.1, sqrt.sd^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean.2.2, sqrt.sd^2 ) )
+                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean.1.1, sqrt.sd^2 ) -
+                                f.t3.p[[2]]( x, mean.1.2, sqrt.sd^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean.1.1, sqrt.sd^2 ) +
+                            f.t3.d[[2]]( x, mean.1.2, sqrt.sd^2 ) ) +
+                          ( f.t3.p[[1]]( x, mean.2.1, sqrt.sd^2 ) +
+                            f.t3.p[[2]]( x, mean.2.2, sqrt.sd^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean.2.1, sqrt.sd^2 ) +
+                            f.t3.d[[2]]( x, mean.2.2, sqrt.sd^2 ) )
 
                 start <- list( mean.1.1 = means[1],
                                mean.1.2 = means[2],
@@ -1691,14 +1685,14 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
             }
             else if ( eq.mean )
             {
-                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean, sqrt.sd.1.1^2 ) -
-                                ggd:::f.t3.p[[2]]( x, mean, sqrt.sd.1.2^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean, sqrt.sd.1.1^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean, sqrt.sd.1.2^2 ) ) +
-                          ( ggd:::f.t3.p[[1]]( x, mean, sqrt.sd.2.1^2 ) +
-                            ggd:::f.t3.p[[2]]( x, mean, sqrt.sd.2.2^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean, sqrt.sd.2.1^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean, sqrt.sd.2.2^2 ) )
+                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean, sqrt.sd.1.1^2 ) -
+                                f.t3.p[[2]]( x, mean, sqrt.sd.1.2^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean, sqrt.sd.1.1^2 ) +
+                            f.t3.d[[2]]( x, mean, sqrt.sd.1.2^2 ) ) +
+                          ( f.t3.p[[1]]( x, mean, sqrt.sd.2.1^2 ) +
+                            f.t3.p[[2]]( x, mean, sqrt.sd.2.2^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean, sqrt.sd.2.1^2 ) +
+                            f.t3.d[[2]]( x, mean, sqrt.sd.2.2^2 ) )
 
                 start <- list( mean = ( means.mid[2] + means.mid[3] ) / 2,
                                sqrt.sd.1.1 = sqrt.sds[1],
@@ -1708,14 +1702,14 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
             }
             else
             {
-                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) -
-                                ggd:::f.t3.p[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) +
-                          ( ggd:::f.t3.p[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
-                            ggd:::f.t3.p[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) ) *
-                          ( ggd:::f.t3.d[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
-                            ggd:::f.t3.d[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) )
+                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) -
+                                f.t3.p[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) +
+                            f.t3.d[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) +
+                          ( f.t3.p[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
+                            f.t3.p[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) ) *
+                          ( f.t3.d[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
+                            f.t3.d[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) )
 
                 start <- list( mean.1.1 = means.mid[1],
                                mean.1.2 = means.mid[2],

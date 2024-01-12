@@ -1543,7 +1543,7 @@ GGD$methods(
 
                     f <- function( x )
                     {
-                        c( dp.t3( qt$x, x[1:3], x[4:6]^2, ggd:::f.t3.p ) - qt$p )
+                        c( dp.t3( qt$x, x[1:3], x[4:6]^2, f.t3.p ) - qt$p )
                     }
 
                     get.cmp.result <- function( result )
@@ -1762,10 +1762,10 @@ GGD$methods(
                                      x[c( mean.1, mean.2, mean.3, mean.4 )] )
                     sds <- x[c( sd.1, sd.2, sd.3, sd.4 )]^2
 
-                    p.1 <- ggd:::f.t3.p[[1]]( qt$x, means[1], sds[1] ) +
-                           ggd:::f.t3.p[[2]]( qt$x, means[2], sds[2] )
-                    p.2 <- ggd:::f.t3.p[[1]]( qt$x, means[3], sds[3] ) +
-                           ggd:::f.t3.p[[2]]( qt$x, means[4], sds[4] )
+                    p.1 <- f.t3.p[[1]]( qt$x, means[1], sds[1] ) +
+                           f.t3.p[[2]]( qt$x, means[2], sds[2] )
+                    p.2 <- f.t3.p[[1]]( qt$x, means[3], sds[3] ) +
+                           f.t3.p[[2]]( qt$x, means[4], sds[4] )
 
                     return ( p.1 - p.1^2 / 2 + p.2^2 / 2 - qt$p )
                 }
@@ -1868,10 +1868,8 @@ GGD$methods(
                 f <- function( x )
                 {
                     sds <- x[seq( 2, 8, 2 )]^2
-                    p.1 <- ggd:::f.t3.p[[1]]( qt.x, x[1], sds[1] ) +
-                           ggd:::f.t3.p[[2]]( qt.x, x[3], sds[2] )
-                    p.2 <- ggd:::f.t3.p[[1]]( qt.x, x[5], sds[3] ) +
-                           ggd:::f.t3.p[[2]]( qt.x, x[7], sds[4] )
+                    p.1 <- f.t3.p[[1]]( qt.x, x[1], sds[1] ) + f.t3.p[[2]]( qt.x, x[3], sds[2] )
+                    p.2 <- f.t3.p[[1]]( qt.x, x[5], sds[3] ) + f.t3.p[[2]]( qt.x, x[7], sds[4] )
 
                     return ( p.1 - p.1^2 / 2 + p.2^2 / 2 - qt.p )
                 }
@@ -2251,7 +2249,7 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
                             {
                                 means <- c( x[mean.1], x[mean.2], x[mean.3] )
                                 sds   <- c( x[sd.1],   x[sd.2],   x[sd.3] )^2
-                                return ( dp.t3( qt$x, means, sds, ggd:::f.t3.p ) - qt$p )
+                                return ( dp.t3( qt$x, means, sds, f.t3.p ) - qt$p )
                             },
                             control = control ), silent = TRUE )
     if ( inherits( result, "try-error" ) )
