@@ -10,6 +10,8 @@ nls.freq.level.100(
   kind,
   mix.type,
   grad,
+  custom.d,
+  ncmp,
   eq.mean,
   eq.sd,
   control,
@@ -31,6 +33,10 @@ It is an integer from \code{0} to \code{4} or \code{NULL}.}
 
 \item{grad}{A character string indicating the method of gradation.
 See \code{\link[ggd]{nls.freq}} for more information.}
+
+\item{custom.d}{A function for the density function of the custom distribution.}
+
+\item{ncmp}{Number of components for the custom distribution.}
 
 \item{eq.mean}{A logical. If \code{TRUE}, all of the mean values of of the components
 are forced to be equal.}

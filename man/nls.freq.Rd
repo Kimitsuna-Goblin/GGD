@@ -9,6 +9,7 @@
 ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
          kind = NULL, mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+         custom.d = NULL, ncmp = 0,
          eq.mean = logical(), eq.sd = logical(),
          start.level = 100, start = NULL, control = list(),
          not.use.nls = FALSE, cor.method = NULL, ...)
@@ -16,6 +17,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 \S4method{nls.freq}{GGD}(data, x = "x", freq = "freq", total = NULL,
          this.kind = NULL, this.mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+         this.custom.d = NULL, ncmp = nrow(cmp),
          eq.mean = logical(), eq.sd = logical(),
          start.level = 100, start = NULL, control = list(),
          not.use.nls = FALSE, cor.method = NULL, ...)
@@ -102,6 +104,22 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      this function will create a \code{\link[ggd]{GGD}} object
                      according to this argument with ignoring \code{[this.]mix.type} argument
                      and overwriting the type indicated by \code{[this.]kind} argument.}
+
+\item{custom.d}{A function for the density function of the custom distribution.
+
+                     If \code{NULL}, the default function will be used with some warnings
+                     when approximating with a customized distribution.
+
+                     See \code{\link[ggd]{set.cmp}} for more information.}
+
+\item{ncmp}{Number of components for the custom distribution.
+
+                     A positive integer should be indicated if approximating with
+                     a customized distribution via \code{ggd.nls.freq}.
+
+                     In the case of \code{nls.freq} method, the number of rows
+                     in \code{cmp} field is given by default,
+                     but if another value is indicated as the argument, it takes priority.}
 
 \item{eq.mean}{A logical. If \code{TRUE}, all of the mean values of of the components
                      are forced to be equal.
@@ -207,12 +225,9 @@ See \code{\link[stats]{cor}} for more information.}
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
 See "Arguments" of \code{\link[stats]{nls}} for more information.}
 
-\item{this.kind}{A string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of distribution model for approximating
-                     the frequency distribution.
-
-                     This argument will work as same as \code{kind} argument
-                     of the generator function (signature '\code{NULL}').
+\item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+                     which indicates the kind of distribution model.
+                     It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
 
                      When this method is called without \code{this.kind} argument
                      or other conditions, it attempt to retain the value of
@@ -224,8 +239,8 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      \code{obj$nls.freq(data, this.kind = obj)}.}
 
 \item{this.mix.type}{A numeric value to set into \code{mix.type} field as an integer.
-                         This argument will work as same as \code{mix.type} of
-                         the generator function (signature '\code{NULL}').
+                         It is equivalent to \code{mix.type} argument for
+                         \code{ggd.nls.freq}.
 
                      If both of \code{this.kind} and \code{this.mix.type} are not given
                      and \code{grad} argument is \code{"default"},
@@ -233,6 +248,15 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      and number of components will also.
                      But furthermore, the object has been cleared,
                      the \code{mix.type} field will be set to \code{2}, the initial value.}
+
+\item{this.custom.d}{A function for the density function of the custom distribution.
+                         It is equivalent to \code{custom.d} argument for
+                         \code{ggd.nls.freq}.
+
+                     If \code{NULL}, the current function in \code{custom.d} field
+                     will be used when approximating with a customized distribution.
+
+                     See \code{\link[ggd]{set.cmp}} for more information.}
 }
 \value{
 A list containing components (invisible for \code{GGD} method)

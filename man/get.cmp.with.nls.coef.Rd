@@ -4,7 +4,7 @@
 \alias{get.cmp.with.nls.coef}
 \title{[Non-exported] Making cmp field with the result of nls}
 \usage{
-get.cmp.with.nls.coef(coefs, mix.type, grad, eq.mean, eq.sd)
+get.cmp.with.nls.coef(coefs, mix.type, grad, ncmp, eq.mean, eq.sd)
 }
 \arguments{
 \item{coefs}{The numeric vector got by \code{\link[stats]{coef}}
@@ -22,6 +22,8 @@ with the result of \code{\link[stats]{nls}}.}
                      only if \code{mix.type = 3} is indicated.
                      And if \code{mix.type = 3} is indicated,
                      either \code{grad = "v2"} or \code{"v3"} must be indicated.}
+
+\item{ncmp}{Number of components for the custom distribution.}
 
 \item{eq.mean}{A logical; the flag whether to make all of the mean values of
 the normal distributions of the components to be equal.}

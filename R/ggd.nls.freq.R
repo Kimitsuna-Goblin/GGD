@@ -7,6 +7,12 @@
 ################################################################################################
 
 ################################################################################################
+#  Global variables
+
+## List of custom.d for nls
+l.custom.d <- list()
+
+################################################################################################
 #  Functions
 
 ################################################################################################
@@ -26,12 +32,14 @@
 #' @usage   ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 #'          kind = NULL, mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+#'          custom.d = NULL, ncmp = 0,
 #'          eq.mean = logical(), eq.sd = logical(),
 #'          start.level = 100, start = NULL, control = list(),
 #'          not.use.nls = FALSE, cor.method = NULL, ...)
 #' @usage   \S4method{nls.freq}{GGD}(data, x = "x", freq = "freq", total = NULL,
 #'          this.kind = NULL, this.mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
+#'          this.custom.d = NULL, ncmp = nrow(cmp),
 #'          eq.mean = logical(), eq.sd = logical(),
 #'          start.level = 100, start = NULL, control = list(),
 #'          not.use.nls = FALSE, cor.method = NULL, ...)
@@ -85,22 +93,6 @@
 #'                      or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
 #'                      can overwrite the conditions of this argument.
 #'
-#' @param   this.kind   A string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model for approximating
-#'                      the frequency distribution.
-#'
-#'                      This argument will work as same as \code{kind} argument
-#'                      of the generator function (signature '\code{NULL}').
-#'
-#'                      When this method is called without \code{this.kind} argument
-#'                      or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible, but not the value of
-#'                      \code{kind} field, i.e., the condition whether the mean value or
-#'                      standard deviation of each component is aligned may not be retained.
-#'                      If you want to retain these conditions as well,
-#'                      indicate the object itself to \code{this.kind} argument like as
-#'                      \code{obj$nls.freq(data, this.kind = obj)}.
-#'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field of
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
 #'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
@@ -119,17 +111,6 @@
 #'                      If other than \code{"default"} for \code{grad} argument is indicated,
 #'                      this argument will be ignored.
 #'
-#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
-#'                          This argument will work as same as \code{mix.type} of
-#'                          the generator function (signature '\code{NULL}').
-#'
-#'                      If both of \code{this.kind} and \code{this.mix.type} are not given
-#'                      and \code{grad} argument is \code{"default"},
-#'                      the current value of \code{mix.type} field will be retained,
-#'                      and number of components will also.
-#'                      But furthermore, the object has been cleared,
-#'                      the \code{mix.type} field will be set to \code{2}, the initial value.
-#'
 #' @param   grad        A character string indicating the method of gradation.
 #'
 #'                      \code{"h"} for horizontal, \code{"v"} for vertical,
@@ -144,6 +125,22 @@
 #'                      this function will create a \code{\link[ggd]{GGD}} object
 #'                      according to this argument with ignoring \code{[this.]mix.type} argument
 #'                      and overwriting the type indicated by \code{[this.]kind} argument.
+#'
+#' @param   custom.d    A function for the density function of the custom distribution.
+#'
+#'                      If \code{NULL}, the default function will be used with some warnings
+#'                      when approximating with a customized distribution.
+#'
+#'                      See \code{\link[ggd]{set.cmp}} for more information.
+#'
+#' @param   ncmp        Number of components for the custom distribution.
+#'
+#'                      A positive integer should be indicated if approximating with
+#'                      a customized distribution via \code{ggd.nls.freq}.
+#'
+#'                      In the case of \code{nls.freq} method, the number of rows
+#'                      in \code{cmp} field is given by default,
+#'                      but if another value is indicated as the argument, it takes priority.
 #'
 #' @param   eq.mean     A logical. If \code{TRUE}, all of the mean values of of the components
 #'                      are forced to be equal.
@@ -248,6 +245,39 @@
 #'
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                      See "Arguments" of \code{\link[stats]{nls}} for more information.
+#'
+#' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+#'                      which indicates the kind of distribution model.
+#'                      It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
+#'
+#'                      When this method is called without \code{this.kind} argument
+#'                      or other conditions, it attempt to retain the value of
+#'                      \code{mix.type} field as much as possible, but not the value of
+#'                      \code{kind} field, i.e., the condition whether the mean value or
+#'                      standard deviation of each component is aligned may not be retained.
+#'                      If you want to retain these conditions as well,
+#'                      indicate the object itself to \code{this.kind} argument like as
+#'                      \code{obj$nls.freq(data, this.kind = obj)}.
+#'
+#' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
+#'                          It is equivalent to \code{mix.type} argument for
+#'                          \code{ggd.nls.freq}.
+#'
+#'                      If both of \code{this.kind} and \code{this.mix.type} are not given
+#'                      and \code{grad} argument is \code{"default"},
+#'                      the current value of \code{mix.type} field will be retained,
+#'                      and number of components will also.
+#'                      But furthermore, the object has been cleared,
+#'                      the \code{mix.type} field will be set to \code{2}, the initial value.
+#'
+#' @param   this.custom.d   A function for the density function of the custom distribution.
+#'                          It is equivalent to \code{custom.d} argument for
+#'                          \code{ggd.nls.freq}.
+#'
+#'                      If \code{NULL}, the current function in \code{custom.d} field
+#'                      will be used when approximating with a customized distribution.
+#'
+#'                      See \code{\link[ggd]{set.cmp}} for more information.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
 #'          \item{obj}{
@@ -386,6 +416,7 @@
 ggd.nls.freq <- function( data, x = "x", freq = "freq", total = NULL,
                           kind = NULL, mix.type = NULL,
                           grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
+                          custom.d = NULL, ncmp = 0,
                           eq.mean = logical(), eq.sd = logical(),
                           start.level = 100, start = NULL, control = list(),
                           not.use.nls = FALSE, cor.method = NULL, ... )
@@ -398,6 +429,8 @@ ggd.nls.freq <- function( data, x = "x", freq = "freq", total = NULL,
                                         this.kind       = kind,
                                         this.mix.type   = mix.type,
                                         grad            = grad,
+                                        this.custom.d   = custom.d,
+                                        ncmp            = ncmp,
                                         eq.mean         = eq.mean,
                                         eq.sd           = eq.sd,
                                         start.level     = start.level,
@@ -411,6 +444,7 @@ GGD$methods(
     nls.freq = function( data, x = "x", freq = "freq", total = NULL,
                          this.kind = NULL, this.mix.type = NULL,
                          grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
+                         this.custom.d = NULL, ncmp = nrow( cmp ),
                          eq.mean = logical(), eq.sd = logical(),
                          start.level = 100, start = NULL, control = list(),
                          not.use.nls = FALSE, cor.method = NULL, ...)
@@ -549,6 +583,23 @@ GGD$methods(
             }
         }
 
+        # If new mix.type is going to be 5, ncmp must be indicated.
+        if ( new.mix.type == 5 && grad == "default" )
+        {
+            if ( !is.null( this.custom.d ) )
+            {
+                withCallingHandlers( custom.d <<- this.custom.d,
+                                     error = function( e ) clear() )
+            }
+
+            if ( length( ncmp ) != 1 || !is.numeric( ncmp ) || as.integer( ncmp ) <= 0 )
+            {
+                clear()
+                stop( paste( "Error: ncmp should be given the number of components." ) )
+            }
+            ncmp <- as.integer( ncmp )
+        }
+
         ################################################################
         # Check start.level.
         if ( !is.null( start ) )
@@ -576,7 +627,7 @@ GGD$methods(
             ################################################################
             # Loop with each level.
             result <- try( nls.freq.level.100( data.ext, total, this.kind, this.mix.type,
-                                               grad, eq.mean, eq.sd, control,
+                                               grad, this.custom.d, ncmp, eq.mean, eq.sd, control,
                                                not.use.nls = FALSE, cor.method, ... ),
                            silent = TRUE )
             if ( inherits( result, "try-error" ) )
@@ -594,7 +645,7 @@ GGD$methods(
             ################################################################
             # Get start paramaters for nls.
             params <- get.nls.params( data.ext$x, data.ext$freq, total, new.mix.type,
-                                      nrow( cmp ), grad, eq.mean, eq.sd, start.level )
+                                      grad, ncmp, eq.mean, eq.sd, start.level )
 
             # Output start paramaters.
             result$start.level <- as.integer( params$start.level )
@@ -607,7 +658,7 @@ GGD$methods(
                 result$start <- start
             }
             result$start.obj <- ggd.set.cmp( get.cmp.with.nls.coef( unlist( result$start ),
-                                                                    new.mix.type, grad,
+                                                                    new.mix.type, grad, ncmp,
                                                                     eq.mean, eq.sd ),
                                              mix.type = new.mix.type, grad = grad )
 
@@ -637,8 +688,8 @@ GGD$methods(
                 }
                 else
                 {
-                    result.cmp <- get.cmp.with.nls.coef( coef( result$nls.out ),
-                                                         new.mix.type, grad, eq.mean, eq.sd )
+                    result.cmp <- get.cmp.with.nls.coef( coef( result$nls.out ), new.mix.type,
+                                                         grad, ncmp, eq.mean, eq.sd )
                 }
             }
 
@@ -667,6 +718,8 @@ GGD$methods(
 #'                      It is an integer from \code{0} to \code{4} or \code{NULL}.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      See \code{\link[ggd]{nls.freq}} for more information.
+#' @param   custom.d    A function for the density function of the custom distribution.
+#' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical. If \code{TRUE}, all of the mean values of of the components
 #'                      are forced to be equal.
 #' @param   eq.sd       A logical. If \code{TRUE}, all of the standard deviations of
@@ -679,8 +732,8 @@ GGD$methods(
 #' @return  A list conforming the return value of \code{\link[ggd]{nls.freq}}.
 #' @seealso \code{\link[ggd]{nls.freq}}
 ################################################################################################
-nls.freq.level.100 <- function( data, total, kind, mix.type,
-                                grad, eq.mean, eq.sd, control, cor.method, ... )
+nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncmp,
+                                eq.mean, eq.sd, control, cor.method, ... )
 {
     outl <- errl <- wrnl <- NULL
 
@@ -695,6 +748,8 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
                                       kind          = kind,
                                       mix.type      = mix.type,
                                       grad          = grad,
+                                      custom.d      = custom.d,
+                                      ncmp          = ncmp,
                                       eq.mean       = eq.mean,
                                       eq.sd         = eq.sd,
                                       start.level   = level,
@@ -1244,7 +1299,6 @@ get.p.freq <- function( freq, total )
 #' @param   freq        A vector of frequencies following \code{x}.
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
-#' @param   n.cmp       Number of components of the custom distribution.
 #' @param   grad        A character string indicating the method of gradation.
 #'                      If \code{"v3"}, constructing with 3 components is enforcedly,
 #'                      even if it is possible to construct with 2 components.
@@ -1256,6 +1310,7 @@ get.p.freq <- function( freq, total )
 #'                      And if \code{mix.type = 3} is indicated,
 #'                      either \code{grad = "v2"} or \code{"v3"} must be indicated.
 #'
+#' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical; the flag whether to make all of the mean values of
 #'                      the normal distributions of the components to be equal.
 #' @param   eq.sd       A logical; the flag whether to make all of the standard deviations of
@@ -1274,8 +1329,8 @@ get.p.freq <- function( freq, total )
 #'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
-get.nls.params <- function( x, freq, total, mix.type, n.cmp,
-                            grad, eq.mean, eq.sd, start.level )
+get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
+                            eq.mean, eq.sd, start.level )
 {
     fm <- NULL          # formula for return value
     start <- list()     # start for return value
@@ -1544,8 +1599,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 # via Vertical Gradation of 2 Normal Distributions
                 if ( eq.sd )
                 {
-                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.1 ),
-                                        c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.1 ),
+                                           c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean.1 = mean.outer,
                                    mean.2 = mean.inner,
@@ -1553,8 +1609,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 }
                 else if ( eq.mean )
                 {
-                    fm <- d ~ dp.t3( x, c( mean, mean, mean ),
-                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean, mean, mean ),
+                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean = means.mid[1],
                                    sqrt.sd.1 = sqrt.sd.outer,
@@ -1562,8 +1619,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 }
                 else
                 {
-                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.1 ),
-                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.1 ),
+                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.1^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean.1 = means.mid[1],
                                    mean.2 = means.mid[2],
@@ -1576,8 +1634,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 # via Vertical Gradation of 3 Normal Distributions
                 if ( eq.sd )
                 {
-                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.3 ),
-                                        c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.3 ),
+                                           c( sqrt.sd^2, sqrt.sd^2, sqrt.sd^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean.1 = means[1],
                                    mean.2 = mean.inner,
@@ -1586,8 +1645,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 }
                 else if ( eq.mean )
                 {
-                    fm <- d ~ dp.t3( x, c( mean, mean, mean ),
-                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean, mean, mean ),
+                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean      = means.mid[1],
                                    sqrt.sd.1 = sqrt.sds[1],
@@ -1596,8 +1656,9 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
                 }
                 else
                 {
-                    fm <- d ~ dp.t3( x, c( mean.1, mean.2, mean.3 ),
-                                        c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ), f.t3.d )
+                    fm <- d ~ ggd:::dp.t3( x, c( mean.1, mean.2, mean.3 ),
+                                           c( sqrt.sd.1^2, sqrt.sd.2^2, sqrt.sd.3^2 ),
+                                           ggd:::f.t3.d )
 
                     start <- list( mean.1 = means.mid[1],
                                    mean.2 = ( means.mid[2] + means.mid[3] ) / 2,
@@ -1613,14 +1674,14 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
             # via Horizontal-Vertical Gradation of 4 (2x2) normal distributions
             if ( eq.sd )
             {
-                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean.1.1, sqrt.sd^2 ) -
-                                f.t3.p[[2]]( x, mean.1.2, sqrt.sd^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean.1.1, sqrt.sd^2 ) +
-                            f.t3.d[[2]]( x, mean.1.2, sqrt.sd^2 ) ) +
-                          ( f.t3.p[[1]]( x, mean.2.1, sqrt.sd^2 ) +
-                            f.t3.p[[2]]( x, mean.2.2, sqrt.sd^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean.2.1, sqrt.sd^2 ) +
-                            f.t3.d[[2]]( x, mean.2.2, sqrt.sd^2 ) )
+                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean.1.1, sqrt.sd^2 ) -
+                                ggd:::f.t3.p[[2]]( x, mean.1.2, sqrt.sd^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean.1.1, sqrt.sd^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean.1.2, sqrt.sd^2 ) ) +
+                          ( ggd:::f.t3.p[[1]]( x, mean.2.1, sqrt.sd^2 ) +
+                            ggd:::f.t3.p[[2]]( x, mean.2.2, sqrt.sd^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean.2.1, sqrt.sd^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean.2.2, sqrt.sd^2 ) )
 
                 start <- list( mean.1.1 = means[1],
                                mean.1.2 = means[2],
@@ -1630,14 +1691,14 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
             }
             else if ( eq.mean )
             {
-                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean, sqrt.sd.1.1^2 ) -
-                                f.t3.p[[2]]( x, mean, sqrt.sd.1.2^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean, sqrt.sd.1.1^2 ) +
-                            f.t3.d[[2]]( x, mean, sqrt.sd.1.2^2 ) ) +
-                          ( f.t3.p[[1]]( x, mean, sqrt.sd.2.1^2 ) +
-                            f.t3.p[[2]]( x, mean, sqrt.sd.2.2^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean, sqrt.sd.2.1^2 ) +
-                            f.t3.d[[2]]( x, mean, sqrt.sd.2.2^2 ) )
+                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean, sqrt.sd.1.1^2 ) -
+                                ggd:::f.t3.p[[2]]( x, mean, sqrt.sd.1.2^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean, sqrt.sd.1.1^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean, sqrt.sd.1.2^2 ) ) +
+                          ( ggd:::f.t3.p[[1]]( x, mean, sqrt.sd.2.1^2 ) +
+                            ggd:::f.t3.p[[2]]( x, mean, sqrt.sd.2.2^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean, sqrt.sd.2.1^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean, sqrt.sd.2.2^2 ) )
 
                 start <- list( mean = ( means.mid[2] + means.mid[3] ) / 2,
                                sqrt.sd.1.1 = sqrt.sds[1],
@@ -1647,14 +1708,14 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
             }
             else
             {
-                fm <- d ~ ( 1 - f.t3.p[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) -
-                                f.t3.p[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) +
-                            f.t3.d[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) +
-                          ( f.t3.p[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
-                            f.t3.p[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) ) *
-                          ( f.t3.d[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
-                            f.t3.d[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) )
+                fm <- d ~ ( 1 - ggd:::f.t3.p[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) -
+                                ggd:::f.t3.p[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean.1.1, sqrt.sd.1.1^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean.1.2, sqrt.sd.1.2^2 ) ) +
+                          ( ggd:::f.t3.p[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
+                            ggd:::f.t3.p[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) ) *
+                          ( ggd:::f.t3.d[[1]]( x, mean.2.1, sqrt.sd.2.1^2 ) +
+                            ggd:::f.t3.d[[2]]( x, mean.2.2, sqrt.sd.2.2^2 ) )
 
                 start <- list( mean.1.1 = means.mid[1],
                                mean.1.2 = means.mid[2],
@@ -1670,35 +1731,35 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
         {
             # This loop must be done in sequential.
             mean.string <- sd.string <- ""
-            for ( i in 1:n.cmp )
+            for ( i in 1:ncmp )
             {
                 mean.string <- paste0( mean.string, "mean.", i )
                 sd.string <- paste0( sd.string, "sqrt.sd.", i, "^2" )
 
-                if ( i < n.cmp )
+                if ( i < ncmp )
                 {
                     mean.string <- paste0( mean.string, ", " )
                     sd.string <- paste0( sd.string, ", " )
                 }
             }
 
-            fm <- as.formula( paste( "d ~ custom.d(x, data.frame(mean = c(",
+            fm <- as.formula( paste( "d ~ .self$custom.d(x, data.frame(mean = c(",
                                      mean.string, "), sd = c(", sd.string, ")))" ) )
 
             # Assign start values as evenly as possible.
-            if ( n.cmp == 1 )
+            if ( ncmp == 1 )
             {
                 start <- list( mean.1    = ( means[2] + means[3] ) / 2,
                                sqrt.sd.1 = ( sqrt.sds[2] + sqrt.sds[3] ) / 2 )
             }
-            else if ( n.cmp == 2 )
+            else if ( ncmp == 2 )
             {
                 start <- list( mean.1    = ( means[1] + means[3] ) / 2,
                                mean.2    = ( means[2] + means[4] ) / 2,
                                sqrt.sd.1 = ( sqrt.sds[1] + sqrt.sds[3] ) / 2,
                                sqrt.sd.2 = ( sqrt.sds[2] + sqrt.sds[4] ) / 2 )
             }
-            else if ( n.cmp == 3 )
+            else if ( ncmp == 3 )
             {
                 start <- list( mean.1    = ( means[1] + means[2] ) / 2,
                                mean.2    = ( means[2] + means[3] ) / 2,
@@ -1711,14 +1772,14 @@ get.nls.params <- function( x, freq, total, mix.type, n.cmp,
             {
                 # This loop must be done in sequential.
                 start.string <- "list("
-                for ( i in 1:n.cmp )
+                for ( i in 1:ncmp )
                 {
                     start.string <- paste0( start.string,
                                             "mean.", i, " = means[",
-                                            1 + floor( ( i - 1 ) * 4 / n.cmp ), "], ",
+                                            1 + floor( ( i - 1 ) * 4 / ncmp ), "], ",
                                             "sqrt.sd.", i, " = sqrt.sds[",
-                                            1 + floor( ( i - 1 ) * 4 / n.cmp ), "]" )
-                    if ( i < n.cmp )
+                                            1 + floor( ( i - 1 ) * 4 / ncmp ), "]" )
+                    if ( i < ncmp )
                     {
                         start.string <- paste0( start.string, ", " )
                     }
@@ -1848,6 +1909,7 @@ separate.data.quarter <- function( x, data, data.mean )
 #'                      And if \code{mix.type = 3} is indicated,
 #'                      either \code{grad = "v2"} or \code{"v3"} must be indicated.
 #'
+#' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical; the flag whether to make all of the mean values of
 #'                      the normal distributions of the components to be equal.
 #' @param   eq.sd       A logical; the flag whether to make all of the standard deviations of
@@ -1855,7 +1917,7 @@ separate.data.quarter <- function( x, data, data.mean )
 #' @return  A data frame for \code{cmp} field
 #'          according to the result of \code{\link[stats]{nls}}.
 ################################################################################################
-get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
+get.cmp.with.nls.coef <- function( coefs, mix.type, grad, ncmp, eq.mean, eq.sd )
 {
     cmp <- list()
     if ( mix.type == 0 )
@@ -1951,9 +2013,9 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
     }
     else # if ( mix.type == 5 )
     {
-        # Customized Distributions: number of components is nrow( cmp )
-        mean.names  <- vapply( 1:nrow( cmp ), function( i ) paste0( "mean.", i ), "" )
-        sd.names    <- vapply( 1:nrow( cmp ), function( i ) paste0( "sqrt.sd.", i ), "" )
+        # Customized Distributions: number of components is ncmp
+        mean.names  <- vapply( 1:ncmp, function( i ) paste0( "mean.", i ), "" )
+        sd.names    <- vapply( 1:ncmp, function( i ) paste0( "sqrt.sd.", i ), "" )
 
         cmp <- data.frame( mean = c( unname( coefs[mean.names] ) ),
                            sd   = c( unname( coefs[sd.names] )^2 ) )
@@ -2095,15 +2157,15 @@ ggd.init.start <- function()
 #'                      The type of the variable is valid for \code{\link[ggd]{GGD}} object,
 #'                      the string of an element of \code{ggd:::kinds}, or its index number.
 #'
-#' @param   n.cmp       Number of components for the custom distribution.
+#' @param   ncmp        Number of components for the custom distribution.
 #'
 #'                      If \code{target} indicates \code{"Custom Distribution"} or \code{17},
 #'                      a positive integer must be indicated for this argument.
 #'
 #'                      If a \code{\link[ggd]{GGD}} object is indicated for \code{target},
 #'                      the number of rows of \code{cmp} field is used instead
-#'                      when \code{n.cmp} is \code{0} (the default).
-#'                      When \code{n.cmp} is a positive integer, the value of \code{n.cmp}
+#'                      when \code{ncmp} is \code{0} (the default).
+#'                      When \code{ncmp} is a positive integer, the value of \code{ncmp}
 #'                      takes priority.
 #' @return  A list containing components any of
 #'          \item{mean}{
@@ -2148,7 +2210,7 @@ ggd.init.start <- function()
 #'  ## try ggd.nls.freq
 #'  ggd.nls.freq( data.frame( x, freq ), start = start, kind = 14 )$obj
 ################################################################################################
-ggd.start.template <- function( target, n.cmp = 0 )
+ggd.start.template <- function( target, ncmp = 0 )
 {
     kind.index <- ggd.kind.index( target, undef.err = FALSE )[1]
     if ( is.na( kind.index ) || is.null( kind.index ) )
@@ -2226,29 +2288,28 @@ ggd.start.template <- function( target, n.cmp = 0 )
     }
     else if ( kind.index == 17 )
     {
-        n.cmp <- as.integer( n.cmp )
-        if ( n.cmp == 0 )
+        ncmp <- as.integer( ncmp )
+        if ( ncmp == 0 )
         {
             if ( inherits( target, "GGD" ) )
             {
-                n.cmp <- nrow( target$cmp )
+                ncmp <- nrow( target$cmp )
             }
             else
             {
-                stop( paste( "Error: Number of components should be given to n.cmp",
-                                    "for a customized distribution." ) )
+                stop( paste( "Error: ncmp should be given the number of components." ) )
             }
         }
-        else if ( n.cmp < 0 )
+        else if ( ncmp < 0 )
         {
-            stop( paste( "Error: n.cmp should be positive." ) )
+            stop( paste( "Error: ncmp should be positive." ) )
         }
 
         start.string <- "list("
-        for ( i in 1:n.cmp )
+        for ( i in 1:ncmp )
         {
             start.string <- paste0( start.string, "mean.", i, " = 0, ", "sqrt.sd.", i, " = 1" )
-            if ( i < n.cmp )
+            if ( i < ncmp )
             {
                 start.string <- paste0( start.string, ", " )
             }

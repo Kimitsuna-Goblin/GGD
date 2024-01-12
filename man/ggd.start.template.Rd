@@ -4,7 +4,7 @@
 \alias{ggd.start.template}
 \title{Template for start of nls}
 \usage{
-ggd.start.template(target, n.cmp = 0)
+ggd.start.template(target, ncmp = 0)
 }
 \arguments{
 \item{target}{A variable that identifies the kind of distribution to which
@@ -12,15 +12,15 @@ the template applies. The length should be 1.
 The type of the variable is valid for \code{\link[ggd]{GGD}} object,
 the string of an element of \code{ggd:::kinds}, or its index number.}
 
-\item{n.cmp}{Number of components for the custom distribution.
+\item{ncmp}{Number of components for the custom distribution.
 
                      If \code{target} indicates \code{"Custom Distribution"} or \code{17},
                      a positive integer must be indicated for this argument.
 
                      If a \code{\link[ggd]{GGD}} object is indicated for \code{target},
                      the number of rows of \code{cmp} field is used instead
-                     when \code{n.cmp} is \code{0} (the default).
-                     When \code{n.cmp} is a positive integer, the value of \code{n.cmp}
+                     when \code{ncmp} is \code{0} (the default).
+                     When \code{ncmp} is a positive integer, the value of \code{ncmp}
                      takes priority.}
 }
 \value{

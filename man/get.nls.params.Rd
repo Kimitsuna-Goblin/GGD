@@ -9,8 +9,8 @@ get.nls.params(
   freq,
   total,
   mix.type,
-  n.cmp,
   grad,
+  ncmp,
   eq.mean,
   eq.sd,
   start.level
@@ -26,8 +26,6 @@ and non-duplicated.}
 
 \item{mix.type}{The value for \code{mix.type} field.}
 
-\item{n.cmp}{Number of components of the custom distribution.}
-
 \item{grad}{A character string indicating the method of gradation.
                      If \code{"v3"}, constructing with 3 components is enforcedly,
                      even if it is possible to construct with 2 components.
@@ -38,6 +36,8 @@ and non-duplicated.}
                      \code{mix.type = 3} is indicated.
                      And if \code{mix.type = 3} is indicated,
                      either \code{grad = "v2"} or \code{"v3"} must be indicated.}
+
+\item{ncmp}{Number of components for the custom distribution.}
 
 \item{eq.mean}{A logical; the flag whether to make all of the mean values of
 the normal distributions of the components to be equal.}
