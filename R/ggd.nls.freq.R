@@ -286,7 +286,8 @@
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is as same as for \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occurs, the object will be cleared in most cases.
+#'          For \code{GGD} method: If an error occurs, all fields of the object will be cleared
+#'                                 in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -411,7 +412,7 @@ GGD$methods(
     {
         # Note:
         # In this function, when an error occurs,
-        # we clear all of the fields as much as possible.
+        # we clear all fields as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,
