@@ -286,7 +286,7 @@
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is as same as for \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occur, the object will be cleared in most cases.
+#'          For \code{GGD} method: If an error occurs, the object will be cleared in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -779,7 +779,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'
 #' If you indicate \code{warnOnly = FALSE} in \code{control} argument
 #' and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
-#' If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
+#' If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
 #' this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
 #' instead of throwing error and does not stop,
 #' then tries other \code{\link[ggd]{nls.freq}} processes.
@@ -1014,11 +1014,11 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
     }
 
     # Execule nls.
-    # If an error occuer, the error message is displayed but other processes continue.
+    # If an error occurs, the error message is displayed but other processes continue.
     results <- lapply( 1:length( kinds ),
     function( i )
     {
-        # Remark if an error occur at nls.freq, obj will be a cleared object (not NULL).
+        # Remark if an error occurs at nls.freq, obj will be a cleared object (not NULL).
         obj <- GGD$new()
         result <- withCallingHandlers(
                     try( obj$nls.freq( data             = data.ext,

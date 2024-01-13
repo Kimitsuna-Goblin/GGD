@@ -93,7 +93,7 @@ It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.}
 \value{
 The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 
-         For \code{GGD} method: If an error occur, each value of field will not be changed.
+         For \code{GGD} method: If an error occurs, each value of field will not be changed.
 }
 \description{
 Sets the normal distributions of the components to the \code{cmp} field.

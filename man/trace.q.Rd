@@ -170,7 +170,7 @@ A list containing components (invisible for \code{GGD} method)
                  The list of the output of \code{\link[nleqslv]{nleqslv}}
                  which has succeeded to solve tracing quantiles.}
 
-         For \code{GGD} method: If an error occur, the object will be cleared in most cases.
+         For \code{GGD} method: If an error occurs, the object will be cleared in most cases.
 }
 \description{
 Constructs a \code{\link[ggd]{GGD}} object which traces all of the given quantiles
