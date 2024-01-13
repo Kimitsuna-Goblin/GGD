@@ -103,7 +103,7 @@ GGD$methods(
 ################################################################################################
 #' [Non-exported] Call applying function
 #'
-#' Calls a applying function to get new values of a column of \code{cmp} field.
+#' Calls an applying function to get new values of a column of \code{cmp} field.
 #' @param   f       A function to apply to elements in a column of \code{cmp} field.
 #' @param   values  A vector of current values of the column of \code{cmp} field.
 #' @param   obj     The \code{\link[ggd]{GGD}} object which calls this function.

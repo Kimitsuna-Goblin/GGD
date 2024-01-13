@@ -17,7 +17,7 @@ apply.cmp.sub(f, values, obj)
 A vector of new values of the column of \code{cmp} field.
 }
 \description{
-Calls a applying function to get new values of a column of \code{cmp} field.
+Calls an applying function to get new values of a column of \code{cmp} field.
 }
 \seealso{
 \code{\link[ggd]{apply.cmp}}

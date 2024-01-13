@@ -24,5 +24,5 @@ the convergence is declared.}
 Solution of the equation f = 0 with tolerances.
 }
 \description{
-Solves a equation via bisection method.
+Solves an equation via bisection method.
 }

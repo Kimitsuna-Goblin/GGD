@@ -332,8 +332,8 @@ GGD$methods(
         # Check arguments
 
         # Note:
-        # In this function, when a error occur,
-        # we clear the fields as possible as we can.
+        # In this function, when an error occurs,
+        # we clear all of the fields as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,
