@@ -661,7 +661,7 @@ GGD$methods(
 #'
 #'                      If an element is \code{NA}, \code{NA_integer_} will be returned for it.
 #'
-#' @param   undef.err   A logical;
+#' @param   undef.err   A logical.
 #'                      If \code{TRUE}, an error occur if a not-\code{NA} element of \code{objs}
 #'                      does not match any element of \code{ggd:::kinds}.
 #'                      If \code{FALSE}, \code{NA_integer_} will be returned for it.
