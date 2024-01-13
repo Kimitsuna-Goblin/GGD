@@ -7,17 +7,20 @@ library( "testthat" )
 
 ################################################################################################
 #' Check if a GGD object is cleared
-#' @param   obj     A \code{GGD} class object.
+#' @param   obj                 A \code{GGD} class object.
+#' @param   expect.custom.d     The function which is expected to be in \code{cmp} field.
 #' @importFrom  rlang   enquo
 ################################################################################################
-expect_cleared <- function( obj )
+expect_cleared <- function( obj, expect.custom.d = ggd:::default.custom.d )
 {
     act <- quasi_label( rlang::enquo( obj ), arg = "object" )
+    c.d <- quasi_label( rlang::enquo( expect.custom.d ), arg = "expect.custom.d" )
 
     expect( identical( act$val$kind.index,      integer() ) &&
             identical( act$val$kind,            character() ) &&
             identical( act$val$mix.type,        integer() ) &&
             nrow( act$val$cmp ) == 0 &&
+            identical( act$val$custom.d,        c.d$val ) &&
             identical( act$val$median,          numeric() ) &&
             identical( act$val$mean,            numeric() ) &&
             identical( act$val$sd,              numeric() ) &&
@@ -25,7 +28,16 @@ expect_cleared <- function( obj )
             identical( act$val$usd,             numeric() ) &&
             identical( act$val$lsd.abs.error,   numeric() ) &&
             identical( act$val$usd.abs.error,   numeric() ),
-            sprintf( "%s is not cleared.", act$lab ) )
+            {
+                if ( !identical( act$val$custom.d, c.d$val ) )
+                {
+                    sprintf( "custom.d of %s is different from %s", act$lab, c.d$lab )
+                }
+                else
+                {
+                    sprintf( "%s is not cleared.", act$lab )
+                }
+            } )
 
     invisible( act$val )
 }

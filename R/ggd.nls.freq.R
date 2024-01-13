@@ -322,7 +322,8 @@ l.custom.d <- list()
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is as same as for \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occur, the object will be cleared in most cases.
+#'          For \code{GGD} method: If an error occurs, the object will be cleared
+#'                                 (only \code{custom.d} field is retained) in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -457,6 +458,7 @@ GGD$methods(
         # if the fields are not cleared and contain some normal values,
         # users may let the subsequent processes take place without noticing the error.
         # During the development phase, the developer actually experienced such mistakes.
+        on.exit( clear( keep.custom.d = TRUE ) )
 
         result <- list( obj = NULL, nls.out = NULL,
                         start.level = NULL, start = NULL, start.obj = NULL )
@@ -473,7 +475,6 @@ GGD$methods(
         else if ( length( total ) != 1 || !is.numeric( total ) || is.na( total ) ||
                   is.infinite( total ) || total <= 0 )
         {
-            clear()
             stop( "Error: total should be positive finite single value." )
         }
 
@@ -492,7 +493,6 @@ GGD$methods(
                                     error = function( e ) clear() )
             if ( length( this.kind.index ) > 1 )
             {
-                clear()
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
             else if ( length( this.kind.index ) == 1 && !is.na( this.kind.index ) )
@@ -557,7 +557,6 @@ GGD$methods(
         if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
              !any( new.mix.type == 0:5 ) )
         {
-            clear()
             if ( !is.null( this.kind ) )
             {
                 # This code will run if this.kind = character( 0 ).
@@ -594,7 +593,6 @@ GGD$methods(
 
             if ( length( ncmp ) != 1 || !is.numeric( ncmp ) || as.integer( ncmp ) <= 0 )
             {
-                clear()
                 stop( paste( "Error: ncmp should be given the number of components." ) )
             }
             ncmp <- as.integer( ncmp )
@@ -611,7 +609,6 @@ GGD$methods(
             if ( length( start.level ) != 1 || !is.numeric( start.level ) ||
                  is.na( start.level ) || !any( start.level == c( 0:3, 100 ) ) )
             {
-                clear()
                 stop( "Error: start.level should be single integer in 0:3 or 100." )
             }
         }
@@ -632,7 +629,6 @@ GGD$methods(
                            silent = TRUE )
             if ( inherits( result, "try-error" ) )
             {
-                clear()
                 stop( result )
             }
 
@@ -684,7 +680,6 @@ GGD$methods(
                                                  control = control, ... ), silent = TRUE )
                 if ( inherits( result$nls.out, "try-error" ) )
                 {
-                    clear()
                     stop( paste( "nls has failed. Message:", result$nls.out ) )
                 }
                 else
@@ -701,6 +696,7 @@ GGD$methods(
             result$obj <- .self
         }
 
+        on.exit()
         return ( invisible( result ) )
     }
 )
@@ -842,7 +838,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'
 #' If you indicate \code{warnOnly = FALSE} in \code{control} argument
 #' and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
-#' If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
+#' If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
 #' this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
 #' instead of throwing error and does not stop,
 #' then tries other \code{\link[ggd]{nls.freq}} processes.
@@ -1077,7 +1073,7 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
     }
 
     # Execule nls.
-    # If an error occuer, the error message is displayed but other processes continue.
+    # If an error occurs, the error message is displayed but other processes continue.
     results <- lapply( 1:16,
     function( i )
     {

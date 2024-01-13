@@ -139,7 +139,7 @@
 #'
 #' @return  The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 #'
-#'          For \code{GGD} method: If an error occur, each value of field will not be changed.
+#'          For \code{GGD} method: If an error occurs, each value of field will not be changed.
 #'
 #' @importFrom  methods     new
 #'
@@ -674,7 +674,7 @@ GGD$methods(
                 else # if ( cmp.rows == 2 )
                 {
                     # When nrow( cmp ) == 2 and not a normal distribution,
-                    # if current mix.type is strange, an error occur
+                    # if current mix.type is strange, an error occurs
                     # even if a valid this.mix.type is indicated.
                     #
                     # Because it may affect to the substance of the distribution

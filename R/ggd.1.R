@@ -444,8 +444,8 @@ GGD$methods(
 #' @aliases \S4method{clear}{GGD}
 #' @usage   \S4method{clear}{GGD}( keep.custom.d = FALSE )
 #' @param   keep.custom.d   A logical.
-#'                          If \code{TRUE}, it retains the function in \code{custom.d} field.
-#'                          If \code{FALSE}, it sets the default function
+#'                          If \code{TRUE}, the function in \code{custom.d} field is retained.
+#'                          If \code{FALSE}, the default function is set
 #'                          to \code{custom.d} field.
 #' @return  The cleared \code{\link[ggd]{GGD}} object itself (invisible).
 #' @examples
@@ -727,9 +727,8 @@ GGD$methods(
 #'
 #'                      If an element is \code{NA}, \code{NA_integer_} will be returned for it.
 #'
-#' @param   undef.err   A logical.
-#'                      If \code{TRUE}, an error occur if a not-\code{NA} element of \code{objs}
-#'                      does not match any element of \code{ggd:::kinds}.
+#' @param   undef.err   A logical. If \code{TRUE}, an error occurs if a not-\code{NA} element
+#'                      of \code{objs} does not match any element of \code{ggd:::kinds}.
 #'                      If \code{FALSE}, \code{NA_integer_} will be returned for it.
 #'
 #' @return  The vector of index numbers (integers) which represent the kinds of distributions.

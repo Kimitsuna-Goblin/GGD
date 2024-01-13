@@ -179,7 +179,8 @@
 #'                  The list of the output of \code{\link[nleqslv]{nleqslv}}
 #'                  which has succeeded to solve tracing quantiles.}
 #'
-#'          For \code{GGD} method: If an error occur, the object will be cleared in most cases.
+#'          For \code{GGD} method: If an error occurs, the object will be cleared
+#'                                 (only \code{custom.d} field is retained) in most cases.
 #'
 #' @importFrom  methods     new
 #' @seealso \code{\link[ggd]{nls.freq}}
@@ -339,17 +340,16 @@ GGD$methods(
         # if the fields are not cleared and contain some normal values,
         # users may let the subsequent processes take place without noticing the error
         # (during the development phase, the author actually experienced such mistakes).
+        on.exit( clear( keep.custom.d = TRUE ) )
 
         # Check data frame.
         if ( !is.data.frame( quantiles ) )
         {
-            clear()
             stop( "Error: quantiles must be a data frame." )
         }
 
         if ( length( x ) != 1 || ( !is.numeric( x ) && !is.character( x ) ) || is.na( x ) )
         {
-            clear()
             stop( "Error: Argument x must be a column name or an index number." )
         }
         else if ( is.numeric( x ) )
@@ -357,14 +357,12 @@ GGD$methods(
             x <- as.integer( x )
             if ( !any( x == 1:ncol( quantiles ) ) )
             {
-                clear()
                 stop( "Error: Illegal column number for x." )
             }
         }
 
         if ( length( p ) != 1 || ( !is.numeric( p ) && !is.character( p ) ) || is.na( p ) )
         {
-            clear()
             stop( "Error: Argument p must be a column name or an index number." )
         }
         else if ( is.numeric( p ) )
@@ -372,14 +370,12 @@ GGD$methods(
             p <- as.integer( p )
             if ( !any( p == 1:ncol( quantiles ) ) )
             {
-                clear()
                 stop( "Error: Illegal column number for p." )
             }
         }
 
         if ( is.null( quantiles[[x]] ) || is.null( quantiles[[p]] ) )
         {
-            clear()
             stop( paste0( "Error: Column '",
                                   ifelse( is.null( quantiles[[x]] ), x, p ),
                                   "' is undefined." ) )
@@ -396,12 +392,10 @@ GGD$methods(
 
         if ( nrow( qt ) == 0 )
         {
-            clear()
             stop( "Error: No valid rows in quantiles." )
         }
         else if ( nrow( qt ) < 2 )
         {
-            clear()
             stop( "Error: Illegal number of quantiles." )
         }
 
@@ -435,7 +429,6 @@ GGD$methods(
         if ( any( qt$p[qt.order[1:( nrow( qt ) - 1 )]] >= qt$p[qt.order[2:nrow( qt )]] ) ||
              any( qt$x[qt.order[1:( nrow( qt ) - 1 )]] >= qt$x[qt.order[2:nrow( qt )]] ) )
         {
-            clear()
             stop( paste( "Error: Order of", x, "and", p, "must be along,",
                                 "and", x, "and", p, "must not duplicated." ) )
         }
@@ -453,7 +446,6 @@ GGD$methods(
         qt.num <- nrow( qt.with.median ) # the number of quantiles
         if ( qt.num < 2 || qt.num > 8 )
         {
-            clear()
             stop( "Error: Illegal number of valid quantiles." )
         }
 
@@ -478,7 +470,6 @@ GGD$methods(
                                 error = function( e ) clear() )
             if ( length( this.kind.index ) > 1 )
             {
-                clear()
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
             else if ( length( this.kind.index ) == 0 )
@@ -530,7 +521,6 @@ GGD$methods(
         # trace.q for custom distribution (mix.type = 5) has not been supported yet.
         if ( isTRUE( new.mix.type == 5 ) )
         {
-            clear()
             stop( "Error: trace.q for a customized distribution has not been supported yet." )
         }
 
@@ -540,13 +530,11 @@ GGD$methods(
         {
             if ( !is.null( this.mix.type ) )
             {
-                clear()
                 stop( "Error: mix.type should be single integer from 0 to 4." )
             }
             else if ( !is.null( this.kind ) )
             {
                 # This code will run if this.kind = character( 0 ).
-                clear()
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
             else
@@ -642,11 +630,11 @@ GGD$methods(
                 }
                 if ( inherits( result, "try-error" ) )
                 {
-                    clear()
                     stop( result )
                 }
                 else
                 {
+                    on.exit()
                     return ( invisible( result ) )
                 }
             }
@@ -660,7 +648,6 @@ GGD$methods(
             {
                 if ( !qt.num == 3 )
                 {
-                    clear()
                     stop( paste( "Error: Illegal number of quantiles for grad = \"v2\"",
                                  "and either eq.mean or eq.sd is TRUE." ) )
                 }
@@ -671,7 +658,6 @@ GGD$methods(
                          ( new.mix.type == 3 && any( qt.num == 3:4 ) ) ||
                          ( new.mix.type == 4 && qt.num == 5 ) ) )
             {
-                clear()
                 stop( paste( "Error: Illegal number of quantiles for mix.type =",
                              new.mix.type, "and either eq.mean or eq.sd is TRUE." ) )
             }
@@ -682,7 +668,6 @@ GGD$methods(
             {
                 if ( !any( qt.num == 3:4 ) )
                 {
-                    clear()
                     stop( "Error: Illegal number of quantiles for grad = \"v2\"." )
                 }
             }
@@ -692,7 +677,6 @@ GGD$methods(
                          ( new.mix.type == 3 && any( qt.num == 3:6 ) ) ||
                          ( new.mix.type == 4 && any( qt.num == 5:8 ) ) ) )
             {
-                clear()
                 stop( paste( "Error: Illegal number of quantiles for mix.type =",
                               paste0( new.mix.type, "." ) ) )
             }
@@ -706,6 +690,7 @@ GGD$methods(
             result <- ms.norm.xp( qt.with.median$x, qt.with.median$p )
             set.cmp( data.frame( result ), this.mix.type = new.mix.type )
 
+            on.exit()
             return ( invisible( list( obj = .self, nleqslv.out = NULL ) ) )
         }
 
@@ -1129,7 +1114,6 @@ GGD$methods(
                                            as.character( attr( l, "condition" ) ) ) ) == 0 )
                         {
                             # Critical or programming error.
-                            clear()
                             stop( l )
                         }
 
@@ -1149,12 +1133,10 @@ GGD$methods(
                             if ( qt.num == 3 && isFALSE( eq.mean ) )
                             {
                                 message( "Crossover-tracing has failed." )
-                                clear()
                                 stop( l )
                             }
                             else if ( qt.num == 4 )
                             {
-                                clear()
                                 stop( l )
                             }
 
@@ -1488,7 +1470,6 @@ GGD$methods(
                         }
                         else
                         {
-                            clear()
                             stop( l )
                         }
                     }
@@ -1888,7 +1869,6 @@ GGD$methods(
                 result <- try( nleqslv( x.0, f, control = control ), silent = TRUE )
                 if ( inherits( result, "try-error" ) )
                 {
-                    clear()
                     stop( paste( "Error: Critical error at nleqslv:\n",
                                          attr( result, "condition" ) ) )
                 }
@@ -1948,13 +1928,13 @@ GGD$methods(
                     else
                     {
                         message( paste( "nleqslv has failed. Message:", result$message ) )
-                        clear()
                         stop( "Error: Failed to construct components." )
                     }
                 }
             }
         }
 
+        on.exit()
         return ( invisible( list( obj = .self, nleqslv.out = result ) ) )
     }
 )

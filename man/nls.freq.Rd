@@ -302,7 +302,8 @@ A list containing components (invisible for \code{GGD} method)
                  This component is given only if \code{start.level = 100}.
                  The composition of each element is as same as for \code{errors}.}
 
-         For \code{GGD} method: If an error occur, the object will be cleared in most cases.
+         For \code{GGD} method: If an error occurs, the object will be cleared
+                                (only \code{custom.d} field is retained) in most cases.
 }
 \description{
 With the non-linear least squares (\code{\link[stats]{nls}}),

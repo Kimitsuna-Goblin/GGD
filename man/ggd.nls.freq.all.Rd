@@ -158,7 +158,7 @@ So when one warning has occurred, two warnings will occur eventually.
 
 If you indicate \code{warnOnly = FALSE} in \code{control} argument
 and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
-If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
+If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
 this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
 instead of throwing error and does not stop,
 then tries other \code{\link[ggd]{nls.freq}} processes.

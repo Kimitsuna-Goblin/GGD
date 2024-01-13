@@ -9,8 +9,8 @@
 }
 \arguments{
 \item{keep.custom.d}{A logical.
-If \code{TRUE}, it retains the function in \code{custom.d} field.
-If \code{FALSE}, it sets the default function
+If \code{TRUE}, the function in \code{custom.d} field is retained.
+If \code{FALSE}, the default function is set
 to \code{custom.d} field.}
 }
 \value{
