@@ -417,13 +417,13 @@ GGD$methods(
         # if the fields are not cleared and contain some normal values,
         # users may let the subsequent processes take place without noticing the error.
         # During the development phase, the developer actually experienced such mistakes.
+        on.exit( clear() )
 
         result <- list( obj = NULL, nls.out = NULL,
                         start.level = NULL, start = NULL, start.obj = NULL )
 
         # Check errors of data frame and discard NA and NaN.
-        data.ext <- withCallingHandlers( extract.freq.data( data, x, freq ),
-                                         error = function( e ) clear() )
+        data.ext <- extract.freq.data( data, x, freq )
 
         # Get total.
         if ( is.null( total ) )
@@ -433,13 +433,12 @@ GGD$methods(
         else if ( length( total ) != 1 || !is.numeric( total ) || is.na( total ) ||
                   is.infinite( total ) || total <= 0 )
         {
-            clear()
             stop( "Error: total should be positive finite single value." )
         }
 
         ################################################################
         # Check options and get new mix.type according to the priority.
-        grad <- withCallingHandlers( match.arg( grad ), error = function( e ) clear() )
+        grad <- match.arg( grad )
         if ( grad == "v" )
         {
             grad <- "v2"
@@ -447,12 +446,9 @@ GGD$methods(
 
         if ( !is.null( this.kind ) )
         {
-            this.kind.index <- withCallingHandlers(
-                                    ggd.kind.index( this.kind, undef.err = TRUE ),
-                                    error = function( e ) clear() )
+            this.kind.index <- ggd.kind.index( this.kind, undef.err = TRUE )
             if ( length( this.kind.index ) > 1 )
             {
-                clear()
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
             else if ( length( this.kind.index ) == 1 && !is.na( this.kind.index ) )
@@ -510,14 +506,10 @@ GGD$methods(
             }
         }
 
-        new.mix.type <- withCallingHandlers(
-                            ggd.mix.type.for( grad,
-                                              kind = this.kind, mix.type = this.mix.type ),
-                            error = function( e ) clear() )
+        new.mix.type <- ggd.mix.type.for( grad, kind = this.kind, mix.type = this.mix.type )
         if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
              !any( new.mix.type == 0:4 ) )
         {
-            clear()
             if ( !is.null( this.kind ) )
             {
                 # This code will run if this.kind = character( 0 ).
@@ -554,7 +546,6 @@ GGD$methods(
             if ( length( start.level ) != 1 || !is.numeric( start.level ) ||
                  is.na( start.level ) || !any( start.level == c( 0:3, 100 ) ) )
             {
-                clear()
                 stop( "Error: start.level should be single integer in 0:3 or 100." )
             }
         }
@@ -575,7 +566,6 @@ GGD$methods(
                            silent = TRUE )
             if ( inherits( result, "try-error" ) )
             {
-                clear()
                 stop( result )
             }
 
@@ -626,7 +616,6 @@ GGD$methods(
                                                  control = control, ... ), silent = TRUE )
                 if ( inherits( result$nls.out, "try-error" ) )
                 {
-                    clear()
                     stop( paste( "nls has failed. Message:", result$nls.out ) )
                 }
                 else
@@ -643,6 +632,7 @@ GGD$methods(
             result$obj <- .self
         }
 
+        on.exit()
         return ( invisible( result ) )
     }
 )
