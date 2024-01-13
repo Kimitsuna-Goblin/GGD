@@ -179,8 +179,8 @@
 #'                  The list of the output of \code{\link[nleqslv]{nleqslv}}
 #'                  which has succeeded to solve tracing quantiles.}
 #'
-#'          For \code{GGD} method: If an error occurs, the object will be cleared
-#'                                 (only \code{custom.d} field is retained) in most cases.
+#'          For \code{GGD} method: If an error occurs, all fields (except for \code{custom.d})
+#'                                 of the object will be cleared in most cases.
 #'
 #' @importFrom  methods     new
 #' @seealso \code{\link[ggd]{nls.freq}}

@@ -316,8 +316,9 @@
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is as same as for \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occurs, the object will be cleared
-#'                                 (only \code{custom.d} field is retained) in most cases.
+#'          For \code{GGD} method: If an error occurs, all fields (except for \code{custom.d},
+#'                                 which may have been updated with \code{this.custom.d})
+#'                                 of the object will be cleared in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -446,7 +447,7 @@ GGD$methods(
     {
         # Note:
         # In this function, when an error occurs,
-        # we clear all of the fields except for custom.d as much as possible.
+        # we clear all fields except for custom.d as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,
@@ -611,7 +612,7 @@ GGD$methods(
             ################################################################
             # Loop with each level.
             result <- try( nls.freq.level.100( data.ext, total, this.kind, this.mix.type,
-                                               grad, this.custom.d, ncmp, eq.mean, eq.sd, control,
+                                               grad, custom.d, ncmp, eq.mean, eq.sd, control,
                                                not.use.nls = FALSE, cor.method, ... ),
                            silent = TRUE )
             if ( inherits( result, "try-error" ) )
