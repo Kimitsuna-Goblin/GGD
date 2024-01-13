@@ -7,12 +7,6 @@
 ################################################################################################
 
 ################################################################################################
-#  Global variables
-
-## List of custom.d for nls
-l.custom.d <- list()
-
-################################################################################################
 #  Functions
 
 ################################################################################################
@@ -451,8 +445,8 @@ GGD$methods(
                          not.use.nls = FALSE, cor.method = NULL, ...)
     {
         # Note:
-        # In this function, when a error occur,
-        # we clear the fields as possible as we can.
+        # In this function, when an error occurs,
+        # we clear all of the fields except for custom.d as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,
@@ -464,8 +458,7 @@ GGD$methods(
                         start.level = NULL, start = NULL, start.obj = NULL )
 
         # Check errors of data frame and discard NA and NaN.
-        data.ext <- withCallingHandlers( extract.freq.data( data, x, freq ),
-                                         error = function( e ) clear() )
+        data.ext <- extract.freq.data( data, x, freq )
 
         # Get total.
         if ( is.null( total ) )
@@ -480,7 +473,7 @@ GGD$methods(
 
         ################################################################
         # Check options and get new mix.type according to the priority.
-        grad <- withCallingHandlers( match.arg( grad ), error = function( e ) clear() )
+        grad <- match.arg( grad )
         if ( grad == "v" )
         {
             grad <- "v2"
@@ -488,9 +481,7 @@ GGD$methods(
 
         if ( !is.null( this.kind ) )
         {
-            this.kind.index <- withCallingHandlers(
-                                    ggd.kind.index( this.kind, undef.err = TRUE ),
-                                    error = function( e ) clear() )
+            this.kind.index <- ggd.kind.index( this.kind, undef.err = TRUE )
             if ( length( this.kind.index ) > 1 )
             {
                 stop( "Error: kind should be valid single value or a GGD object." )
@@ -550,10 +541,7 @@ GGD$methods(
             }
         }
 
-        new.mix.type <- withCallingHandlers(
-                            ggd.mix.type.for( grad,
-                                              kind = this.kind, mix.type = this.mix.type ),
-                            error = function( e ) clear() )
+        new.mix.type <- ggd.mix.type.for( grad, kind = this.kind, mix.type = this.mix.type )
         if ( length( new.mix.type ) != 1 || is.na( new.mix.type ) ||
              !any( new.mix.type == 0:5 ) )
         {
@@ -587,8 +575,7 @@ GGD$methods(
         {
             if ( !is.null( this.custom.d ) )
             {
-                withCallingHandlers( custom.d <<- this.custom.d,
-                                     error = function( e ) clear() )
+                custom.d <<- this.custom.d
             }
 
             if ( length( ncmp ) != 1 || !is.numeric( ncmp ) || as.integer( ncmp ) <= 0 )

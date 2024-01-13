@@ -333,8 +333,8 @@ GGD$methods(
         # Check arguments
 
         # Note:
-        # In this function, when a error occur,
-        # we clear the fields as possible as we can.
+        # In this function, when an error occurs,
+        # we clear all of the fields except for custom.d as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,
@@ -381,7 +381,7 @@ GGD$methods(
                                   "' is undefined." ) )
         }
 
-        grad <- withCallingHandlers( match.arg( grad ), error = function( e ) clear() )
+        grad <- match.arg( grad )
         if ( grad == "v" )
         {
             grad <- "v2"
@@ -465,9 +465,7 @@ GGD$methods(
         # Get grad value needed for tracing processes with this.kind.
         if ( !is.null( this.kind ) )
         {
-            this.kind.index <- withCallingHandlers(
-                                ggd.kind.index( this.kind, undef.err = TRUE ),
-                                error = function( e ) clear() )
+            this.kind.index <- ggd.kind.index( this.kind, undef.err = TRUE )
             if ( length( this.kind.index ) > 1 )
             {
                 stop( "Error: kind should be valid single value or a GGD object." )
