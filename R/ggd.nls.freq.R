@@ -660,7 +660,8 @@ GGD$methods(
             result$start.obj <- ggd.set.cmp( get.cmp.with.nls.coef( unlist( result$start ),
                                                                     new.mix.type, grad, ncmp,
                                                                     eq.mean, eq.sd ),
-                                             mix.type = new.mix.type, grad = grad )
+                                             mix.type = new.mix.type, grad = grad,
+                                             custom.d = custom.d )
 
             ################################################################
             # Get the result components.
@@ -1737,8 +1738,10 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
             }
 
-            fm <- as.formula( paste( "d ~ .self$custom.d(x, data.frame(mean = c(",
-                                     mean.string, "), sd = c(", sd.string, ")))" ) )
+            # env needs to be specified here.
+            fm <- as.formula( paste( "d ~ custom.d(x, data.frame(mean = c(",
+                                     mean.string, "), sd = c(", sd.string, ")))" ),
+                              env = parent.frame() )
 
             # Assign start values as evenly as possible.
             if ( ncmp == 1 )

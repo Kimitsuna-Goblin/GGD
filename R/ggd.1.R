@@ -442,7 +442,11 @@ GGD$methods(
 #' @name    clear
 #' @aliases clear
 #' @aliases \S4method{clear}{GGD}
-#' @usage   \S4method{clear}{GGD}()
+#' @usage   \S4method{clear}{GGD}( keep.custom.d = FALSE )
+#' @param   keep.custom.d   A logical.
+#'                          If \code{TRUE}, it retains the function in \code{custom.d} field.
+#'                          If \code{FALSE}, it sets the default function
+#'                          to \code{custom.d} field.
 #' @return  The cleared \code{\link[ggd]{GGD}} object itself (invisible).
 #' @examples
 #'  a <- GGD$new()
@@ -452,11 +456,15 @@ GGD$methods(
 ################################################################################################
 NULL
 GGD$methods(
-    clear = function()
+    clear = function( keep.custom.d = FALSE )
     {
         mix.type    <<- integer()
         cmp         <<- data.frame( mean = numeric(), sd = numeric() )
-        custom.d    <<- default.custom.d
+        if ( !isTRUE( keep.custom.d ) )
+        {
+            custom.d    <<- default.custom.d
+        }
+
         adjust.kind.index()
 
         median <<- mean <<- sd <<- lsd <<- usd <<- numeric()
@@ -719,7 +727,7 @@ GGD$methods(
 #'
 #'                      If an element is \code{NA}, \code{NA_integer_} will be returned for it.
 #'
-#' @param   undef.err   A logical;
+#' @param   undef.err   A logical.
 #'                      If \code{TRUE}, an error occur if a not-\code{NA} element of \code{objs}
 #'                      does not match any element of \code{ggd:::kinds}.
 #'                      If \code{FALSE}, \code{NA_integer_} will be returned for it.
