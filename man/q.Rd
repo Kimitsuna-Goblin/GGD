@@ -11,6 +11,12 @@
 \item{prob}{A vector of probabilities.}
 
 \item{tol}{The tolerance level for the convergence criterion.}
+
+\item{use.custom.p}{A logical.
+If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
+is used as it is to obtain probabilities.
+If \code{TRUE}, the function in \code{custom.p} field is
+used instead as the cumulative distribution function.}
 }
 \value{
 The x-coordinates at which the value of the cumulative distribution function

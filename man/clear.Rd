@@ -5,13 +5,18 @@
 \alias{\S4method{clear}{GGD}}
 \title{Clear fields}
 \usage{
-\S4method{clear}{GGD}( keep.custom.d = FALSE )
+\S4method{clear}{GGD}(keep.custom.d = FALSE, keep.custom.p = keep.custom.d)
 }
 \arguments{
 \item{keep.custom.d}{A logical.
 If \code{TRUE}, the function in \code{custom.d} field is retained.
 If \code{FALSE}, the default function is set
 to \code{custom.d} field.}
+
+\item{keep.custom.p}{A logical.
+If \code{TRUE}, the function in \code{custom.p} field is retained.
+If \code{FALSE}, the default function is set
+to \code{custom.p} field.}
 }
 \value{
 The cleared \code{\link[ggd]{GGD}} object itself (invisible).

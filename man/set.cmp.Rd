@@ -87,24 +87,24 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      the current \code{mix.type} is retained or horizontal (default) is used.}
 
 \item{custom.d}{A function for the density function of the custom distribution.
+                     This argument should be indicated if \code{kind} indicates
+                     \code{"Custom Distribution"} or \code{mix.type} is \code{5}.
 
-                     If \code{kind} indicates \code{"Custom Distribution"} or
-                     \code{mix.type} is \code{5}, this argument should be indicated.
+                     \code{NULL} retains the current \code{custom.d} field, after the default
+                     (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) has been set.
 
-                     The function must receive 2 arguments and
-                     return a vector of numeric values as the densities.
-                     The 2 arguments are
-                     \itemize{
-                         \item   A vector of numeric values for the x-coordinates.
-                                 \code{custom.d} must return a vector of same length
-                                 as this argument.
-                         \item   A data frame of the mean values and standard deviations
-                                 of the components. That is, the \code{cmp} field.
-                     }
+                     See "Fields" of \code{\link[ggd]{GGD-class}} for more information.}
 
-                     \code{NULL} for \code{custom.d} argument retains
-                     the current \code{custom.d} field, after the default
-                     (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) has been set.}
+\item{custom.p}{A function for the cumulative distribution function defined by user.
+                     Unlike \code{custom.d}, this argument is not required to be
+                     indicated for custom distribution.
+
+                     \code{NULL} retains the current \code{custom.p} field, after the default
+                     (\code{function(x, cmp)
+                            integrate(function(x) custom.d(x, cmp), -Inf, x)$value})
+                     has been set.
+
+                     See "Fields" of \code{\link[ggd]{GGD-class}} for more information.}
 
 \item{this.cmp}{A data frame for setting into the \code{cmp} field.
 It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.}
@@ -117,12 +117,18 @@ It is equivalent to \code{kind} argument for \code{ggd.set.cmp}.}
 It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.}
 
 \item{this.custom.d}{A function for the probability density function of
-the custom distribution.
-It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
-\code{NULL} is allowed to retain
-the current \code{custom.d} field.
-However, a warning will occur if you retain the default for
-a custom distribution.}
+                         the custom distribution.
+                         It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
+
+                         \code{NULL} is allowed to retain the current \code{custom.d} field.
+                         However, a warning will occur if you retain the default for
+                         a custom distribution.}
+
+\item{this.custom.p}{A function for the cumulative distribution function defined by user.
+                         It is equivalent to \code{custom.p} argument for \code{ggd.set.cmp}.
+
+                         \code{NULL} is allowed to retain the current \code{custom.p} field.
+                         Retaining the default will not cause warnings.}
 }
 \value{
 The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).

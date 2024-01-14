@@ -108,14 +108,14 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 \item{custom.d}{A function for the density function of the custom distribution.
 
                      If \code{NULL}, the default function will be used with some warnings
-                     when approximating with a customized distribution.
+                     when approximating with a custom distribution.
 
                      See \code{\link[ggd]{set.cmp}} for more information.}
 
 \item{ncmp}{Number of components for the custom distribution.
 
                      A positive integer should be indicated if approximating with
-                     a customized distribution via \code{ggd.nls.freq}.
+                     a custom distribution via \code{ggd.nls.freq}.
 
                      In the case of \code{nls.freq} method, the number of rows
                      in \code{cmp} field is given by default,
@@ -254,7 +254,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                          \code{ggd.nls.freq}.
 
                      If \code{NULL}, the current function in \code{custom.d} field
-                     will be used when approximating with a customized distribution.
+                     will be used when approximating with a custom distribution.
 
                      See \code{\link[ggd]{set.cmp}} for more information.}
 }

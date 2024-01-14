@@ -5,10 +5,15 @@
 \alias{\S4method{p}{GGD}}
 \title{Cumulative distribution function}
 \usage{
-\S4method{p}{GGD}(x)
+\S4method{p}{GGD}(x, use.custom.p = isTRUE(mix.type == 5))
 }
 \arguments{
 \item{x}{A vector of x-coordinates.}
+
+\item{use.custom.p}{A logical.
+If \code{FALSE}, the coded cumulative distribution function is used
+as it is. If \code{TRUE}, the function in \code{custom.p} field is
+used instead as the cumulative distribution function.}
 }
 \value{
 The probabilities of that x is less than or equal to given x-coordinates.

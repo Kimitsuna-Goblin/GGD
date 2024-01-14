@@ -32,8 +32,9 @@ kinds <- c( "Normal Distribution",                                              
 kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L,
                         10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L, 17L )
 
-## Default custom.d
+## Default custom.d and custom.p
 default.custom.d <- function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])
+default.custom.p <- function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value
 
 ## Square root of 2 pi
 sqrt.2pi <- sqrt( 2 * pi )
@@ -121,6 +122,28 @@ f.t3.p <- list( function( x, m, s )
 #'              However, the default can be changed without notice,
 #'              so you should not expect it to be a probability density function
 #'              of a normal distribution.
+#'
+#' @field   custom.p        The cumulative distribution function defined by user.
+#'
+#'              As with \code{custom.d},
+#'              the function for \code{custom.p} must receive 2 arguments and
+#'              return a numeric value of the cumulative distribution function,
+#'              i.e. the probability of that a value of the random variable is
+#'              less than or equal to the given x-coordinate.
+#'
+#'              The 2 arguments are similar to \code{custom.d},
+#'              but the length of the first argument is always \code{1}.
+#'
+#'              The default is
+#'              \code{function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value}.
+#'              It will work passably well for most custom distributions,
+#'              but it may be slow and very accurate.
+#'              Therefore, this field is provided so that you can define your own function
+#'              that will be faster or more accurate.
+#'
+#'              This field is basically for custom distributions,
+#'              but you can also use it for other supported models if you want.
+#'              See \code{\link[ggd]{p}} or \code{\link[ggd]{q}} method.
 #'
 #' @field   median          A numeric; the median of the distribution.
 #' @field   mean            A numeric; the mean of the distribution.
@@ -372,6 +395,7 @@ GGD <- setRefClass(
         mix.type    = "integer",    # The value which represent how to mix normal distributions.
         cmp         = "data.frame", # The mean and sd of the component normal distributions.
         custom.d    = "function",   # Probability density function of the custom distribution.
+        custom.p    = "function",   # Customized cumulative probability function.
 
         median      = "numeric",    # The median value of the distribution.
         mean        = "numeric",    # The mean of the distribution.
@@ -421,6 +445,7 @@ GGD$methods(
                     mix.type        = 2L,
                     cmp             = data.frame( mean = c( 0, 0 ), sd = c( 1, 1 ) ),
                     custom.d        = default.custom.d,
+                    custom.p        = default.custom.p,
                     median          = 0,
                     mean            = 0,
                     sd              = 1,
@@ -442,11 +467,15 @@ GGD$methods(
 #' @name    clear
 #' @aliases clear
 #' @aliases \S4method{clear}{GGD}
-#' @usage   \S4method{clear}{GGD}( keep.custom.d = FALSE )
+#' @usage   \S4method{clear}{GGD}(keep.custom.d = FALSE, keep.custom.p = keep.custom.d)
 #' @param   keep.custom.d   A logical.
 #'                          If \code{TRUE}, the function in \code{custom.d} field is retained.
 #'                          If \code{FALSE}, the default function is set
 #'                          to \code{custom.d} field.
+#' @param   keep.custom.p   A logical.
+#'                          If \code{TRUE}, the function in \code{custom.p} field is retained.
+#'                          If \code{FALSE}, the default function is set
+#'                          to \code{custom.p} field.
 #' @return  The cleared \code{\link[ggd]{GGD}} object itself (invisible).
 #' @examples
 #'  a <- GGD$new()
@@ -456,13 +485,17 @@ GGD$methods(
 ################################################################################################
 NULL
 GGD$methods(
-    clear = function( keep.custom.d = FALSE )
+    clear = function( keep.custom.d = FALSE, keep.custom.p = keep.custom.d )
     {
         mix.type    <<- integer()
         cmp         <<- data.frame( mean = numeric(), sd = numeric() )
         if ( !isTRUE( keep.custom.d ) )
         {
-            custom.d    <<- default.custom.d
+            custom.d <<- default.custom.d
+        }
+        if ( !isTRUE( keep.custom.p ) )
+        {
+            custom.p <<- default.custom.p
         }
 
         adjust.kind.index()
@@ -1583,8 +1616,12 @@ GGD$methods(
 #' @name    p
 #' @aliases p
 #' @aliases \S4method{p}{GGD}
-#' @usage   \S4method{p}{GGD}(x)
+#' @usage   \S4method{p}{GGD}(x, use.custom.p = isTRUE(mix.type == 5))
 #' @param   x               A vector of x-coordinates.
+#' @param   use.custom.p    A logical.
+#'                          If \code{FALSE}, the coded cumulative distribution function is used
+#'                          as it is. If \code{TRUE}, the function in \code{custom.p} field is
+#'                          used instead as the cumulative distribution function.
 #' @return  The probabilities of that x is less than or equal to given x-coordinates.
 #' @importFrom  stats       pnorm
 #' @examples
@@ -1597,11 +1634,20 @@ GGD$methods(
 ################################################################################################
 NULL
 GGD$methods(
-    p = function( x )
+    p = function( x, use.custom.p = isTRUE( mix.type == 5 ) )
     {
+        if ( !( length( mix.type ) == 0 || is.na( mix.type ) || any( mix.type == 1:5 ) ) )
+        {
+            stop( "Error: mix.type is invalid." )
+        }
+
         results <- vapply( x, function( x )
         {
-            if ( length( mix.type ) == 0 || is.na( mix.type ) )
+            if ( use.custom.p )
+            {
+                result <- custom.p( x, cmp )
+            }
+            else if ( length( mix.type ) == 0 || is.na( mix.type ) )
             {
                 result <- NaN
             }
@@ -1635,14 +1681,10 @@ GGD$methods(
                 p2 <- pnorm( x, cmp$mean[2], cmp$sd[2] )
                 result <- p1 - ( p1 * p1 - p2 * p2 ) / 2
             }
-            else if ( mix.type == 1 )
+            else # if ( mix.type == 1 )
             {
                 result <- ( pnorm( x, cmp$mean[1], cmp$sd[1] ) +
                             pnorm( x, cmp$mean[2], cmp$sd[2] ) ) / 2
-            }
-            else
-            {
-                stop( "Error: mix.type is invalid." )
             }
 
             return ( result )
@@ -1664,6 +1706,11 @@ GGD$methods(
 #' @usage   \S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16)
 #' @param   prob            A vector of probabilities.
 #' @param   tol             The tolerance level for the convergence criterion.
+#' @param   use.custom.p    A logical.
+#'                          If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
+#'                          is used as it is to obtain probabilities.
+#'                          If \code{TRUE}, the function in \code{custom.p} field is
+#'                          used instead as the cumulative distribution function.
 #' @return  The x-coordinates at which the value of the cumulative distribution function
 #'          will be equal to the given probabilities.
 #' @importFrom  stats       qnorm
@@ -1677,7 +1724,7 @@ GGD$methods(
 ################################################################################################
 NULL
 GGD$methods(
-    q = function( prob, tol = .Machine$double.eps * 16 )
+    q = function( prob, tol = .Machine$double.eps * 16, use.custom.p = isTRUE( mix.type == 5 ) )
     {
         means <- cmp$mean
         sds <- cmp$sd
@@ -1751,7 +1798,7 @@ GGD$methods(
 
             if ( mix.type == 5 )
             {
-                p.0 <- p( 0 )
+                p.0 <- p( 0, use.custom.p )
                 if ( p.0 > prob - tol && p.0 < prob + tol )
                 {
                     result <- 0
@@ -1759,11 +1806,11 @@ GGD$methods(
                 else if ( prob < p.0 )
                 {
                     q.range <- c( -1, 0 )
-                    p.lesser <- p( q.range[1] )
+                    p.lesser <- p( q.range[1], use.custom.p )
                     while ( prob < p.lesser )
                     {
                         q.range <- c( q.range[1] * 2, q.range[1] )
-                        p.lesser <- p( q.range[1] )
+                        p.lesser <- p( q.range[1], use.custom.p )
                     }
 
                     if ( p.lesser > prob - tol && p.lesser < prob + tol )
@@ -1772,17 +1819,18 @@ GGD$methods(
                     }
                     else
                     {
-                        result <- bisection( function( x ) { p( x ) - prob }, q.range, tol )
+                        result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
+                                             q.range, tol )
                     }
                 }
                 else
                 {
                     q.range <- c( 0, 1 )
-                    p.greater <- p( q.range[2] )
+                    p.greater <- p( q.range[2], use.custom.p )
                     while ( p.greater < prob )
                     {
                         q.range <- c( q.range[2], q.range[2] * 2 )
-                        p.greater <- p( q.range[2] )
+                        p.greater <- p( q.range[2], use.custom.p )
                     }
 
                     if ( p.greater > prob - tol && p.greater < prob + tol )
@@ -1791,7 +1839,8 @@ GGD$methods(
                     }
                     else
                     {
-                        result <- bisection( function( x ) { p( x ) - prob }, q.range, tol )
+                        result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
+                                             q.range, tol )
                     }
                 }
             }
@@ -1811,18 +1860,19 @@ GGD$methods(
 
                     if ( prob < 0.5 )
                     {
-                        result <- bisection( function( x ) { p( x ) - prob },
+                        result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
                                              c( min( qs[1:2] ), median ), tol )
                     }
                     else
                     {
-                        result <- bisection( function( x ) { p( x ) - prob },
+                        result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
                                              c( median, max( qs[3:4] ) ), tol )
                     }
                 }
                 else if ( mix.type == 3 )
                 {
-                    if ( prob >= p( means[1] ) && prob <= p( means[3] ) )
+                    if ( prob >= p( means[1], use.custom.p ) &&
+                         prob <= p( means[3], use.custom.p ) )
                     {
                         result <- qnorm( sqrt( 2 ) * ( prob - 0.5 ) + 0.5,
                                          means[2], sds.star[2] )
@@ -1838,7 +1888,7 @@ GGD$methods(
                             qs[5] <- qnorm( prob, max.mean.a, min.sd.a.2 )
                             qs[6] <- qnorm( ( 2 - sqrt( 2 ) ) * prob + sqrt( 2 ) - 1,
                                             max.mean.b, min.sd.b )
-                            result <- bisection( function( x ) { p( x ) - prob },
+                            result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
                                                  c( min( qs[1:3] ), max( qs[4:6] ) ), tol )
                         }
                         else
@@ -1851,7 +1901,7 @@ GGD$methods(
                             qs[5] <- qnorm( prob, max.mean.a, max.sd.a )
                             qs[6] <- qnorm( ( 2 - sqrt( 2 ) ) * prob + sqrt( 2 ) - 1,
                                             max.mean.b, max.sd.b )
-                            result <- bisection( function( x ) { p( x ) - prob },
+                            result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
                                                  c( min( qs[1:4] ), max( qs[4:6] ) ), tol )
                         }
                     }
@@ -1870,7 +1920,8 @@ GGD$methods(
                     }
                     else
                     {
-                        result <- bisection( function( x ) { p( x ) - prob }, qs, tol )
+                        result <- bisection( function( x ) { p( x, use.custom.p ) - prob },
+                                             qs, tol )
                     }
                 }
                 else

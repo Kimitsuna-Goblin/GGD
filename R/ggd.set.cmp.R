@@ -100,24 +100,24 @@
 #'                      the current \code{mix.type} is retained or horizontal (default) is used.
 #'
 #' @param   custom.d    A function for the density function of the custom distribution.
+#'                      This argument should be indicated if \code{kind} indicates
+#'                      \code{"Custom Distribution"} or \code{mix.type} is \code{5}.
 #'
-#'                      If \code{kind} indicates \code{"Custom Distribution"} or
-#'                      \code{mix.type} is \code{5}, this argument should be indicated.
-#'
-#'                      The function must receive 2 arguments and
-#'                      return a vector of numeric values as the densities.
-#'                      The 2 arguments are
-#'                      \itemize{
-#'                          \item   A vector of numeric values for the x-coordinates.
-#'                                  \code{custom.d} must return a vector of same length
-#'                                  as this argument.
-#'                          \item   A data frame of the mean values and standard deviations
-#'                                  of the components. That is, the \code{cmp} field.
-#'                      }
-#'
-#'                      \code{NULL} for \code{custom.d} argument retains
-#'                      the current \code{custom.d} field, after the default
+#'                      \code{NULL} retains the current \code{custom.d} field, after the default
 #'                      (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) has been set.
+#'
+#'                      See "Fields" of \code{\link[ggd]{GGD-class}} for more information.
+#'
+#' @param   custom.p    A function for the cumulative distribution function defined by user.
+#'                      Unlike \code{custom.d}, this argument is not required to be
+#'                      indicated for custom distribution.
+#'
+#'                      \code{NULL} retains the current \code{custom.p} field, after the default
+#'                      (\code{function(x, cmp)
+#'                             integrate(function(x) custom.d(x, cmp), -Inf, x)$value})
+#'                      has been set.
+#'
+#'                      See "Fields" of \code{\link[ggd]{GGD-class}} for more information.
 #'
 #' @param   this.cmp    A data frame for setting into the \code{cmp} field.
 #'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
@@ -132,10 +132,16 @@
 #' @param   this.custom.d   A function for the probability density function of
 #'                          the custom distribution.
 #'                          It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
-#'                          \code{NULL} is allowed to retain
-#'                          the current \code{custom.d} field.
+#'
+#'                          \code{NULL} is allowed to retain the current \code{custom.d} field.
 #'                          However, a warning will occur if you retain the default for
 #'                          a custom distribution.
+#'
+#' @param   this.custom.p   A function for the cumulative distribution function defined by user.
+#'                          It is equivalent to \code{custom.p} argument for \code{ggd.set.cmp}.
+#'
+#'                          \code{NULL} is allowed to retain the current \code{custom.p} field.
+#'                          Retaining the default will not cause warnings.
 #'
 #' @return  The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 #'
@@ -265,21 +271,22 @@
 ################################################################################################
 ggd.set.cmp <- function( cmp, kind = NULL, mix.type = NULL,
                          grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
-                         custom.d = NULL )
+                         custom.d = NULL, custom.p = NULL )
 {
     obj <- GGD$new()
     return ( withVisible( obj$set.cmp( this.cmp      = cmp,
                                        this.kind     = kind,
                                        this.mix.type = mix.type,
                                        grad          = grad,
-                                       this.custom.d = custom.d ) )$value )
+                                       this.custom.d = custom.d,
+                                       this.custom.p = custom.p ) )$value )
 }
 
 GGD$methods(
     set.cmp = function( this.cmp = .self$cmp,
                         this.kind = NULL, this.mix.type = NULL,
                         grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ),
-                        this.custom.d = NULL )
+                        this.custom.d = NULL, this.custom.p = NULL )
     {
         # Error-check for this.cmp.
         #
@@ -432,25 +439,23 @@ GGD$methods(
             stop( paste( "Error: Indicated", indicated, "is not appropriate for cmp." ) )
         }
 
-        # Set custom.d
-        if ( isTRUE( mix.type == 5 ) )
+        # Set custom.d and custom.p
+        if ( is.null( this.custom.d ) )
         {
-            if ( is.null( this.custom.d ) )
+            if ( isTRUE( mix.type == 5 ) && identical( custom.d, default.custom.d ) )
             {
-                if ( identical( custom.d, default.custom.d ) )
-                {
-                    warning( paste( "Warning: Your own function should be given to custom.d",
-                                             "for a customized distribution." ) )
-                }
-            }
-            else
-            {
-                custom.d <<- this.custom.d
+                warning( paste( "Warning: Your own function should be given to custom.d",
+                                         "for the custom distribution." ) )
             }
         }
         else
         {
-            custom.d <<- default.custom.d
+            custom.d <<- this.custom.d
+        }
+
+        if ( !is.null( this.custom.p ) )
+        {
+            custom.p <<- this.custom.p
         }
 
         # Set kind and kind.index.

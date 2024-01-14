@@ -33,9 +33,10 @@
 #'          The second and subsequent rows should have the row name (such as \code{"nd.1"}),
 #'          the mean value, and standard deviation of each component.
 #'
-#'          If \code{mix.type = 5}, the function for \code{custom.d} must be written
-#'          as a character string in the row header of the last row.
-#'          In this case, the 2nd and 3rd columns of the last row are not used.
+#'          If the row header is \code{"custom.d"} or \code{"custom.p"},
+#'          the character string in the 2nd column of that row is used as the function
+#'          for \code{custom.d} or \code{custom.p} field.
+#'          In this case, the 3rd column is not used.
 #'
 #'          For more information about the properties of this argument,
 #'          see \code{file} argument of \link[utils]{read.table}.
@@ -101,26 +102,33 @@ ggd.read.csv <- function( file )
         stop( "Error: The value of mix.type is invalid." )
     }
 
+    # Search rows for custom functions.
+    custom.d <- custom.p <- NULL
+    for ( i in nrow( table ):1 )
+    {
+        if ( table[i, 1] == "custom.d" )
+        {
+            custom.d <- eval( parse( text = gsub( "\\\\", '"',
+                                                  gsub( "\\\\n", "\n", table[i, 2] ) ) ) )
+            table <- table[-i,]
+        }
+        else if ( table[i, 1] == "custom.p" )
+        {
+            custom.p <- eval( parse( text = gsub( "\\\\", '"',
+                                                  gsub( "\\\\n", "\n", table[i, 2] ) ) ) )
+            table <- table[-i,]
+        }
+    }
+
+    # Get values of cmp field.
     if ( nrow( table ) == 1 )
     {
         cmp <- data.frame( mean = numeric(), sd = numeric() )
     }
     else
     {
-        if ( isTRUE( mix.type == 5 ) )
-        {
-            cmp <- data.frame( mean = as.numeric( table[2:( nrow( table ) - 1 ), 2] ),
-                                 sd = as.numeric( table[2:( nrow( table ) - 1 ), 3] ) )
-
-            text <- gsub( "\\\\", '"', gsub( "\\\\n", "\n", table[nrow( table ), 1] ) )
-            custom.d <- eval( parse( text = text ) )
-        }
-        else
-        {
-            cmp <- data.frame( mean = as.numeric( table[2:nrow( table ), 2] ),
-                                 sd = as.numeric( table[2:nrow( table ), 3] ) )
-            custom.d <- NULL
-        }
+        cmp <- data.frame( mean = as.numeric( table[2:nrow( table ), 2] ),
+                             sd = as.numeric( table[2:nrow( table ), 3] ) )
     }
 
     if ( mix.type == 3 && nrow( cmp ) == 3 )
@@ -132,7 +140,8 @@ ggd.read.csv <- function( file )
         grad <- "default"
     }
 
-    return ( ggd.set.cmp( cmp, mix.type = mix.type, grad = grad, custom.d = custom.d ) )
+    return ( ggd.set.cmp( cmp, mix.type = mix.type, grad = grad,
+                          custom.d = custom.d, custom.p = custom.p ) )
 }
 
 GGD$methods(
@@ -143,7 +152,8 @@ GGD$methods(
         set.cmp( obj$cmp, this.mix.type = obj$mix.type,
                  grad = ifelse( ( obj$mix.type == 3 && nrow( obj$cmp ) == 3 ),
                                 "v3", "default" ),
-                 this.custom.d = obj$custom.d )
+                 this.custom.d = obj$custom.d,
+                 this.custom.p = obj$custom.p )
     }
 )
 
@@ -174,7 +184,7 @@ GGD$methods(
 #'      (at least the value of each field can be \code{TRUE} with \code{"=="})
 #'      in most cases, and in most systems.
 #' }
-#' \subsection{For customized distribution}{
+#' \subsection{For custom distribution}{
 #'      Although it is possible to save an object of \code{"Customized Distribution"}
 #'      (\code{mix.type = 5}), it is not always a good idea to use this method.
 #'      This is because, \code{costom.d} is simply converted to a character string

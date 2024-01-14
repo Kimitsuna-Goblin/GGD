@@ -23,9 +23,10 @@ ggd.read.csv(file)
          The second and subsequent rows should have the row name (such as \code{"nd.1"}),
          the mean value, and standard deviation of each component.
 
-         If \code{mix.type = 5}, the function for \code{custom.d} must be written
-         as a character string in the row header of the last row.
-         In this case, the 2nd and 3rd columns of the last row are not used.
+         If the row header is \code{"custom.d"} or \code{"custom.p"},
+         the character string in the 2nd column of that row is used as the function
+         for \code{custom.d} or \code{custom.p} field.
+         In this case, the 3rd column is not used.
 
          For more information about the properties of this argument,
          see \code{file} argument of \link[utils]{read.table}.}

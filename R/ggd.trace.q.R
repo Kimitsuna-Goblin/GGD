@@ -519,7 +519,7 @@ GGD$methods(
         # trace.q for custom distribution (mix.type = 5) has not been supported yet.
         if ( isTRUE( new.mix.type == 5 ) )
         {
-            stop( "Error: trace.q for a customized distribution has not been supported yet." )
+            stop( "Error: trace.q for custom distribution has not been supported yet." )
         }
 
         # Check indicated new mix.type.

@@ -281,6 +281,28 @@ The class provides the Gradational Gaussian Distribution.
              so you should not expect it to be a probability density function
              of a normal distribution.}
 
+\item{\code{custom.p}}{The cumulative distribution function defined by user.
+
+             As with \code{custom.d},
+             the function for \code{custom.p} must receive 2 arguments and
+             return a numeric value of the cumulative distribution function,
+             i.e. the probability of that a value of the random variable is
+             less than or equal to the given x-coordinate.
+
+             The 2 arguments are similar to \code{custom.d},
+             but the length of the first argument is always \code{1}.
+
+             The default is
+             \code{function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value}.
+             It will work passably well for most custom distributions,
+             but it may be slow and very accurate.
+             Therefore, this field is provided so that you can define your own function
+             that will be faster or more accurate.
+
+             This field is basically for custom distributions,
+             but you can also use it for other supported models if you want.
+             See \code{\link[ggd]{p}} or \code{\link[ggd]{q}} method.}
+
 \item{\code{median}}{A numeric; the median of the distribution.}
 
 \item{\code{mean}}{A numeric; the mean of the distribution.}

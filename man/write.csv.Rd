@@ -32,7 +32,7 @@ regardless of the package or R version. See "Details" for more information.
      (at least the value of each field can be \code{TRUE} with \code{"=="})
      in most cases, and in most systems.
 }
-\subsection{For customized distribution}{
+\subsection{For custom distribution}{
      Although it is possible to save an object of \code{"Customized Distribution"}
      (\code{mix.type = 5}), it is not always a good idea to use this method.
      This is because, \code{costom.d} is simply converted to a character string
