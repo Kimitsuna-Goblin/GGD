@@ -185,7 +185,7 @@
 #'                       If tracing fails, level \code{2} is used instead.
 #'
 #'                       Tracing will always fail for \code{"Customized Distribution"},
-#'                       because \code{\link[ggd]{trace_q}} has not been supported yet.
+#'                       because \code{\link[ggd]{trace.q}} has not supported it yet.
 #'              \item \code{100}:
 #'                       Try all of above levels and adopt the result with the highest
 #'                       \code{\link[stats]{cor}} value.
@@ -1312,7 +1312,7 @@ get.p.freq <- function( freq, total )
 #'          }
 #' @return  A list containing \code{formula} and \code{start} for the arguments of
 #'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
-#' @importFrom  stats   dnorm pnorm
+#' @importFrom  stats   dnorm pnorm as.formula
 ################################################################################################
 get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                             eq.mean, eq.sd, start.level )

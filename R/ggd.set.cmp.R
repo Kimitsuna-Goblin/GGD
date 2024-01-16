@@ -23,11 +23,11 @@
 #' @aliases \S4method{set.cmp}{GGD}
 #' @usage   ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
-#'          custom.d = NULL)
+#'          custom.d = NULL, custom.p = NULL)
 #' @usage   \S4method{set.cmp}{GGD}(this.cmp = .self$cmp,
 #'          this.kind = NULL, this.mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"),
-#'          this.custom.d = NULL)
+#'          this.custom.d = NULL, this.custom.p = NULL)
 #'
 #' @param   cmp         A data frame for setting into the \code{cmp} field.
 #'
