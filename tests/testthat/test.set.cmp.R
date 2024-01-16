@@ -328,6 +328,19 @@ expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 3 )
 
 
+# set mix.type = 5
+expect_warning( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           kind = 17 ),
+              "Your own function should be given to custom.d for the custom distribution" )
+
+a$clear()
+expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.kind = 17 ),
+              "Your own function should be given to custom.d for the custom distribution" )
+expect_identical( a$mix.type, 5L )
+expect_equal( nrow( a$cmp ), 2 )
+
+
 ## Basic Errors
 b <- a$copy()   # take a backup
 expect_error( ggd.set.cmp( numeric() ), "cmp must be a data frame" )
@@ -389,14 +402,6 @@ expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                          this.kind = -1 ),
               "kind for index -1 is undefined" )
-
-expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
-                           kind = 17 ),
-              "Your own function must be given to custom.d for a customized distribution" )
-
-expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
-                         this.kind = 17 ),
-              "Your own function must be given to custom.d for a customized distribution" )
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            kind = 18 ),

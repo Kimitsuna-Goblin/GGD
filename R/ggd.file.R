@@ -106,13 +106,13 @@ ggd.read.csv <- function( file )
     custom.d <- custom.p <- NULL
     for ( i in nrow( table ):1 )
     {
-        if ( table[i, 1] == "custom.d" )
+        if ( isTRUE( table[i, 1] == "custom.d" ) )
         {
             custom.d <- eval( parse( text = gsub( "\\\\", '"',
                                                   gsub( "\\\\n", "\n", table[i, 2] ) ) ) )
             table <- table[-i,]
         }
-        else if ( table[i, 1] == "custom.p" )
+        else if ( isTRUE( table[i, 1] == "custom.p" ) )
         {
             custom.p <- eval( parse( text = gsub( "\\\\", '"',
                                                   gsub( "\\\\n", "\n", table[i, 2] ) ) ) )

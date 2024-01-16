@@ -5,7 +5,8 @@
 \alias{\S4method{q}{GGD}}
 \title{Quantile function}
 \usage{
-\S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16)
+\S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16,
+                           use.custom.p = isTRUE( mix.type == 5 ))
 }
 \arguments{
 \item{prob}{A vector of probabilities.}

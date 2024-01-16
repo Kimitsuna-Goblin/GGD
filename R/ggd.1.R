@@ -1709,7 +1709,8 @@ GGD$methods(
 #' @name    q
 #' @aliases q
 #' @aliases \S4method{q}{GGD}
-#' @usage   \S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16)
+#' @usage   \S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16,
+#'                            use.custom.p = isTRUE( mix.type == 5 ))
 #' @param   prob            A vector of probabilities.
 #' @param   tol             The tolerance level for the convergence criterion.
 #' @param   use.custom.p    A logical.
