@@ -32,9 +32,14 @@ kinds <- c( "Normal Distribution",                                              
 kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L,
                         10L, 8L, 9L, 13L, 11L, 12L, 16L, 14L, 15L, 17L )
 
-## Default custom.d and custom.p
+## Default custom.d
 default.custom.d <- function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])
-default.custom.p <- function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value
+
+# Default custom.p cannot be a global variable as default.custom.d.
+# Because it should call each custom.d function in the field of the object.
+#
+# Of cause, it is possible to define with providing an argument
+# which gives the object itself, but that would be undesirable.
 
 ## Square root of 2 pi
 sqrt.2pi <- sqrt( 2 * pi )
@@ -445,7 +450,8 @@ GGD$methods(
                     mix.type        = 2L,
                     cmp             = data.frame( mean = c( 0, 0 ), sd = c( 1, 1 ) ),
                     custom.d        = default.custom.d,
-                    custom.p        = default.custom.p,
+                    custom.p        =
+                        function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value,
                     median          = 0,
                     mean            = 0,
                     sd              = 1,
@@ -495,7 +501,8 @@ GGD$methods(
         }
         if ( !isTRUE( keep.custom.p ) )
         {
-            custom.p <<- default.custom.p
+            custom.p <<-
+                function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value
         }
 
         adjust.kind.index()
