@@ -141,8 +141,7 @@ f.t3.p <- list( function( x, m, s )
 #'
 #'              The default is
 #'              \code{function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value}.
-#'              It will work passably well for most custom distributions,
-#'              but it may be slow and very accurate.
+#'              It will work but may be slow and not very accurate.
 #'              Therefore, this field is provided so that you can define your own function
 #'              that will be faster or more accurate.
 #'
