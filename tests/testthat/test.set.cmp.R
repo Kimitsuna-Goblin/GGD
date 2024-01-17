@@ -340,8 +340,20 @@ expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
 expect_identical( a$mix.type, 5L )
 expect_equal( nrow( a$cmp ), 2 )
 
+expect_warning( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                           mix.type = 5 ),
+              "Your own function should be given to custom.d for the custom distribution" )
+
+a$clear()
+expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
+                         this.mix.type = 5 ),
+              "Your own function should be given to custom.d for the custom distribution" )
+expect_identical( a$mix.type, 5L )
+expect_equal( nrow( a$cmp ), 2 )
+
 
 ## Basic Errors
+a$set.cmp( data.frame( mean = rep( 0, 4 ), sd = rep( 1, 4 ) ), grad = "v3" )
 b <- a$copy()   # take a backup
 expect_error( ggd.set.cmp( numeric() ), "cmp must be a data frame" )
 expect_error( a$set.cmp( numeric() ), "cmp must be a data frame" )
@@ -436,15 +448,11 @@ expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
               "mix.type should be single integer from 0 to 5" )
 
 expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
-                           mix.type = 5 ),
-              "Your own function must be given to custom.d for a customized distribution" )
+                           mix.type = 6 ),
+              "mix.type should be single integer from 0 to 5" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
-                         this.mix.type = 5 ),
-              "Your own function must be given to custom.d for a customized distribution" )
-
-expect_error( ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
-                           mix.type = 6 ),
+                         this.mix.type = 6 ),
               "mix.type should be single integer from 0 to 5" )
 
 expect_error( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),

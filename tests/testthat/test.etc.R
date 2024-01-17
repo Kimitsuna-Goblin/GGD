@@ -787,7 +787,7 @@ expect_error( ggd.read.csv( csvfile ), "The value of mix.type is invalid" )
 unlink( csvfile )
 
 csvfile <- tempfile( fileext = ".csv" )
-ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "5" )
+ggd:::cat.table( data.frame( mean = c( 1, 2 ), sd = c( 1, 2 ) ), csvfile, "6" )
 expect_error( a$read.csv( csvfile ), "The value of mix.type is invalid" )
 expect_cleared( a ); a <- GGD$new()
 expect_error( ggd.read.csv( csvfile ), "The value of mix.type is invalid" )

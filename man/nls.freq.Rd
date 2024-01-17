@@ -169,7 +169,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                       which are generated with the frequency distribution as initial values.
                       If tracing fails, level \code{2} is used instead.
 
-                      Tracing will always fail for \code{"Customized Distribution"},
+                      Tracing will always fail for \code{"Custom Distribution"},
                       because \code{\link[ggd]{trace.q}} has not supported it yet.
              \item \code{100}:
                       Try all of above levels and adopt the result with the highest

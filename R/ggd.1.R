@@ -26,7 +26,7 @@ kinds <- c( "Normal Distribution",                                              
             "Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution",     #14
             "Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution",     #15
             "Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution",    #16
-            "Customized Distribution" )                                                     #17
+            "Custom Distribution" )                                                         #17
 
 ## Matching order of ggd:::kinds for regular expressions
 kinds.match.order <- c( 1L, 4L, 2L, 3L, 7L, 5L, 6L,
@@ -84,7 +84,7 @@ f.t3.p <- list( function( x, m, s )
 #'                                        \code{cmp} has 2 or 3 rows.
 #'                              \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                               \code{cmp} has 4 rows.
-#'                              \item \code{5} : Customized distribution.
+#'                              \item \code{5} : Custom distribution.
 #'                                               Any distribution can be represented
 #'                                               by a user-defined density function
 #'                                               in \code{custom.d} field
@@ -399,7 +399,7 @@ GGD <- setRefClass(
         mix.type    = "integer",    # The value which represent how to mix normal distributions.
         cmp         = "data.frame", # The mean and sd of the component normal distributions.
         custom.d    = "function",   # Probability density function of the custom distribution.
-        custom.p    = "function",   # Customized cumulative probability function.
+        custom.p    = "function",   # Custom cumulative probability function.
 
         median      = "numeric",    # The median value of the distribution.
         mean        = "numeric",    # The mean of the distribution.
@@ -1188,7 +1188,7 @@ GGD$methods(
 #' a normal distribution.
 #' Note, this function does not check \code{kind} and \code{kind.index} fields.
 #'
-#' For \code{"Customized Distribution"}, this function returns always \code{FALSE}
+#' For \code{"Custom Distribution"}, this function returns always \code{FALSE}
 #' even if the object has only 1 component and \code{custom.d} shows a normal distribution.
 #' @name    is.normal
 #' @aliases is.normal
@@ -1642,7 +1642,7 @@ NULL
 GGD$methods(
     p = function( x, use.custom.p = isTRUE( mix.type == 5 ) )
     {
-        if ( !( length( mix.type ) == 0 || is.na( mix.type ) || any( mix.type == 1:5 ) ) )
+        if ( !( length( mix.type ) == 0 || is.na( mix.type ) || any( mix.type == 0:5 ) ) )
         {
             stop( "Error: mix.type is invalid." )
         }

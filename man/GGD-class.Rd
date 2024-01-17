@@ -237,7 +237,7 @@ The class provides the Gradational Gaussian Distribution.
                                        \code{cmp} has 2 or 3 rows.
                              \item \code{4} : Horizontal-vertical gradational distribution.
                                               \code{cmp} has 4 rows.
-                             \item \code{5} : Customized distribution.
+                             \item \code{5} : Custom distribution.
                                               Any distribution can be represented
                                               by a user-defined density function
                                               in \code{custom.d} field

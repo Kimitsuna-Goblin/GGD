@@ -184,7 +184,7 @@
 #'                       which are generated with the frequency distribution as initial values.
 #'                       If tracing fails, level \code{2} is used instead.
 #'
-#'                       Tracing will always fail for \code{"Customized Distribution"},
+#'                       Tracing will always fail for \code{"Custom Distribution"},
 #'                       because \code{\link[ggd]{trace.q}} has not supported it yet.
 #'              \item \code{100}:
 #'                       Try all of above levels and adopt the result with the highest
@@ -788,7 +788,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #' Approximating a frequency distribution with all of supported models
 #'
 #' Approximates the given frequency distribution with all of distribution models available in
-#' this package except for \code{"Customized Distribution"} (the number of models is 16),
+#' this package except for \code{"Custom Distribution"} (the number of models is 16),
 #' and compare their accuracies.
 #' The accuracy is checked by the correlation coefficients with the frequency distribution
 #' computed by \code{\link[stats]{cor}}.
@@ -1994,7 +1994,7 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, ncmp, eq.mean, eq.sd )
     }
     else # if ( mix.type == 5 )
     {
-        # Customized Distributions: number of components is ncmp
+        # Custom Distribution: number of components is ncmp
         mean.names  <- vapply( 1:ncmp, function( i ) paste0( "mean.", i ), "" )
         sd.names    <- vapply( 1:ncmp, function( i ) paste0( "sqrt.sd.", i ), "" )
 

@@ -119,7 +119,7 @@ A list containing components (invisible for \code{GGD} method)
 }
 \description{
 Approximates the given frequency distribution with all of distribution models available in
-this package except for \code{"Customized Distribution"} (the number of models is 16),
+this package except for \code{"Custom Distribution"} (the number of models is 16),
 and compare their accuracies.
 The accuracy is checked by the correlation coefficients with the frequency distribution
 computed by \code{\link[stats]{cor}}.

@@ -1719,7 +1719,7 @@ expect_equal( ggd.start.template( "Mean of Mean-Equaled Sigma-Differed 2 Normal 
               list( mean = 0, sqrt.sd.1 = 1, sqrt.sd.2 = 1 ) )
 expect_equal( ggd.start.template( NA ), NULL )
 expect_equal( ggd.start.template( 0 ), NULL )
-expect_equal( ggd.start.template( 17 ), NULL )
+expect_equal( ggd.start.template( 18 ), NULL )
 
 # normal test
 lists <- ggd.init.start()

@@ -68,7 +68,7 @@
 #'                                           \code{cmp} has 2 or 3 rows.
 #'                          \item \code{4} : Horizontal-vertical gradational distribution.
 #'                                           \code{cmp} has 4 rows.
-#'                          \item \code{5} : Customized distribution.
+#'                          \item \code{5} : Custom distribution.
 #'                                           The number of rows in \code{cmp} is unlimited.
 #'                                           User have to give an own density function
 #'                                           to \code{custom.d}.
@@ -269,7 +269,7 @@
 #'  a$mix.type  ## 4
 #'  a$kind      ## "2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution"
 #'
-#'  ## With "Customized Distribution" (mix.type = 5),
+#'  ## With "Custom Distribution" (mix.type = 5),
 #'  ## you can create an object of any distribution.
 #'  ##
 #'  ## In this case, custom.d field must be indicated, but custom.p need not be.
@@ -282,7 +282,7 @@
 #'      this.custom.p = function(x, cmp) (pnorm(x, cmp$mean[1], cmp$sd[1]) +
 #'                                        pnorm(x, cmp$mean[2], cmp$sd[2]) +
 #'                                        pnorm(x, cmp$mean[3], cmp$sd[3])) / 3 )
-#'  a$kind      ## "Customized Distribution"
+#'  a$kind      ## "Custom Distribution"
 #'  a$mix.type  ## 5
 #'  a$d(0.2) == (dnorm(0.2, -0.5, 0.5) + dnorm(0.2, 0, 0.75) + dnorm(0.2, 0.5, 1)) / 3  ## TRUE
 #'  a$p(0.5) == (pnorm(0.5, -0.5, 0.5) + pnorm(0.5, 0, 0.75) + pnorm(0.5, 0.5, 1)) / 3  ## TRUE

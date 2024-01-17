@@ -411,14 +411,14 @@ expect_error( ggd.trace.q(
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.mix.type = 5 ),
-    "trace.q for a customized distribution has not been supported yet" )
+    "trace.q for custom distribution has not been supported yet" )
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     mix.type = 5 ),
-    "trace.q for a customized distribution has not been supported yet" )
+    "trace.q for custom distribution has not been supported yet" )
 
 # Error case
 expect_error( a$trace.q(
@@ -522,14 +522,14 @@ expect_cleared( a ); a <- GGD$new()
 expect_error( a$trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     this.kind = 17 ),
-    "trace.q for a customized distribution has not been supported yet" )
+    "trace.q for custom distribution has not been supported yet" )
 expect_cleared( a ); a <- GGD$new()
 
 # Error case
 expect_error( ggd.trace.q(
     data.frame( p = c( 0.3, 0.5, 0.6 ), x = qnorm( c( 0.3, 0.5, 0.6 ), 0, 1 ) ),
     kind = 17 ),
-    "trace.q for a customized distribution has not been supported yet" )
+    "trace.q for custom distribution has not been supported yet" )
 
 # Error case
 expect_error( a$trace.q(
