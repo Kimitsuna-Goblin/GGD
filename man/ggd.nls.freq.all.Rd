@@ -41,13 +41,13 @@ of \code{\link[stats]{nls}}.
 See \code{\link[ggd]{nls.freq}} for more information.}
 
 \item{start}{A \bold{list of lists} with the length of 16
-                 for each of the \code{start} arguments for \code{\link[stats]{nls}}
+                 for each of \code{start} arguments for \code{\link[stats]{nls}}
                  as initial values.
-                 Each element (a list) will give to the \code{start} argument of
+                 Each element (a list) will give to \code{start} argument of
                  \code{\link[stats]{nls}} one by one.
 
                  For initial values for which \code{NULL} is indicated as the list
-                 in the \code{start} argument, internally computed initial values
+                 in this argument, internally computed initial values
                  depending on \code{start.level} are used.
 
                  As an auxiliary tool for making a list of 16 lists,
@@ -66,7 +66,7 @@ See \code{\link[stats]{nls.control}} for more information.}
 
 \item{not.use.nls}{A logical.
                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}}
-                 and it outputs objects having the initial values in the \code{cmp} field
+                 and it outputs objects having the initial values in \code{cmp} field
                  as the results.
                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 

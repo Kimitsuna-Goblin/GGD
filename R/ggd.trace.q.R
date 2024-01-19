@@ -54,7 +54,7 @@
 #'                      which indicates the kind of the distribution model.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
@@ -81,7 +81,7 @@
 #'                      }
 #'                      If \code{NULL} (and if \code{kind} and \code{grad = "default"}),
 #'                      it tries to trace the quantiles with changing
-#'                      the \code{mix.type} according to the priority sequence:
+#'                      \code{mix.type} according to the priority sequence:
 #'                      2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.
 #'
 #'                      If other than \code{"defaule"} for \code{grad} argument is indicated,

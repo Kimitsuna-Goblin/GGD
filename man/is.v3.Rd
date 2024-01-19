@@ -11,7 +11,7 @@
 \item{strict}{If \code{TRUE}, this function returns \code{TRUE} only if
                  the distribution is a vertical gradation with different left-tail-side and
                  right-tail-side components.
-                 Even when the \code{cmp} field has 3 rows with \code{mix.type = 3},
+                 Even when \code{cmp} field has 3 rows with \code{mix.type = 3},
                  if the 1st and the 3rd components are the same, it returns \code{FALSE}.
 
                  If \code{FALSE}, this function also returns \code{TRUE} for

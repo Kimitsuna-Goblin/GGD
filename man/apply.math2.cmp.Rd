@@ -14,7 +14,7 @@ to be used for \code{mean} column.}
 
 \item{dg.sd}{A vector of integer similar to \code{dg.mean}, for \code{sd} column.}
 
-\item{obj}{The \code{\link[ggd]{GGD}} object to be processed.}
+\item{obj}{The \code{\link[ggd]{GGD}} object.}
 }
 \value{
 A processed \code{\link[ggd]{GGD}} object.

@@ -7,7 +7,7 @@
 calc.mean(mix.type, means, sds)
 }
 \arguments{
-\item{mix.type}{The value of \code{mix.type}.}
+\item{mix.type}{The value of \code{mix.type}. It allows from \code{1} to \code{4}.}
 
 \item{means}{The vector of the mean values of the normal distributions
 of the components.}
@@ -16,10 +16,11 @@ of the components.}
 of the components.}
 }
 \value{
-The mean value of a gradational Gaussian distribution model.
+The mean value of the distribution model.
 }
 \description{
-Calculates the mean value of a GGD model.
+Calculates the mean value of the distribution model
+indicated by a \code{\link[ggd]{GGD}} object.
 This function does not use \code{\link[stats]{integrate}}, but \code{\link[stats]{pnorm}},
 \code{\link[base]{sqrt}} and four arithmetic operations as needed.
 }

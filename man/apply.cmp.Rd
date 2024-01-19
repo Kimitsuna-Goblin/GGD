@@ -19,7 +19,7 @@ See "Details" for more information.}
 The processed \code{\link[ggd]{GGD}} object itself (invisible).
 }
 \description{
-Applies a function to each element in the \code{cmp} field.
+Applies a function to each element in \code{cmp} field.
 Different functions can be applied to \code{mean} column and \code{sd} column.
 Other fields will be adjusted accordingly.
 }
@@ -28,7 +28,7 @@ Each function indicated with \code{f.mean} or \code{f.sd} can receive
      2 arguments (each argument name is arbitrary):
      \enumerate{
          \item A vector of the current values of \code{mean} or \code{sd} column.
-         \item The \code{\link[ggd]{GGD}} object itself to be processed.
+         \item The \code{\link[ggd]{GGD}} object itself.
      }
      Therefore, the function for \code{f.mean} or \code{f.cmp} is hoped to be
      declared with 2 arguments like as "\code{function(mean, obj)}",
@@ -39,7 +39,7 @@ Each function indicated with \code{f.mean} or \code{f.sd} can receive
      with the same length of the 1st argument as new values of each column.
 
      After both functions have been processed, the new values are actually
-     set into the \code{cmp} field. Therefore, from within the functions to apply,
+     set into \code{cmp} field. Therefore, from within the functions to apply,
      it is possible to refer to the values of each field before applying,
      but not after.
 

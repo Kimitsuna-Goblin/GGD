@@ -13,7 +13,7 @@ dp.t3(x, means, sds, f.t3)
 
 \item{sds}{The vector of sd values of the 3 components.}
 
-\item{f.t3}{A function handle,
+\item{f.t3}{A function handle;
 \code{ggd:::f.t3.d} for PDF or \code{ggd:::f.t3.p} for CDF.}
 }
 \value{
@@ -21,8 +21,8 @@ The vector of values of the probability density function
          or the cumulative distribution function.
 }
 \description{
-Calculates the values of the probability density function or
-the cumulative distribution function of the GGD model with \code{mix.type = 3}.
+Calculates the values of the probability density function (PDF) or
+the cumulative distribution function (CDF) of the GGD model with \code{mix.type = 3}.
 Both \code{means} and \code{sds} vectors need 3 elements for this function.
 Where with two components, you must set \code{means[3]} and \code{sds[3]}
 the same values of \code{means[1]} and \code{sds[1]}.

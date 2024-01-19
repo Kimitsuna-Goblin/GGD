@@ -946,7 +946,7 @@ ggd.kind <- function( objs )
 #'                      is \code{0}, and \code{grad} is \code{"default"}.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      If \code{NA} is indicated, \code{NA_integer_} will be returned.
 #'                      If indicated character string pattern or index number does not match
@@ -1359,7 +1359,7 @@ GGD$methods(
 #' @param   strict  If \code{TRUE}, this function returns \code{TRUE} only if
 #'                  the distribution is a vertical gradation with different left-tail-side and
 #'                  right-tail-side components.
-#'                  Even when the \code{cmp} field has 3 rows with \code{mix.type = 3},
+#'                  Even when \code{cmp} field has 3 rows with \code{mix.type = 3},
 #'                  if the 1st and the 3rd components are the same, it returns \code{FALSE}.
 #'
 #'                  If \code{FALSE}, this function also returns \code{TRUE} for
@@ -1976,15 +1976,15 @@ GGD$methods(
 ################################################################################################
 #' [Non-exported] PDF/CDF for mix.type = 3
 #'
-#' Calculates the values of the probability density function or
-#' the cumulative distribution function of the GGD model with \code{mix.type = 3}.
+#' Calculates the values of the probability density function (PDF) or
+#' the cumulative distribution function (CDF) of the GGD model with \code{mix.type = 3}.
 #' Both \code{means} and \code{sds} vectors need 3 elements for this function.
 #' Where with two components, you must set \code{means[3]} and \code{sds[3]}
 #' the same values of \code{means[1]} and \code{sds[1]}.
 #' @param   x           A vector of x-coordinates.
 #' @param   means       The vector of mean values of the 3 components.
 #' @param   sds         The vector of sd values of the 3 components.
-#' @param   f.t3        A function handle,
+#' @param   f.t3        A function handle;
 #'                      \code{ggd:::f.t3.d} for PDF or \code{ggd:::f.t3.p} for CDF.
 #' @return  The vector of values of the probability density function
 #'          or the cumulative distribution function.

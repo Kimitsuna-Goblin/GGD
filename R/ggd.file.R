@@ -29,7 +29,7 @@
 #'          The columns are 1:row header, 2:mean value, and 3:standard deviation
 #'          of the component. The columns cannot be reordered.
 #'          The \code{file} must have a header row consisting of the value of
-#'          the \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
+#'          \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
 #'          The second and subsequent rows should have the row name (such as \code{"nd.1"}),
 #'          the mean value, and standard deviation of each component.
 #'
@@ -58,7 +58,7 @@
 #'      If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot
 #'      be constructed, an error occurs and the \code{\link[ggd]{GGD}} object is cleared.
 #'
-#'      If the \code{mix.type} value stored in a file does not match the values for \code{cmp},
+#'      If \code{mix.type} value stored in a file does not match the values for \code{cmp},
 #'      an error may occur, or it may happen to work. It is possible to create such a file
 #'      using \code{ggd:::}\code{\link[ggd]{cat.table}} function which is non-exported.
 #'      However, it is not recommended to create such a non-conforming file anyway.

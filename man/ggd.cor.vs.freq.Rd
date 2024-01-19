@@ -23,7 +23,7 @@ See \code{\link[stats]{cor}} for more information.}
 }
 \value{
 A vector of correlation coefficients.
-         Its order follows the order of the elements of the \code{objs} argument.
+         Its order follows the order of the elements in \code{objs} argument.
          If \code{cmp} field of an \code{\link[ggd]{GGD}} object in \code{objs} has no rows,
          \code{NA} will be set to the element.
 }
