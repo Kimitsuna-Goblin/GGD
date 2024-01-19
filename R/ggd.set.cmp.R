@@ -12,10 +12,10 @@
 ################################################################################################
 #' Setting components
 #'
-#' Sets the normal distributions of the components to the \code{cmp} field.
+#' Sets the normal distributions of the components to \code{cmp} field.
 #' All fields of the \code{\link[ggd]{GGD}} object will be set as appropriate according to
 #' given components and other arguments, respectively.
-#' You should never set any values into the \code{cmp} field directly without using this method.
+#' You should never set any values into \code{cmp} field directly without using this method.
 #' @export
 #' @name    set.cmp
 #' @aliases ggd.set.cmp
@@ -27,7 +27,7 @@
 #'          this.kind = NULL, this.mix.type = NULL,
 #'          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
 #'
-#' @param   cmp         A data frame for setting into the \code{cmp} field.
+#' @param   cmp         A data frame for setting into \code{cmp} field.
 #'
 #'                      It must have just 2 columns named "\code{mean}" and "\code{sd}",
 #'                      and its rows must be less than or equals to 4.
@@ -46,7 +46,7 @@
 #'                      which indicates the kind of the distribution model to create.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'                      \code{NA} is allowed when \code{cmp} has no rows.
 #'
 #'                      If \code{mix.type} argument or other than \code{"default"} for
@@ -69,7 +69,7 @@
 #'                      }
 #'
 #'                      If the number of rows in \code{cmp} argument is different from
-#'                      the number shown above, the \code{cmp} field will be
+#'                      the number shown above, \code{cmp} field will be
 #'                      redundant/simplified to have the number of rows as above,
 #'                      if possible. If not possible, an error will occur.
 #'
@@ -90,10 +90,10 @@
 #'
 #'                      \code{"default"} is, if \code{kind} or \code{mix.type} argument
 #'                      is given, follows it, otherwise it depends on the number of columns
-#'                      in the \code{cmp} argument. If the number of columns in cmp is \code{2},
+#'                      in \code{cmp} argument. If the number of columns in cmp is \code{2},
 #'                      the current \code{mix.type} is retained or horizontal (default) is used.
 #'
-#' @param   this.cmp    A data frame for setting into the \code{cmp} field.
+#' @param   this.cmp    A data frame for setting into \code{cmp} field.
 #'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
 #'
 #' @param   this.kind   A string or a numeric value or a \code{\link[ggd]{GGD}} object
@@ -456,15 +456,15 @@ GGD$methods(
 #'  ## For example, in this case,
 #'  ## the number of components is simplified to 1 automatically.
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 1.1 ) ) )
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 0 represents a Normal Distribution.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 0: a Normal Distribution
 #'
 #'  ## GGD$new() makes 2 components of normal distributions for convenience.
 #'  ## You can use adjust.cmp in order to adjust the cmp field of a new object to 1 component.
 #'  a <- GGD$new()
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 2 represents a Horizontal Gradational Model.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 2: Horizontal Gradational Distribution
 #'
 #'  a$adjust.cmp()
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 0 represents a Normal Distribution.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 0: Normal Distribution
 #'
 #'  ## You can also write as:
 #'  a <- GGD$new()$adjust.cmp()
@@ -473,15 +473,15 @@ GGD$methods(
 #'  ## If you want to give redundancy to the components, you can also use adjust.cmp.
 #'  ## Normal Distribution with 2 components.
 #'  a$adjust.cmp( this.mix.type = 1 )
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 1 represents a Gaussian Mixture Model.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 1: Mean of 2 Normal Distributions
 #'
 #'  ## Normal Distribution with 3 components.
 #'  a$adjust.cmp( grad = "v3" )
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 3 represents a Vertical Gradational Model.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 3: Vertical Gradational Distribution
 #'
 #'  ## Normal Distribution with 4 components.
 #'  a$adjust.cmp( grad = "hv" )
-#'  a$kind; a$mix.type; a$cmp   ## mix.type = 4 represents a H-V Gradational Model.
+#'  a$kind; a$mix.type; a$cmp   ## mix.type = 4: H-V Gradational Distribution
 ################################################################################################
 NULL
 GGD$methods(

@@ -4,23 +4,23 @@
 \alias{calc.v.sub}
 \title{[Non-exported] Sub-functions for variance calculation for mix.type = 2, 3}
 \usage{
-calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0)
+calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0)
 }
 \arguments{
-\item{mix.type}{The value which represent the way to mix the normal distributions.}
+\item{mix.type}{The value of \code{mix.type}. It allows \code{2} or \code{3}.}
 
-\item{mean}{The mean of the whole distribution.}
+\item{mean}{The mean of the distribution model.}
 
-\item{mean.i}{The mean value of the normal distribution of i-th component.}
+\item{mean.i}{The mean value of the i-th normal distribution of the component.}
 
-\item{sd.i}{The standard deviation of the normal distribution of i-th component.}
+\item{sd.i}{The standard deviation of the i-th normal distribution of the component.}
 
 \item{x}{The upper limit of the integral interval (see formulas in "Details").}
 
 \item{p.sum}{The sum of the probabilities of two normal distributions of
 the components. This argument is for \code{mix.type = 2}.}
 
-\item{k}{The number indicating the normal distribution in the components.
+\item{i}{The number indicating which component to be operated.
 This argument is for \code{mix.type = 3}.}
 }
 \value{
@@ -32,15 +32,15 @@ The meaning of this function is depend on \code{mix.type} (see "Details").
 This function dose not use \code{\link[stats]{integrate}}.
 }
 \details{
-Depending on the value of mix.type, the following calculations are performed without
+Depending on the value of \code{mix.type}, the following calculations are performed without
  \code{\link[stats]{integrate}} but with \code{\link[stats]{dnorm}},
  \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations,
  respectively.
  The variance will be expressed with the sums and differences of the outputs of this function
- and sums or products with some simple terms.
+ and some simple terms.
 
  In the following expressions,
- \eqn{\mu} is the mean of the whole distribution,
+ \eqn{\mu} is the mean of the distribution model,
  \eqn{f_i(x)} is the probability density function of the normal distribution
  \eqn{\mathcal{N}(\mu_i, \sigma_i^2)},
  \eqn{\Phi_i(x)} is the cumulative distribution function of
@@ -53,12 +53,13 @@ Depending on the value of mix.type, the following calculations are performed wit
                \int_{-\infty}^x (t - \mu)^2 (\Phi_i(t) - \bar \Phi(q)) f_i(t) \ dt}}
 
      \item{mix.type = 3}{
-         \deqn{k = 1, 3 \ :
-             \ \displaystyle
+         \deqn{i = 1, 3: \
+               \displaystyle
                \int_{-\infty}^x (t - \mu)^2 (1 - \dfrac{f_i(t)}{f_i(\mu_i)}) f_i(t) \ dt}
 
-         \deqn{k = 2 \ :
-             \ \displaystyle
-               \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt}}
+         \deqn{i = 2: \quad \
+               \displaystyle
+               \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt
+               \qquad \ \ }}
  }
 }

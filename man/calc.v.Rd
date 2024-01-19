@@ -15,13 +15,13 @@ calc.v(
 )
 }
 \arguments{
-\item{mix.type}{The value of \code{mix.type} of the \code{\link[ggd]{GGD}} class.}
+\item{mix.type}{The value of \code{mix.type}. It allows from \code{1} to \code{4}.}
 
 \item{means}{The mean values of the normal distributions of the components.}
 
 \item{sds}{The standard deviations of the normal distributions of the components.}
 
-\item{mean}{The mean of the whole distribution.}
+\item{mean}{The mean of the distribution model.}
 
 \item{symmetric}{If \code{TRUE}, the distribution model is treated as symmetric.
 This option may help reduce calculation errors.}
@@ -36,10 +36,11 @@ This option may help reduce calculation errors.}
                      this function calculates the whole variance.}
 }
 \value{
-The value of the whole/half variance.
+The value of the whole or half variance of the distribution model.
 }
 \description{
-Calculates the variance or the half variance of a GGD model.
+Calculates the whole or half variance of the distribution model
+indicated by a \code{\link[ggd]{GGD}} object.
 This function does not use \code{\link[stats]{integrate}},
 but \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}}
 and four arithmetic operations.

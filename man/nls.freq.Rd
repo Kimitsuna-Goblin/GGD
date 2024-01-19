@@ -58,7 +58,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      the frequency distribution.
 
                      The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+                     \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 
                      This argument gives the conditions of
                      the value of \code{mix.type} field,
@@ -184,7 +184,7 @@ See \code{\link[stats]{nls.control}} for more information.}
 
 \item{not.use.nls}{A logical.
                      If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-                     it outputs an object having the initial values in the \code{cmp} field
+                     it outputs an object having the initial values in \code{cmp} field
                      as the result.
                      If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 
@@ -226,7 +226,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      the current value of \code{mix.type} field will be retained,
                      and number of components will also.
                      But furthermore, the object has been cleared,
-                     the \code{mix.type} field will be set to \code{2}, the initial value.}
+                     \code{mix.type} field will be set to \code{2}, the initial value.}
 }
 \value{
 A list containing components (invisible for \code{GGD} method)
@@ -253,7 +253,7 @@ A list containing components (invisible for \code{GGD} method)
          \item{start.obj}{
                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
                  That is, a \code{\link[ggd]{GGD}} object in which
-                 values of the above \code{start} are set directly to the \code{cmp} field.}
+                 values of the above \code{start} are set directly to \code{cmp} field.}
          \item{cor}{
                  The vector of the correlation coefficient of between the result for
                  each level of initial guessing in from \code{0} to \code{3}

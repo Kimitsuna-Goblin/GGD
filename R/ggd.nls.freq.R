@@ -73,7 +73,7 @@
 #'                      the frequency distribution.
 #'
 #'                      The matching method of this argument follows that of elements of
-#'                      the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
@@ -199,7 +199,7 @@
 #'
 #' @param   not.use.nls A logical.
 #'                      If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-#'                      it outputs an object having the initial values in the \code{cmp} field
+#'                      it outputs an object having the initial values in \code{cmp} field
 #'                      as the result.
 #'                      If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 #'
@@ -241,7 +241,7 @@
 #'                      the current value of \code{mix.type} field will be retained,
 #'                      and number of components will also.
 #'                      But furthermore, the object has been cleared,
-#'                      the \code{mix.type} field will be set to \code{2}, the initial value.
+#'                      \code{mix.type} field will be set to \code{2}, the initial value.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
 #'          \item{obj}{
@@ -267,7 +267,7 @@
 #'          \item{start.obj}{
 #'                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
 #'                  That is, a \code{\link[ggd]{GGD}} object in which
-#'                  values of the above \code{start} are set directly to the \code{cmp} field.}
+#'                  values of the above \code{start} are set directly to \code{cmp} field.}
 #'          \item{cor}{
 #'                  The vector of the correlation coefficient of between the result for
 #'                  each level of initial guessing in from \code{0} to \code{3}
@@ -801,13 +801,13 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                      See \code{\link[ggd]{nls.freq}} for more information.
 #'
 #' @param   start   A \bold{list of lists} with the length of 16
-#'                  for each of the \code{start} arguments for \code{\link[stats]{nls}}
+#'                  for each of \code{start} arguments for \code{\link[stats]{nls}}
 #'                  as initial values.
-#'                  Each element (a list) will give to the \code{start} argument of
+#'                  Each element (a list) will give to \code{start} argument of
 #'                  \code{\link[stats]{nls}} one by one.
 #'
 #'                  For initial values for which \code{NULL} is indicated as the list
-#'                  in the \code{start} argument, internally computed initial values
+#'                  in this argument, internally computed initial values
 #'                  depending on \code{start.level} are used.
 #'
 #'                  As an auxiliary tool for making a list of 16 lists,
@@ -826,7 +826,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'
 #' @param   not.use.nls A logical.
 #'                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}}
-#'                  and it outputs objects having the initial values in the \code{cmp} field
+#'                  and it outputs objects having the initial values in \code{cmp} field
 #'                  as the results.
 #'                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 #'
@@ -1887,7 +1887,7 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, eq.mean, eq.sd )
 #'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 #'                      See \code{\link[stats]{cor}} for more information.
 #' @return  A vector of correlation coefficients.
-#'          Its order follows the order of the elements of the \code{objs} argument.
+#'          Its order follows the order of the elements in \code{objs} argument.
 #'          If \code{cmp} field of an \code{\link[ggd]{GGD}} object in \code{objs} has no rows,
 #'          \code{NA} will be set to the element.
 #' @importFrom  stats   cor

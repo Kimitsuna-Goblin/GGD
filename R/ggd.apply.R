@@ -12,7 +12,7 @@
 ################################################################################################
 #' Apply functions to cmp
 #'
-#' Applies a function to each element in the \code{cmp} field.
+#' Applies a function to each element in \code{cmp} field.
 #' Different functions can be applied to \code{mean} column and \code{sd} column.
 #' Other fields will be adjusted accordingly.
 #' @name    apply.cmp
@@ -31,7 +31,7 @@
 #'      2 arguments (each argument name is arbitrary):
 #'      \enumerate{
 #'          \item A vector of the current values of \code{mean} or \code{sd} column.
-#'          \item The \code{\link[ggd]{GGD}} object itself to be processed.
+#'          \item The \code{\link[ggd]{GGD}} object itself.
 #'      }
 #'      Therefore, the function for \code{f.mean} or \code{f.cmp} is hoped to be
 #'      declared with 2 arguments like as "\code{function(mean, obj)}",
@@ -42,7 +42,7 @@
 #'      with the same length of the 1st argument as new values of each column.
 #'
 #'      After both functions have been processed, the new values are actually
-#'      set into the \code{cmp} field. Therefore, from within the functions to apply,
+#'      set into \code{cmp} field. Therefore, from within the functions to apply,
 #'      it is possible to refer to the values of each field before applying,
 #'      but not after.
 #'
@@ -139,7 +139,7 @@ apply.cmp.sub <- function( f, values, obj )
 ################################################################################################
 #' Rounding values in cmp
 #'
-#' Rounds the values of all elements in the \code{cmp} field and adjusts other fields
+#' Rounds the values of all elements in \code{cmp} field and adjusts other fields
 #' accordingly.
 #' \code{\link[base]{round}} and \code{\link[base]{signif}} functions can apply.
 #' These functions does not change the number of rows in \code{cmp} field,
@@ -219,7 +219,7 @@ GGD$methods(
 #' @param   dg.mean     A vector of integer for the 1st argument of \code{math2.f}
 #'                      to be used for \code{mean} column.
 #' @param   dg.sd       A vector of integer similar to \code{dg.mean}, for \code{sd} column.
-#' @param   obj         The \code{\link[ggd]{GGD}} object to be processed.
+#' @param   obj         The \code{\link[ggd]{GGD}} object.
 #' @return  A processed \code{\link[ggd]{GGD}} object.
 #' @seealso \code{\link[ggd]{round.cmp}}
 ################################################################################################
