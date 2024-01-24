@@ -195,7 +195,7 @@ and \code{trace.q} method sets the fields according to the result.
      About \code{mix.type = 3},
      if \code{grad = "v2"}, only 3 or 4 quantiles are allowed.
      If \code{grad = "v3"}, 3 to 6 quantiles are allowed.
-     If \code{grad = "default"} is indicated with code{mix.type = 3},
+     If \code{grad = "default"} is indicated with \code{mix.type = 3},
      it tries both \code{grad = "v2"} and \code{"v3"} cases
      with giving priority to \code{"v2"}.
  }
