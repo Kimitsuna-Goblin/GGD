@@ -17,14 +17,14 @@ In other word, the value of the cumulative distribution function of
 a normal distribution for the \code{x}. The value must not be \code{0.5}.}
 }
 \value{
-The vector of the standard deviations.
+A vector of the standard deviations.
 }
 \description{
-Calculates the standard deviations of the normal distribution
-satisfying the given mean and one other quantile.
+Calculates the standard deviation of the normal distribution
+which has the indicated mean and passes through one other quantile.
 }
 \examples{
- sd.norm.mxp( 0, qnorm( 0.3, 0, 1 ), 0.3 )           # 1
- sd.norm.mxp( rep( 0, 5 ), 1:5, pnorm( 1:5, 0, 1 ) ) # 1 1 1 1 1
- sd.norm.mxp( c( -0.1, 0, 0.3 ), c( -0.3, -0.1, 0.4 ), c( 0.38, 0.47, 0.53 ) ) # [2] == [3]
+ sd.norm.mxp( 0, qnorm( 0.3, 0, 1 ), 0.3 )           ## 1
+ sd.norm.mxp( rep( 0, 5 ), 1:5, pnorm( 1:5, 0, 1 ) ) ## 1 1 1 1 1
+ sd.norm.mxp( c( -0.1, 0, 0.3 ), c( -0.3, -0.1, 0.4 ), c( 0.38, 0.47, 0.53 ) ) ## [2] == [3]
 }

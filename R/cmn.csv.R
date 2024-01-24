@@ -12,24 +12,22 @@
 ################################################################################################
 #' [Non-exported] Output a table to a file
 #'
-#' Prints the argument \code{x} (it should be a data frame or matrix)
-#' to a file or \link[base]{connection} with the CSV format.
-#' This function use \link[base]{cat} to output.
-#' When outputting real numbers, the precision can be specified with \code{digits} argument.
-#' @param   x           The object to be written, should be a matrix or data frame.
+#' Outputs a data frame or a matrix to a file or \link[base]{connection} with the CSV format
+#' using \link[base]{cat}.
+#' The precision for real numbers can be indicated with \code{digits} argument.
+#' @param   x           The object to be output, should be a matrix or data frame.
 #' @param   file        A \link[base]{connection},
 #'                      or a character string naming the file to print to.
 #'                      If \code{""} (the default), it prints to the standard output connection,
 #'                      the console unless redirected by \link[base]{sink}.
 #' @param   top.text    A character string to be output as the first element of the header.
-#' @param   append.str  A character string to be output after \code{x}.
-#' @param   digits      The number of significant digits to print (see \link[base]{signif}).
-#'                      Valid values are integers from 1 to 22 with default 15.
+#' @param   digits      The number of significant digits (see \link[base]{signif}) to print.
+#'                      Integers from \code{1} to \code{22} with default \code{15} are allowed.
 #' @return  An invisible \code{NULL}.
 #' @examples
 #'  ggd:::cat.table( data.frame( a = 1:6 * pi, b = pi^(1:6) ), top.text = "PI", digits = 10 )
 ################################################################################################
-cat.table <- function( x, file = "", top.text = "", append.str = "", digits = 15 )
+cat.table <- function( x, file = "", top.text = "", digits = 15 )
 {
     digits.backup <- getOption( "digits" )
 
@@ -84,12 +82,6 @@ cat.table <- function( x, file = "", top.text = "", append.str = "", digits = 15
                     }
                 }
             }
-        }
-
-        if ( isTRUE( nchar( append.str ) > 0 ) )
-        {
-            cat( append.str, file = file, append = TRUE )
-            cat( "\n", file = file, append = TRUE )
         }
     },
     finally = { options( digits = digits.backup ) } )

@@ -23,11 +23,11 @@ ggd.mix.type.for(
 
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
                      which indicates the kind of distribution model.
+                     The matching method of \code{kind} follows that of
+                     \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
+
                      This argument works when the length of \code{mix.type} argument
                      is \code{0}, and \code{grad} is \code{"default"}.
-
-                     The matching method of this argument follows that of elements of
-                     \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 
                      If \code{NA} is indicated, \code{NA_integer_} will be returned.
                      If indicated character string pattern or index number does not match
@@ -52,8 +52,8 @@ An integer of \code{mix.type} value appropriate for a distribution model
 \description{
 Gets the value for \code{mix.type} field of \code{GGD} object which is appropriate to
 given \code{grad} value.
-If \code{grad = "default"}, the return value will be the value of \code{mix.type} argument
-or the value appropriate for \code{kind} argument.
+If \code{grad} is \code{"default"}, the return value will be the value of
+\code{mix.type} argument or the value appropriate for \code{kind} argument.
 }
 \examples{
  ggd.mix.type.for( grad = "normal" )                 ## 0

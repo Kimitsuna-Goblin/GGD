@@ -12,8 +12,9 @@
 ################################################################################################
 #' Read a composition
 #'
-#' Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object
-#' and generates a \code{\link[ggd]{GGD}} object.
+#' Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object.
+#' Then \code{ggd.read.csv} function generates a \code{\link[ggd]{GGD}} object,
+#' and \code{read.csv} method sets the fields according to the composition.
 #' @export
 #' @name    read.csv
 #' @aliases ggd.read.csv
@@ -21,8 +22,7 @@
 #' @aliases \S4method{read.csv}{GGD}
 #' @usage   ggd.read.csv(file)
 #' @usage   \S4method{read.csv}{GGD}(file)
-#' @param   file    The name of the CSV file which the composition of
-#'                  a \code{\link[ggd]{GGD}} object is to be read from.
+#' @param   file    The name of the CSV file.
 #'                  The \code{file} can be a readable text-mode \link[base]{connection}.
 #'
 #'          The \code{file} should be a CSV file with 3 columns.
@@ -49,18 +49,17 @@
 #'
 #' @details
 #' \subsection{Reading empty data}{
-#'      If the read file is one which is written with a cleared object,
-#'      \code{kind}/\code{kind.index} and \code{mix.type} fields of the generated object
+#'      If the file contains a cleared object (a file with only the header row),
+#'      the values of \code{kind}, \code{kind.index}, and \code{mix.type} fields
 #'      will be \code{NA},
 #'      and then \code{median}, \code{mean}, and other numeric fields will be \code{NaN}.
 #' }
 #' \subsection{Illegal format file}{
-#'      If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot
+#'      If the format of the file was illegal and a \code{\link[ggd]{GGD}} object cannot
 #'      be constructed, an error occurs and the \code{\link[ggd]{GGD}} object is cleared.
 #'
-#'      If \code{mix.type} value stored in a file does not match the values for \code{cmp},
-#'      an error may occur, or it may happen to work. It is possible to create such a file
-#'      using \code{ggd:::}\code{\link[ggd]{cat.table}} function which is non-exported.
+#'      If \code{mix.type} value stored in the file does not match the values for \code{cmp},
+#'      an error may occur, or it may happen to work.
 #'      However, it is not recommended to create such a non-conforming file anyway.
 #' }
 #' @importFrom  utils   read.csv
@@ -162,7 +161,7 @@ GGD$methods(
 #'
 #' Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
 #' This function provides a simple way to export a \code{\link[ggd]{GGD}} object,
-#' regardless of the package or R version. See "Details" for more information.
+#' regardless of the package version or R version.
 #' @export
 #' @name    write.csv
 #' @aliases ggd.write.csv
@@ -171,8 +170,8 @@ GGD$methods(
 #' @usage   ggd.write.csv(obj, file = "")
 #' @usage   \S4method{write.csv}{GGD}(file = "")
 #' @param   obj     The \code{\link[ggd]{GGD}} object to be saved.
-#' @param   file    The name of the file or a \link[base]{connection} for writing
-#'                  the composition of the object. \code{""} indicates output to the console.
+#' @param   file    The name of the file or a \link[base]{connection} open for writing.
+#'                  \code{""} indicates output to the console.
 #' @return  An invisible NULL.
 #' @seealso \code{\link[ggd]{read.csv}}
 #'

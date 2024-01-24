@@ -14,6 +14,8 @@
 #'
 #' Constructs a \code{\link[ggd]{GGD}} object which traces all of the given quantiles
 #' accurately with its cumulative distribution function.
+#' Then \code{ggd.trace.q} function generates a \code{\link[ggd]{GGD}} object,
+#' and \code{trace.q} method sets the fields according to the result.
 #' @export
 #' @name    trace.q
 #' @aliases ggd.trace.q
@@ -34,9 +36,8 @@
 #'                      and column \bold{\code{p}} is for the probabilities of the quantiles.
 #'
 #'                      Rows which contain \code{NA} or \code{NaN} are ignored.
-#'                      The value of each row must not duplicated
-#'                      (except for \code{NA} or \code{NaN}),
-#'                      and must be valid as a set of quantiles.
+#'                      The set of complete cases must be valid as a set of quantiles
+#'                      and each row of them must not be duplicated.
 #'                      You do not have to sort the order of quantiles.
 #'                      The number of valid rows must be in range of from 2 to 8.
 #'
@@ -44,27 +45,25 @@
 #'                      \code{data.frame(x = c(0, -2, 2.3), p = c(0.5, 0.25, 0.75))}.
 #'
 #'                      Column names and column numbers for \code{x} and \code{p} are flexible.
-#'                      You can specify them with next two arguments.
+#'                      You can indicate them with next two arguments.
 #'
 #' @param   x           The column name or column number for x-coordinates in \code{quantiles}.
 #'
 #' @param   p           The column name or column number for probabilities in \code{quantiles}.
 #'
 #' @param   kind        A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of the distribution model.
-#'
-#'                      The matching method of this argument follows that of elements of
+#'                      which indicates the kind of distribution model to be generated.
+#'                      The matching method of \code{kind} follows that of
 #'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
-#'                      and of whether the mean values and standard deviations of the components
+#'                      and of whether the mean values or standard deviations of the components
 #'                      should be aligned to the same value.
 #'
-#'                      Indicating \code{mix.type} argument or
-#'                      indicating other than \code{"default"} for \code{grad} argument
-#'                      or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
-#'                      can overwrite the conditions of this argument.
+#'                      Indicating \code{mix.type} or \code{grad} other than \code{"default"},
+#'                      or \code{eq.mean} and \code{eq.sd} other than \code{logical(0)}
+#'                      can overwrite the condition of this argument.
 #'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field as an integer.
 #'                      It should be an integer from \code{0} to \code{4} or \code{NULL}.
@@ -72,19 +71,20 @@
 #'                      Each value represents the following type of distribution:
 #'                      \itemize{
 #'                          \item \code{0} : Normal distribution.
-#'                          \item \code{1} : Mean of 2 normal distributions (not a GGD).
+#'                          \item \code{1} : Mean of 2 normal distributions.
 #'                          \item \code{2} : Horizontal gradation of 2 normal distributions.
 #'                          \item \code{3} : Vertical gradation of 2 or 3 normal distributions.
 #'                                           The 2-component model has priority.
 #'                          \item \code{4} : Horizontal-Vertical gradation
 #'                                           with 4 (2x2) normal distributions.
 #'                      }
-#'                      If \code{NULL} (and if \code{kind} and \code{grad = "default"}),
+#'                      If \code{NULL}
+#'                      (and \code{kind} is also \code{NULL}, and \code{grad = "default"}),
 #'                      it tries to trace the quantiles with changing
 #'                      \code{mix.type} according to the priority sequence:
-#'                      2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.
+#'                      2 > 4 > 3 (2 components > 3 components) > 1 > 0.
 #'
-#'                      If other than \code{"defaule"} for \code{grad} argument is indicated,
+#'                      If \code{grad} argument other than \code{"default"} is indicated,
 #'                      this argument will be ignored.
 #'
 #' @param   grad        A character string indicating the method of gradation.
@@ -98,11 +98,10 @@
 #'                      \code{"default"} is for depending on other arguments.
 #'
 #'                      If other than \code{"default"} is indicated,
-#'                      this function constructs a distribution model
-#'                      according to this argument with ignoring \code{[this.]mix.type} argument
-#'                      and overwriting the type indicated by \code{[this.]kind} argument.
+#'                      this function ignores \code{[this.]mix.type} argument
+#'                      and overwrites the condition indicated by \code{[this.]kind} argument.
 #'
-#' @param   eq.mean     A logical. It works when \code{mix.type} is not 0.
+#' @param   eq.mean     A logical. It works when \code{mix.type} is other than \code{0}.
 #'
 #'                      If \code{TRUE}, it forces all of the mean values of the components
 #'                      to be equal.
@@ -110,19 +109,19 @@
 #'                      so allowed number of quantiles will be restricted.
 #'                      See "Details" for more information.
 #'
-#'                      If \code{FALSE}, it constructs mean-differed components.
-#'                      In this case, mean-equaled components are rarely constructed.
+#'                      If \code{FALSE}, the mean values are not bound,
+#'                      and mean-equaled components will be rarely constructed.
 #'
 #'                      If \code{logical(0)} (the default),
-#'                      Normally, as \code{FALSE}, it constructs mean-differed components.
-#'                      But if that fails, it tries to construct mean-equaled components
-#'                      as \code{TRUE} (especially, when the median is specified as a quantile
-#'                      to trace with a vertical gradational distribution).
+#'                      Normally, the mean values are not bound same as \code{FALSE}.
+#'                      But if it has failed to trace without binding,
+#'                      it tries to trace with binding mean values as \code{TRUE}.
+#'                      In some cases, reducing degrees of freedom helps to reach convergence.
 #'
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
-#'                      \code{kind} or \code{this.kind} argument.
+#'                      \code{[this.]kind} argument.
 #'
-#' @param   eq.sd       A logical. It works when \code{mix.type} is not 0.
+#' @param   eq.sd       A logical. It works when \code{mix.type} is other than \code{0}.
 #'
 #'                      If \code{TRUE}, it forces all of the standard deviations of
 #'                      the components to be equal.
@@ -131,32 +130,34 @@
 #'                      See "Details" for more information.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
-#'                      it constructs sigma-differed components.
-#'                      In this case, sigma-equaled components are rarely constructed.
+#'                      the standard deviations are not bound,
+#'                      and sigma-equaled components will be rarely constructed.
 #'
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
-#'                      \code{kind} or \code{this.kind} argument.
+#'                      \code{[this.]kind} argument.
 #'
 #' @param   control     A list of \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #'                      See the "Control options" at \code{\link[nleqslv]{nleqslv}}
 #'                      for more information.
 #'
-#'                      By default, this list is empty, but if there is a high probability
-#'                      of a "Jacobian is singular" error due to the condition of the quantiles,
+#'                      By default, this list is empty normally.
+#'                      But if the convergence appears to be difficult due to
+#'                      an insufficient number of quantiles compared to the degrees of freedom,
 #'                      \code{allowSingular = TRUE} is set implicitly.
-#'                      However, if \code{allowSingular} is given to this argument,
-#'                      the given option takes priority.
+#'                      If \code{allowSingular} is given to this argument,
+#'                      the given value takes priority.
 #'
 #' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model.
+#'                      which indicates the kind of distribution model to be constructed.
 #'                      It is equivalent to \code{kind} argument for \code{ggd.trace.q}.
 #'
-#'                      If this method is called without \code{this.kind} argument,
-#'                      \code{grad}, or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible, but not the value of
-#'                      \code{kind} field, i.e., the condition whether the mean value or
-#'                      standard deviation of each component is aligned may not be retained.
-#'                      If you want to retain the conditions as well,
+#'                      In this method, the value of \code{kind} field will be not
+#'                      necessarily retained without indicating any conditions,
+#'                      whereas the value of \code{mix.type} field will be retained
+#'                      as long as possible.
+#'                      That is, the condition of aligning the mean values or
+#'                      standard deviations of the component to be equal will not be retained.
+#'                      If you want to retain the condition as well,
 #'                      indicate the object itself to \code{this.kind} argument like as
 #'                      \code{obj$trace.q(quantiles, this.kind = obj)}.
 #'
@@ -165,16 +166,17 @@
 #'                          It is equivalent to \code{mix.type} argument for \code{ggd.trace.q}.
 #'
 #'                      If \code{NULL}, the current \code{mix.type} field will be retained
-#'                      (and number of components, too) if it could trace the quantiles.
+#'                      (and number of components, too) if it can trace the quantiles.
 #'                      But if could not, it tries to trace the quantiles
 #'                      with changing \code{mix.type} as same as \code{ggd.trace.q}.
-#'                      Thus, the priority sequence of \code{mix.type} is
-#'                      current > 2 > 4 > 3 (2 components) > 3 (3 components) > 1 > 0.
+#'                      The priority sequence of \code{mix.type} is
+#'                      current > 2 > 4 > 3 (2 components > 3 components) > 1 > 0.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
 #'          \item{obj}{
 #'                  The \code{\link[ggd]{GGD}} object which traces the quantiles.
-#'                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
+#'                  For \code{\link[ggd]{GGD}} method,
+#'                  the \code{\link[ggd]{GGD}} object itself.}
 #'          \item{nleqslv.out}{
 #'                  The list of the output of \code{\link[nleqslv]{nleqslv}}
 #'                  which has succeeded to solve tracing quantiles.}
@@ -187,10 +189,10 @@
 #'
 #' @details
 #'  \subsection{Allowed number of quantiles}{
-#'      The allowed numbers of quantiles depends on the value of \code{mix.type} argument/field.
-#'      Because the value determines the number of components in \code{cmd} field,
-#'      and also determines the degrees of freedom of the distribution model.
-#'      The allowed numbers of quantiles are as follows:
+#'      The allowed numbers of quantiles depends on the value of \code{mix.type}.
+#'      Because \code{mix.type} determines the number of components in \code{cmd} field,
+#'      and the degrees of freedom follows it.
+#'      In this package, the allowed numbers of quantiles are:
 #'      \itemize{
 #'          \item \code{mix.type = 0} : 2 quantiles only.
 #'          \item \code{mix.type = 1} : 3 or 4 quantiles.
@@ -199,17 +201,16 @@
 #'          \item \code{mix.type = 4} : 5 to 8 quantiles.
 #'      }
 #'      About \code{mix.type = 3},
-#'      if \code{grad = "v2"}, 3 or 4 quantiles are allowed.
+#'      if \code{grad = "v2"}, only 3 or 4 quantiles are allowed.
 #'      If \code{grad = "v3"}, 3 to 6 quantiles are allowed.
-#'
-#'      Note, if \code{mix.type = 3} is indicated with \code{grad = "default"},
+#'      If \code{grad = "default"} is indicated with code{mix.type = 3},
 #'      it tries both \code{grad = "v2"} and \code{"v3"} cases
-#'      and give priority to \code{"v2"}.
+#'      with giving priority to \code{"v2"}.
 #'  }
 #'  \subsection{Tightening with eq.mean / eq.sd}{
-#'      If either \code{eq.mean = TRUE} or \code{eq.sd = TRUE} is indicated,
-#'      as each of them reduces the degrees of freedom,
-#'      the number of quantiles is restricted as follows:
+#'      Indicating \code{TRUE} for either \code{eq.mean} or \code{eq.sd}
+#'      reduces the degrees of freedom.
+#'      In this case, the number of quantiles is restricted as:
 #'      \itemize{
 #'          \item \code{mix.type = 1} : 3 quantiles only.
 #'          \item \code{mix.type = 2} : 3 quantiles only.
@@ -221,12 +222,13 @@
 #'      With \code{grad = "v3"}, it works for 3 or 4 quantiles.
 #'
 #'      If both \code{eq.mean} and \code{eq.sd} are \code{TRUE},
-#'      a normal distribution will be constructed and number of quantiles must be 2.
+#'      a normal distribution will be generated.
+#'      In this case, number of quantiles must be 2.
 #'  }
 #'
 #' @examples
 #'  ## Mean of 2 Normal Distributions Example:
-#'  ##  If mix.type = 1, it constructs a mean of 2 normal distributions.
+#'  ##  If mix.type = 1, it generates a mean of 2 normal distributions.
 #'  ##  This model is not a gradational Gaussian distribution (GDD),
 #'  ##  but a kind of Gaussian mixture model (GMM).
 #'  ##  The number of quantiles must be 3 or 4.
@@ -239,7 +241,7 @@
 #'
 #'  ## Horizontal Gradational Example:
 #'  ##  If mix.type = 2 or grad = "h",
-#'  ##  it constructs a horizontal gradational distribution.
+#'  ##  it generates a horizontal gradational distribution.
 #'  ##  The number of p of the quantiles must be 3 or 4.
 #'  a <- ggd.trace.q( data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
 #'                    mix.type = 2 )$obj
@@ -247,7 +249,7 @@
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
 #'  ## eq.sd Example:
-#'  ##  If eq.sd = TRUE, it constructs a distribution model with components of which
+#'  ##  If eq.sd = TRUE, it generates a distribution model with components of which
 #'  ##  the standard deviations are all equal.
 #'  a$trace.q(
 #'          data.frame( x = c( -0.64, -0.25, 0 ), p = c( 0.25, 0.4, 0.5 ) ),
@@ -256,7 +258,7 @@
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
 #'  ## Vertical Gradational Example:
-#'  ##  If grad = "v2", it constructs a vertical gradation of 2 normal distributions.
+#'  ##  If grad = "v2", it generates a vertical gradation of 2 normal distributions.
 #'  ##  The number of quantiles must be 3 or 4.
 #'  a$trace.q(
 #'          data.frame( x = c( -1.28, -0.23, 0 ), p = c( 0.1, 0.4, 0.5 ) ),
@@ -264,7 +266,7 @@
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
 #'  ## eq.mean Example:
-#'  ##  If eq.mean = TRUE, it constructs a mean-equaled distribution model.
+#'  ##  If eq.mean = TRUE, it generates a mean-equaled distribution model.
 #'
 #'  a$trace.q(
 #'          data.frame( x = c( -1.28, -0.42, 0 ), p = c( 0.1, 0.3, 0.5 ) ),
@@ -273,7 +275,7 @@
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
 #'  ## 3-Mean/Sigma-Differed Vertical Gradational Example:
-#'  ##  If grad = "v3", it constructs a vertical gradational distribution
+#'  ##  If grad = "v3", it generates a vertical gradational distribution
 #'  ##  with different components for left-tail side and right-tail side.
 #'  ##  The number of quantiles must be from 3 to 6.
 #'  a <- ggd.trace.q(
@@ -284,7 +286,7 @@
 #'
 #'  ## Horizontal-Vertical Gradational Examples:
 #'  ##  If mix.type = 4 or grad = "hv",
-#'  ##  it constructs a horizontal-vertical gradational distribution.
+#'  ##  it generates a horizontal-vertical gradational distribution.
 #'  ##  The number of quantiles must be from 5 to 8.
 #'  a <- ggd.trace.q(
 #'          data.frame(
@@ -572,8 +574,8 @@ GGD$methods(
                     mix.type.seq <- c( mix.type,
                                        mix.type.seq[mix.type.seq != mix.type] )
 
-                    # In order to attempt to retain number of rows in cmp field when mix.type = 3,
-                    # make sequences of values to set grad values.
+                    # In order to attempt to retain number of rows in cmp field
+                    # when mix.type = 3, make sequences of grad values.
                     if ( mix.type == 3 && nrow( cmp ) == 2 )
                     {
                         grad.seq <- c( "v2", rep( "default", length( mix.type.seq - 1 ) ) )
@@ -1250,7 +1252,7 @@ GGD$methods(
                             # ( #lower, #upper ) = ( 2, 0 ), ( 0, 2 ), ( 2, 1 ) or ( 1, 2 )
 
                             # Get the SDs of the normal distributions
-                            # through both quantles on the side with 2 quantiles.
+                            # passing through both quantiles in the 2-quantiles side.
                             #
                             # Here, we use 2 variables for indexes of qt,
                             # and 2 variables for indexes of vector x of
@@ -1281,7 +1283,8 @@ GGD$methods(
                                 p.a1 <- pnorm( qt.x, median, x[xi.outer]^2 * sqrt( 2 ) / 2 )
                                 p.a2 <- pnorm( qt.x, median, x[xi.inner]^2 * sqrt( 2 ) / 2 )
 
-                                return ( p - p.a1 * sqrt( 2 ) / 2 + p.a2 * sqrt( 2 ) / 2 - qt.p )
+                                return ( p - p.a1 * sqrt( 2 ) / 2 + p.a2 * sqrt( 2 ) / 2 -
+                                         qt.p )
                             }
 
                             get.cmp.result <- function( result )
@@ -1628,7 +1631,8 @@ GGD$methods(
                 if ( inherits( d.2, "try-error" ) )
                 {
                     message( paste( "Message: Initial guessing with 3-quantile-tracing",
-                                             "for right-side", msg.sub, "components has failed.",
+                                             "for right-side",
+                                             msg.sub, "components has failed.",
                                              "2-quantile-tracing has used instead." ) )
                     rows <- nrow( qt.with.median )
                     if ( isTRUE( eq.mean ) && is.set.median )
@@ -1772,7 +1776,7 @@ GGD$methods(
                 # In these v2-ggd.trace.q processes,
                 # it tends to reduce the success rate to give 4 quantiles for the conditions,
                 # so we give 3 quantiles here.
-                # If failed, the normal distributions through 2 of the given quantiles
+                # If failed, the normal distributions passing through 2 of the given quantiles
                 # are taken for initial guesses.
 
                 qt.x <- c( qt.with.median$x[1:3],
@@ -1942,8 +1946,7 @@ GGD$methods(
 #'
 #' Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
 #' for a mean-differed 2-component vertical gradational distribution.
-#' @param   qt          A data frame; the quantiles to be traced,
-#'                      If the median is specified, median must be included.
+#' @param   qt          A data frame; the quantiles to be traced.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #' @return  A list containing components
 #'          \item{cmp}{
@@ -1953,7 +1956,7 @@ GGD$methods(
 #' @details
 #'  \subsection{Crossover-tracing}{
 #'      Let cumulative distribution functions of 2 mean-differed normal distributions
-#'      crossover at one of quantiles (except for the median),
+#'      crossover at one of the quantiles (except for the median),
 #'      and seek the mean values and standard deviations as tracing the other 2 quantiles.
 #'  }
 #' @importFrom  stats       pnorm
@@ -2063,15 +2066,15 @@ v2.qt4.cmp <- function( qt, control, retriable )
     #
     # Sort the quantiles in order of closeness to the median,
     # then calculate mean values and standard deviations of the components
-    # through the 2 quantiles farther/closer to the median, respectively.
+    # passing through the 2 quantiles farther/closer to the median, respectively.
 
     qt <- data.frame( x = qt$x[order( abs( qt$p - 0.5 ) )],
                       p = qt$p[order( abs( qt$p - 0.5 ) )] )
     if ( qt$p[1] == qt$p[2] )
     {
         # If there are 2 same quantiles of the nearest to the median in qt,
-        # we use a normal distribution through quantiles of the nearest and the farthest
-        # and the other one through the quantiles of the nearest and the mid-distance.
+        # we use a normal distribution passing through the nearest and the farthest quantiles
+        # and the other one passing through the nearest and the mid-distance quantiles.
         #
         # This can be the case when 3 quantiles are specified.
         pseudo.far  <- ms.norm.xp( qt$x[c( 2, 4 )], qt$p[c( 2, 4 )] )
@@ -2133,7 +2136,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 #' @param   eq.mean     A logical; the flag to be equal all of the mean values.
 #' @param   eq.sd       A logical; the flag to be equal all of the standard deviations.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
+#'                      If \code{"v3"}, the number of components will forced to be 3,
 #'                      even if it is possible to construct with 2 components.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
 #' @param   retriable   A logical; the flag if retrying is enable.
@@ -2155,15 +2158,15 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
     #
     # Sort the quantiles in order of closeness to the median,
     # then calculate mean values and standard deviations of the normal distributions
-    # through the 2 quantiles farther/closer to the median, respectively.
+    # passing through the 2 quantiles farther/closer to the median, respectively.
 
     qt <- data.frame( x = qt$x[order( abs( qt$p - 0.5 ) )],
                       p = qt$p[order( abs( qt$p - 0.5 ) )] )
     if ( qt$p[1] == qt$p[2] )
     {
         # If there are 2 same quantiles of the nearest to the median in qt,
-        # we use normal distributions through quantiles of the nearest and the farthest
-        # and through the quantiles of the nearest and the mid-distance.
+        # we use normal distributions passing through the nearest and the farthest quantiles
+        # and passing through the nearest and the mid-distance quantiles.
         #
         # This can be the case when 3 quantiles are specified.
         pseudos <- list( ms.norm.xp( qt$x[c( 1, 3 )], qt$p[c( 1, 3 )] ),
@@ -2271,11 +2274,11 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
 #' @return  The data frame for \code{cmp} field.
 #' @examples
 #'  means <- c( 0.2, 0, 0.2 ); sds <- c( 1.2, 0.9, 1.2 )
-#'  ggd.get.t3.cmp( means, sds )                    # 2 components
-#'  ggd.get.t3.cmp( means, sds, grad = "v3" )       # 3 components
+#'  ggd.get.t3.cmp( means, sds )                    ## 2 components
+#'  ggd.get.t3.cmp( means, sds, grad = "v3" )       ## 3 components
 #'
 #'  means <- rep( 0.5, 3 ); sds <- rep( 2.5, 3 )
-#'  ggd.get.t3.cmp( means, sds )                    # 2 components even if normal distribution
+#'  ggd.get.t3.cmp( means, sds )                    ## 2 components even if normal distribution
 ################################################################################################
 ggd.get.t3.cmp <- function( means, sds, grad = c( "default", "v2", "v3" ) )
 {

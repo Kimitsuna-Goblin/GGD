@@ -18,9 +18,11 @@ calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0)
 \item{x}{The upper limit of the integral interval (see formulas in "Details").}
 
 \item{p.sum}{The sum of the probabilities of two normal distributions of
-the components. This argument is for \code{mix.type = 2}.}
+the components at \code{x = q}; the lower or upper limit of the domain
+of the distribution.
+This argument is for \code{mix.type = 2}.}
 
-\item{i}{The number indicating which component to be operated.
+\item{i}{The number indicating which component is operated.
 This argument is for \code{mix.type = 3}.}
 }
 \value{
@@ -46,6 +48,10 @@ Depending on the value of \code{mix.type}, the following calculations are perfor
  \eqn{\Phi_i(x)} is the cumulative distribution function of
  \eqn{\mathcal{N}(\mu_i, \sigma_i^2)}, and \eqn{\bar \Phi(x)} is the mean of
  two cumulative distribution functions \eqn{\Phi_1(x)} and \eqn{\Phi_2(x)}.
+ The value of \eqn{q} at the expression for \code{mix.type = 2} is the lower or upper limit
+ of the domain of the distribution.
+ In this package, since the domain is over \eqn{(-\infty, \infty)},
+ \eqn{q = -\infty} or \eqn{\infty}.
 
  \describe{
      \item{mix.type = 2}{

@@ -7,11 +7,11 @@
 ms.norm.xp(x, p)
 }
 \arguments{
-\item{x}{The x-coordinates of the quantiles. It must be a vector with 2 numerics.}
+\item{x}{The x-coordinates of the quantiles. It must be a vector with 2 elements.}
 
 \item{p}{The probabilities for the quantiles.
 In other word, the values of the cumulative distribution function of
-a normal distribution for \code{x}. It must be also a vector with 2 numerics.}
+a normal distribution for \code{x}. It must be also a vector with 2 elements.}
 }
 \value{
 A list containing components
@@ -22,11 +22,11 @@ A list containing components
 }
 \description{
 Calculates the mean and standard deviation of the normal distribution
-satisfying the given two quantiles.
+which passes through the indicated two quantiles.
 This is the body of \code{ggd.trace.q(kind = "Normal Distribution")}.
 }
 \examples{
- ms.norm.xp( x = c( -1, 1 ), p = pnorm( c( -1, 1 ), 0, 1 ) ) # list( mean = 0, sd = 1 )
- ms.norm.xp( x = c(  0, 1 ), p = pnorm( c(  0, 1 ), 0, 2 ) ) # list( mean = 0, sd = 2 )
- ms.norm.xp( x = c( -2, 1 ), p = c( 0.3, 0.7 ) ) # list( mean = 0.5, sd = 2.86 ) (about)
+ ms.norm.xp( x = c( -1, 1 ), p = pnorm( c( -1, 1 ), 0, 1 ) ) ## list( mean = 0, sd = 1 )
+ ms.norm.xp( x = c(  0, 1 ), p = pnorm( c(  0, 1 ), 0, 2 ) ) ## list( mean = 0, sd = 2 )
+ ms.norm.xp( x = c( -2, 1 ), p = c( 0.3, 0.7 ) ) ## list( mean = -0.5, sd = about 2.86 )
 }

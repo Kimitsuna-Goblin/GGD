@@ -10,20 +10,12 @@ ggd.init.start()
 An all-\code{NULL} list with the length of 16 (= \code{length(ggd:::kinds)}).
 }
 \description{
-Generates a list of 16 (= \code{length(ggd:::kinds)}) \code{NULL} lists.
-}
-\details{
-If you want to indicate some \code{start} lists for \code{\link[ggd]{ggd.nls.freq.all}}
-by yourself, you can give the lists to the elements of the returned list of this function,
-and give it to \code{\link[ggd]{ggd.nls.freq.all}} as \code{start} argument.
-
-You don't have to set all elements of the returned list by yourself,
-since internally calculated default values will be used for \code{start} of
-\code{\link[stats]{nls}} where the elements of the list are \code{NULL}.
-
-The format of each element can be got with \code{\link[ggd]{ggd.start.template}}.
-In addition, \code{\link[ggd]{ggd.kind}} and \code{\link[ggd]{ggd.kind.index}} functions
-may help you to know the kind of distribution which the index number represents.
+Generates a list of 16 \code{NULL} lists.
+If you want to indicate some initial values for \code{\link[ggd]{ggd.nls.freq.all}},
+insert a list of the initial values instead of \code{NULL} at some elements of
+the 16-\code{NULL} list and use it as \code{start} argument.
+For more information about the format of each element and other details,
+see \code{\link[ggd]{ggd.start.template}} and \code{\link[ggd]{ggd.nls.freq.all}}.
 }
 \examples{
  ## Let's approximate this frequency distribution.
@@ -53,5 +45,5 @@ may help you to know the kind of distribution which the index number represents.
  result$cor[14]
 }
 \seealso{
-\code{\link[ggd]{ggd.nls.freq.all}}, \code{\link[ggd]{ggd.start.template}}
+\code{\link[ggd]{ggd.start.template}}, \code{\link[ggd]{ggd.nls.freq.all}}
 }

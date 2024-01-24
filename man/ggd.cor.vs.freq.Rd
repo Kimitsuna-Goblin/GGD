@@ -17,8 +17,9 @@ ggd.cor.vs.freq(objs, x, freq, total = sum(freq), cor.method = NULL)
 \item{total}{Total value of the frequencies.}
 
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
-It represents the correlation coefficient method.
-If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+It is a character string indicating which correlation coefficient
+(or covariance) is to be computed.
+If \code{NULL}, it uses the default \code{method}.
 See \code{\link[stats]{cor}} for more information.}
 }
 \value{

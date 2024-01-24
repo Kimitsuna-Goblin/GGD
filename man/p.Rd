@@ -16,7 +16,8 @@ as it is. If \code{TRUE}, the function in \code{custom.p} field is
 used instead as the cumulative distribution function.}
 }
 \value{
-The probabilities of that x is less than or equal to given x-coordinates.
+A vector of the probabilities of that a value of the random variable is less than
+         or equal to given x-coordinates.
 }
 \description{
 Gets the probabilities of that a value of the random variable is less than or equal to

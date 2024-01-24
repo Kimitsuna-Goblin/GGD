@@ -165,7 +165,8 @@ calc.v <- function( mix.type, means, sds,
 
                 v.half <- ( sds[1]^2 * p[1] + sds[2]^2 * p[2] +
                             ( means[1] - means[2] )^2 * ( p[1] + p[2] ) / 4 -
-                            ( means[1] - means[2] ) * ( sds[1]^2 * d[1] - sds[2]^2 * d[2] ) / 2 ) / 2
+                            ( means[1] - means[2] ) *
+                            ( sds[1]^2 * d[1] - sds[2]^2 * d[2] ) / 2 ) / 2
 
                 if ( get.lv )
                 {
@@ -329,8 +330,10 @@ calc.v <- function( mix.type, means, sds,
 #' @param   sd.i        The standard deviation of the i-th normal distribution of the component.
 #' @param   x           The upper limit of the integral interval (see formulas in "Details").
 #' @param   p.sum       The sum of the probabilities of two normal distributions of
-#'                      the components. This argument is for \code{mix.type = 2}.
-#' @param   i           The number indicating which component to be operated.
+#'                      the components at \code{x = q}; the lower or upper limit of the domain
+#'                      of the distribution.
+#'                      This argument is for \code{mix.type = 2}.
+#' @param   i           The number indicating which component is operated.
 #'                      This argument is for \code{mix.type = 3}.
 #' @details
 #'  Depending on the value of \code{mix.type}, the following calculations are performed without
@@ -347,6 +350,10 @@ calc.v <- function( mix.type, means, sds,
 #'  \eqn{\Phi_i(x)} is the cumulative distribution function of
 #'  \eqn{\mathcal{N}(\mu_i, \sigma_i^2)}, and \eqn{\bar \Phi(x)} is the mean of
 #'  two cumulative distribution functions \eqn{\Phi_1(x)} and \eqn{\Phi_2(x)}.
+#'  The value of \eqn{q} at the expression for \code{mix.type = 2} is the lower or upper limit
+#'  of the domain of the distribution.
+#'  In this package, since the domain is over \eqn{(-\infty, \infty)},
+#'  \eqn{q = -\infty} or \eqn{\infty}.
 #'
 #'  \describe{
 #'      \item{mix.type = 2}{
@@ -450,7 +457,7 @@ calc.v.sub.t4 <- function( means, sds )
 #'
 #' Using \code{\link[stats]{integrate}}, computes the lower or upper half variance
 #' of the distribution model for \code{mix.type = 4}.
-#' Computing the whole variance with \code{\link[stats]{integrate}} is also enabled.
+#' This function can also compute the whole variance using \code{\link[stats]{integrate}}.
 #' @param   means       The mean values of the normal distributions of the components.
 #' @param   sds         The standard deviations of the normal distributions of the components.
 #' @param   mean        The mean of the distribution model.

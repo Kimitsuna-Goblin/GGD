@@ -7,8 +7,7 @@
 v2.crossover(qt, control)
 }
 \arguments{
-\item{qt}{A data frame; the quantiles to be traced,
-If the median is specified, median must be included.}
+\item{qt}{A data frame; the quantiles to be traced.}
 
 \item{control}{The \code{control} option for \code{\link[nleqslv]{nleqslv}}.}
 }
@@ -26,7 +25,7 @@ for a mean-differed 2-component vertical gradational distribution.
 \details{
 \subsection{Crossover-tracing}{
      Let cumulative distribution functions of 2 mean-differed normal distributions
-     crossover at one of quantiles (except for the median),
+     crossover at one of the quantiles (except for the median),
      and seek the mean values and standard deviations as tracing the other 2 quantiles.
  }
 }

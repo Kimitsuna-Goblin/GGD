@@ -142,9 +142,9 @@ apply.cmp.sub <- function( f, values, obj )
 #' Rounds the values of all elements in \code{cmp} field and adjusts other fields
 #' accordingly.
 #' \code{\link[base]{round}} and \code{\link[base]{signif}} functions can apply.
-#' These functions does not change the number of rows in \code{cmp} field,
+#' These functions do not change the number of rows in \code{cmp} field,
 #' no matter what results are obtained.
-#' If an error occurs, these functions do not clear the object, but retains the values of
+#' If an error occurs, these functions do not clear the object, but retain the values of
 #' all fields.
 #' @name    round.cmp
 #' @aliases round.cmp
@@ -165,7 +165,7 @@ apply.cmp.sub <- function( f, values, obj )
 #'                      If the length is \code{0} (including \code{NULL}),
 #'                      standard deviations will not be rounded.
 #'                      See \code{\link[base]{round}} for more information.
-#' @return  The processed \code{\link[ggd]{GGD}} object itself.
+#' @return  The processed \code{\link[ggd]{GGD}} object itself (invisible).
 #' @seealso \code{\link[ggd]{apply.cmp}}, \code{\link[base]{round}}
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( 112.7865, 113.1647 ),

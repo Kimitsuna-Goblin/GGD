@@ -34,5 +34,5 @@ A list of the output of \code{\link[stats]{integrate}}
 \description{
 Using \code{\link[stats]{integrate}}, computes the lower or upper half variance
 of the distribution model for \code{mix.type = 4}.
-Computing the whole variance with \code{\link[stats]{integrate}} is also enabled.
+This function can also compute the whole variance using \code{\link[stats]{integrate}}.
 }

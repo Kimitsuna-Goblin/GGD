@@ -23,7 +23,7 @@ ggd.nls.freq.all(
                  See \code{\link[ggd]{nls.freq}} for more information.
 
                  Column names and indexes for \code{x} and \code{freq} are flexible.
-                 You can specify them with next two arguments.}
+                 You can indicate them with next two arguments.}
 
 \item{x}{The column name or index number for the column of x-coordinates
 in \code{data}.}
@@ -35,13 +35,12 @@ in \code{data}.}
 See \code{\link[ggd]{nls.freq}} for more information.}
 
 \item{start.level}{A numeric value of integer in from \code{0} to \code{3} or \code{100}
-with default \code{100};
-the level at which to guess the initial \code{start} parameters
-of \code{\link[stats]{nls}}.
+with default \code{100}; the level of guessing the initial values
+for \code{start} argument of \code{\link[stats]{nls}}.
 See \code{\link[ggd]{nls.freq}} for more information.}
 
 \item{start}{A \bold{list of lists} with the length of 16
-                 for each of \code{start} arguments for \code{\link[stats]{nls}}
+                 for each of \code{start} arguments of \code{\link[stats]{nls}}
                  as initial values.
                  Each element (a list) will give to \code{start} argument of
                  \code{\link[stats]{nls}} one by one.
@@ -74,11 +73,12 @@ See \code{\link[stats]{nls.control}} for more information.}
                  other than \code{100}.
                  A warning will occur if \code{TRUE} when \code{start.level} is \code{100}.
 
-                 You can use \code{not.use.nls = TRUE} to check the initial values
-                 when an error has occurred at this function.}
+                 You can use \code{not.use.nls = TRUE} to check whether the initial values
+                 are appropriate when obtained an undesirable result from this function.}
 
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
-It represents the correlation coefficient method.
+It is a character string indicating which correlation coefficient
+(or covariance) is to be computed.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
 
@@ -86,12 +86,12 @@ See \code{\link[stats]{cor}} for more information.}
 See "Arguments" of \code{\link[stats]{nls}} for more information.}
 }
 \value{
-A list containing components (invisible for \code{GGD} method)
+A list containing components
          \item{best}{
                  The \code{\link[ggd]{GGD}} object which has got
                  the highest correlation coefficient.
-                 That is, the most approximate to the given frequency distribution
-                 in all of the supported distribution models.
+                 That is, it would be the most approximate to
+                 the given frequency distribution in all of the supported models.
                  If there are some models which have got the same highest correlation
                  coefficient, the object with the earlier \code{kind.index} is
                  given priority.}
@@ -102,19 +102,19 @@ A list containing components (invisible for \code{GGD} method)
 
          \item{obj}{
                  The list of 16 \code{\link[ggd]{GGD}} objects
-                 ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
+                 ordered along with \code{ggd:::kinds}.
                  If an error has occurred, the element will be a cleared object.}
 
          \item{cor}{
-                 The vector of the correlation coefficient of
+                 The vector of the correlation coefficients
                  between the result of each model and the frequency distribution.
                  \code{NA} will be given for an error case or an extremely bad result.}
 
          \item{detail}{
-                 The list of 16 elements of outputs of \code{\link[ggd]{nls.freq}}.
+                 The list of 16 results of \code{\link[ggd]{nls.freq}}.
                  Normally, each element is a list of the output of
-                 \code{\link[ggd]{nls.freq}},
-                 but if an error has occurred, the element will be an error condition.
+                 \code{\link[ggd]{nls.freq}}.
+                 But if an error has occurred, the element will be an error condition.
                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{
@@ -144,8 +144,8 @@ The output lists are ordered by \code{ggd:::kinds} as:
      \item   Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
      \item   Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
 }
-Each index numbers of above list are
-also used for \code{kind.index} field of \code{\link[ggd]{GGD}} class.
+Each index number of above list is
+also set into \code{kind.index} field of each \code{\link[ggd]{GGD}} object.
 
 This function generates 16 \code{\link[ggd]{GGD}} objects and
 calls \code{\link[ggd]{nls.freq}} method 16 times.

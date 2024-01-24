@@ -2,21 +2,21 @@
 % Please edit documentation in R/ggd.tex.R
 \name{get.cmp.tex}
 \alias{get.cmp.tex}
-\title{[Non-exported] TeX format for mean and standard deviation}
+\title{[Non-exported] TeX format for mean values and standard deviations}
 \usage{
 get.cmp.tex(obj, format.num)
 }
 \arguments{
 \item{obj}{A \code{\link[ggd]{GGD}} object.}
 
-\item{format.num}{A function to format each number of value of a parameter;
-mean value and standard deviation. See \code{\link[ggd]{tex}}.}
+\item{format.num}{A function to format each numeric value of mean values and
+standard deviations. See \code{\link[ggd]{tex}}.}
 }
 \value{
-TeX-formatted texts to represent the mean values and standard deviations of
+TeX-formatted texts representing the mean values and standard deviations of
          the normal distributions of the components.
 }
 \description{
-Gets the TeX-formatted texts to represent the mean values and standard deviations of
+Gets the TeX-formatted texts representing the mean values and standard deviations of
 the normal distributions of the components.
 }

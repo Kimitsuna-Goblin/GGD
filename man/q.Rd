@@ -20,12 +20,12 @@ If \code{TRUE}, the function in \code{custom.p} field is
 used instead as the cumulative distribution function.}
 }
 \value{
-The x-coordinates at which the value of the cumulative distribution function
-         will be equal to the given probabilities.
+A vector of the x-coordinates with the cumulative distribution function
+         is equal to the given probabilities in the tolerance level.
 }
 \description{
-Gets the x-coordinates at which the value of the cumulative distribution function will be
-equal to the given probabilities.
+Gets the x-coordinates with the cumulative distribution function is equal to
+the given probabilities (with a tolerance level).
 This function works like \code{\link[stats]{qnorm}} for a normal distribution.
 }
 \examples{

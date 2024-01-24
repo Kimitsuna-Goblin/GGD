@@ -22,13 +22,13 @@
          frac.env = c("array", "aligned", "gathered", "default"))
 }
 \arguments{
-\item{con}{A \code{\link[base]{connection}} object or a character to indicate
-the output destination.
+\item{con}{A \code{\link[base]{connection}} object or a character string
+to indicate the output destination.
 See "Details" at \code{\link[base]{writeLines}}
 for more information.}
 
-\item{sep}{A string to be written to the connection after each line of text.
-See "Details" at \code{\link[base]{writeLines}}
+\item{sep}{A character string to be written to the connection after each line
+of text. See "Details" at \code{\link[base]{writeLines}}
 for more information.}
 
 \item{comma}{A logical. If \code{TRUE}, this method writes "," as a separator
@@ -36,54 +36,40 @@ between each expression and "." at the end of output.
 If \code{FALSE}, "," for the separator of expressions
 and the final "." are not written.}
 
-\item{format.num}{A function to format each number of value of a parameter;
-mean value and standard deviation.
-It should be a function with one argument for the number
+\item{format.num}{A function to format each numeric value of mean values and
+standard deviations.
+It should be a function with one argument for the value
 to be displayed and returning a character string.}
 
-\item{frac.env}{The TeX environment for formatting fractions with different heights
+\item{frac.env}{The TeX environment to format fractions with different heights
 of numerator and denominator.
-If \code{"default"}, such fractions will be formatted as default of TeX
-(usually not so beautiful). Which environment is the most beautiful
-form will depend on the TeX execution environment.}
+If \code{"default"}, such fractions will be formatted
+in the default style of TeX, but their appearance is usually poor.
+The environment which produces the most beautiful form
+will depend on the TeX execution environment.}
 }
 \value{
 An invisible \code{NULL}.
 }
 \description{
-Outputs the TeX-formatted texts of the formulas for the probability density function
+Outputs the TeX-formatted texts of the formulas of the probability density function
 \eqn{g(x)} and the cumulative distribution function \eqn{\Psi(x)}
-with \code{\link[base]{writeLines}}.
+using \code{\link[base]{writeLines}}.
 }
 \details{
 \subsection{Composition of outputs}{
-     \code{tex} outputs the formulas for both probability density function
+     \code{tex} method outputs the formulas of both probability density function
      and cumulative distribution function.
 
-     Where \code{mix.type} field is from \code{0} to \code{3},
-     this function outputs 3 parts divided with one empty line as:
-     \itemize{
-         \item Formulas of the probability density function \eqn{g(x)}
-             and the cumulative distribution function \eqn{\Psi(x)} of the model.
-         \item Formulas of the probability density function \eqn{f_i(x)}
-             and the cumulative distribution function \eqn{\Phi_i(x)} of the components.
-         \item Values of parameters of the mean values \eqn{\mu_i} and
-             the standard deviations \eqn{\sigma_i} of the components.
-     }
+     \code{tex.d} method outputs the formulas of probability density function only.
 
-     Where \code{mix.type = 4}, each of formulas for \eqn{g(x)} and \eqn{\Psi(x)} is
-     subdivided into 2 parts. And then there are 2 subscripts for
-     \eqn{f(x)}, \eqn{\Phi(x)} and parameters like \eqn{f_{i,j}(x)}.
-
-     \code{tex.d} outputs the formulas of probability density function only.
-
-     \code{tex.p} outputs the formulas of cumulative distribution function only.
+     \code{tex.p} method outputs the formulas of cumulative distribution function only.
 
      In these methods, the formulas are output according to \code{mix.type}
      and the number of components in \code{cmp} field, not \code{kind} or \code{kind.index}.
      That is, for example, if the \code{kind} is \code{"Normal Distribution"}
      and \code{mix.type = 2},
-     \code{tex} outputs formulas for a horizontal gradational distribution.
+     \code{tex} outputs formulas of a horizontal gradational distribution.
 
      If \code{cmp} field has no rows, nothing is output.
  }
@@ -91,17 +77,17 @@ with \code{\link[base]{writeLines}}.
  \subsection{Equaled mean values or standard deviations}{
      For clarity, when all mean values or standard deviations of components are equal
      (i.e., when \code{\link[ggd]{is.eq.mean}} or \code{\link[ggd]{is.eq.sd}} method
-     returns \code{TRUE}), they are displayed with "\eqn{=}" to the 1st component parameter,
+     returns \code{TRUE}), they are displayed with "\eqn{=}" to the 1st parameter,
      like as "\eqn{\sigma_2 = \sigma_1}".
 
      If only the values of some parameters are equal (e.g., only \eqn{\sigma_2} and
      \eqn{\sigma_3} are equal and \eqn{\sigma_1} is different),
-     they are not displayed as "\eqn{\sigma_3 = \sigma_2}", but displayed with values
-     to avoid misreading the subscripts.
+     each value is displayed as "\eqn{\sigma_2 = x, \sigma_3 = x}"
+     instead of "\eqn{\sigma_3 = \sigma_2}" to avoid misreading.
 
      Note that if the difference between the values of parameters is smaller than
-     displayable number of decimal places, "\eqn{\sigma_2 = \sigma_1}" may not be displayed,
-     but the same number may be displayed for each.
+     displayable number of decimal places, "\eqn{\sigma_2 = \sigma_1}" will not be displayed,
+     but the same number will be displayed for each.
  }
 }
 \examples{
