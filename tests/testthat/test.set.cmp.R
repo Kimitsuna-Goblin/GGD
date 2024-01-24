@@ -90,14 +90,14 @@ expect_equal( a$cmp$sd, c( 1, 2 ) )
 expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
                            this.kind = "Horizontal",
                            this.mix.type = 3 ),
-                "Indicated kind does not match to the result." )
+                "Indicated kind does not match the result." )
 expect_identical( a$mix.type, 3L )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
 expect_equal( a$cmp$sd, c( 1, 2 ) )
 
 expect_warning( a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 1 ) ),
                               kind = "Mean-Differed Sigma-Differed Horizontal" ),
-                "Indicated kind does not match to the result" )
+                "Indicated kind does not match the result" )
 expect_identical( a$mix.type, 2L )
 expect_equal( a$kind, "Mean-Differed Sigma-Equaled Horizontal Gradational Distribution" )
 expect_equal( a$cmp$mean, c( -0.5, 0.5 ) )
@@ -112,7 +112,7 @@ expect_equal( a$cmp$sd, c( 1, 1 ) )
 
 expect_warning( a <- ggd.set.cmp( data.frame( mean = c( 0.5, 0.5 ), sd = c( 1, 1.5 ) ),
                                   kind = 10 ),
-                "Indicated kind does not match to the result" )
+                "Indicated kind does not match the result" )
 expect_identical( a$mix.type, 3L )
 expect_identical( a$kind.index, 9L )
 expect_identical( a$mix.type, 3L )
@@ -267,7 +267,7 @@ expect_warning(
         a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ), grad = "v2",
                    this.kind = 7,
                    this.mix.type = 4 ),
-        "Indicated kind does not match to the result" )
+        "Indicated kind does not match the result" )
 expect_identical( a$mix.type, 3L )
 expect_equal( nrow( a$cmp ), 2 )
 

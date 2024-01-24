@@ -30,8 +30,8 @@ The class provides the Gradational Gaussian Distribution.
      where \eqn{h_1} and \eqn{h_2} are the mixing ratio functions defined
      using \eqn{\Phi_1} and \eqn{\Phi_2}, the cumulative distribution functions of
      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
-     \deqn{h_1(x) = 1 - \Phi_1(x), \\
-           h_2(x) = \Phi_2(x). \quad \ \ \ }
+     \deqn{h_1(x) = 1 - \Phi_1(x), \ \ \\
+           h_2(x) = \Phi_2(x). \quad \ \ \ \ \ }
 
      Therefore, \eqn{h_1(x)} decreases gradually along x-axis as
      \eqn{x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0},
@@ -52,8 +52,8 @@ The class provides the Gradational Gaussian Distribution.
      where the mixing ratio functions \eqn{v_1} and \eqn{v_2} are defined
      using \eqn{f_1} and \eqn{f_2}, the probability density functions of
      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
-     \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \\
-           v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}, \quad \ \ \ }
+     \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \ \ \\
+           v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}, \quad \ \ \ \ \ }
      where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, respectively.
 
@@ -67,8 +67,8 @@ The class provides the Gradational Gaussian Distribution.
      Or, using \eqn{\mu_1} and \eqn{\mu_2},
      the mean values of \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, we can write as
      \deqn{x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
-           x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1, \\
-           x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
+           x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1,}
+     \deqn{x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
            x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.}
 
      Here, we call \eqn{\mathcal{N}_1} the \bold{tail-side} distribution,
@@ -143,57 +143,50 @@ The class provides the Gradational Gaussian Distribution.
 
      \describe{
          \item{\code{mix.type = 0} (normal distribution)}{\deqn{
-             g(x) = f_1(x) \\
-             \Psi(x) = \Phi_1(x) }}
+             g(x) = f_1(x), \ \ \\
+             \Psi(x) = \Phi_1(x). \ \ }}
 
          \item{\code{mix.type = 1} (mean of 2 normal distributions;
                              a Gaussian mixture model (GMM), not a GGD)}{\deqn{
-             g(x) = \dfrac{f_1(x) + f_2(x)}{2} \ \\
-             \Psi(x) = \dfrac{\Phi_1(x) + \Phi_2(x)}{2} }}
+             g(x) = \dfrac{f_1(x) + f_2(x)}{2}, \ \ \\
+             \Psi(x) = \dfrac{\Phi_1(x) + \Phi_2(x)}{2}. \ }}
 
          \item{\code{mix.type = 2} (horizontal GGD)}{\deqn{
              g(x) = \left( 1 - \Phi_1(x) \right) f_1(x)
-                     + \Phi_2(x) f_2(x) \\
+                     + \Phi_2(x) f_2(x), \ \ \\
              \ \\
              \Psi(x) = \Phi_1(x) - \dfrac{\Phi_1(x)^2}{2} +
-                         \dfrac{\Phi_2(x)^2}{2} \qquad \ \ }}
+                         \dfrac{\Phi_2(x)^2}{2}. \qquad \ \ \ \ }}
 
          \item{\code{mix.type = 3}, \code{grad = "v2"} (2-component vertical GGD)}{\deqn{
              g(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) +
-                    \dfrac{f_2(x)^2}{f_2(\mu_2)} \\
+                    \dfrac{f_2(x)^2}{f_2(\mu_2)}, \ \ \\
              \ \\
              \Psi(x) = \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}} +
-                       \dfrac{\Phi^*_2(x)}{\sqrt{2}} \qquad \; \: }}
+                       \dfrac{\Phi^*_2(x)}{\sqrt{2}}. \qquad \ \ \; \: }}
 
          \item{\code{mix.type = 3}, \code{grad = "v3"} (3-component vertical GGD)}{\deqn{
-             g(x) = g_1(x) + g_2(x) + g_3(x) \hspace{14.5em} \\
-             \ \\
-             g_1(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x)
-                      \quad (x \leq \mu_1; \ \mathrm{otherwise} \ 0) \\
-             \ \\
-             g_2(x) = \dfrac{f_2(x)^2}{f_2(\mu_2)} \hspace{15.6em} \\
-             \ \\
-             g_3(x) = \left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x)
-                      \quad (x \geq \mu_3; \ \mathrm{otherwise} \, 0) \\
-             \ \\
-             \Psi(x) = \min \left( \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}},
+             g(x) = g_1(x) + g_2(x) + g_3(x), \hspace{14.5em} \\ }
+             \deqn{g_1(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x)
+                      \quad (x \leq \mu_1; \ \mathrm{otherwise} \ 0), \\ }
+             \deqn{g_2(x) = \dfrac{f_2(x)^2}{f_2(\mu_2)}, \hspace{15.6em} \\ }
+             \deqn{g_3(x) = \left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x)
+                      \quad (x \geq \mu_3; \ \mathrm{otherwise} \, 0), \\ }
+             \deqn{\Psi(x) = \min \left( \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}},
                                  \ \dfrac{2 - \sqrt{2}}{4} \right) \hspace{10em} \\
                        + \dfrac{\Phi^*_2(x)}{\sqrt{2}}
                        + \max \left( 0, \ \Phi_3(x) - \dfrac{\Phi^*_3(x)}{\sqrt{2}} -
-                                     \dfrac{2 - \sqrt{2}}{4} \right) }}
+                                     \dfrac{2 - \sqrt{2}}{4} \right). }}
 
          \item{\code{mix.type = 4} (horizontal-vertical GGD)}{\deqn{
-             g(x) = \left( 1 - \Psi_1(x)\ \right) g_1(x) + \Psi_2(x) g_2(x)
-                    \hspace{6em} \ \ \\
-             \ \\
-             g_i(x) = \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right)
-                      f_{i,1}(x) + \dfrac{f_{i,2}(x)^2}{f_{i,2}(\mu_{i,2})} \\
-             \ \\
-             \Psi(x) = \Psi_1(x) - \dfrac{\Psi_1(x)^2}{2} +
-                                   \dfrac{\Psi_2(x)^2}{2} \hspace{9em} \\
-             \ \\
-             \Psi_i(x) = \Phi_{i,1}(x) - \dfrac{\Phi^*_{i,1}(x)}{\sqrt{2}} +
-                         \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}} \hspace{3em} \ }}
+             g(x) = \left( 1 - \Psi_1(x)\ \right) g_1(x) + \Psi_2(x) g_2(x),
+                    \hspace{6em} \ \ \\ }
+             \deqn{g_i(x) = \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right)
+                      f_{i,1}(x) + \dfrac{f_{i,2}(x)^2}{f_{i,2}(\mu_{i,2}),} \\ }
+             \deqn{\Psi(x) = \Psi_1(x) - \dfrac{\Psi_1(x)^2}{2} +
+                                   \dfrac{\Psi_2(x)^2}{2}, \hspace{9em} \\ }
+             \deqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{\Phi^*_{i,1}(x)}{\sqrt{2}} +
+                         \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}}. \hspace{3em} \ }}
      }
 
      Where \eqn{f_i} is the probability density function of
@@ -239,7 +232,7 @@ The class provides the Gradational Gaussian Distribution.
                                               \code{cmp} has 4 rows.
                          }
 
-                         With \code{mix.type = 1}, the distribution model is not
+                         The distribution model of \code{mix.type = 1} is not
                          a gradational Gaussian distribution (GGD), but a kind of
                          Gaussian mixture model (GMM).
                          This is provided for comparing GGD with GMM.}
@@ -250,7 +243,7 @@ The class provides the Gradational Gaussian Distribution.
                          \code{mean} column represents the mean values of the components,
                          and \code{sd} column represents the standard deviations.
 
-                         Where \code{mix.type} is in \code{0:3},
+                         Where \code{mix.type} is from \code{0} to \code{3},
                          it has 1 to 3 rows named like "\code{n.i}".
                          Where \code{mix.type = 4},
                          it has 4 rows named like "\code{n.i.j}".}
@@ -261,9 +254,9 @@ The class provides the Gradational Gaussian Distribution.
 
 \item{\code{sd}}{A numeric; the standard deviation of the distribution.}
 
-\item{\code{lsd}}{A numeric; the semi-standard deviation lower than mean.}
+\item{\code{lsd}}{A numeric; the half standard deviation lower than the mean.}
 
-\item{\code{usd}}{A numeric; the semi-standard deviation upper than mean.}
+\item{\code{usd}}{A numeric; the half standard deviation upper than the mean.}
 
 \item{\code{lsd.abs.error}}{A numeric;
 the estimated modulus of the absolute error for \code{lsd}.}
@@ -271,7 +264,7 @@ the estimated modulus of the absolute error for \code{lsd}.}
 \item{\code{usd.abs.error}}{A numeric;
                          the estimated modulus of the absolute error for \code{usd}.
 
-                         Where \code{mix.type = 4}, to compute the semi-standard deviations,
+                         Where \code{mix.type = 4}, to compute the half standard deviations,
                          \code{\link[stats]{integrate}} function is used.
                          And the modulus of the absolute errors which
                          \code{\link[stats]{integrate}} function has reported

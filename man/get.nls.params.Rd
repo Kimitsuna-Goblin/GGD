@@ -17,15 +17,14 @@ and non-duplicated.}
 \item{mix.type}{The value for \code{mix.type} field.}
 
 \item{grad}{A character string indicating the method of gradation.
-                     If \code{"v3"}, constructing with 3 components is enforcedly,
-                     even if it is possible to construct with 2 components.
 
                      In this function, \code{grad} argument have no priority
                      over \code{mix.type} argument.
                      Therefore, \code{grad = "v2"} or \code{"v3"} works only if
                      \code{mix.type = 3} is indicated.
                      And if \code{mix.type = 3} is indicated,
-                     either \code{grad = "v2"} or \code{"v3"} must be indicated.}
+                     either \code{grad = "v2"} or \code{"v3"} must be indicated.
+                     If \code{"v3"}, the number of components will forced to be 3.}
 
 \item{eq.mean}{A logical; the flag whether to make all of the mean values of
 the normal distributions of the components to be equal.}
@@ -34,10 +33,10 @@ the normal distributions of the components to be equal.}
 the normal distributions of the components to be equal.}
 
 \item{start.level}{An integer from \code{0} to \code{3} or \code{NA};
-                     the level at which to guess
-                     the initial \code{start} parameters of \code{\link[stats]{nls}}.
+                     the desired level at which to guess
+                     the initial \code{start} parameters for \code{\link[stats]{nls}}.
 
-         Details for each level are as:
+         Details for the levels are as:
          \itemize{
              \item from \code{0} to \code{3}:
                      Same as \code{start.level} in arguments of \code{\link[ggd]{nls.freq}}.
@@ -45,8 +44,10 @@ the normal distributions of the components to be equal.}
          }}
 }
 \value{
-A list containing \code{formula} and \code{start} for the arguments of
-         \code{\link[stats]{nls}} and adopted \code{start.level} value.
+A list containing \code{formula} and \code{start} for \code{\link[stats]{nls}}
+         and adopted \code{start.level}.
+         The value of \code{start.level} may be different from the argument value
+         if initial guessing has failed at the desired level.
 }
 \description{
 Gets a list of main arguments for \code{\link[stats]{nls}} (except for \code{data}),

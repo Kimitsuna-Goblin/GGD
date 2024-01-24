@@ -11,7 +11,8 @@
 \item{x}{A vector of x-coordinates.}
 }
 \value{
-The probabilities of that x is less than or equal to given x-coordinates.
+A vector of the probabilities of that a value of the random variable is less than
+         or equal to given x-coordinates.
 }
 \description{
 Gets the probabilities of that a value of the random variable is less than or equal to

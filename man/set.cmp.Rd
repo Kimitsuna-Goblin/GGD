@@ -14,7 +14,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
 }
 \arguments{
-\item{cmp}{A data frame for setting into \code{cmp} field.
+\item{cmp}{A data frame for \code{cmp} field.
 
                      It must have just 2 columns named "\code{mean}" and "\code{sd}",
                      and its rows must be less than or equals to 4.
@@ -30,9 +30,9 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      but indicating \code{NULL} or having no columns is not allowed.}
 
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of the distribution model to create.
+                     which indicates the kind of distribution model to be generated.
 
-                     The matching method of this argument follows that of elements of
+                     The matching method of \code{kind} follows that of
                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
                      \code{NA} is allowed when \code{cmp} has no rows.
 
@@ -45,7 +45,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      will be represented with \code{mix.type} value as follows:
                      \itemize{
                          \item \code{0} : Normal distribution. \code{cmp} has only 1 row.
-                         \item \code{1} : Mean of 2 normal distributions (not a GGD).
+                         \item \code{1} : Mean of 2 normal distributions.
                                           \code{cmp} has 2 rows.
                          \item \code{2} : Horizontal gradational distribution.
                                           \code{cmp} has 2 rows.
@@ -62,7 +62,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 
                      You can indicate \code{mix.type = NA} only if \code{cmp} has no rows.
 
-                     If other than \code{"default"} for \code{grad} argument is indicated,
+                     If \code{grad} argument other than \code{"default"} is indicated,
                      this argument will be ignored.}
 
 \item{grad}{A character string indicating the method of gradation.
@@ -84,7 +84,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.}
 
 \item{this.kind}{A string or a numeric value or a \code{\link[ggd]{GGD}} object
-which indicates the kind of the distribution model.
+which indicates the kind of distribution model to be constructed.
 It is equivalent to \code{kind} argument for \code{ggd.set.cmp}.}
 
 \item{this.mix.type}{A numeric value represents how to mix the normal distributions.
@@ -96,37 +96,37 @@ The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
          For \code{GGD} method: If an error occurs, each value of field will not be changed.
 }
 \description{
-Sets the normal distributions of the components to \code{cmp} field.
-All fields of the \code{\link[ggd]{GGD}} object will be set as appropriate according to
-given components and other arguments, respectively.
-You should never set any values into \code{cmp} field directly without using this method.
+Generates a \code{\link[ggd]{GGD}} object according to indicated values of \code{cmp} field
+(\code{ggd.set.cmp}), or sets the values in \code{cmp} field and all of other fields
+accordingly (\code{set.cmp}).
+Whenever you want to set values in \code{cmp} field, it is strongly recommended to use
+this method.
 }
 \details{
 \subsection{About "kind" and "mix.type"}{
-     In this function, \code{[this.]kind} argument is, unlike \code{\link[ggd]{trace.q}}
-     and \code{\link[ggd]{nls.freq}} methods, used only to determine how to mix
-     the normal distributions of the components.
-     That is, \code{[this.]kind} argument is used only to determine the new value of
-     \code{mix.type} field, and has no effect on the unification of the mean values and
-     the standard deviations of the components.
+     In this function,
+     unlike \code{\link[ggd]{trace.q}} and \code{\link[ggd]{nls.freq}} methods,
+     \code{[this.]kind} argument is only used to determine \code{mix.type} value,
+     which shows how to mix the normal distributions of the components.
+     That is, \code{[this.]kind} argument has no effect to align the mean values or
+     standard deviations of the components to be equal.
 
-     So, the new value of \code{kind} field of the object may not be matched with
-     the indicated value of \code{[this.]kind} argument.
+     So, the character string indicated as \code{[this.]kind} argument may not match
+     the new value of \code{[this.]kind} field.
      For example, if you indicate \code{[this.]kind = "Mean-Eq.*Horizontal"} and
      \code{[this.]cmp = data.frame(mean = c(0, 1), sd = c(0.8, 1.2))},
      the new \code{kind} field will be
      \code{"Mean-Differed Sigma-Differed Horizontal Gradational Distribution"},
-     which is not matched with \code{"Mean-Eq.*Horizontal"}.
+     which is not matched with indicated regular expression.
+     In such a case, a warning will occur.
 
-     In such a case, i.e. if indicated \code{[this.]kind} does not match
-     to the new value of \code{kind} field, a warning will occur.
-     But when a \code{\link[ggd]{GGD}} object is indicated for \code{[this.]kind},
-     no warning will occur if the unification of the mean values and standard deviations of
-     the components are different between the indicated object and the result.
-     Indicated object is regarded as just for specifying new \code{mix.type}.
+     On the other hand, when a \code{\link[ggd]{GGD}} object is
+     indicated as \code{[this.]kind}, no warning will occur if the new \code{kind} field
+     is different from that of the indicated object.
+     Indicated object is regarded as just for specifying \code{mix.type} value.
 
-     It is not recommended but if you indicate both of
-     \code{[this.]kind} and \code{[this.]mix.type} at once with not-\code{NULL} values,
+     It is not recommended but if you indicate not-\code{NULL} values for both of
+     \code{[this.]kind} and \code{[this.]mix.type} at once,
      \code{[this.]kind} will be ignored.
 
      If both \code{[this.]kind} and \code{[this.]mix.type} arguments are \code{NULL}

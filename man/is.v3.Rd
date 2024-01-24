@@ -38,10 +38,7 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$is.v3()                   ## TRUE
  a$is.v3( strict = TRUE )    ## FALSE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.21, 1.98 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v3" )
- a$kind; a$cmp
+ a$set.cmp( data.frame( mean = c( 0, 0, 0 ), sd = c( 1.1, 0.9, 1.2 ) ), grad = "v3" )
  a$is.v3()                   ## TRUE
  a$is.v3( strict = TRUE )    ## TRUE
 

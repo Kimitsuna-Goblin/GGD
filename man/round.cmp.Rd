@@ -27,15 +27,15 @@ standard deviations will not be rounded.
 See \code{\link[base]{round}} for more information.}
 }
 \value{
-The processed \code{\link[ggd]{GGD}} object itself.
+The processed \code{\link[ggd]{GGD}} object itself (invisible).
 }
 \description{
 Rounds the values of all elements in \code{cmp} field and adjusts other fields
 accordingly.
 \code{\link[base]{round}} and \code{\link[base]{signif}} functions can apply.
-These functions does not change the number of rows in \code{cmp} field,
+These functions do not change the number of rows in \code{cmp} field,
 no matter what results are obtained.
-If an error occurs, these functions do not clear the object, but retains the values of
+If an error occurs, these functions do not clear the object, but retain the values of
 all fields.
 }
 \examples{

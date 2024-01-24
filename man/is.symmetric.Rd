@@ -19,19 +19,19 @@ checks if the probability density function is symmetric about the mean.
 This function judges that the distribution model is symmetric if either:
 \enumerate{
      \item   a normal distribution.
-     \item   a mean of 2 normal distributions or a horizontal gradational distribution,
-             where the standard deviations of the two normal distributions of the components
-             are equal to each other.
+     \item   a mean of 2 normal distributions or a horizontal gradational distribution
+             which has the same standard deviations for the two normal distributions
+             of the components.
      \item   a mean of 2 normal distributions or a vertical gradational distribution
-             of 2 normal distributions, where the mean values of the two normal distributions
-             of the components are equal to each other.
-     \item   a vertical gradational distribution of 3 normal distributions,
-             where the mean of the mean values of the 2 tail-side components is equal to
-             the mean value of the top-side component, and the standard deviations of
-             the both tail-side components are equal to each other.
-     \item   a horizontal-vertical gradational distribution,
-             where the two vertical gradational distributions of the components are
-             symmetric about the mean of the distribution.
+             of 2 normal distributions which has the same mean values for
+             the two normal distributions of the components.
+     \item   a vertical gradational distribution of 3 normal distributions
+             which has the mean value for the top-side component
+             as the mean of the mean values of the 2 tail-side components,
+             and has the same standard deviations for the both tail-side components.
+     \item   a horizontal-vertical gradational distribution which has
+             two vertical gradational distributions in the components
+             which are symmetrical to each other about the mean of the distribution.
 }
 }
 \examples{

@@ -29,8 +29,7 @@ It must contain 2 numeric columns named \code{x} and \code{freq}.}
 the \code{\link[ggd]{GGD}} object as an integer.
 It is an integer from \code{0} to \code{4} or \code{NULL}.}
 
-\item{grad}{A character string indicating the method of gradation.
-See \code{\link[ggd]{nls.freq}} for more information.}
+\item{grad}{A character string indicating the method of gradation.}
 
 \item{eq.mean}{A logical. If \code{TRUE}, all of the mean values of of the components
 are forced to be equal.}
@@ -50,7 +49,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
 A list conforming the return value of \code{\link[ggd]{nls.freq}}.
 }
 \description{
-Execute a loop of \code{\link[stats]{nls}} with changing the level of initial guessing.
+Executes a loop of \code{\link[stats]{nls}} with changing initial guessing levels.
 This is the main process of \code{\link[ggd]{nls.freq}} with \code{start.level = 100}.
 }
 \seealso{

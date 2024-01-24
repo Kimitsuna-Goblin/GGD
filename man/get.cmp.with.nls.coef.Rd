@@ -13,15 +13,15 @@ with the result of \code{\link[stats]{nls}}.}
 \item{mix.type}{The value for \code{mix.type} field.}
 
 \item{grad}{A character string indicating the method of gradation.
-                     If \code{"v3"}, constructing with 3 components is enforcedly,
-                     even if it is possible to construct with 2 components.
 
                      In this function, \code{grad} argument has no priority over
                      \code{mix.type} argument.
                      Therefore, \code{grad = "v2"} or \code{"v3"} works
                      only if \code{mix.type = 3} is indicated.
                      And if \code{mix.type = 3} is indicated,
-                     either \code{grad = "v2"} or \code{"v3"} must be indicated.}
+                     either \code{grad = "v2"} or \code{"v3"} must be indicated.
+                     If \code{"v3"}, the number of components will forced to be 3,
+                     even if the values in \code{coefs} represent a 2-component model.}
 
 \item{eq.mean}{A logical; the flag whether to make all of the mean values of
 the normal distributions of the components to be equal.}

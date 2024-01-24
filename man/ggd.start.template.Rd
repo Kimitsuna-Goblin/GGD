@@ -4,44 +4,48 @@
 \alias{ggd.start.template}
 \title{Template for start of nls}
 \usage{
-ggd.start.template(target)
+ggd.start.template(kind)
 }
 \arguments{
-\item{target}{A variable that identifies the kind of distribution to which
-the template applies. The length should be 1.
-The type of the variable is valid for \code{\link[ggd]{GGD}} object,
-the string of an element of \code{ggd:::kinds}, or its index number.}
+\item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+                 which indicates the kind of distribution model for which the template will
+                 be output. The length should be 1.
+
+                 The matching method of \code{kind} follows that of
+                 \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
+                 If it matches to two or more distribution models,
+                 this function returns only one template for the first matched model.}
 }
 \value{
 A list containing components any of
          \item{mean}{
-                 The start value for mean values common to all normal distributions
+                 The start value for the mean value common to all normal distributions
                  of the components. 0 is preset.}
          \item{mean.i}{
                  The start value for the mean value of i-th normal distribution.
                  0 is preset.}
          \item{mean.i.j}{
-                 The start value for mean value of i,j-th normal distribution
+                 The start value for the mean value of i,j-th normal distribution
                  in the 2x2 components. 0 is preset.}
          \item{sqrt.sd}{
-                 The sqrt of the start value for standard deviations common to
+                 The start value for the square root of the standard deviation common to
                  all normal distributions of the components. 1 is preset.}
          \item{sqrt.sd.i}{
-                 The sqrt of the start values for the standard deviation of
+                 The start value for the square root of the standard deviation of
                  i-th normal distribution. 1 is preset.}
          \item{sqrt.sd.i.j}{
-                 The sqrt of the start values for the standard deviation of
+                 The start value for the square root of the standard deviation of
                  i,j-th normal distribution in the 2x2 components. 1 is preset.}
 
-         If \code{target} represents unsupported distribution kind, \code{NULL} is returned.
+         If \code{kind} represents an unsupported distribution model,
+         \code{NULL} will be returned.
 }
 \description{
-Gets the template for start list for \code{\link[stats]{nls}}
-when you want to provide your own \code{start} parameters for \code{\link[ggd]{nls.freq}}
-or \code{\link[ggd]{ggd.nls.freq.all}}.
-This function can output only one template list at once.
-So if you want to get several templates for different distribution kinds,
-call this function one by one for each distribution kind.
+Gets a template list for \code{start} argument of \code{\link[ggd]{nls.freq}}
+or for an element of \code{start} argument of \code{\link[ggd]{ggd.nls.freq.all}}.
+This function can output only one template at a time.
+So if you want to obtain two or more templates,
+you should call this function one by one for each one.
 }
 \examples{
  ## preparing

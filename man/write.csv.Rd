@@ -13,8 +13,8 @@ ggd.write.csv(obj, file = "")
 \arguments{
 \item{obj}{The \code{\link[ggd]{GGD}} object to be saved.}
 
-\item{file}{The name of the file or a \link[base]{connection} for writing
-the composition of the object. \code{""} indicates output to the console.}
+\item{file}{The name of the file or a \link[base]{connection} open for writing.
+\code{""} indicates output to the console.}
 }
 \value{
 An invisible NULL.
@@ -22,7 +22,7 @@ An invisible NULL.
 \description{
 Writes the composition of a \code{\link[ggd]{GGD}} object as a CSV file.
 This function provides a simple way to export a \code{\link[ggd]{GGD}} object,
-regardless of the package or R version. See "Details" for more information.
+regardless of the package version or R version.
 }
 \details{
 \subsection{Accuracy of saved data}{
