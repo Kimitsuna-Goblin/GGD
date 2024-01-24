@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.mean.sd.R
 \name{calc.v.t4.via.integrate}
 \alias{calc.v.t4.via.integrate}
-\title{[Non-exported] Half variance computation for mix.type = 4}
+\title{[Non-exported] Half variance computation where mix.type = 4}
 \usage{
 calc.v.t4.via.integrate(
   means,
@@ -33,6 +33,6 @@ A list of the output of \code{\link[stats]{integrate}}
 }
 \description{
 Using \code{\link[stats]{integrate}}, computes the lower or upper half variance
-of the distribution model for \code{mix.type = 4}.
+of the distribution model where \code{mix.type = 4}.
 This function can also compute the whole variance using \code{\link[stats]{integrate}}.
 }
