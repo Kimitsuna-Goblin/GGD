@@ -19,8 +19,13 @@ of the components.}
 The mean value of the distribution model.
 }
 \description{
-Calculates the mean value of the distribution model
-indicated by a \code{\link[ggd]{GGD}} object.
-This function does not use \code{\link[stats]{integrate}}, but \code{\link[stats]{pnorm}},
-\code{\link[base]{sqrt}} and four arithmetic operations as needed.
+Calculates the mean value of the distribution model.
+}
+\details{
+This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+However, since \code{\link[base]{sqrt}(pi)} is used where \code{mix.type} is \code{2}
+or greater, and \code{\link[stats]{pnorm}} is also used where \code{mix_type = 4},
+it is expected that there will be calculation errors due to their implementation,
+in addition to digit losses during arithmetic operations.
 }

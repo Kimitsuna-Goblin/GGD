@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.mean.sd.R
 \name{calc.v.sub.t4}
 \alias{calc.v.sub.t4}
-\title{[Non-exported] A sub-function for variance calculation for mix.type = 4}
+\title{[Non-exported] Sub-function for variance calculation where mix.type = 4}
 \usage{
 calc.v.sub.t4(means, sds)
 }
@@ -17,13 +17,19 @@ calc.v.sub.t4(means, sds)
 The value of \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx}.
 }
 \description{
-A sub-function for calculating the variance of a GGD model where \code{mix.type = 4}.
+A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type = 4}.
 This function calculates \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx},
 where
 \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
                                  \dfrac{1}{\sqrt{2}} \Phi_{i,2}^*(x)},
 \eqn{g_i(x) = ( 1 - f_{i,1}(x) / f_{i,1}(\mu_{i,1}) ) f_{i,1}(x) +
               f_{i,2}(x)^2 / f_{i,2}(\mu_{i,2})}
-with fixing \eqn{i}. This function does not use \code{\link[stats]{integrate}},
-but \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations.
+\eqn{( i = 1, 2 )}.
+}
+\details{
+This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+\code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
+due to their implementation, in addition to digit losses during arithmetic operations.
 }

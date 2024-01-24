@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.mean.sd.R
 \name{calc.v.sub}
 \alias{calc.v.sub}
-\title{[Non-exported] Sub-functions for variance calculation for mix.type = 2, 3}
+\title{[Non-exported] Sub-function for variance calculation where mix.type = 2, 3}
 \usage{
 calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0)
 }
@@ -29,9 +29,8 @@ This argument is for \code{mix.type = 3}.}
 Calculated value of the expression shown in "Details".
 }
 \description{
-A sub-function for calculating the variance of a GGD model.
+A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type} is \code{2} or \code{3}.
 The meaning of this function is depend on \code{mix.type} (see "Details").
-This function dose not use \code{\link[stats]{integrate}}.
 }
 \details{
 Depending on the value of \code{mix.type}, the following calculations are performed without
@@ -68,4 +67,10 @@ Depending on the value of \code{mix.type}, the following calculations are perfor
                \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt
                \qquad \ \ }}
  }
+
+ This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+ processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+ However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+ \code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
+ due to their implementation, in addition to digit losses during arithmetic operations.
 }

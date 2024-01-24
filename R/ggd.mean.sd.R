@@ -12,10 +12,14 @@
 ################################################################################################
 #' [Non-exported] Mean calculation
 #'
-#' Calculates the mean value of the distribution model
-#' indicated by a \code{\link[ggd]{GGD}} object.
-#' This function does not use \code{\link[stats]{integrate}}, but \code{\link[stats]{pnorm}},
-#' \code{\link[base]{sqrt}} and four arithmetic operations as needed.
+#' Calculates the mean value of the distribution model.
+#'
+#' This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+#' processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+#' However, since \code{\link[base]{sqrt}(pi)} is used where \code{mix.type} is \code{2}
+#' or greater, and \code{\link[stats]{pnorm}} is also used where \code{mix_type = 4},
+#' it is expected that there will be calculation errors due to their implementation,
+#' in addition to digit losses during arithmetic operations.
 #' @param   mix.type    The value of \code{mix.type}. It allows from \code{1} to \code{4}.
 #' @param   means       The vector of the mean values of the normal distributions
 #'                      of the components.
@@ -60,9 +64,9 @@ calc.mean <- function( mix.type, means, sds )
 }
 
 ################################################################################################
-#' [Non-exported] Sub-function of the mean calculation for mix.type = 4
+#' [Non-exported] Sub-function for mean calculation where mix.type = 4
 #'
-#' A sub-function which is used for calculating the mean value where \code{mix.type = 4}.
+#' A sub-function of \code{\link[ggd]{calc.mean}} where \code{mix.type = 4}.
 #' It calculates \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx},
 #' where
 #' \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
@@ -70,8 +74,12 @@ calc.mean <- function( mix.type, means, sds )
 #' \eqn{g_i(x) = ( 1 - f_{i,1}(x) / f_{i,1}(\mu_{i,1}) ) f_{i,1}(x) +
 #'               f_{i,2}(x)^2 / f_{i,2}(\mu_{i,2})}
 #' \eqn{( i = 1, 2 )}.
-#' This function does not use \code{\link[stats]{integrate}},
-#' but \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations.
+#'
+#' This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+#' processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+#' However, since \code{\link[stats]{pnorm}} and \code{\link[base]{sqrt}(pi)} are used,
+#' it is expected that there will be calculation errors due to their implementation,
+#' in addition to digit losses during arithmetic operations.
 #' @param   means   The mean values of two normal distributions
 #'                  \eqn{\mathcal{N}_{i,1}, \mathcal{N}_{i,2}}.
 #' @param   sds     The standard deviations of two normal distributions
@@ -97,11 +105,14 @@ calc.mean.t4.sub <- function( means, sds )
 ################################################################################################
 #' [Non-exported] Variance calculation
 #'
-#' Calculates the whole or half variance of the distribution model
-#' indicated by a \code{\link[ggd]{GGD}} object.
-#' This function does not use \code{\link[stats]{integrate}},
-#' but \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}}
-#' and four arithmetic operations.
+#' Calculates the whole or half variance of the distribution model.
+#'
+#' This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+#' processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+#' However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+#' \code{\link[base]{sqrt}(pi)} are used where \code{mix.type} is \code{2} or greater,
+#' it is expected that there will be calculation errors due to their implementation,
+#' in addition to digit losses during arithmetic operations.
 #'
 #' For \code{mix.type = 4}, the half variance option of
 #' \code{get.lv = TRUE} or \code{get.uv = TRUE} does not work. The reason is how to calculate
@@ -112,7 +123,7 @@ calc.mean.t4.sub <- function( means, sds )
 #' @param   sds         The standard deviations of the normal distributions of the components.
 #' @param   mean        The mean of the distribution model.
 #' @param   symmetric   If \code{TRUE}, the distribution model is treated as symmetric.
-#'                      This option may help reduce calculation errors.
+#'                      This option may help to reduce calculation errors.
 #' @param   get.lv      If \code{TRUE}, this function calculates the lower half variance.
 #' @param   get.uv      If \code{TRUE}, this function calculates the upper half variance.
 #'
@@ -319,11 +330,10 @@ calc.v <- function( mix.type, means, sds,
 }
 
 ################################################################################################
-#' [Non-exported] Sub-functions for variance calculation for mix.type = 2, 3
+#' [Non-exported] Sub-function for variance calculation where mix.type = 2, 3
 #'
-#' A sub-function for calculating the variance of a GGD model.
+#' A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type} is \code{2} or \code{3}.
 #' The meaning of this function is depend on \code{mix.type} (see "Details").
-#' This function dose not use \code{\link[stats]{integrate}}.
 #' @param   mix.type    The value of \code{mix.type}. It allows \code{2} or \code{3}.
 #' @param   mean        The mean of the distribution model.
 #' @param   mean.i      The mean value of the i-th normal distribution of the component.
@@ -370,6 +380,13 @@ calc.v <- function( mix.type, means, sds,
 #'                \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt
 #'                \qquad \ \ }}
 #'  }
+#'
+#'  This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+#'  processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+#'  However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+#'  \code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
+#'  due to their implementation, in addition to digit losses during arithmetic operations.
+#'
 #' @return  Calculated value of the expression shown in "Details".
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
@@ -415,17 +432,23 @@ calc.v.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0 )
 }
 
 ################################################################################################
-#' [Non-exported] A sub-function for variance calculation for mix.type = 4
+#' [Non-exported] Sub-function for variance calculation where mix.type = 4
 #'
-#' A sub-function for calculating the variance of a GGD model where \code{mix.type = 4}.
+#' A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type = 4}.
 #' This function calculates \eqn{\int_{-\infty}^{\infty} x^2 \Psi_i(x) g_i(x) dx},
 #' where
 #' \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
 #'                                  \dfrac{1}{\sqrt{2}} \Phi_{i,2}^*(x)},
 #' \eqn{g_i(x) = ( 1 - f_{i,1}(x) / f_{i,1}(\mu_{i,1}) ) f_{i,1}(x) +
 #'               f_{i,2}(x)^2 / f_{i,2}(\mu_{i,2})}
-#' with fixing \eqn{i}. This function does not use \code{\link[stats]{integrate}},
-#' but \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations.
+#' \eqn{( i = 1, 2 )}.
+#'
+#'
+#' This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+#' processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+#' However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+#' \code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
+#' due to their implementation, in addition to digit losses during arithmetic operations.
 #' @param   means   The mean values of the normal distributions
 #'                  \eqn{\mathcal{N}_{i,1}} and \eqn{\mathcal{N}_{i,2}}.
 #' @param   sds     The standard deviations of the normal distributions
@@ -453,10 +476,10 @@ calc.v.sub.t4 <- function( means, sds )
 }
 
 ################################################################################################
-#' [Non-exported] Half variance computation for mix.type = 4
+#' [Non-exported] Half variance computation where mix.type = 4
 #'
 #' Using \code{\link[stats]{integrate}}, computes the lower or upper half variance
-#' of the distribution model for \code{mix.type = 4}.
+#' of the distribution model where \code{mix.type = 4}.
 #' This function can also compute the whole variance using \code{\link[stats]{integrate}}.
 #' @param   means       The mean values of the normal distributions of the components.
 #' @param   sds         The standard deviations of the normal distributions of the components.
