@@ -216,8 +216,9 @@ will be got as an element of \code{obj} (see "Value").
  plot.freq.and.d( result$obj[[14]], df$x, df$freq )
 
  ## Now, for the initial values, we are going to use the result of
- ## kind = "2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution".
+ ## "2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution".
  ggd.kind.index( "2-Mean-Differed Sigma-Equaled Vertical" )  ## 8
+ result$cor[[8]]
  result$obj[[8]]$cmp
 
  ## Display the parameters for the initial values for kind = 14.
@@ -234,7 +235,6 @@ will be got as an element of \code{obj} (see "Value").
 
  ## Retry ggd.nls.freq.all.
  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
- result$cor
  result$cor[[14]]
  result$obj[[14]]$cmp
  plot.freq.and.d( result$obj[[14]], df$x, df$freq )
