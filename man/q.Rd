@@ -17,7 +17,7 @@
 If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
 is used as it is to obtain probabilities.
 If \code{TRUE}, the function in \code{custom.p} field is
-used instead as the cumulative distribution function.}
+used instead.}
 }
 \value{
 A vector of the x-coordinates with the cumulative distribution function

@@ -14,8 +14,11 @@
 #'
 #' With the non-linear least squares (\code{\link[stats]{nls}}),
 #' constructs a \code{\link[ggd]{GGD}} object which (locally) most closely approximates
-#' the given frequency distribution. "Locally" means that if the start value is modified,
-#' more closely approximating model may be generated.
+#' the given frequency distribution.
+#' Then \code{ggd.nls.freq} function generates a \code{\link[ggd]{GGD}} object,
+#' and \code{nls.freq} method sets the fields according to the result.
+#' "Locally" means that if the start value is modified, more closely approximating model
+#' may be constructed.
 #' The outliers of the frequency distribution will not be excluded in this function.
 #' If necessary, outliers should be excluded by preprocessing.
 #' @export
@@ -42,13 +45,13 @@
 #'                      It must contain at least 2 numeric columns for \code{x} and \code{freq}.
 #'
 #'                      Column \bold{\code{x}} is for the x-coordinates.
-#'                      Each value expected to be a numeric value which represents the cell of
-#'                      the frequency distribution, the x-coordinate at the center of a cell
-#'                      of the frequency distribution.
+#'                      Each value is expected to be a numeric value which represents a cell of
+#'                      the frequency distribution
+#'                      as the x-coordinate at the center of the cell.
 #'                      The values must be arranged in ascending order, and not be duplicated.
 #'
 #'                      Column \bold{\code{freq}} is for the frequencies following \code{x}.
-#'                      The values of frequencies must be positive.
+#'                      The values of frequencies should not be negative.
 #'                      Both integers and real numbers are allowed for the values.
 #'
 #'                      Rows which contain \code{NA} or \code{NaN} for \code{x} or \code{freq}
@@ -57,7 +60,7 @@
 #'                      At least, 3 valid rows must be contained.
 #'
 #'                      Column names and column numbers for \code{x} and \code{freq}
-#'                      are flexible. You can specify them with next two arguments.
+#'                      are flexible. You can indicate them with next two arguments.
 #'
 #' @param   x           The column name or column number for x-coordinates in \code{data}.
 #'
@@ -71,21 +74,18 @@
 #'                      is used for it.
 #'
 #' @param   kind        A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model for approximating
-#'                      the frequency distribution.
-#'
-#'                      The matching method of this argument follows that of elements of
+#'                      which indicates the kind of distribution model to be generated.
+#'                      The matching method of \code{kind} follows that of
 #'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      This argument gives the conditions of
 #'                      the value of \code{mix.type} field,
-#'                      and of whether the mean values and standard deviations of the components
-#'                      should be aligned to the same value.
+#'                      and of whether the mean values or standard deviations of the components
+#'                      should be aligned to the same value or not.
 #'
-#'                      Indicating \code{mix.type} argument or
-#'                      indicating other than \code{"default"} for \code{grad} argument
-#'                      or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
-#'                      can overwrite the conditions of this argument.
+#'                      Indicating \code{mix.type} or \code{grad} other than \code{"default"},
+#'                      or \code{eq.mean} and \code{eq.sd} other than \code{logical(0)}
+#'                      can overwrite the condition of this argument.
 #'
 #' @param   mix.type    A numeric value to set into \code{mix.type} field of
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
@@ -127,21 +127,25 @@
 #'
 #'                      See \code{\link[ggd]{set.cmp}} for more information.
 #'
-#' @param   ncmp        Number of components for the custom distribution.
+#' @param   ncmp        Number of components in \code{cmp} field.
 #'
-#'                      A positive integer should be indicated if approximating with
-#'                      a custom distribution via \code{ggd.nls.freq}.
+#'                      This argument works only when using a custom distribution.
+#'                      For other than custom distribution, the number of components is
+#'                      determined according to the distribution model.
 #'
-#'                      In the case of \code{nls.freq} method, the number of rows
-#'                      in \code{cmp} field is given by default,
-#'                      but if another value is indicated as the argument, it takes priority.
+#'                      For \code{ggd.nls.freq} function,
+#'                      a positive integer must be indicated when using a custom distribution.
+#'
+#'                      For \code{nls.freq} method,
+#'                      The number of rows in \code{cmp} field is used by default.
+#'                      If another value is indicated, the value will be used instead.
 #'
 #' @param   eq.mean     A logical. If \code{TRUE}, all of the mean values of of the components
 #'                      are forced to be equal.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
-#'                      the mean values of the components can be different to each other,
-#'                      and may be equal in very rare cases.
+#'                      the mean values are not bound,
+#'                      and mean-equaled components will be rarely constructed.
 #'
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
 #'                      \code{kind} or \code{this.kind} argument.
@@ -150,55 +154,54 @@
 #'                      the components are forced to be equal.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
-#'                      the standard deviation of the components can be different to
-#'                      each other, and may be equal in very rare cases.
+#'                      the standard deviations are not bound,
+#'                      and sigma-equaled components will be rarely constructed.
 #'
 #'                      If both \code{eq.mean} and \code{eq.sd} are \code{TRUE},
-#'                      a normal distribution will be generated.
+#'                      a normal distribution will be constructed.
 #'
 #'                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
 #'                      \code{kind} or \code{this.kind} argument.
 #'
 #' @param   start.level A numeric value of integer in from \code{0} to \code{3} or \code{100}
-#'                      with default \code{100}; the level at which to guess the initial
-#'                      \code{start} parameters of \code{\link[stats]{nls}}.
+#'                      with default \code{100}; the level of guessing the initial values
+#'                      for \code{start} argument of \code{\link[stats]{nls}}.
 #'
-#'          Details for each level are as:
+#'          Details for the levels are as:
 #'          \itemize{
 #'              \item \code{0}:
 #'                       The mean and the standard deviation of the frequency distribution
-#'                       are used as initial values.
+#'                       are used as the initial values.
 #'              \item \code{1}:
-#'                       In addition to level \code{0}, if it is likely to be better guess,
-#'                       it computes the mean values or standard deviations in ranges of
-#'                       local x-coordinates where the effect of each of components is likely
-#'                       to be heavy, and uses them as initial values.
+#'                       In addition to level \code{0}, it computes the local mean values
+#'                       and local standard deviations of the frequency distribution
+#'                       in ranges of x-coordinates where the effect of each of components is
+#'                       likely to be heavy, and uses them for guessing the initial values
+#'                       if they are likely to be better guesses.
 #'              \item \code{2}:
-#'                       In addition to level \code{0}, if it is likely to be better guess,
-#'                       it uses the mean values or standard deviations of normal distributions
-#'                       tracing two of quantiles which are generated with
-#'                       the frequency distribution as initial values.
+#'                       In addition to level \code{0}, at first it computes some quantiles
+#'                       from the frequency distribution, then it finds normal distributions
+#'                       tracing two of the quantiles, and uses the mean values and
+#'                       standard deviations of them for guessing the initial values
+#'                       if they are likely to be better guesses.
 #'              \item \code{3}:
-#'                       It uses the mean values and standard deviations of the components
-#'                       of a \code{\link[ggd]{GGD}} object tracing some (2, 3 or 5) quantiles
-#'                       which are generated with the frequency distribution as initial values.
-#'                       If tracing fails, level \code{2} is used instead.
-#'
-#'                       Tracing will always fail for \code{"Custom Distribution"},
-#'                       because \code{\link[ggd]{trace.q}} has not supported it yet.
+#'                       It generates a \code{\link[ggd]{GGD}} object tracing
+#'                       some (2, 3 or 5) quantiles computed from the frequency distribution,
+#'                       and uses the mean values and standard deviations of the components
+#'                       of the object as the initial values.
+#'                       If the generating fails, level \code{2} is used instead.
 #'              \item \code{100}:
-#'                       Try all of above levels and adopt the result with the highest
+#'                       Try all of above levels and adopt the result of the highest
 #'                       \code{\link[stats]{cor}} value.
 #'          }
 #'
-#'          The higher the level in the range of from \code{0} to \code{3},
-#'          the more likely it is that the initial values will model
-#'          the frequency distribution in closer,
-#'          but the accuracy of the result may not along with the level.
+#'          As the level increases within the range of \code{0} to \code{3},
+#'          the initial model will tend to be closer to the frequency distribution.
+#'          However, the accuracy of the result may not along with the level.
 #'          It is possible that \code{\link[stats]{nls}} will succeed at level \code{1}
 #'          and fail at level \code{3} for the same data.
 #'
-#' @param   start       A list of \code{start} argument for \code{\link[stats]{nls}}.
+#' @param   start       A list for \code{start} argument of \code{\link[stats]{nls}}.
 #'
 #'                      You can provide your own \code{start} for \code{\link[stats]{nls}},
 #'                      the mean values
@@ -228,27 +231,30 @@
 #'                      other than \code{100}. A warning will occur if \code{TRUE}
 #'                      when \code{start.level} is \code{100}.
 #'
-#'                      You can use \code{not.use.nls = TRUE} to check the initial values
-#'                      when an error has occurred at this function.
+#'                      You can use \code{not.use.nls = TRUE} to check
+#'                      whether the initial values are appropriate
+#'                      when you have obtained an undesirable result from this function.
 #'
 #' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
-#'                      It represents the correlation coefficient method.
-#'                      This argument is used only if \code{start.level = 100}.
+#'                      It is a character string indicating which correlation coefficient
+#'                      (or covariance) is to be computed in order to compare the results
+#'                      between levels when \code{start.level = 100}.
 #'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+#'                      This argument works only if \code{start.level = 100}.
 #'                      See \code{\link[stats]{cor}} for more information.
 #'
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                      See "Arguments" of \code{\link[stats]{nls}} for more information.
 #'
 #' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-#'                      which indicates the kind of distribution model.
+#'                      which indicates the kind of distribution model to be constructed.
 #'                      It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
 #'
 #'                      When this method is called without \code{this.kind} argument
 #'                      or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible, but not the value of
-#'                      \code{kind} field, i.e., the condition whether the mean value or
-#'                      standard deviation of each component is aligned may not be retained.
+#'                      \code{mix.type} field as much as possible except for \code{kind} field,
+#'                      i.e., the condition whether the mean value and standard deviation of
+#'                      each component are aligned to same values or not may not be retained.
 #'                      If you want to retain these conditions as well,
 #'                      indicate the object itself to \code{this.kind} argument like as
 #'                      \code{obj$nls.freq(data, this.kind = obj)}.
@@ -261,8 +267,8 @@
 #'                      and \code{grad} argument is \code{"default"},
 #'                      the current value of \code{mix.type} field will be retained,
 #'                      and number of components will also.
-#'                      But furthermore, the object has been cleared,
-#'                      \code{mix.type} field will be set to \code{2}, the initial value.
+#'                      However, if the object has been cleared when this method is called,
+#'                      \code{mix.type} field will be \code{2}, the initial value.
 #'
 #' @param   this.custom.d   A function for the density function of the custom distribution.
 #'                          It is equivalent to \code{custom.d} argument for
@@ -278,7 +284,8 @@
 #'                  Generated \code{\link[ggd]{GGD}} object which most (at least locally)
 #'                  closely approximates the given frequency distribution.
 #'                  If \code{\link[stats]{nls}} has failed, it will be a cleared object.
-#'                  For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
+#'                  For \code{\link[ggd]{GGD}} method,
+#'                  the \code{\link[ggd]{GGD}} object itself.}
 #'          \item{nls.out}{
 #'                  The list of the output of \code{\link[stats]{nls}}.
 #'                  If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
@@ -289,18 +296,17 @@
 #'                  the level for the best result will be set.
 #'                  When \code{start.level = 3} is indicated
 #'                  and if initial guessing has failed, \code{2} will be set.
-#'                  If \code{start} argument (not-\code{NULL}) is indicated,
+#'                  If a not-\code{NULL} \code{start} argument is indicated,
 #'                  \code{NA} will be set.}
 #'          \item{start}{
-#'                  The used \code{start} argument for the initial values
-#'                  for \code{\link[stats]{nls}}.}
+#'                  The used \code{start} argument of \code{\link[stats]{nls}}.}
 #'          \item{start.obj}{
 #'                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
 #'                  That is, a \code{\link[ggd]{GGD}} object in which
 #'                  values of the above \code{start} are set directly to \code{cmp} field.}
 #'          \item{cor}{
 #'                  The vector of the correlation coefficient of between the result for
-#'                  each level of initial guessing in from \code{0} to \code{3}
+#'                  each initial guessing level in the range of \code{0} to \code{3}
 #'                  and the frequency distribution.
 #'                  This component is given only if \code{start.level = 100}.}
 #'          \item{errors}{
@@ -308,17 +314,16 @@
 #'                  This component is given only if \code{start.level = 100}.
 #'                  Each element in the list contains:
 #'                  \itemize{
-#'                      \item level: The level of initial guessing when the error has occurred.
+#'                      \item level: The initial guessing level when the error has occurred.
 #'                      \item message: The error message.
 #'                  }}
 #'          \item{warnings}{
 #'                  A list of information about warnings occurred in \code{\link[stats]{nls}}.
 #'                  This component is given only if \code{start.level = 100}.
-#'                  The composition of each element is as same as for \code{errors}.}
+#'                  The composition of each element is same as \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occurs, all fields (except for \code{custom.d},
-#'                                 which may have been updated with \code{this.custom.d})
-#'                                 of the object will be cleared in most cases.
+#'          For \code{GGD} method: If an error occurs, all fields of the object will be cleared
+#'                                 in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -327,25 +332,26 @@
 #'
 #' @details
 #'  \subsection{Why the standard deviations for "start" are square-rooted?}{
-#'      You know a standard deviation must be a non-zero positive value.
+#'      You know a standard deviation must be a positive value.
 #'      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
-#'      they will sometimes drop into negative values while the Gauss-Newton algorithm is running
+#'      they sometimes drop into negative values while the Gauss-Newton algorithm is running
 #'      and the algorithm will fail, even if it can reach convergence if done better.
 #'
-#'      So, to avoid such failures, we use square roots of standard deviations and
+#'      Therefore, to avoid such failures, we use square roots of standard deviations and
 #'      take squares of them in the formula for \code{\link[stats]{nls}}.
 #'  }
 #'
 #' @examples
 #'  ## Preparing
-#'  df <- data.frame( x      = seq( -2, 2, 0.2 ),
-#'                    freq   = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
-#'                                7947, 10997, 11824, 11133,  7868,  4692,  4103,
-#'                                3698,  2740,  2549,  2284,  1499,  1147,   918 ),
-#'                    x.2    = seq( -20, 20, 2 ),
-#'                    freq.2 = c( .000974, .003797, .008523, .023142, .045017, .081743, .120990,
-#'                                .142527, .124627, .106294, .078625, .059378, .045690, .042958,
-#'                                .035760, .030938, .015675, .012516, .008139, .005114, .003582 ) )
+#'  df <- data.frame(
+#'              x      = seq( -2, 2, 0.2 ),
+#'              freq   = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
+#'                          7947, 10997, 11824, 11133,  7868,  4692,  4103,
+#'                          3698,  2740,  2549,  2284,  1499,  1147,   918 ),
+#'              x.2    = seq( -20, 20, 2 ),
+#'              freq.2 = c( .000974, .003797, .008523, .023142, .045017, .081743, .120990,
+#'                          .142527, .124627, .106294, .078625, .059378, .045690, .042958,
+#'                          .035760, .030938, .015675, .012516, .008139, .005114, .003582 ) )
 #'
 #'  plot.freq.and.d <- function( obj, x, freq )
 #'  {
@@ -603,7 +609,8 @@ GGD$methods(
 
         if ( isTRUE( not.use.nls ) && !is.na( start.level ) && start.level == 100 )
         {
-            warning( paste( "Warning: not.use.nls does not work with start.level is default 100." ) )
+            warning( paste( "Warning: not.use.nls does not work with",
+                                     "start.level is default 100." ) )
             not.use.nls <- FALSE
         }
 
@@ -692,7 +699,7 @@ GGD$methods(
 ################################################################################################
 #' [Non-exported] Loop nls for start.level = 100
 #'
-#' Execute a loop of \code{\link[stats]{nls}} with changing the level of initial guessing.
+#' Executes a loop of \code{\link[stats]{nls}} with changing initial guessing levels.
 #' This is the main process of \code{\link[ggd]{nls.freq}} with \code{start.level = 100}.
 #' @param   data        A data frame which represents the frequency distribution.
 #'                      It must contain 2 numeric columns named \code{x} and \code{freq}.
@@ -702,7 +709,6 @@ GGD$methods(
 #'                      the \code{\link[ggd]{GGD}} object as an integer.
 #'                      It is an integer from \code{0} to \code{4} or \code{NULL}.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      See \code{\link[ggd]{nls.freq}} for more information.
 #' @param   custom.d    A function for the density function of the custom distribution.
 #' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical. If \code{TRUE}, all of the mean values of of the components
@@ -741,13 +747,15 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
                                       control       = control, ... ),
                         warning = function( w )
                         {
-                            wrnl <<- append( wrnl, list( list( level = level,
-                                                               message = conditionMessage( w ) ) ) )
+                            wrnl <<- append( wrnl,
+                                             list( list( level = level,
+                                                         message = conditionMessage( w ) ) ) )
                         } ),
                     error = function( e )
                     {
-                        errl <<- append( errl, list( list( level = level,
-                                                           message = conditionMessage( e ) ) ) )
+                        errl <<- append( errl,
+                                         list( list( level = level,
+                                                     message = conditionMessage( e ) ) ) )
                     } ) ) )
     } )
 
@@ -787,9 +795,8 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 ################################################################################################
 #' Approximating a frequency distribution with all of supported models
 #'
-#' Approximates the given frequency distribution with all of distribution models available in
-#' this package except for \code{"Custom Distribution"} (the number of models is 16),
-#' and compare their accuracies.
+#' Approximates the given frequency distribution with all of distribution models
+#' available in this package (the number of models is 16), and compare their accuracies.
 #' The accuracy is checked by the correlation coefficients with the frequency distribution
 #' computed by \code{\link[stats]{cor}}.
 #'
@@ -812,8 +819,8 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'      \item   Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
 #'      \item   Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
 #' }
-#' Each index numbers of above list are
-#' also used for \code{kind.index} field of \code{\link[ggd]{GGD}} class.
+#' Each index number of above list is
+#' also set into \code{kind.index} field of each \code{\link[ggd]{GGD}} object.
 #'
 #' This function generates 16 \code{\link[ggd]{GGD}} objects and
 #' calls \code{\link[ggd]{nls.freq}} method 16 times.
@@ -839,7 +846,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'                  See \code{\link[ggd]{nls.freq}} for more information.
 #'
 #'                  Column names and indexes for \code{x} and \code{freq} are flexible.
-#'                  You can specify them with next two arguments.
+#'                  You can indicate them with next two arguments.
 #'
 #' @param   x       The column name or index number for the column of x-coordinates
 #'                  in \code{data}.
@@ -851,13 +858,12 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'                  See \code{\link[ggd]{nls.freq}} for more information.
 #'
 #' @param   start.level A numeric value of integer in from \code{0} to \code{3} or \code{100}
-#'                      with default \code{100};
-#'                      the level at which to guess the initial \code{start} parameters
-#'                      of \code{\link[stats]{nls}}.
+#'                      with default \code{100}; the level of guessing the initial values
+#'                      for \code{start} argument of \code{\link[stats]{nls}}.
 #'                      See \code{\link[ggd]{nls.freq}} for more information.
 #'
 #' @param   start   A \bold{list of lists} with the length of 16
-#'                  for each of \code{start} arguments for \code{\link[stats]{nls}}
+#'                  for each of \code{start} arguments of \code{\link[stats]{nls}}
 #'                  as initial values.
 #'                  Each element (a list) will give to \code{start} argument of
 #'                  \code{\link[stats]{nls}} one by one.
@@ -890,23 +896,24 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'                  other than \code{100}.
 #'                  A warning will occur if \code{TRUE} when \code{start.level} is \code{100}.
 #'
-#'                  You can use \code{not.use.nls = TRUE} to check the initial values
-#'                  when an error has occurred at this function.
+#'                  You can use \code{not.use.nls = TRUE} to check whether the initial values
+#'                  are appropriate when obtained an undesirable result from this function.
 #'
 #' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
-#'                      It represents the correlation coefficient method.
+#'                      It is a character string indicating which correlation coefficient
+#'                      (or covariance) is to be computed.
 #'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 #'                      See \code{\link[stats]{cor}} for more information.
 #'
 #' @param   ...     Each argument for \code{\link[stats]{nls}} can be indicated.
 #'                  See "Arguments" of \code{\link[stats]{nls}} for more information.
 #'
-#' @return  A list containing components (invisible for \code{GGD} method)
+#' @return  A list containing components
 #'          \item{best}{
 #'                  The \code{\link[ggd]{GGD}} object which has got
 #'                  the highest correlation coefficient.
-#'                  That is, the most approximate to the given frequency distribution
-#'                  in all of the supported distribution models.
+#'                  That is, it would be the most approximate to
+#'                  the given frequency distribution in all of the supported models.
 #'                  If there are some models which have got the same highest correlation
 #'                  coefficient, the object with the earlier \code{kind.index} is
 #'                  given priority.}
@@ -917,19 +924,19 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'
 #'          \item{obj}{
 #'                  The list of 16 \code{\link[ggd]{GGD}} objects
-#'                  ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
+#'                  ordered along with \code{ggd:::kinds}.
 #'                  If an error has occurred, the element will be a cleared object.}
 #'
 #'          \item{cor}{
-#'                  The vector of the correlation coefficient of
+#'                  The vector of the correlation coefficients
 #'                  between the result of each model and the frequency distribution.
 #'                  \code{NA} will be given for an error case or an extremely bad result.}
 #'
 #'          \item{detail}{
-#'                  The list of 16 elements of outputs of \code{\link[ggd]{nls.freq}}.
+#'                  The list of 16 results of \code{\link[ggd]{nls.freq}}.
 #'                  Normally, each element is a list of the output of
-#'                  \code{\link[ggd]{nls.freq}},
-#'                  but if an error has occurred, the element will be an error condition.
+#'                  \code{\link[ggd]{nls.freq}}.
+#'                  But if an error has occurred, the element will be an error condition.
 #'                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 #'
 #' @importFrom  methods     new
@@ -1001,7 +1008,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type, grad, custom.d, ncm
 #'  start.list[[14]]$mean.1.2 <- result$obj[[8]]$cmp$mean[2]
 #'  start.list[[14]]$mean.2.1 <- result$obj[[8]]$cmp$mean[1]
 #'  start.list[[14]]$mean.2.2 <- result$obj[[8]]$cmp$mean[2]
-#'  start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Set sqrt for SD.
+#'  start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Take sqrt for SD.
 #'
 #'  ## Retry ggd.nls.freq.all.
 #'  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
@@ -1037,7 +1044,8 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
 
     if ( isTRUE( not.use.nls ) && start.level == 100 )
     {
-        warning( paste( "Warning: not.use.nls does not work with start.level is default 100." ) )
+        warning( paste( "Warning: not.use.nls does not work",
+                                 "with start.level is default 100." ) )
         not.use.nls <- FALSE
     }
 
@@ -1065,7 +1073,7 @@ ggd.nls.freq.all <- function( data, x = "x", freq = "freq", total = NULL,
     results <- lapply( 1:16,
     function( i )
     {
-        # Remark if an error occur at nls.freq, obj will be a cleared object (not NULL).
+        # Remark if an error occurs at nls.freq, obj will be a cleared object (not NULL).
         obj <- GGD$new()
         result <- withCallingHandlers(
                     try( obj$nls.freq( data             = data.ext,
@@ -1188,17 +1196,15 @@ extract.freq.data <- function( data, x, freq )
 #' @param   x       A vector of x-coordinates. Duplicate values are not allowed.
 #'
 #' @param   freq    A vector of frequencies following \code{x}.
-#'                  The values of frequencies must be positive.
 #'                  Both integers and real numbers are allowed for the values.
 #'
 #' @param   total   Total value of the frequencies.
 #'
 #'                  If \code{NULL} (the default),
-#'                  the total of \code{freq}, i.e., \code{\link[base]{sum}(data[[freq]])}
-#'                  (on \code{\link[stats]{complete.cases}} of \code{x} and \code{freq})
+#'                  the total of \code{freq}, i.e., \code{\link[base]{sum}(freq)}
 #'                  is used for it.
 #'
-#' @return  The vector of expected probability density value at each of x-coordinates.
+#' @return  The vector of expected probability density values following the x-coordinates.
 #' @examples
 #'  x <- seq( -2, 2, 0.2 )
 #'  freq <- c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
@@ -1285,8 +1291,6 @@ get.p.freq <- function( freq, total )
 #' @param   total       Total value of the frequencies.
 #' @param   mix.type    The value for \code{mix.type} field.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
-#'                      even if it is possible to construct with 2 components.
 #'
 #'                      In this function, \code{grad} argument have no priority
 #'                      over \code{mix.type} argument.
@@ -1294,6 +1298,7 @@ get.p.freq <- function( freq, total )
 #'                      \code{mix.type = 3} is indicated.
 #'                      And if \code{mix.type = 3} is indicated,
 #'                      either \code{grad = "v2"} or \code{"v3"} must be indicated.
+#'                      If \code{"v3"}, the number of components will forced to be 3.
 #'
 #' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical; the flag whether to make all of the mean values of
@@ -1301,17 +1306,19 @@ get.p.freq <- function( freq, total )
 #' @param   eq.sd       A logical; the flag whether to make all of the standard deviations of
 #'                      the normal distributions of the components to be equal.
 #' @param   start.level An integer from \code{0} to \code{3} or \code{NA};
-#'                      the level at which to guess
-#'                      the initial \code{start} parameters of \code{\link[stats]{nls}}.
+#'                      the desired level at which to guess
+#'                      the initial \code{start} parameters for \code{\link[stats]{nls}}.
 #'
-#'          Details for each level are as:
+#'          Details for the levels are as:
 #'          \itemize{
 #'              \item from \code{0} to \code{3}:
 #'                      Same as \code{start.level} in arguments of \code{\link[ggd]{nls.freq}}.
 #'              \item \code{NA}: All values of \code{start} will be set to \code{NA}.
 #'          }
-#' @return  A list containing \code{formula} and \code{start} for the arguments of
-#'          \code{\link[stats]{nls}} and adopted \code{start.level} value.
+#' @return  A list containing \code{formula} and \code{start} for \code{\link[stats]{nls}}
+#'          and adopted \code{start.level}.
+#'          The value of \code{start.level} may be different from the argument value
+#'          if initial guessing has failed at the desired level.
 #' @importFrom  stats   dnorm pnorm as.formula
 ################################################################################################
 get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
@@ -1324,7 +1331,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
     data.mean <- sum( x * freq ) / total
     data.sd   <- sqrt( sum( ( data.mean - x )^2 * freq ) / total )
 
-    # Exclude data with 0 or extremely small frequency on both edges of
+    # Exclude data with 0 or extremely small frequencies on both edges of
     # the range of the x-coordinates.
     x.freq <- exclude.freq.edge( x, freq )
 
@@ -1371,7 +1378,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
     else if ( start.level == 1 )
     {
         # Level 1: compute local mean values and standard deviations.
-        sep <- separate.data.quarter( x.freq$x, x.freq$freq, data.mean )
+        sep <- divide.data.quarter( x.freq$x, x.freq$freq, data.mean )
 
         mean.lower <- sum( sep$x.lower * sep$data.lower ) / sum( sep$data.lower )
         mean.upper <- sum( sep$x.upper * sep$data.upper ) / sum( sep$data.upper )
@@ -1404,7 +1411,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
     {
         # Level 2: pick up 2 quantiles for each component.
         freq.ps <- get.p.freq( x.freq$freq, total )
-        sep <- separate.data.quarter( x.freq$x, freq.ps, data.mean )
+        sep <- divide.data.quarter( x.freq$x, freq.ps, data.mean )
         lengths <- vapply( 1:4, function( i ) length( sep$x[[i]] ), 0 )
 
         ms <- lapply( 1:4, function( i )
@@ -1521,21 +1528,24 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
             # via Mean of 2 Normal Distributions
             if ( eq.sd )
             {
-                fm <- d ~ ( dnorm( x, mean.1, sqrt.sd^2 ) + dnorm( x, mean.2, sqrt.sd^2 ) ) / 2
+                fm <- d ~ ( dnorm( x, mean.1, sqrt.sd^2 ) +
+                            dnorm( x, mean.2, sqrt.sd^2 ) ) / 2
                 start <- list( mean.1 = mean.lower,
                                mean.2 = mean.upper,
                                sqrt.sd = sqrt.sds.mid )
             }
             else if ( eq.mean )
             {
-                fm <- d ~ ( dnorm( x, mean, sqrt.sd.1^2 ) + dnorm( x, mean, sqrt.sd.2^2 ) ) / 2
+                fm <- d ~ ( dnorm( x, mean, sqrt.sd.1^2 ) +
+                            dnorm( x, mean, sqrt.sd.2^2 ) ) / 2
                 start <- list( mean = means.mid[1],
                                sqrt.sd.1 = sqrt.sd.outer,
                                sqrt.sd.2 = sqrt.sd.inner )
             }
             else
             {
-                fm <- d ~ ( dnorm( x, mean.1, sqrt.sd.1^2 ) + dnorm( x, mean.2, sqrt.sd.2^2 ) ) / 2
+                fm <- d ~ ( dnorm( x, mean.1, sqrt.sd.1^2 ) +
+                            dnorm( x, mean.2, sqrt.sd.2^2 ) ) / 2
                 start <- list( mean.1 = means.mid[1],
                                mean.2 = means.mid[2],
                                sqrt.sd.1 = sqrt.sd.outer,
@@ -1722,7 +1732,7 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
                 }
             }
 
-            # env needs to be specified here.
+            # env needs to be specified in order to access class field.
             fm <- as.formula( paste( "d ~ custom.d(x, data.frame(mean = c(",
                                      mean.string, "), sd = c(", sd.string, ")))" ),
                               env = parent.frame() )
@@ -1780,9 +1790,9 @@ get.nls.params <- function( x, freq, total, mix.type, grad, ncmp,
 }
 
 ################################################################################################
-#' [Non-exported] Exclude small frequencies of edges
+#' [Non-exported] Exclude small frequencies on edges
 #'
-#' Excludes data with \code{0} or extremely small frequency on both edges of the range of
+#' Excludes data with \code{0} or extremely small frequencies on both edges of the range of
 #' the x-coordinates from data of a frequency distribution.
 #' @usage   exclude.freq.edge(x, freq)
 #' @param   x               A vector of x-coordinates of a frequency distribution.
@@ -1808,10 +1818,10 @@ exclude.freq.edge <- function( x, freq )
 #' at first, it divides the data into two groups by the mean of the data,
 #' and next, divides each data into two groups so that the number of elements are equal to
 #' each other.
-#' If there is an x-coordinate that is exactly equal to the mean,
-#' put that element in both the 2nd and 3rd part.
-#' If the first dividing makes a group with odd number of elements, put the element at
-#' the dividing point in both the lower and upper x-coordinate groups after second dividing.
+#' If there is an x-coordinate equal to the mean,
+#' the element is included in both of the 2nd and 3rd groups.
+#' In the second division, if the original group has an odd number of elements,
+#' the element at the dividing point is included in both divided groups.
 #' @param   x           A vector of x-coordinates arranged in ascending order
 #'                      and non-duplicated.
 #' @param   data        A vector of numeric values of the data with respect to x-coordinates.
@@ -1831,7 +1841,7 @@ exclude.freq.edge <- function( x, freq )
 #'                  The vector of x-coordinates or data integrated the inner-side 2 groups.}
 #' @importFrom  utils       head tail
 ################################################################################################
-separate.data.quarter <- function( x, data, data.mean )
+divide.data.quarter <- function( x, data, data.mean )
 {
     xl <- dl <- list( numeric(), numeric(), numeric(), numeric() )
 
@@ -1880,8 +1890,6 @@ separate.data.quarter <- function( x, data, data.mean )
 #'                      with the result of \code{\link[stats]{nls}}.
 #' @param   mix.type    The value for \code{mix.type} field.
 #' @param   grad        A character string indicating the method of gradation.
-#'                      If \code{"v3"}, constructing with 3 components is enforcedly,
-#'                      even if it is possible to construct with 2 components.
 #'
 #'                      In this function, \code{grad} argument has no priority over
 #'                      \code{mix.type} argument.
@@ -1889,6 +1897,8 @@ separate.data.quarter <- function( x, data, data.mean )
 #'                      only if \code{mix.type = 3} is indicated.
 #'                      And if \code{mix.type = 3} is indicated,
 #'                      either \code{grad = "v2"} or \code{"v3"} must be indicated.
+#'                      If \code{"v3"}, the number of components will forced to be 3,
+#'                      even if the values in \code{coefs} represent a 2-component model.
 #'
 #' @param   ncmp        Number of components for the custom distribution.
 #' @param   eq.mean     A logical; the flag whether to make all of the mean values of
@@ -2019,8 +2029,9 @@ get.cmp.with.nls.coef <- function( coefs, mix.type, grad, ncmp, eq.mean, eq.sd )
 #' @param   freq        The vector of the frequencies of the frequency distribution.
 #' @param   total       Total value of the frequencies.
 #' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
-#'                      It represents the correlation coefficient method.
-#'                      If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+#'                      It is a character string indicating which correlation coefficient
+#'                      (or covariance) is to be computed.
+#'                      If \code{NULL}, it uses the default \code{method}.
 #'                      See \code{\link[stats]{cor}} for more information.
 #' @return  A vector of correlation coefficients.
 #'          Its order follows the order of the elements in \code{objs} argument.
@@ -2075,22 +2086,15 @@ ggd.cor.vs.freq <- function( objs, x, freq, total = sum( freq ), cor.method = NU
 ################################################################################################
 #' Initialize start for ggd.nls.freq.all
 #'
-#' Generates a list of 16 (= \code{length(ggd:::kinds)}) \code{NULL} lists.
-#'
-#' If you want to indicate some \code{start} lists for \code{\link[ggd]{ggd.nls.freq.all}}
-#' by yourself, you can give the lists to the elements of the returned list of this function,
-#' and give it to \code{\link[ggd]{ggd.nls.freq.all}} as \code{start} argument.
-#'
-#' You don't have to set all elements of the returned list by yourself,
-#' since internally calculated default values will be used for \code{start} of
-#' \code{\link[stats]{nls}} where the elements of the list are \code{NULL}.
-#'
-#' The format of each element can be got with \code{\link[ggd]{ggd.start.template}}.
-#' In addition, \code{\link[ggd]{ggd.kind}} and \code{\link[ggd]{ggd.kind.index}} functions
-#' may help you to know the kind of distribution which the index number represents.
+#' Generates a list of 16 \code{NULL} lists.
+#' If you want to indicate some initial values for \code{\link[ggd]{ggd.nls.freq.all}},
+#' insert a list of the initial values instead of \code{NULL} at some elements of
+#' the 16-\code{NULL} list and use it as \code{start} argument.
+#' For more information about the format of each element and other details,
+#' see \code{\link[ggd]{ggd.start.template}} and \code{\link[ggd]{ggd.nls.freq.all}}.
 #' @export
 #' @return  An all-\code{NULL} list with the length of 16 (= \code{length(ggd:::kinds)}).
-#' @seealso \code{\link[ggd]{ggd.nls.freq.all}}, \code{\link[ggd]{ggd.start.template}}
+#' @seealso \code{\link[ggd]{ggd.start.template}}, \code{\link[ggd]{ggd.nls.freq.all}}
 #' @examples
 #'  ## Let's approximate this frequency distribution.
 #'  df <- data.frame(
@@ -2126,49 +2130,53 @@ ggd.init.start <- function()
 ################################################################################################
 #' Template for start of nls
 #'
-#' Gets the template for start list for \code{\link[stats]{nls}}
-#' when you want to provide your own \code{start} parameters for \code{\link[ggd]{nls.freq}}
-#' or \code{\link[ggd]{ggd.nls.freq.all}}.
-#' This function can output only one template list at once.
-#' So if you want to get several templates for different distribution kinds,
-#' call this function one by one for each distribution kind.
+#' Gets a template list for \code{start} argument of \code{\link[ggd]{nls.freq}}
+#' or for an element of \code{start} argument of \code{\link[ggd]{ggd.nls.freq.all}}.
+#' This function can output only one template at a time.
+#' So if you want to obtain two or more templates,
+#' you should call this function one by one for each one.
 #' @export
-#' @param   target      A variable that identifies the kind of distribution to which
-#'                      the template applies. The length should be 1.
-#'                      The type of the variable is valid for \code{\link[ggd]{GGD}} object,
-#'                      the string of an element of \code{ggd:::kinds}, or its index number.
+#' @param   kind    A character string or a numeric value or a \code{\link[ggd]{GGD}} object
+#'                  which indicates the kind of distribution model for which the template will
+#'                  be output. The length should be 1.
 #'
-#' @param   ncmp        Number of components for the custom distribution.
+#'                  The matching method of \code{kind} follows that of
+#'                  \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
+#'                  If it matches to two or more distribution models,
+#'                  this function returns only one template for the first matched model.
 #'
-#'                      If \code{target} indicates \code{"Custom Distribution"} or \code{17},
-#'                      a positive integer must be indicated for this argument.
+#' @param   ncmp    Number of components for the custom distribution.
 #'
-#'                      If a \code{\link[ggd]{GGD}} object is indicated for \code{target},
-#'                      the number of rows of \code{cmp} field is used instead
-#'                      when \code{ncmp} is \code{0} (the default).
-#'                      When \code{ncmp} is a positive integer, the value of \code{ncmp}
-#'                      takes priority.
+#'                  If \code{kind} indicates \code{"Custom Distribution"} or \code{17},
+#'                  a positive integer must be indicated for this argument.
+#'
+#'                  When \code{ncmp} is \code{0} (the default),
+#'                  if a \code{\link[ggd]{GGD}} object is indicated for \code{kind},
+#'                  the number of rows in \code{cmp} field of the object is used.
+#'                  When \code{ncmp} is a positive integer, the value of \code{ncmp}
+#'                  is used.
 #' @return  A list containing components any of
 #'          \item{mean}{
-#'                  The start value for mean values common to all normal distributions
+#'                  The start value for the mean value common to all normal distributions
 #'                  of the components. 0 is preset.}
 #'          \item{mean.i}{
 #'                  The start value for the mean value of i-th normal distribution.
 #'                  0 is preset.}
 #'          \item{mean.i.j}{
-#'                  The start value for mean value of i,j-th normal distribution
+#'                  The start value for the mean value of i,j-th normal distribution
 #'                  in the 2x2 components. 0 is preset.}
 #'          \item{sqrt.sd}{
-#'                  The sqrt of the start value for standard deviations common to
+#'                  The start value for the square root of the standard deviation common to
 #'                  all normal distributions of the components. 1 is preset.}
 #'          \item{sqrt.sd.i}{
-#'                  The sqrt of the start values for the standard deviation of
+#'                  The start value for the square root of the standard deviation of
 #'                  i-th normal distribution. 1 is preset.}
 #'          \item{sqrt.sd.i.j}{
-#'                  The sqrt of the start values for the standard deviation of
+#'                  The start value for the square root of the standard deviation of
 #'                  i,j-th normal distribution in the 2x2 components. 1 is preset.}
 #'
-#'          If \code{target} represents unsupported distribution kind, \code{NULL} is returned.
+#'          If \code{kind} represents an unsupported distribution model,
+#'          \code{NULL} will be returned.
 #' @seealso \code{\link[ggd]{nls.freq}}, \code{\link[ggd]{ggd.nls.freq.all}},
 #'          \code{\link[ggd]{ggd.init.start}}
 #' @examples
@@ -2191,9 +2199,9 @@ ggd.init.start <- function()
 #'  ## try ggd.nls.freq
 #'  ggd.nls.freq( data.frame( x, freq ), start = start, kind = 14 )$obj
 ################################################################################################
-ggd.start.template <- function( target, ncmp = 0 )
+ggd.start.template <- function( kind, ncmp = 0 )
 {
-    kind.index <- ggd.kind.index( target, undef.err = FALSE )[1]
+    kind.index <- ggd.kind.index( kind, undef.err = FALSE )[1]
     if ( is.na( kind.index ) || is.null( kind.index ) )
     {
         return ( NULL )
@@ -2272,9 +2280,9 @@ ggd.start.template <- function( target, ncmp = 0 )
         ncmp <- as.integer( ncmp )
         if ( ncmp == 0 )
         {
-            if ( inherits( target, "GGD" ) )
+            if ( inherits( kind, "GGD" ) )
             {
-                ncmp <- nrow( target$cmp )
+                ncmp <- nrow( kind$cmp )
             }
             else
             {

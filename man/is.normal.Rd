@@ -11,13 +11,8 @@
 \code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
 }
 \description{
-Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
-a normal distribution.
+Referring \code{cmp} field, checks if the distribution is essentially a normal distribution.
 Note, this function does not check \code{kind} and \code{kind.index} fields.
-}
-\details{
-For \code{"Custom Distribution"}, this function returns always \code{FALSE}
-even if the object has only 1 component and \code{custom.d} shows a normal distribution.
 }
 \examples{
  a <- GGD$new()

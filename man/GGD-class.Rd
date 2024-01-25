@@ -324,7 +324,7 @@ the estimated modulus of the absolute error for \code{lsd}.}
                          will be set into these \code{*.abs.error} fields.
 
                          Where \code{mix.type = 5}, \code{mean} and \code{sd} fields
-                         are also computed with \code{\link[stats]{integrate}} function.
+                         are also computed using \code{\link[stats]{integrate}} function.
                          And then the modulus of the absolute errors which
                          \code{\link[stats]{integrate}} function has reported
                          will be set into \code{*.abs.error} fields.

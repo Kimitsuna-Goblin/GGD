@@ -118,9 +118,8 @@ A list containing components
                  See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{
-Approximates the given frequency distribution with all of distribution models available in
-this package except for \code{"Custom Distribution"} (the number of models is 16),
-and compare their accuracies.
+Approximates the given frequency distribution with all of distribution models
+available in this package (the number of models is 16), and compare their accuracies.
 The accuracy is checked by the correlation coefficients with the frequency distribution
 computed by \code{\link[stats]{cor}}.
 }
@@ -231,7 +230,7 @@ will be got as an element of \code{obj} (see "Value").
  start.list[[14]]$mean.1.2 <- result$obj[[8]]$cmp$mean[2]
  start.list[[14]]$mean.2.1 <- result$obj[[8]]$cmp$mean[1]
  start.list[[14]]$mean.2.2 <- result$obj[[8]]$cmp$mean[2]
- start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Set sqrt for SD.
+ start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Take sqrt for SD.
 
  ## Retry ggd.nls.freq.all.
  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )

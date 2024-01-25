@@ -7,7 +7,7 @@
 cat.table(x, file = "", top.text = "", append.str = "", digits = 15)
 }
 \arguments{
-\item{x}{The object to be written, should be a matrix or data frame.}
+\item{x}{The object to be output, should be a matrix or data frame.}
 
 \item{file}{A \link[base]{connection},
 or a character string naming the file to print to.
@@ -18,17 +18,16 @@ the console unless redirected by \link[base]{sink}.}
 
 \item{append.str}{A character string to be output after \code{x}.}
 
-\item{digits}{The number of significant digits to print (see \link[base]{signif}).
-Valid values are integers from 1 to 22 with default 15.}
+\item{digits}{The number of significant digits (see \link[base]{signif}) to print.
+Integers from \code{1} to \code{22} with default \code{15} are allowed.}
 }
 \value{
 An invisible \code{NULL}.
 }
 \description{
-Prints the argument \code{x} (it should be a data frame or matrix)
-to a file or \link[base]{connection} with the CSV format.
-This function use \link[base]{cat} to output.
-When outputting real numbers, the precision can be specified with \code{digits} argument.
+Outputs a data frame or a matrix to a file or \link[base]{connection} with the CSV format
+using \link[base]{cat}.
+The precision for real numbers can be indicated with \code{digits} argument.
 }
 \examples{
  ggd:::cat.table( data.frame( a = 1:6 * pi, b = pi^(1:6) ), top.text = "PI", digits = 10 )

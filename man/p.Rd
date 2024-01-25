@@ -13,7 +13,7 @@
 \item{use.custom.p}{A logical.
 If \code{FALSE}, the coded cumulative distribution function is used
 as it is. If \code{TRUE}, the function in \code{custom.p} field is
-used instead as the cumulative distribution function.}
+used instead.}
 }
 \value{
 A vector of the probabilities of that a value of the random variable is less than

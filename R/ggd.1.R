@@ -94,7 +94,7 @@ f.t3.p <- list( function( x, m, s )
 #'                                               The number of rows in \code{cmp} is unlimited.
 #'                          }
 #'
-#'                          With \code{mix.type = 1}, the distribution model is not
+#'                          The distribution model of \code{mix.type = 1} is not
 #'                          a gradational Gaussian distribution (GGD), but a kind of
 #'                          Gaussian mixture model (GMM).
 #'                          This is provided for comparing GGD with GMM.
@@ -105,7 +105,7 @@ f.t3.p <- list( function( x, m, s )
 #'                          \code{mean} column represents the mean values of the components,
 #'                          and \code{sd} column represents the standard deviations.
 #'
-#'                          Where \code{mix.type} is in \code{0:3},
+#'                          Where \code{mix.type} is from \code{0} to \code{3},
 #'                          it has 1 to 3 rows named like "\code{n.i}".
 #'                          Where \code{mix.type = 4},
 #'                          it has 4 rows named like "\code{n.i.j}".
@@ -152,8 +152,8 @@ f.t3.p <- list( function( x, m, s )
 #' @field   median          A numeric; the median of the distribution.
 #' @field   mean            A numeric; the mean of the distribution.
 #' @field   sd              A numeric; the standard deviation of the distribution.
-#' @field   lsd             A numeric; the semi-standard deviation lower than mean.
-#' @field   usd             A numeric; the semi-standard deviation upper than mean.
+#' @field   lsd             A numeric; the half standard deviation lower than the mean.
+#' @field   usd             A numeric; the half standard deviation upper than the mean.
 #' @field   mean.abs.error  A numeric;
 #'                          the estimated modulus of the absolute error for \code{mean}.
 #' @field   sd.abs.error    A numeric;
@@ -163,14 +163,14 @@ f.t3.p <- list( function( x, m, s )
 #' @field   usd.abs.error   A numeric;
 #'                          the estimated modulus of the absolute error for \code{usd}.
 #'
-#'                          Where \code{mix.type = 4}, to compute the semi-standard deviations,
+#'                          Where \code{mix.type = 4}, to compute the half standard deviations,
 #'                          \code{\link[stats]{integrate}} function is used.
 #'                          And the modulus of the absolute errors which
 #'                          \code{\link[stats]{integrate}} function has reported
 #'                          will be set into these \code{*.abs.error} fields.
 #'
 #'                          Where \code{mix.type = 5}, \code{mean} and \code{sd} fields
-#'                          are also computed with \code{\link[stats]{integrate}} function.
+#'                          are also computed using \code{\link[stats]{integrate}} function.
 #'                          And then the modulus of the absolute errors which
 #'                          \code{\link[stats]{integrate}} function has reported
 #'                          will be set into \code{*.abs.error} fields.
@@ -203,8 +203,8 @@ f.t3.p <- list( function( x, m, s )
 #'      where \eqn{h_1} and \eqn{h_2} are the mixing ratio functions defined
 #'      using \eqn{\Phi_1} and \eqn{\Phi_2}, the cumulative distribution functions of
 #'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
-#'      \deqn{h_1(x) = 1 - \Phi_1(x), \\
-#'            h_2(x) = \Phi_2(x). \quad \ \ \ }
+#'      \deqn{h_1(x) = 1 - \Phi_1(x), \ \ \\
+#'            h_2(x) = \Phi_2(x). \quad \ \ \ \ \ }
 #'
 #'      Therefore, \eqn{h_1(x)} decreases gradually along x-axis as
 #'      \eqn{x:-\infty \to \infty \ \Rightarrow \ h_1(x):1 \to 0},
@@ -225,8 +225,8 @@ f.t3.p <- list( function( x, m, s )
 #'      where the mixing ratio functions \eqn{v_1} and \eqn{v_2} are defined
 #'      using \eqn{f_1} and \eqn{f_2}, the probability density functions of
 #'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2} as
-#'      \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \\
-#'            v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}, \quad \ \ \ }
+#'      \deqn{v_1(x) = 1 - \dfrac{f_1(x)}{f_1(\mu_1)}, \ \ \\
+#'            v_2(x) = \dfrac{f_2(x)}{f_2(\mu_2)}, \quad \ \ \ \ \ }
 #'      where \eqn{\mu_1} and \eqn{\mu_2} are the mean values of
 #'      \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, respectively.
 #'
@@ -240,8 +240,8 @@ f.t3.p <- list( function( x, m, s )
 #'      Or, using \eqn{\mu_1} and \eqn{\mu_2},
 #'      the mean values of \eqn{\mathcal{N}_1} and \eqn{\mathcal{N}_2}, we can write as
 #'      \deqn{x:-\infty \to \mu_1 \ \Rightarrow \ v_1(x):1 \to 0, \ \ \ \
-#'            x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1, \\
-#'            x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
+#'            x:\mu_1 \to \infty \ \Rightarrow \ v_1(x):0 \to 1,}
+#'      \deqn{x:-\infty \to \mu_2 \ \Rightarrow \ v_2(x):0 \to 1, \ \ \ \
 #'            x:\mu_2 \to \infty \ \Rightarrow \ v_2(x):1 \to 0.}
 #'
 #'      Here, we call \eqn{\mathcal{N}_1} the \bold{tail-side} distribution,
@@ -316,57 +316,50 @@ f.t3.p <- list( function( x, m, s )
 #'
 #'      \describe{
 #'          \item{\code{mix.type = 0} (normal distribution)}{\deqn{
-#'              g(x) = f_1(x) \\
-#'              \Psi(x) = \Phi_1(x) }}
+#'              g(x) = f_1(x), \ \ \\
+#'              \Psi(x) = \Phi_1(x). \ \ }}
 #'
 #'          \item{\code{mix.type = 1} (mean of 2 normal distributions;
 #'                              a Gaussian mixture model (GMM), not a GGD)}{\deqn{
-#'              g(x) = \dfrac{f_1(x) + f_2(x)}{2} \ \\
-#'              \Psi(x) = \dfrac{\Phi_1(x) + \Phi_2(x)}{2} }}
+#'              g(x) = \dfrac{f_1(x) + f_2(x)}{2}, \ \ \\
+#'              \Psi(x) = \dfrac{\Phi_1(x) + \Phi_2(x)}{2}. \ }}
 #'
 #'          \item{\code{mix.type = 2} (horizontal GGD)}{\deqn{
 #'              g(x) = \left( 1 - \Phi_1(x) \right) f_1(x)
-#'                      + \Phi_2(x) f_2(x) \\
+#'                      + \Phi_2(x) f_2(x), \ \ \\
 #'              \ \\
 #'              \Psi(x) = \Phi_1(x) - \dfrac{\Phi_1(x)^2}{2} +
-#'                          \dfrac{\Phi_2(x)^2}{2} \qquad \ \ }}
+#'                          \dfrac{\Phi_2(x)^2}{2}. \qquad \ \ \ \ }}
 #'
 #'          \item{\code{mix.type = 3}, \code{grad = "v2"} (2-component vertical GGD)}{\deqn{
 #'              g(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x) +
-#'                     \dfrac{f_2(x)^2}{f_2(\mu_2)} \\
+#'                     \dfrac{f_2(x)^2}{f_2(\mu_2)}, \ \ \\
 #'              \ \\
 #'              \Psi(x) = \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}} +
-#'                        \dfrac{\Phi^*_2(x)}{\sqrt{2}} \qquad \; \: }}
+#'                        \dfrac{\Phi^*_2(x)}{\sqrt{2}}. \qquad \ \ \; \: }}
 #'
 #'          \item{\code{mix.type = 3}, \code{grad = "v3"} (3-component vertical GGD)}{\deqn{
-#'              g(x) = g_1(x) + g_2(x) + g_3(x) \hspace{14.5em} \\
-#'              \ \\
-#'              g_1(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x)
-#'                       \quad (x \leq \mu_1; \ \mathrm{otherwise} \ 0) \\
-#'              \ \\
-#'              g_2(x) = \dfrac{f_2(x)^2}{f_2(\mu_2)} \hspace{15.6em} \\
-#'              \ \\
-#'              g_3(x) = \left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x)
-#'                       \quad (x \geq \mu_3; \ \mathrm{otherwise} \, 0) \\
-#'              \ \\
-#'              \Psi(x) = \min \left( \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}},
+#'              g(x) = g_1(x) + g_2(x) + g_3(x), \hspace{14.5em} \\ }
+#'              \deqn{g_1(x) = \left( 1 - \dfrac{f_1(x)}{f_1(\mu_1)} \right) f_1(x)
+#'                       \quad (x \leq \mu_1; \ \mathrm{otherwise} \ 0), \\ }
+#'              \deqn{g_2(x) = \dfrac{f_2(x)^2}{f_2(\mu_2)}, \hspace{15.6em} \\ }
+#'              \deqn{g_3(x) = \left( 1 - \dfrac{f_3(x)}{f_3(\mu_3)} \right) f_3(x)
+#'                       \quad (x \geq \mu_3; \ \mathrm{otherwise} \, 0), \\ }
+#'              \deqn{\Psi(x) = \min \left( \Phi_1(x) - \dfrac{\Phi^*_1(x)}{\sqrt{2}},
 #'                                  \ \dfrac{2 - \sqrt{2}}{4} \right) \hspace{10em} \\
 #'                        + \dfrac{\Phi^*_2(x)}{\sqrt{2}}
 #'                        + \max \left( 0, \ \Phi_3(x) - \dfrac{\Phi^*_3(x)}{\sqrt{2}} -
-#'                                      \dfrac{2 - \sqrt{2}}{4} \right) }}
+#'                                      \dfrac{2 - \sqrt{2}}{4} \right). }}
 #'
 #'          \item{\code{mix.type = 4} (horizontal-vertical GGD)}{\deqn{
-#'              g(x) = \left( 1 - \Psi_1(x)\ \right) g_1(x) + \Psi_2(x) g_2(x)
-#'                     \hspace{6em} \ \ \\
-#'              \ \\
-#'              g_i(x) = \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right)
-#'                       f_{i,1}(x) + \dfrac{f_{i,2}(x)^2}{f_{i,2}(\mu_{i,2})} \\
-#'              \ \\
-#'              \Psi(x) = \Psi_1(x) - \dfrac{\Psi_1(x)^2}{2} +
-#'                                    \dfrac{\Psi_2(x)^2}{2} \hspace{9em} \\
-#'              \ \\
-#'              \Psi_i(x) = \Phi_{i,1}(x) - \dfrac{\Phi^*_{i,1}(x)}{\sqrt{2}} +
-#'                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}} \hspace{3em} \ }}
+#'              g(x) = \left( 1 - \Psi_1(x)\ \right) g_1(x) + \Psi_2(x) g_2(x),
+#'                     \hspace{6em} \ \ \\ }
+#'              \deqn{g_i(x) = \left( 1 - \dfrac{f_{i,1}(x)}{f_{i,1}(\mu_{i,1})} \right)
+#'                       f_{i,1}(x) + \dfrac{f_{i,2}(x)^2}{f_{i,2}(\mu_{i,2}),} \\ }
+#'              \deqn{\Psi(x) = \Psi_1(x) - \dfrac{\Psi_1(x)^2}{2} +
+#'                                    \dfrac{\Psi_2(x)^2}{2}, \hspace{9em} \\ }
+#'              \deqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{\Phi^*_{i,1}(x)}{\sqrt{2}} +
+#'                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}}. \hspace{3em} \ }}
 #'      }
 #'
 #'      Where \eqn{f_i} is the probability density function of
@@ -404,8 +397,8 @@ GGD <- setRefClass(
         median      = "numeric",    # The median value of the distribution.
         mean        = "numeric",    # The mean of the distribution.
         sd          = "numeric",    # The standard deviation of the distribution.
-        lsd         = "numeric",    # The semi-standard deviation lower than mean.
-        usd         = "numeric",    # The semi-standard deviation upper than mean.
+        lsd         = "numeric",    # The half standard deviation lower than the mean.
+        usd         = "numeric",    # The half standard deviation upper than the mean.
         mean.abs.error  = "numeric",  # The estimated modulus of the absolute error for mean.
         sd.abs.error    = "numeric",  # The estimated modulus of the absolute error for sd.
         lsd.abs.error   = "numeric",  # The estimated modulus of the absolute error for lsd.
@@ -694,17 +687,20 @@ GGD$methods(
                 {
                     if ( is.eq.sd() )
                     {
-                        # Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
+                        # Mean-Differed Sigma-Equaled
+                        # Horizontal-Vertical Gradational Distribution
                         index <- 14L
                     }
                     else if ( is.eq.mean() )
                     {
-                        # Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+                        # Mean-Equaled Sigma-Differed
+                        # Horizontal-Vertical Gradational Distribution
                         index <- 15L
                     }
                     else
                     {
-                        # Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
+                        # Mean-Differed Sigma-Differed
+                        # Horizontal-Vertical Gradational Distribution
                         index <- 16L
                     }
                 }
@@ -746,10 +742,12 @@ GGD$methods(
 #'
 #' Gets index numbers which represent the kinds of distributions.
 #' @export
-#' @param   objs        A vector or a list of elements indicating the kind of distribution.
+#' @param   objs        A vector or a list of elements indicating the kind of
+#'                      distribution model.
+#'
 #'                      Each element must be a character string of a regular expression pattern
 #'                      matching to an element of \code{ggd:::kinds} or an index number of
-#'                      \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or a \code{NA}.
+#'                      \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
 #'
 #'                      If a character string is indicated as an element,
 #'                      the string matches only one element of \code{ggd:::kinds} of
@@ -757,12 +755,10 @@ GGD$methods(
 #'                      \code{ggd:::kinds.match.order} which is
 #'                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
 #'                               16L, 14L, 15L, 17L)}.
-#'
-#'                      The order of \code{ggd:::kinds.match.order} is designed,
-#'                      while \code{ggd:::kinds} is ordered by intuitive degrees of freedom,
-#'                      for practical purposes so that \code{"Mean-Differed Sigma-Differed"}
-#'                      model, which has more degrees of freedom than the others of
-#'                      the same type, can be matched first.
+#'                      The order is designed for practical purposes so that
+#'                      the \code{"Mean-Differed Sigma-Differed"} model,
+#'                      which has more degrees of freedom than the others of the same type,
+#'                      can be matched first.
 #'
 #'                      If an element is \code{NA}, \code{NA_integer_} will be returned for it.
 #'
@@ -873,21 +869,13 @@ ggd.kind.index <- function( objs, undef.err = FALSE )
 #'
 #' Gets the strings which represent the kinds of distributions.
 #' @export
-#' @param   objs    A vector or a list of elements indicating the kind of distribution.
+#' @param   objs    A vector or a list of elements indicating the kind of distribution model.
 #'                  Each element must be a character string of a regular expression pattern
 #'                  matching to an element of \code{ggd:::kinds} or an index number of
-#'                  \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or a \code{NA}.
+#'                  \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
 #'
-#'                  If character strings are indicated, each string matches only one element of
-#'                  \code{ggd:::kinds} of the first element along with the index order of
-#'                  \code{ggd:::kinds.match.order} which is
-#'                  \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
-#'                           16L, 14L, 15L, 17L)}.
-#'
-#'                  The order is designed, while \code{ggd:::kinds} is ordered by
-#'                  intuitive degrees of freedom, for practical purposes so that
-#'                  the \code{"Mean-Differed Sigma-Differed"} model, which has more degrees of
-#'                  freedom than the others of the same type, can be matched first.
+#'                  The matching method follows that of \code{objs} argument of
+#'                  \code{\link[ggd]{ggd.kind.index}}.
 #'
 #' @return  The vector of character strings which represent the kinds of distributions,
 #'          which are elements of \code{ggd:::kinds}.
@@ -927,8 +915,8 @@ ggd.kind <- function( objs )
 #'
 #' Gets the value for \code{mix.type} field of \code{GGD} object which is appropriate to
 #' given \code{grad} value.
-#' If \code{grad = "default"}, the return value will be the value of \code{mix.type} argument
-#' or the value appropriate for \code{kind} argument.
+#' If \code{grad} is \code{"default"}, the return value will be the value of
+#' \code{mix.type} argument or the value appropriate for \code{kind} argument.
 #' @export
 #' @param   grad        A character string indicating the method of gradation.
 #'
@@ -942,11 +930,11 @@ ggd.kind <- function( objs )
 #'
 #' @param   kind        A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model.
+#'                      The matching method of \code{kind} follows that of
+#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
+#'
 #'                      This argument works when the length of \code{mix.type} argument
 #'                      is \code{0}, and \code{grad} is \code{"default"}.
-#'
-#'                      The matching method of this argument follows that of elements of
-#'                      \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 #'
 #'                      If \code{NA} is indicated, \code{NA_integer_} will be returned.
 #'                      If indicated character string pattern or index number does not match
@@ -1184,12 +1172,8 @@ GGD$methods(
 ################################################################################################
 #' Judge if normal
 #'
-#' Referring \code{mix.type} and \code{cmp} field, checks if the distribution is essentially
-#' a normal distribution.
+#' Referring \code{cmp} field, checks if the distribution is essentially a normal distribution.
 #' Note, this function does not check \code{kind} and \code{kind.index} fields.
-#'
-#' For \code{"Custom Distribution"}, this function returns always \code{FALSE}
-#' even if the object has only 1 component and \code{custom.d} shows a normal distribution.
 #' @name    is.normal
 #' @aliases is.normal
 #' @aliases \S4method{is.normal}{GGD}
@@ -1202,10 +1186,8 @@ GGD$methods(
 #'  a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 1.1 ) ), this.mix.type = 2 )
 #'  a$is.normal()   ## TRUE
 #'
-#'  a$trace.q(
-#'      data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-#'      grad = "v2" )
-#'  a$kind; a$cmp
+#'  a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 0.9 ) ), grad = "v2" )
+#'  a$kind          ## 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
 #'  a$is.normal()   ## FALSE
 ################################################################################################
 NULL
@@ -1243,9 +1225,7 @@ GGD$methods(
 #'  a$set.cmp( data.frame( mean = c( 0, 1 ), sd = c( 1.1, 1.2 ) ), this.mix.type = 2 )
 #'  a$is.h()    ## TRUE
 #'
-#'  a$trace.q(
-#'      data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-#'      grad = "v2" )
+#'  a$set.cmp( grad = "v2" )
 #'  a$kind      ## 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
 #'  a$is.h()    ## FALSE
 #'
@@ -1305,10 +1285,7 @@ GGD$methods(
 #'  a$is.v2()       ## TRUE
 #'  a$is.v2( TRUE ) ## FALSE
 #'
-#'  a$trace.q(
-#'      data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-#'      grad = "v2" )
-#'  a$kind; a$cmp
+#'  a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 0.9 ) ), grad = "v2" )
 #'  a$is.v2( TRUE ) ## TRUE
 #'
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ),
@@ -1373,10 +1350,7 @@ GGD$methods(
 #'  a$is.v3()                   ## TRUE
 #'  a$is.v3( strict = TRUE )    ## FALSE
 #'
-#'  a$trace.q(
-#'      data.frame( x = c( -1.92, -0.20, 0.21, 1.98 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-#'      grad = "v3" )
-#'  a$kind; a$cmp
+#'  a$set.cmp( data.frame( mean = c( 0, 0, 0 ), sd = c( 1.1, 0.9, 1.2 ) ), grad = "v3" )
 #'  a$is.v3()                   ## TRUE
 #'  a$is.v3( strict = TRUE )    ## TRUE
 #'
@@ -1471,19 +1445,19 @@ GGD$methods(
 #' This function judges that the distribution model is symmetric if either:
 #' \enumerate{
 #'      \item   a normal distribution.
-#'      \item   a mean of 2 normal distributions or a horizontal gradational distribution,
-#'              where the standard deviations of the two normal distributions of the components
-#'              are equal to each other.
+#'      \item   a mean of 2 normal distributions or a horizontal gradational distribution
+#'              which has the same standard deviations for the two normal distributions
+#'              of the components.
 #'      \item   a mean of 2 normal distributions or a vertical gradational distribution
-#'              of 2 normal distributions, where the mean values of the two normal distributions
-#'              of the components are equal to each other.
-#'      \item   a vertical gradational distribution of 3 normal distributions,
-#'              where the mean of the mean values of the 2 tail-side components is equal to
-#'              the mean value of the top-side component, and the standard deviations of
-#'              the both tail-side components are equal to each other.
-#'      \item   a horizontal-vertical gradational distribution,
-#'              where the two vertical gradational distributions of the components are
-#'              symmetric about the mean of the distribution.
+#'              of 2 normal distributions which has the same mean values for
+#'              the two normal distributions of the components.
+#'      \item   a vertical gradational distribution of 3 normal distributions
+#'              which has the mean value for the top-side component
+#'              as the mean of the mean values of the 2 tail-side components,
+#'              and has the same standard deviations for the both tail-side components.
+#'      \item   a horizontal-vertical gradational distribution which has
+#'              two vertical gradational distributions in the components
+#'              which are symmetrical to each other about the mean of the distribution.
 #' }
 #' @name    is.symmetric
 #' @aliases is.symmetric
@@ -1587,7 +1561,8 @@ GGD$methods(
             {
                 right.tail.index <- ifelse( is.v2( strict = FALSE ), 1, 3 )
                 result <- dp.t3( x, c( cmp$mean[1], cmp$mean[2], cmp$mean[right.tail.index] ),
-                                    c( cmp$sd[1], cmp$sd[2], cmp$sd[right.tail.index] ), f.t3.d )
+                                    c( cmp$sd[1], cmp$sd[2], cmp$sd[right.tail.index] ),
+                                    f.t3.d )
             }
             else if ( mix.type == 2 )
             {
@@ -1627,8 +1602,9 @@ GGD$methods(
 #' @param   use.custom.p    A logical.
 #'                          If \code{FALSE}, the coded cumulative distribution function is used
 #'                          as it is. If \code{TRUE}, the function in \code{custom.p} field is
-#'                          used instead as the cumulative distribution function.
-#' @return  The probabilities of that x is less than or equal to given x-coordinates.
+#'                          used instead.
+#' @return  A vector of the probabilities of that a value of the random variable is less than
+#'          or equal to given x-coordinates.
 #' @importFrom  stats       pnorm
 #' @examples
 #'  a <- GGD$new()
@@ -1703,8 +1679,8 @@ GGD$methods(
 ################################################################################################
 #' Quantile function
 #'
-#' Gets the x-coordinates at which the value of the cumulative distribution function will be
-#' equal to the given probabilities.
+#' Gets the x-coordinates with the cumulative distribution function is equal to
+#' the given probabilities (with a tolerance level).
 #' This function works like \code{\link[stats]{qnorm}} for a normal distribution.
 #' @name    q
 #' @aliases q
@@ -1717,9 +1693,9 @@ GGD$methods(
 #'                          If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
 #'                          is used as it is to obtain probabilities.
 #'                          If \code{TRUE}, the function in \code{custom.p} field is
-#'                          used instead as the cumulative distribution function.
-#' @return  The x-coordinates at which the value of the cumulative distribution function
-#'          will be equal to the given probabilities.
+#'                          used instead.
+#' @return  A vector of the x-coordinates with the cumulative distribution function
+#'          is equal to the given probabilities in the tolerance level.
 #' @importFrom  stats       qnorm
 #' @examples
 #'  a <- GGD$new()

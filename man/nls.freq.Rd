@@ -27,13 +27,13 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      It must contain at least 2 numeric columns for \code{x} and \code{freq}.
 
                      Column \bold{\code{x}} is for the x-coordinates.
-                     Each value expected to be a numeric value which represents the cell of
-                     the frequency distribution, the x-coordinate at the center of a cell
-                     of the frequency distribution.
+                     Each value is expected to be a numeric value which represents a cell of
+                     the frequency distribution
+                     as the x-coordinate at the center of the cell.
                      The values must be arranged in ascending order, and not be duplicated.
 
                      Column \bold{\code{freq}} is for the frequencies following \code{x}.
-                     The values of frequencies must be positive.
+                     The values of frequencies should not be negative.
                      Both integers and real numbers are allowed for the values.
 
                      Rows which contain \code{NA} or \code{NaN} for \code{x} or \code{freq}
@@ -42,7 +42,7 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      At least, 3 valid rows must be contained.
 
                      Column names and column numbers for \code{x} and \code{freq}
-                     are flexible. You can specify them with next two arguments.}
+                     are flexible. You can indicate them with next two arguments.}
 
 \item{x}{The column name or column number for x-coordinates in \code{data}.}
 
@@ -56,21 +56,18 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      is used for it.}
 
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of distribution model for approximating
-                     the frequency distribution.
-
-                     The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+                     which indicates the kind of distribution model to be generated.
+                     The matching method of \code{kind} follows that of
+                     \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
 
                      This argument gives the conditions of
                      the value of \code{mix.type} field,
-                     and of whether the mean values and standard deviations of the components
-                     should be aligned to the same value.
+                     and of whether the mean values or standard deviations of the components
+                     should be aligned to the same value or not.
 
-                     Indicating \code{mix.type} argument or
-                     indicating other than \code{"default"} for \code{grad} argument
-                     or \code{TRUE}/\code{FALSE} for \code{eq.mean} or \code{eq.sd}
-                     can overwrite the conditions of this argument.}
+                     Indicating \code{mix.type} or \code{grad} other than \code{"default"},
+                     or \code{eq.mean} and \code{eq.sd} other than \code{logical(0)}
+                     can overwrite the condition of this argument.}
 
 \item{mix.type}{A numeric value to set into \code{mix.type} field of
                      the \code{\link[ggd]{GGD}} object as an integer.
@@ -112,21 +109,25 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 
                      See \code{\link[ggd]{set.cmp}} for more information.}
 
-\item{ncmp}{Number of components for the custom distribution.
+\item{ncmp}{Number of components in \code{cmp} field.
 
-                     A positive integer should be indicated if approximating with
-                     a custom distribution via \code{ggd.nls.freq}.
+                     This argument works only when using a custom distribution.
+                     For other than custom distribution, the number of components is
+                     determined according to the distribution model.
 
-                     In the case of \code{nls.freq} method, the number of rows
-                     in \code{cmp} field is given by default,
-                     but if another value is indicated as the argument, it takes priority.}
+                     For \code{ggd.nls.freq} function,
+                     a positive integer must be indicated when using a custom distribution.
+
+                     For \code{nls.freq} method,
+                     The number of rows in \code{cmp} field is used by default.
+                     If another value is indicated, the value will be used instead.}
 
 \item{eq.mean}{A logical. If \code{TRUE}, all of the mean values of of the components
                      are forced to be equal.
 
                      If \code{FALSE} or \code{logical(0)},
-                     the mean values of the components can be different to each other,
-                     and may be equal in very rare cases.
+                     the mean values are not bound,
+                     and mean-equaled components will be rarely constructed.
 
                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
                      \code{kind} or \code{this.kind} argument.}
@@ -135,55 +136,54 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
                      the components are forced to be equal.
 
                      If \code{FALSE} or \code{logical(0)},
-                     the standard deviation of the components can be different to
-                     each other, and may be equal in very rare cases.
+                     the standard deviations are not bound,
+                     and sigma-equaled components will be rarely constructed.
 
                      If both \code{eq.mean} and \code{eq.sd} are \code{TRUE},
-                     a normal distribution will be generated.
+                     a normal distribution will be constructed.
 
                      \code{TRUE} and \code{FALSE} can overwrite the condition indicated by
                      \code{kind} or \code{this.kind} argument.}
 
 \item{start.level}{A numeric value of integer in from \code{0} to \code{3} or \code{100}
-                     with default \code{100}; the level at which to guess the initial
-                     \code{start} parameters of \code{\link[stats]{nls}}.
+                     with default \code{100}; the level of guessing the initial values
+                     for \code{start} argument of \code{\link[stats]{nls}}.
 
-         Details for each level are as:
+         Details for the levels are as:
          \itemize{
              \item \code{0}:
                       The mean and the standard deviation of the frequency distribution
-                      are used as initial values.
+                      are used as the initial values.
              \item \code{1}:
-                      In addition to level \code{0}, if it is likely to be better guess,
-                      it computes the mean values or standard deviations in ranges of
-                      local x-coordinates where the effect of each of components is likely
-                      to be heavy, and uses them as initial values.
+                      In addition to level \code{0}, it computes the local mean values
+                      and local standard deviations of the frequency distribution
+                      in ranges of x-coordinates where the effect of each of components is
+                      likely to be heavy, and uses them for guessing the initial values
+                      if they are likely to be better guesses.
              \item \code{2}:
-                      In addition to level \code{0}, if it is likely to be better guess,
-                      it uses the mean values or standard deviations of normal distributions
-                      tracing two of quantiles which are generated with
-                      the frequency distribution as initial values.
+                      In addition to level \code{0}, at first it computes some quantiles
+                      from the frequency distribution, then it finds normal distributions
+                      tracing two of the quantiles, and uses the mean values and
+                      standard deviations of them for guessing the initial values
+                      if they are likely to be better guesses.
              \item \code{3}:
-                      It uses the mean values and standard deviations of the components
-                      of a \code{\link[ggd]{GGD}} object tracing some (2, 3 or 5) quantiles
-                      which are generated with the frequency distribution as initial values.
-                      If tracing fails, level \code{2} is used instead.
-
-                      Tracing will always fail for \code{"Custom Distribution"},
-                      because \code{\link[ggd]{trace.q}} has not supported it yet.
+                      It generates a \code{\link[ggd]{GGD}} object tracing
+                      some (2, 3 or 5) quantiles computed from the frequency distribution,
+                      and uses the mean values and standard deviations of the components
+                      of the object as the initial values.
+                      If the generating fails, level \code{2} is used instead.
              \item \code{100}:
-                      Try all of above levels and adopt the result with the highest
+                      Try all of above levels and adopt the result of the highest
                       \code{\link[stats]{cor}} value.
          }
 
-         The higher the level in the range of from \code{0} to \code{3},
-         the more likely it is that the initial values will model
-         the frequency distribution in closer,
-         but the accuracy of the result may not along with the level.
+         As the level increases within the range of \code{0} to \code{3},
+         the initial model will tend to be closer to the frequency distribution.
+         However, the accuracy of the result may not along with the level.
          It is possible that \code{\link[stats]{nls}} will succeed at level \code{1}
          and fail at level \code{3} for the same data.}
 
-\item{start}{A list of \code{start} argument for \code{\link[stats]{nls}}.
+\item{start}{A list for \code{start} argument of \code{\link[stats]{nls}}.
 
                      You can provide your own \code{start} for \code{\link[stats]{nls}},
                      the mean values
@@ -205,7 +205,7 @@ See \code{\link[stats]{nls.control}} for more information.}
 
 \item{not.use.nls}{A logical.
                      If \code{TRUE}, this function does not use \code{\link[stats]{nls}} and
-                     it outputs an object having the initial values in the \code{cmp} field
+                     it outputs an object having the initial values in \code{cmp} field
                      as the result.
                      If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 
@@ -213,27 +213,30 @@ See \code{\link[stats]{nls.control}} for more information.}
                      other than \code{100}. A warning will occur if \code{TRUE}
                      when \code{start.level} is \code{100}.
 
-                     You can use \code{not.use.nls = TRUE} to check the initial values
-                     when an error has occurred at this function.}
+                     You can use \code{not.use.nls = TRUE} to check
+                     whether the initial values are appropriate
+                     when you have obtained an undesirable result from this function.}
 
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
-It represents the correlation coefficient method.
-This argument is used only if \code{start.level = 100}.
+It is a character string indicating which correlation coefficient
+(or covariance) is to be computed in order to compare the results
+between levels when \code{start.level = 100}.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+This argument works only if \code{start.level = 100}.
 See \code{\link[stats]{cor}} for more information.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
 See "Arguments" of \code{\link[stats]{nls}} for more information.}
 
 \item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of distribution model.
+                     which indicates the kind of distribution model to be constructed.
                      It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
 
                      When this method is called without \code{this.kind} argument
                      or other conditions, it attempt to retain the value of
-                     \code{mix.type} field as much as possible, but not the value of
-                     \code{kind} field, i.e., the condition whether the mean value or
-                     standard deviation of each component is aligned may not be retained.
+                     \code{mix.type} field as much as possible except for \code{kind} field,
+                     i.e., the condition whether the mean value and standard deviation of
+                     each component are aligned to same values or not may not be retained.
                      If you want to retain these conditions as well,
                      indicate the object itself to \code{this.kind} argument like as
                      \code{obj$nls.freq(data, this.kind = obj)}.}
@@ -246,8 +249,8 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      and \code{grad} argument is \code{"default"},
                      the current value of \code{mix.type} field will be retained,
                      and number of components will also.
-                     But furthermore, the object has been cleared,
-                     the \code{mix.type} field will be set to \code{2}, the initial value.}
+                     However, if the object has been cleared when this method is called,
+                     \code{mix.type} field will be \code{2}, the initial value.}
 
 \item{this.custom.d}{A function for the density function of the custom distribution.
                          It is equivalent to \code{custom.d} argument for
@@ -264,7 +267,8 @@ A list containing components (invisible for \code{GGD} method)
                  Generated \code{\link[ggd]{GGD}} object which most (at least locally)
                  closely approximates the given frequency distribution.
                  If \code{\link[stats]{nls}} has failed, it will be a cleared object.
-                 For \code{\link[ggd]{GGD}} method, the \code{\link[ggd]{GGD}} object itself.}
+                 For \code{\link[ggd]{GGD}} method,
+                 the \code{\link[ggd]{GGD}} object itself.}
          \item{nls.out}{
                  The list of the output of \code{\link[stats]{nls}}.
                  If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
@@ -275,18 +279,17 @@ A list containing components (invisible for \code{GGD} method)
                  the level for the best result will be set.
                  When \code{start.level = 3} is indicated
                  and if initial guessing has failed, \code{2} will be set.
-                 If \code{start} argument (not-\code{NULL}) is indicated,
+                 If a not-\code{NULL} \code{start} argument is indicated,
                  \code{NA} will be set.}
          \item{start}{
-                 The used \code{start} argument for the initial values
-                 for \code{\link[stats]{nls}}.}
+                 The used \code{start} argument of \code{\link[stats]{nls}}.}
          \item{start.obj}{
                  A \code{\link[ggd]{GGD}} object corresponding to the initial values.
                  That is, a \code{\link[ggd]{GGD}} object in which
-                 values of the above \code{start} are set directly to the \code{cmp} field.}
+                 values of the above \code{start} are set directly to \code{cmp} field.}
          \item{cor}{
                  The vector of the correlation coefficient of between the result for
-                 each level of initial guessing in from \code{0} to \code{3}
+                 each initial guessing level in the range of \code{0} to \code{3}
                  and the frequency distribution.
                  This component is given only if \code{start.level = 100}.}
          \item{errors}{
@@ -294,47 +297,50 @@ A list containing components (invisible for \code{GGD} method)
                  This component is given only if \code{start.level = 100}.
                  Each element in the list contains:
                  \itemize{
-                     \item level: The level of initial guessing when the error has occurred.
+                     \item level: The initial guessing level when the error has occurred.
                      \item message: The error message.
                  }}
          \item{warnings}{
                  A list of information about warnings occurred in \code{\link[stats]{nls}}.
                  This component is given only if \code{start.level = 100}.
-                 The composition of each element is as same as for \code{errors}.}
+                 The composition of each element is same as \code{errors}.}
 
-         For \code{GGD} method: If an error occurs, all fields (except for \code{custom.d},
-                                which may have been updated with \code{this.custom.d})
-                                of the object will be cleared in most cases.
+         For \code{GGD} method: If an error occurs, all fields of the object will be cleared
+                                in most cases.
 }
 \description{
 With the non-linear least squares (\code{\link[stats]{nls}}),
 constructs a \code{\link[ggd]{GGD}} object which (locally) most closely approximates
-the given frequency distribution. "Locally" means that if the start value is modified,
-more closely approximating model may be generated.
+the given frequency distribution.
+Then \code{ggd.nls.freq} function generates a \code{\link[ggd]{GGD}} object,
+and \code{nls.freq} method sets the fields according to the result.
+"Locally" means that if the start value is modified, more closely approximating model
+may be constructed.
 The outliers of the frequency distribution will not be excluded in this function.
 If necessary, outliers should be excluded by preprocessing.
 }
 \details{
 \subsection{Why the standard deviations for "start" are square-rooted?}{
-     You know a standard deviation must be a non-zero positive value.
+     You know a standard deviation must be a positive value.
      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
-     they will sometimes drop into negative values while the Gauss-Newton algorithm is running
+     they sometimes drop into negative values while the Gauss-Newton algorithm is running
      and the algorithm will fail, even if it can reach convergence if done better.
 
-     So, to avoid such failures, we use square roots of standard deviations and
+     Therefore, to avoid such failures, we use square roots of standard deviations and
      take squares of them in the formula for \code{\link[stats]{nls}}.
  }
 }
 \examples{
  ## Preparing
- df <- data.frame( x      = seq( -2, 2, 0.2 ),
-                   freq   = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
-                               7947, 10997, 11824, 11133,  7868,  4692,  4103,
-                               3698,  2740,  2549,  2284,  1499,  1147,   918 ),
-                   x.2    = seq( -20, 20, 2 ),
-                   freq.2 = c( .000974, .003797, .008523, .023142, .045017, .081743, .120990,
-                               .142527, .124627, .106294, .078625, .059378, .045690, .042958,
-                               .035760, .030938, .015675, .012516, .008139, .005114, .003582 ) )
+ df <- data.frame(
+             x      = seq( -2, 2, 0.2 ),
+             freq   = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
+                         7947, 10997, 11824, 11133,  7868,  4692,  4103,
+                         3698,  2740,  2549,  2284,  1499,  1147,   918 ),
+             x.2    = seq( -20, 20, 2 ),
+             freq.2 = c( .000974, .003797, .008523, .023142, .045017, .081743, .120990,
+                         .142527, .124627, .106294, .078625, .059378, .045690, .042958,
+                         .035760, .030938, .015675, .012516, .008139, .005114, .003582 ) )
 
  plot.freq.and.d <- function( obj, x, freq )
  {
