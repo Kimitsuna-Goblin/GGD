@@ -13,20 +13,19 @@
 }
 \description{
 Checks if the mean values of all normal distributions of components are equal.
+The equality is determined by the \code{==} operator.
 }
 \examples{
  a <- GGD$new()
  a$kind          ## Normal Distribution
  a$is.eq.mean()  ## TRUE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v2" )
- a$kind          ## 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+ a$set.cmp( data.frame( mean = c( 0, 1e+8 ), sd = rep( 1.5, 2 ) ) )
+ a$kind          ## Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
  a$is.eq.mean()  ## FALSE
 
  a <- GGD$new()
- a$set.cmp( data.frame( mean = rep( 0, 3 ), sd = c( 1.2, 0.5, 1.3 ) ) )
- a$kind          ## 3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
+ a$set.cmp( data.frame( mean = rep( 0.5, 2 ), sd = c( 1, 1 + 1e+8 ) ) )
+ a$kind          ## Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
  a$is.eq.mean()  ## TRUE
 }

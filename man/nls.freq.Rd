@@ -353,27 +353,22 @@ If necessary, outliers should be excluded by preprocessing.
  }
 
  ## Examples
- ggd.nls.freq( df, grad = "normal" )
- a <- ggd.nls.freq( df, grad = "no" )$obj
- plot.freq.and.d( a, df$x, df$freq )
+ result <- ggd.nls.freq( df, mix.type = 0 )
+ result
+ plot.freq.and.d( result$obj, df$x, df$freq )
 
- ## "start.level" can be omitted (and you should omit to gain better results),
- ## but is indicated here for processing speed.
- a$nls.freq( df, this.mix.type = 1, start.level = 2 )
+ ## "start.level" can be omitted, but it is indicated here for processing speeds.
+ a <- GGD$new()
+ a$nls.freq( df, this.kind = "2.*Sigma-Equaled Vertical", start.level = 2 )
  a
+
+ ## "Sigma-Differed" is overwritten with "eq.sd = FALSE" after "kind = a"
+ b <- ggd.nls.freq( df, kind = a, eq.sd = FALSE, start.level = 2 )$obj
+ a$kind; b$kind      ## "... Sigma-Equaled ..."; "... Sigma-Differed ..."
  plot.freq.and.d( a, df$x, df$freq )
+ plot.freq.and.d( b, df$x, df$freq )
 
- a$nls.freq( df, start.level = 2,
-             this.kind = "2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution" )
- a
- plot.freq.and.d( a, df$x, df$freq )
-
- ## overwriting "Sigma-Differed" after "kind = a"
- b <- ggd.nls.freq( df, kind = a, eq.sd = FALSE, start.level = 2 )
- b
- plot.freq.and.d( b$obj, df$x, df$freq )
-
- ## You can set start parameters if you want.
+ ## You can set start parameters with "start" argument.
  start.list <- ggd.start.template( 14 )
  start.list
 
@@ -383,26 +378,25 @@ If necessary, outliers should be excluded by preprocessing.
  start.list$mean.2.2 <- -0.198
  start.list$sqrt.sd <- sqrt( 0.640 ) ## sqrt.sd is the sqrt of the standard deviation.
 
- ## "start.level" is ignored when you have indicated start parameters.
- a$nls.freq( df, this.kind = 14, start.level = 1, start = start.list )
- a
+ ## "start.level" is ignored when you indicate "start" argument.
+ result <- a$nls.freq( df, this.kind = 14, start.level = 1, start = start.list )
+ result$start.level  ## NA
  plot.freq.and.d( a, df$x, df$freq )
 
- ## When you use a GGD object consecutively,
- ## the field values set to the object in the previous session are retained
- ## (if no error has occurred).
+ ## When you call the nls.freq method of a GGD object consecutively,
+ ## the conditions in the fields are retained (if no error has occurred).
  a$nls.freq( df, grad = "hv", eq.mean = TRUE, start.level = 2 )
- a
+ a$mix.type; a$is.eq.mean()  ## 4; TRUE
  plot.freq.and.d( a, df$x, df$freq )
 
  a$nls.freq( df, eq.mean = FALSE, start.level = 2 )   ## grad = "hv" is retained.
- a
+ a$mix.type; a$is.eq.mean()  ## 4; FALSE
  plot.freq.and.d( a, df$x, df$freq )
 
  ## Using "x.2" for x and "freq.2" for freq.
- a <- ggd.nls.freq( df, x = "x.2", freq = "freq.2", start.level = 2 )$obj
- a   ## default value of mix.type is 2
- plot.freq.and.d( a, df$x.2, df$freq.2 )
+ b <- ggd.nls.freq( df, x = "x.2", freq = "freq.2", start.level = 2 )$obj
+ b
+ plot.freq.and.d( b, df$x.2, df$freq.2 )
 }
 \seealso{
 \code{\link[stats]{nls}}, \code{\link[stats]{nls.control}},

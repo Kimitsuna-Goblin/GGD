@@ -17,24 +17,18 @@
 }
 \description{
 Checks if the standard deviations of all normal distributions of components are equal.
+The equality is determined by the \code{==} operator.
 }
 \examples{
  a <- GGD$new()
  a$kind          ## Normal Distribution
- a$is.eq.sd()    ## TRUE
- a$is.eq.sigma() ## TRUE (This method is just a synonym of is.eq.sd)
+ a$is.eq.sd(); a$is.eq.sigma()   ## TRUE; TRUE (is.eq.sigma is just a synonym of is.eq.sd)
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v2" )
- a$kind          ## 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
- a$is.eq.sd()    ## FALSE
- a$is.eq.sigma() ## FALSE
+ a$set.cmp( data.frame( mean = rep( 0.5, 2 ), sd = c( 1, 1 + 1e+8 ) ) )
+ a$kind          ## Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
+ a$is.eq.sd(); a$is.eq.sigma()   ## FALSE; FALSE
 
- a$trace.q(
-     data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.70 ) ),
-     this.mix.type = 2, eq.sd = TRUE )
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
- a$is.eq.sd()    ## TRUE
- a$is.eq.sigma() ## TRUE
+ a$set.cmp( data.frame( mean = c( 0, 1e+8 ), sd = rep( 1.5, 2 ) ) )
+ a$kind          ## Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
+ a$is.eq.sd(); a$is.eq.sigma()   ## TRUE; TRUE
 }
