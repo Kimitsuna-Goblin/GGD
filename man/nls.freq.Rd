@@ -112,8 +112,8 @@ ggd.nls.freq(data, x = "x", freq = "freq", total = NULL,
 \item{ncmp}{Number of components in \code{cmp} field.
 
                      This argument works only when using a custom distribution.
-                     For other than custom distribution, the number of components is
-                     determined according to the distribution model.
+                     For other distribution models, the number of components is determined
+                     according to the model.
 
                      For \code{ggd.nls.freq} function,
                      a positive integer must be indicated when using a custom distribution.
@@ -230,7 +230,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
 
 \item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
                      which indicates the kind of distribution model to be constructed.
-                     It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
+                     It is equivalent to \code{kind} argument of \code{ggd.nls.freq}.
 
                      When this method is called without \code{this.kind} argument
                      or other conditions, it attempt to retain the value of
@@ -242,7 +242,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      \code{obj$nls.freq(data, this.kind = obj)}.}
 
 \item{this.mix.type}{A numeric value to set into \code{mix.type} field as an integer.
-                         It is equivalent to \code{mix.type} argument for
+                         It is equivalent to \code{mix.type} argument of
                          \code{ggd.nls.freq}.
 
                      If both of \code{this.kind} and \code{this.mix.type} are not given
@@ -253,7 +253,7 @@ See "Arguments" of \code{\link[stats]{nls}} for more information.}
                      \code{mix.type} field will be \code{2}, the initial value.}
 
 \item{this.custom.d}{A function for the density function of the custom distribution.
-                         It is equivalent to \code{custom.d} argument for
+                         It is equivalent to \code{custom.d} argument of
                          \code{ggd.nls.freq}.
 
                      If \code{NULL}, the current function in \code{custom.d} field

@@ -149,7 +149,7 @@
 #'
 #' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model to be constructed.
-#'                      It is equivalent to \code{kind} argument for \code{ggd.trace.q}.
+#'                      It is equivalent to \code{kind} argument of \code{ggd.trace.q}.
 #'
 #'                      In this method, the value of \code{kind} field will be not
 #'                      necessarily retained without indicating any conditions,
@@ -163,7 +163,7 @@
 #'
 #' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
 #'                          It should be an integer from \code{0} to \code{4} or \code{NULL}.
-#'                          It is equivalent to \code{mix.type} argument for \code{ggd.trace.q}.
+#'                          It is equivalent to \code{mix.type} argument of \code{ggd.trace.q}.
 #'
 #'                      If \code{NULL}, the current \code{mix.type} field will be retained
 #'                      (and number of components, too) if it can trace the quantiles.

@@ -121,25 +121,25 @@
 #'                      See "Fields" of \code{\link[ggd]{GGD-class}} for more information.
 #'
 #' @param   this.cmp    A data frame for setting into \code{cmp} field.
-#'                      It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.
+#'                      It is equivalent to \code{cmp} argument of \code{ggd.set.cmp}.
 #'
 #' @param   this.kind   A string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model to be constructed.
-#'                      It is equivalent to \code{kind} argument for \code{ggd.set.cmp}.
+#'                      It is equivalent to \code{kind} argument of \code{ggd.set.cmp}.
 #'
 #' @param   this.mix.type   A numeric value represents how to mix the normal distributions.
-#'                          It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.
+#'                          It is equivalent to \code{mix.type} argument of \code{ggd.set.cmp}.
 #'
 #' @param   this.custom.d   A function for the probability density function of
 #'                          the custom distribution.
-#'                          It is equivalent to \code{custom.d} argument for \code{ggd.set.cmp}.
+#'                          It is equivalent to \code{custom.d} argument of \code{ggd.set.cmp}.
 #'
 #'                          \code{NULL} is allowed to retain the current \code{custom.d} field.
 #'                          However, a warning will occur if you retain the default for
 #'                          a custom distribution.
 #'
 #' @param   this.custom.p   A function for the cumulative distribution function defined by user.
-#'                          It is equivalent to \code{custom.p} argument for \code{ggd.set.cmp}.
+#'                          It is equivalent to \code{custom.p} argument of \code{ggd.set.cmp}.
 #'
 #'                          \code{NULL} is allowed to retain the current \code{custom.p} field.
 #'                          Retaining the default will not cause warnings.
