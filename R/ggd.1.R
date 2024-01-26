@@ -1498,6 +1498,11 @@ NULL
 GGD$methods(
     p = function( x )
     {
+        if ( !( length( mix.type ) == 0 || is.na( mix.type ) || any( mix.type == 0:4 ) ) )
+        {
+            stop( "Error: mix.type is invalid." )
+        }
+
         results <- vapply( x, function( x )
         {
             if ( length( mix.type ) == 0 || is.na( mix.type ) )
@@ -1530,14 +1535,10 @@ GGD$methods(
                 p2 <- pnorm( x, cmp$mean[2], cmp$sd[2] )
                 result <- p1 - ( p1 * p1 - p2 * p2 ) / 2
             }
-            else if ( mix.type == 1 )
+            else # if ( mix.type == 1 )
             {
                 result <- ( pnorm( x, cmp$mean[1], cmp$sd[1] ) +
                             pnorm( x, cmp$mean[2], cmp$sd[2] ) ) / 2
-            }
-            else
-            {
-                stop( "Error: mix.type is invalid." )
             }
 
             return ( result )
