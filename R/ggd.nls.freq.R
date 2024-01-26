@@ -226,7 +226,7 @@
 #'
 #' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model to be constructed.
-#'                      It is equivalent to \code{kind} argument for \code{ggd.nls.freq}.
+#'                      It is equivalent to \code{kind} argument of \code{ggd.nls.freq}.
 #'
 #'                      When this method is called without \code{this.kind} argument
 #'                      or other conditions, it attempt to retain the value of
@@ -238,7 +238,7 @@
 #'                      \code{obj$nls.freq(data, this.kind = obj)}.
 #'
 #' @param   this.mix.type   A numeric value to set into \code{mix.type} field as an integer.
-#'                          It is equivalent to \code{mix.type} argument for
+#'                          It is equivalent to \code{mix.type} argument of
 #'                          \code{ggd.nls.freq}.
 #'
 #'                      If both of \code{this.kind} and \code{this.mix.type} are not given
