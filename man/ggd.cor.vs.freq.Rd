@@ -39,11 +39,10 @@ two numeric vectors like as other non-exported functions, not a data frame.
                    freq  = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
                               7947, 10997, 11824, 11133,  7868,  4692,  4103,
                               3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
- a <- ggd.nls.freq( df, kind = "Mean-Eq.*Vertical" )$obj
- ggd.cor.vs.freq( a, df$x, df$freq )
-
  objs <- list( ggd.nls.freq( df, kind = "Mean-Eq.*Vertical" )$obj,
                ggd.nls.freq( df, kind = "Sigma-Eq.*Vertical" )$obj,
-               ggd.nls.freq( df, kind = "Mean-Diff.*Sigma-Diff.*Vertical" )$obj )
+               ggd.nls.freq( df, kind = "Vertical" )$obj )
+
+ ggd.cor.vs.freq( objs[[1]], df$x, df$freq )
  ggd.cor.vs.freq( objs, df$x, df$freq )
 }
