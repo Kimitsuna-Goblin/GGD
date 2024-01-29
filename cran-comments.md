@@ -1,58 +1,69 @@
-── R CMD check results ────────────────────────────────────────── ggd 1.0.3 ────
-Duration: 16m 49.4s
+── R CMD check results ──────────────────────────────────────────────── ggd 1.0.3 ────
+Duration: 15m 49.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ── ggd 1.0.3: NOTE
 
-  Build ID:   ggd_1.0.3.tar.gz-a18a5753ce994c07b9ae611271e00d72
+  Build ID:   ggd_1.0.3.tar.gz-dc9d43e8c4c5414fbf05bd649c91e0a8
   Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  6h 7m 58.6s ago
-  Build time: 34m 24.7s
+  Submitted:  1h 5m 13.6s ago
+  Build time: 30m 52.6s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kimitsuna Ura <kimitsuna@i.softbank.jp>'
   
   New submission
 
-0 errors ✔ | 0 warnings ✔ | 1 note ✖
+❯ checking HTML version of manual ... [11s] NOTE
+  Skipping checking math rendering: package 'V8' unavailable
+
+❯ checking for non-standard things in the check directory ... NOTE
+  Found the following files/directories:
+    ''NULL''
+
+❯ checking for detritus in the temp directory ... NOTE
+  Found the following files/directories:
+    'lastMiKTeXException'
+
+0 errors ✔ | 0 warnings ✔ | 4 notes ✖
 
 ── ggd 1.0.3: NOTE
 
-  Build ID:   ggd_1.0.3.tar.gz-01b6491d2d2f454989c896bd868cd73d
+  Build ID:   ggd_1.0.3.tar.gz-10031699949b4569b71bff23e487d98c
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  6h 7m 58.6s ago
-  Build time: 46m 41.4s
+  Submitted:  1h 5m 13.6s ago
+  Build time: 44m 10s
 
-❯ checking CRAN incoming feasibility ... [6s/27s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/23s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
 
-❯ checking examples ... [13s/45s] NOTE
+❯ checking examples ... [13s/40s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  trace.q          2.027  0.008   7.066
-  ggd.nls.freq.all 1.756  0.000   6.193
+  trace.q          2.001  0.008    6.08
+  ggd.nls.freq.all 1.734  0.003    5.50
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 ── ggd 1.0.3: NOTE
 
-  Build ID:   ggd_1.0.3.tar.gz-c9681db2ba9148e3a1ab9ac9d9be1d68
+  Build ID:   ggd_1.0.3.tar.gz-17ffc3587eaa4b9db4de181d4c0e4e59
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  6h 7m 58.6s ago
-  Build time: 46m 20.5s
+  Submitted:  1h 5m 13.7s ago
+  Build time: 43m 56.9s
 
-❯ checking CRAN incoming feasibility ... [7s/25s] NOTE
+❯ checking CRAN incoming feasibility ... [7s/26s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
 
-❯ checking examples ... [14s/45s] NOTE
+❯ checking examples ... [13s/41s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  trace.q          2.204  0.015   7.261
-  ggd.nls.freq.all 1.885  0.000   6.437
+  trace.q          2.092  0.012   6.522
+  ggd.nls.freq.all 1.829  0.000   5.790
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
