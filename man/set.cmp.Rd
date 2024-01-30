@@ -42,7 +42,7 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 \item{mix.type}{A numeric value represents how to mix the normal distributions.
 
                      The type of the distribution model and the number of rows in \code{cmp}
-                     will be represented with \code{mix.type} value as follows:
+                     follow \code{mix.type} as:
                      \itemize{
                          \item \code{0} : Normal distribution. \code{cmp} has only 1 row.
                          \item \code{1} : Mean of 2 normal distributions.
