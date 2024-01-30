@@ -16,7 +16,7 @@ The class provides the Gradational Gaussian Distribution.
 
      The GGD is alike the Gaussian mixture model (GMM) but different.
      The GMM is represented by linear combinations of some normal distributions,
-     and is often used for clustering of mixed data.
+     and it is commonly used for clustering mixed data.
      On the other hand, the GGD is a distribution model of
      which mixes some normal distributions with gradually changing ratio
      along the x-axis or y-axis directions,
