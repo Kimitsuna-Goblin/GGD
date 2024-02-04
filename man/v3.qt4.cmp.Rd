@@ -2,9 +2,9 @@
 % Please edit documentation in R/ggd.trace.q.R
 \name{v3.qt4.cmp}
 \alias{v3.qt4.cmp}
-\title{[Non-exported] Gets cmp field (4 quantiles, vertical gradation of 3 normal distributions)}
+\title{[Non-exported] Gets cmp field (4 quantiles, v3)}
 \usage{
-v3.qt4.cmp(qt, eq.mean, eq.sd, control, retriable, grad)
+v3.qt4.cmp(qt, eq.mean, eq.sd, control, retryable, grad)
 }
 \arguments{
 \item{qt}{A data frame; the quantiles to be traced.}
@@ -15,10 +15,10 @@ v3.qt4.cmp(qt, eq.mean, eq.sd, control, retriable, grad)
 
 \item{control}{The \code{control} option for \code{\link[nleqslv]{nleqslv}}.}
 
-\item{retriable}{A logical; the flag if retrying is enable.}
+\item{retryable}{A logical; the flag if retrying is enable.}
 
 \item{grad}{A character string indicating the method of gradation.
-If \code{"v3"}, constructing with 3 components is enforcedly,
+If \code{"v3"}, the number of components will forced to be 3,
 even if it is possible to construct with 2 components.}
 }
 \value{
@@ -29,6 +29,6 @@ A list containing components
                  The output of \code{\link[nleqslv]{nleqslv}}.}
 }
 \description{
-Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 4 quantiles
-with 3 normal distributions of the components.
+Tracing 4 quantiles with 3 normal distributions, makes a data frame for \code{cmp} field
+where \code{mix.type = 3}.
 }

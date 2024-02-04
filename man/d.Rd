@@ -15,7 +15,7 @@ The values of the probability density function for the given x-coordinates.
 }
 \description{
 Gets the values of the probability density function for the given x-coordinates.
-This function works like \code{\link[stats]{dnorm}} for a normal distribution.
+This method works like \code{\link[stats]{dnorm}} for a normal distribution.
 }
 \examples{
  a <- GGD$new()

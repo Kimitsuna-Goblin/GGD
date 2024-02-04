@@ -11,12 +11,13 @@
 \item{x}{A vector of x-coordinates.}
 }
 \value{
-The probabilities of that x is less than or equal to given x-coordinates.
+A vector of the probabilities of that a value of the random variable is less than
+         or equal to given x-coordinates.
 }
 \description{
 Gets the probabilities of that a value of the random variable is less than or equal to
 the given x-coordinates.
-This function works like \code{\link[stats]{pnorm}} for a normal distribution.
+This method works like \code{\link[stats]{pnorm}} for a normal distribution.
 }
 \examples{
  a <- GGD$new()

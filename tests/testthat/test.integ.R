@@ -1437,17 +1437,17 @@ lv.t3.sub <- function( k, mean, mean.k, sd.k )
 {
     if ( k == 1 )
     {
-        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, min( mean, mean.k ), k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, min( mean, mean.k ), i = k )
     }
     else if ( k == 2 )
     {
-        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, i = k )
     }
     else if ( k == 3 )
     {
         if ( mean.k < mean )
         {
-            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k ) -
+            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, i = k ) -
             ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 +
             ( mean.k - mean ) * sd.k * sqrt( 2 ) / sqrt( pi ) / 2 -
             sd.k^2 * ( 4 - sqrt( 2 ) ) / 8
@@ -1543,7 +1543,7 @@ uv.t3.sub <- function( k, mean, mean.k, sd.k )
             ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 4 -
             ( mean.k - mean ) * sd.k * sqrt( 2 ) / sqrt( pi ) / 2 +
             sd.k^2 * ( 4 - sqrt( 2 ) ) / 8 -
-            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
+            ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, i = k )
         }
         else
         {
@@ -1554,13 +1554,13 @@ uv.t3.sub <- function( k, mean, mean.k, sd.k )
     {
         ( mean.k - mean )^2 * sqrt( 2 ) / 2 +
         sd.k^2 * sqrt( 2 ) / 4 -
-        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, mean, i = k )
     }
     else if ( k == 3 )
     {
         ( mean.k - mean )^2 * ( 2 - sqrt( 2 ) ) / 2 +
         sd.k^2 * ( 4 - sqrt( 2 ) ) / 4 -
-        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, max( mean, mean.k ), k = k )
+        ggd:::calc.v.sub( 3, mean, mean.k, sd.k, max( mean, mean.k ), i = k )
     }
 }
 

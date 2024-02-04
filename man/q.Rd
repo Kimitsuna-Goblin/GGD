@@ -13,13 +13,13 @@
 \item{tol}{The tolerance level for the convergence criterion.}
 }
 \value{
-The x-coordinates at which the value of the cumulative distribution function
-         will be equal to the given probabilities.
+A vector of the x-coordinates with the cumulative distribution function
+         is equal to the given probabilities in the tolerance level.
 }
 \description{
-Gets the x-coordinates at which the value of the cumulative distribution function will be
-equal to the given probabilities.
-This function works like \code{\link[stats]{qnorm}} for a normal distribution.
+Gets the x-coordinates with the cumulative distribution function is equal to
+the given probabilities (with a tolerance level).
+This method works like \code{\link[stats]{qnorm}} for a normal distribution.
 }
 \examples{
  a <- GGD$new()

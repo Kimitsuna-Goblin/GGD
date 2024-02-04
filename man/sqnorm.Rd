@@ -7,20 +7,20 @@
 sqnorm(p)
 }
 \arguments{
-\item{p}{A vector of probabilities.}
+\item{p}{A vector of the probabilities of the quantiles.}
 }
 \value{
-A vector of sigma-unit distances from the mean to the quantiles for
-         the probabilities.
+A vector of sigma-unit distances
+         from the mean to the x-coordinates of the quantiles.
 }
 \description{
-Calculates how many sigmas are the distances from the mean of a normal distribution
-to the values of the quantile function for the given probabilities.
-The mean and standard deviation are not need for this function, because sigma-unit distances
-do not depend on them.
+Calculates how many sigmas are the distance from the mean of a normal distribution
+to the x-coordinate of the quantile which has the indicated probability.
+The mean and standard deviation are not needed for this function
+because the sigma-unit distance does not depend on them.
 }
 \examples{
- sqnorm( 0.5 )   # 0
- sqnorm( pnorm( -2, 0, 1 ) ) # -2
- sqnorm( seq( 0, 1, 0.1 ) )  # increces from -Inf to Inf
+ sqnorm( 0.5 )               ## 0
+ sqnorm( pnorm( -2, 0, 1 ) ) ## -2
+ sqnorm( seq( 0, 1, 0.1 ) )  ## increases from -Inf to Inf
 }

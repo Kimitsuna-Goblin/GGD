@@ -15,7 +15,7 @@
                  is a normal distribution.}
 }
 \value{
-\code{TRUE} if the object shows a kind of vertical gradation of
+\code{TRUE} if the object represents a kind of vertical gradation of
          2 normal distributions, otherwise \code{FALSE}.
 }
 \description{
@@ -35,10 +35,7 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$is.v2()       ## TRUE
  a$is.v2( TRUE ) ## FALSE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v2" )
- a$kind; a$cmp
+ a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 0.9 ) ), grad = "v2" )
  a$is.v2( TRUE ) ## TRUE
 
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ),

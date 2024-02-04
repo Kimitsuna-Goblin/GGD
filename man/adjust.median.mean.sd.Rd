@@ -3,7 +3,7 @@
 \name{adjust.median.mean.sd}
 \alias{adjust.median.mean.sd}
 \alias{\S4method{adjust.median.mean.sd}{GGD}}
-\title{Adjust median, mean and sd fields}
+\title{Adjust median, mean, and sd fields}
 \usage{
 \S4method{adjust.median.mean.sd}{GGD}()
 }
@@ -11,8 +11,8 @@
 The \code{\link[ggd]{GGD}} object itself (invisible).
 }
 \description{
-Calculates the median, the mean and the standard deviation of the distribution model and
-sets those values into the fields.
-Before calling this method, you must set \code{cmp} field and \code{mix.type} field.
+Calculates the median, the mean, and the standard deviation of the distribution model and
+then sets those values into the fields.
+Before calling this method, you must set \code{cmp} and \code{mix.type} fields.
 Normally, users of this class don't need to call this method directly.
 }

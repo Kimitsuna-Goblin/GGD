@@ -17,7 +17,7 @@
                      and a 2-component vertical gradational distribution.}
 }
 \value{
-\code{TRUE} if the object shows a kind of horizontal-vertical gradation of
+\code{TRUE} if the object represents a kind of horizontal-vertical gradation of
          4 (2x2) normal distributions, otherwise \code{FALSE}.
 }
 \description{

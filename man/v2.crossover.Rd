@@ -2,13 +2,12 @@
 % Please edit documentation in R/ggd.trace.q.R
 \name{v2.crossover}
 \alias{v2.crossover}
-\title{[Non-exported] Crossover-tracing (3 quantiles, vertical gradation of 2 normal distributions)}
+\title{[Non-exported] Crossover-tracing (3 quantiles, v2)}
 \usage{
 v2.crossover(qt, control)
 }
 \arguments{
-\item{qt}{A data frame; the quantiles to be traced,
-If the median is specified, median must be included.}
+\item{qt}{A data frame; the quantiles to be traced.}
 
 \item{control}{The \code{control} option for \code{\link[nleqslv]{nleqslv}}.}
 }
@@ -20,13 +19,13 @@ A list containing components
                  The output of \code{\link[nleqslv]{nleqslv}}.}
 }
 \description{
-Gets the data frame for \code{cmp} field where \code{mix.type = 3} and tracing 3 quantiles
-with mean-differed 2 normal distributions of the components by crossover-tracing.
+Tracing 3 quantiles by crossover-tracing, makes a data frame for \code{cmp} field
+for a mean-differed 2-component vertical gradational distribution.
 }
 \details{
 \subsection{Crossover-tracing}{
      Let cumulative distribution functions of 2 mean-differed normal distributions
-     crossover at one of quantiles (except for median),
+     crossover at one of the quantiles (except for the median),
      and seek the mean values and standard deviations as tracing the other 2 quantiles.
  }
 }

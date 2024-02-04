@@ -10,20 +10,12 @@ ggd.init.start()
 An all-\code{NULL} list with the length of 16 (= \code{length(ggd:::kinds)}).
 }
 \description{
-Generates a list of 16 (= \code{length(ggd:::kinds)}) \code{NULL} lists.
-}
-\details{
-If you want to indicate some \code{start} lists for \code{\link[ggd]{ggd.nls.freq.all}}
-by yourself, you can give the lists to the elements of the returned list of this function,
-and give it to \code{\link[ggd]{ggd.nls.freq.all}} as \code{start} argument.
-
-You don't have to set all elements of the returned list by yourself,
-since internally calculated default values will be used for \code{start} of
-\code{\link[stats]{nls}} where the elements of the list are \code{NULL}.
-
-The format of each element can be got with \code{\link[ggd]{ggd.start.template}}.
-In addition, \code{\link[ggd]{ggd.kind}} and \code{\link[ggd]{ggd.kind.index}} functions
-may help you to know the kind of distribution which the index number represents.
+Generates a list of 16 \code{NULL} lists.
+If you want to indicate some start values for \code{\link[ggd]{ggd.nls.freq.all}},
+insert a list of the start values instead of \code{NULL} at some elements of
+the 16-\code{NULL} list and use it as \code{start} argument.
+For more information about the format of each element and other details,
+see \code{\link[ggd]{ggd.start.template}} and \code{\link[ggd]{ggd.nls.freq.all}}.
 }
 \examples{
  ## Let's approximate this frequency distribution.
@@ -33,25 +25,25 @@ may help you to know the kind of distribution which the index number represents.
                        7947, 10997, 11824, 11133,  7868,  4692,  4103,
                        3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
 
- ## get the initial list
+ ## Get the initial list.
  start.list <- ggd.init.start()
  start.list
 
- ## check the parameters for ggd:::kinds[14].
+ ## Check the parameters for ggd:::kinds[14].
  ggd.start.template( 14 )
 
- ## set the start parameters of ggd:::kinds[14] to get better result
+ ## Set the start values of ggd:::kinds[14] to get better result.
  start.list[[14]]$mean.1.1 <-  0.426831
  start.list[[14]]$mean.1.2 <- -0.130757
  start.list[[14]]$mean.2.1 <-  0.426831
  start.list[[14]]$mean.2.2 <- -0.130757
  start.list[[14]]$sqrt.sd <- sqrt( 0.812744 )
 
- ## try ggd.nls.freq.all (the result of ggd:::kinds[14] will be better than ggd:::kinds[8])
+ ## Run ggd.nls.freq.all (the result of ggd:::kinds[14] will be better than ggd:::kinds[8]).
  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
  result$cor[8]
  result$cor[14]
 }
 \seealso{
-\code{\link[ggd]{ggd.nls.freq.all}}, \code{\link[ggd]{ggd.start.template}}
+\code{\link[ggd]{ggd.start.template}}, \code{\link[ggd]{ggd.nls.freq.all}}
 }

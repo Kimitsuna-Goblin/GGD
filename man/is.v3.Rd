@@ -11,14 +11,14 @@
 \item{strict}{If \code{TRUE}, this function returns \code{TRUE} only if
                  the distribution is a vertical gradation with different left-tail-side and
                  right-tail-side components.
-                 Even when the \code{cmp} field has 3 rows with \code{mix.type = 3},
+                 Even when \code{cmp} field has 3 rows with \code{mix.type = 3},
                  if the 1st and the 3rd components are the same, it returns \code{FALSE}.
 
                  If \code{FALSE}, this function also returns \code{TRUE} for
                  a normal distribution or a vertical gradation of 2 normal distributions.}
 }
 \value{
-\code{TRUE} if the object shows a kind of vertical gradation of
+\code{TRUE} if the object represents a kind of vertical gradation of
          3 normal distributions, otherwise \code{FALSE}.
 }
 \description{
@@ -38,15 +38,12 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$is.v3()                   ## TRUE
  a$is.v3( strict = TRUE )    ## FALSE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.21, 1.98 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v3" )
- a$kind; a$cmp
+ a$set.cmp( data.frame( mean = c( 0, 0, 0 ), sd = c( 1.1, 0.9, 1.2 ) ), grad = "v3" )
  a$is.v3()                   ## TRUE
  a$is.v3( strict = TRUE )    ## TRUE
 
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ),
                         sd = c( 1.1, 0.8, 1.2, 0.8 ) ), this.mix.type = 4 )
  a$mix.type  ## 4
- a$is.v3()   ## FALSE -- see "Note!" at Description
+ a$is.v3()   ## FALSE -- see 'Note!' at Description
 }

@@ -12,7 +12,7 @@
 ################################################################################################
 #' [Non-exported] Bisection method
 #'
-#' Solves a equation via bisection method.
+#' Solves an equation via bisection method.
 #' @param   f           The destination function to solve.
 #' @param   interval    A numeric vector of length 2 indicating the range of x value
 #'                      on which the solution is to be searched.

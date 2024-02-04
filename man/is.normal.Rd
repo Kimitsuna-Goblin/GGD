@@ -8,7 +8,7 @@
 \S4method{is.normal}{GGD}()
 }
 \value{
-\code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
+\code{TRUE} if the object represents a normal distribution, otherwise \code{FALSE}.
 }
 \description{
 Referring \code{cmp} field, checks if the distribution is essentially a normal distribution.
@@ -21,9 +21,7 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 1.1 ) ), this.mix.type = 2 )
  a$is.normal()   ## TRUE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v2" )
- a$kind; a$cmp
+ a$set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 0.9 ) ), grad = "v2" )
+ a$kind          ## 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
  a$is.normal()   ## FALSE
 }

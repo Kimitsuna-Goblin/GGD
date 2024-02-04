@@ -2,50 +2,55 @@
 % Please edit documentation in R/ggd.mean.sd.R
 \name{calc.v.sub}
 \alias{calc.v.sub}
-\title{[Non-exported] Sub-functions for variance calculation for mix.type = 2, 3}
+\title{[Non-exported] Sub-function for variance calculation where mix.type = 2, 3}
 \usage{
-calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, k = 0)
+calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0)
 }
 \arguments{
-\item{mix.type}{The value which represent the way to mix the normal distributions.}
+\item{mix.type}{The value of \code{mix.type}. It allows \code{2} or \code{3}.}
 
-\item{mean}{The mean of the whole distribution.}
+\item{mean}{The mean of the distribution model.}
 
-\item{mean.i}{The mean value of the normal distribution of i-th component.}
+\item{mean.i}{The mean value of the i-th normal distribution of the component.}
 
-\item{sd.i}{The standard deviation of the normal distribution of i-th component.}
+\item{sd.i}{The standard deviation of the i-th normal distribution of the component.}
 
-\item{x}{The upper limit of the integral interval (see formulas in "Details").}
+\item{x}{The upper limit of the integral interval (see formulas in 'Details').}
 
 \item{p.sum}{The sum of the probabilities of two normal distributions of
-the components. This argument is for \code{mix.type = 2}.}
+the components at \code{x = q}; the lower or upper limit of the domain
+of the distribution.
+This argument is for \code{mix.type = 2}.}
 
-\item{k}{The number indicating the normal distribution in the components.
+\item{i}{The number indicating which component is operated.
 This argument is for \code{mix.type = 3}.}
 }
 \value{
-Calculated value of the expression shown in "Details".
+Calculated value of the expression shown in 'Details'.
 }
 \description{
-A sub-function for calculating the variance of a GGD model.
-The meaning of this function is depend on \code{mix.type} (see "Details").
-This function dose not use \code{\link[stats]{integrate}}.
+A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type} is \code{2} or \code{3}.
+The meaning of this function is depend on \code{mix.type} (see 'Details').
 }
 \details{
-Depending on the value of mix.type, the following calculations are performed without
+Depending on the value of \code{mix.type}, the following calculations are performed without
  \code{\link[stats]{integrate}} but with \code{\link[stats]{dnorm}},
  \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations,
  respectively.
  The variance will be expressed with the sums and differences of the outputs of this function
- and sums or products with some simple terms.
+ and some simple terms.
 
  In the following expressions,
- \eqn{\mu} is the mean of the whole distribution,
+ \eqn{\mu} is the mean of the distribution model,
  \eqn{f_i(x)} is the probability density function of the normal distribution
  \eqn{\mathcal{N}(\mu_i, \sigma_i^2)},
  \eqn{\Phi_i(x)} is the cumulative distribution function of
  \eqn{\mathcal{N}(\mu_i, \sigma_i^2)}, and \eqn{\bar \Phi(x)} is the mean of
  two cumulative distribution functions \eqn{\Phi_1(x)} and \eqn{\Phi_2(x)}.
+ The value of \eqn{q} at the expression for \code{mix.type = 2} is the lower or upper limit
+ of the domain of the distribution.
+ In this package, since the domain is over \eqn{(-\infty, \infty)},
+ \eqn{q = -\infty} or \eqn{\infty}.
 
  \describe{
      \item{mix.type = 2}{
@@ -53,12 +58,19 @@ Depending on the value of mix.type, the following calculations are performed wit
                \int_{-\infty}^x (t - \mu)^2 (\Phi_i(t) - \bar \Phi(q)) f_i(t) \ dt}}
 
      \item{mix.type = 3}{
-         \deqn{k = 1, 3 \ :
-             \ \displaystyle
+         \deqn{i = 1, 3: \
+               \displaystyle
                \int_{-\infty}^x (t - \mu)^2 (1 - \dfrac{f_i(t)}{f_i(\mu_i)}) f_i(t) \ dt}
 
-         \deqn{k = 2 \ :
-             \ \displaystyle
-               \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt}}
+         \deqn{i = 2: \quad \
+               \displaystyle
+               \int_{-\infty}^x (t - \mu)^2 \dfrac{f_i(t)^2}{f_i(\mu_i)} f_i(t) \ dt
+               \qquad \ \ }}
  }
+
+ This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+ processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+ However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+ \code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
+ due to their implementation, in addition to digit losses during arithmetic operations.
 }

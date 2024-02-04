@@ -57,20 +57,20 @@ The \code{mix.type} field will be change accordingly.
  }
 }
 \examples{
- ## Usually the cmp field is simplified automatically,
+ ## Usually 'cmp' field is simplified automatically,
  ## so you do not have to call adjust.cmp by your own.
  ## For example, in this case,
  ## the number of components is simplified to 1 automatically.
  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.1, 1.1 ) ) )
- a$kind; a$mix.type; a$cmp   ## mix.type = 0 represents a Normal Distribution.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 0: a Normal Distribution
 
  ## GGD$new() makes 2 components of normal distributions for convenience.
- ## You can use adjust.cmp in order to adjust the cmp field of a new object to 1 component.
+ ## You can use adjust.cmp in order to adjust 'cmp' field of a new object to 1 component.
  a <- GGD$new()
- a$kind; a$mix.type; a$cmp   ## mix.type = 2 represents a Horizontal Gradational Model.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 2: Horizontal Gradational Distribution
 
  a$adjust.cmp()
- a$kind; a$mix.type; a$cmp   ## mix.type = 0 represents a Normal Distribution.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 0: Normal Distribution
 
  ## You can also write as:
  a <- GGD$new()$adjust.cmp()
@@ -79,15 +79,15 @@ The \code{mix.type} field will be change accordingly.
  ## If you want to give redundancy to the components, you can also use adjust.cmp.
  ## Normal Distribution with 2 components.
  a$adjust.cmp( this.mix.type = 1 )
- a$kind; a$mix.type; a$cmp   ## mix.type = 1 represents a Gaussian Mixture Model.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 1: Mean of 2 Normal Distributions
 
  ## Normal Distribution with 3 components.
  a$adjust.cmp( grad = "v3" )
- a$kind; a$mix.type; a$cmp   ## mix.type = 3 represents a Vertical Gradational Model.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 3: Vertical Gradational Distribution
 
  ## Normal Distribution with 4 components.
  a$adjust.cmp( grad = "hv" )
- a$kind; a$mix.type; a$cmp   ## mix.type = 4 represents a H-V Gradational Model.
+ a$kind; a$mix.type; a$cmp   ## mix.type = 4: H-V Gradational Distribution
 }
 \seealso{
 \code{\link[ggd]{set.cmp}}

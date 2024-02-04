@@ -23,7 +23,7 @@ ggd.nls.freq.all(
                  See \code{\link[ggd]{nls.freq}} for more information.
 
                  Column names and indexes for \code{x} and \code{freq} are flexible.
-                 You can specify them with next two arguments.}
+                 You can indicate them with next two arguments.}
 
 \item{x}{The column name or index number for the column of x-coordinates
 in \code{data}.}
@@ -35,20 +35,18 @@ in \code{data}.}
 See \code{\link[ggd]{nls.freq}} for more information.}
 
 \item{start.level}{A numeric value of integer in from \code{0} to \code{3} or \code{100}
-with default \code{100};
-the level at which to guess the initial \code{start} parameters
-of \code{\link[stats]{nls}}.
+with default \code{100}; the level of guessing the start values
+for \code{start} argument of \code{\link[stats]{nls}}.
 See \code{\link[ggd]{nls.freq}} for more information.}
 
 \item{start}{A \bold{list of lists} with the length of 16
-                 for each of the \code{start} arguments for \code{\link[stats]{nls}}
-                 as initial values.
-                 Each element (a list) will give to the \code{start} argument of
+                 for each of \code{start} arguments of \code{\link[stats]{nls}}
+                 as start values.
+                 Each element (a list) will give to \code{start} argument of
                  \code{\link[stats]{nls}} one by one.
 
-                 For initial values for which \code{NULL} is indicated as the list
-                 in the \code{start} argument, internally computed initial values
-                 depending on \code{start.level} are used.
+                 For cases where \code{NULL} is indicated in this argument,
+                 internally computed start values depending on \code{start.level} are used.
 
                  As an auxiliary tool for making a list of 16 lists,
                  you can use \code{\link[ggd]{ggd.init.start}} function
@@ -59,14 +57,14 @@ See \code{\link[ggd]{nls.freq}} for more information.}
                  In addition, \code{\link[ggd]{ggd.kind}} and
                  \code{\link[ggd]{ggd.kind.index}} functions may help you whether
                  each index number of \code{start} represents what kind of distribution.
-                 See "Examples" for usages of these tools.}
+                 See 'Examples' for usages of these tools.}
 
 \item{control}{The \code{control} argument for \code{\link[stats]{nls}}.
 See \code{\link[stats]{nls.control}} for more information.}
 
 \item{not.use.nls}{A logical.
                  If \code{TRUE}, this function does not use \code{\link[stats]{nls}}
-                 and it outputs objects having the initial values in the \code{cmp} field
+                 and it outputs objects having the start values in \code{cmp} field
                  as the results.
                  If \code{FALSE}, this function uses \code{\link[stats]{nls}}.
 
@@ -74,24 +72,25 @@ See \code{\link[stats]{nls.control}} for more information.}
                  other than \code{100}.
                  A warning will occur if \code{TRUE} when \code{start.level} is \code{100}.
 
-                 You can use \code{not.use.nls = TRUE} to check the initial values
-                 when an error has occurred at this function.}
+                 You can use \code{not.use.nls = TRUE} to check whether the start values
+                 are appropriate when obtained an undesirable result from this function.}
 
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
-It represents the correlation coefficient method.
+It is a character string indicating which correlation coefficient
+(or covariance) is to be computed.
 If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
-See "Arguments" of \code{\link[stats]{nls}} for more information.}
+See 'Arguments' of \code{\link[stats]{nls}} for more information.}
 }
 \value{
-A list containing components (invisible for \code{GGD} method)
+A list containing components
          \item{best}{
                  The \code{\link[ggd]{GGD}} object which has got
                  the highest correlation coefficient.
-                 That is, the most approximate to the given frequency distribution
-                 in all of the supported distribution models.
+                 That is, it would be the most approximate to
+                 the given frequency distribution in all of the supported models.
                  If there are some models which have got the same highest correlation
                  coefficient, the object with the earlier \code{kind.index} is
                  given priority.}
@@ -102,20 +101,20 @@ A list containing components (invisible for \code{GGD} method)
 
          \item{obj}{
                  The list of 16 \code{\link[ggd]{GGD}} objects
-                 ordered by \code{kind.index}; the index number in \code{ggd:::kinds}.
+                 ordered along with \code{ggd:::kinds}.
                  If an error has occurred, the element will be a cleared object.}
 
          \item{cor}{
-                 The vector of the correlation coefficient of
+                 The vector of the correlation coefficients
                  between the result of each model and the frequency distribution.
                  \code{NA} will be given for an error case or an extremely bad result.}
 
          \item{detail}{
-                 The list of 16 elements of outputs of \code{\link[ggd]{nls.freq}}.
+                 The list of 16 results of \code{\link[ggd]{nls.freq}}.
                  Normally, each element is a list of the output of
-                 \code{\link[ggd]{nls.freq}},
-                 but if an error has occurred, the element will be an error condition.
-                 See "Value" of \code{\link[ggd]{nls.freq}} for more information.}
+                 \code{\link[ggd]{nls.freq}}.
+                 But if an error has occurred, the element will be an error condition.
+                 See 'Value' of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{
 Approximates the given frequency distribution with all of distribution models
@@ -143,29 +142,37 @@ The output lists are ordered by \code{ggd:::kinds} as:
      \item   Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
      \item   Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
 }
-Each index numbers of above list are
-also used for \code{kind.index} field of \code{\link[ggd]{GGD}} class.
+Each index number of above list is
+also set into \code{kind.index} field of each \code{\link[ggd]{GGD}} object.
 
 This function generates 16 \code{\link[ggd]{GGD}} objects and
 calls \code{\link[ggd]{nls.freq}} method 16 times.
 By default, \code{\link[ggd]{nls.freq}} is called with \code{warnOnly = TRUE},
 so \code{\link[ggd]{nls.freq}} does not generate errors, but generates warnings often.
 When a warning occur, this function generates another warning like
-"\code{Warning for kind = xx :}" to inform which \code{kind.index} gets a poor result
+'\code{Warning for kind = xx :}' to inform which \code{kind.index} gets a poor result
 (poor, but may be accurate enough).
 So when one warning has occurred, two warnings will occur eventually.
 
 If you indicate \code{warnOnly = FALSE} in \code{control} argument
 and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
-If an error occur in one of \code{\link[ggd]{nls.freq}} processes,
-this function throws messages like "\code{Error for kind = xx :}" and "\code{Error in ...}"
-instead of throwing error and does not stop,
+If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
+this function throws messages like '\code{Error for kind = xx :}' and '\code{Error in ...}'
+instead of throwing an error and skips the process,
 then tries other \code{\link[ggd]{nls.freq}} processes.
 For the result of error-occurred \code{kind.index}, a cleared \code{\link[ggd]{GGD}} object
-will be got as an element of \code{obj} (see "Value").
+will be got as the element of \code{obj} (see 'Value').
 }
 \examples{
- ## Preparing.
+ ## Preparing:
+ df <- data.frame(
+             x = seq( -2, 2, 0.2 ),
+             freq = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
+                       7947, 10997, 11824, 11133,  7868,  4692,  4103,
+                       3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
+
+ ## This function plots probability densities obtained from the frequency distribution
+ ## and the probability density function of a GGD object.
  plot.freq.and.d <- function( obj, x, freq )
  {
      xlim <- c( min( x ), max( x ) )
@@ -176,32 +183,31 @@ will be got as an element of \code{obj} (see "Value").
            type = "l", xlim = xlim, ylim = ylim )
  }
 
- df <- data.frame(
-             x = seq( -2, 2, 0.2 ),
-             freq = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
-                       7947, 10997, 11824, 11133,  7868,  4692,  4103,
-                       3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
-
- ## Try ggd.nls.freq.all.
- ## Here, "start.level = 1" is specified to get less-than-ideal results
- ## to explain how to use "start" argument.
+ ## Examples:
+ ## We specify 'start.level = 1' here in order to obtain less-than-ideal results purposely
+ ## to explain how to use 'start' argument using the results.
  result <- ggd.nls.freq.all( df, start.level = 1 )
 
  ## Show the results.
  result$cor
- result$best.cor
- result$best
+ result$best.cor; result$best$kind.index
 
- ## Check that the value of cor for kind = 14 is very low.
+ ## Check that the value of 'cor' for kind = 14 is very low.
  result$cor[[14]]
 
- ## Let's try to increase the value of cor by changing the initial values.
+\dontrun{
+ ## If you want to ignore warning cases at ggd.nls.freq.all,
+ ## indicate 'warnOnly = FALSE' in 'control' option.
+ ## This option turns warnings into errors, and cases which cause errors are skipped.
+ result <- ggd.nls.freq.all( df, start.level = 1, control = list( warnOnly = FALSE ) )}
+
+ ## Let's try to increase the value of 'cor' by changing the start values.
  ##
- ## There is an easy and good way to solve this problem,
- ## that is to remove "start.level = 1".
- ## But here, we use "start" argument with remaining "start.level" for explaining.
+ ## There is an easy and good way to increase the value of 'cor',
+ ## that is to remove 'start.level = 1'.
+ ## But here, we keep 'start.level = 1' and use 'start' argument for explaining.
  ##
- ## First, to see what kind = 14 is, display the kind.
+ ## First, to see what 'kind = 14' is, display the kind.
  result$obj[[14]]$kind
 
  ## Also, using ggd.kind, you can get the character string for the index.
@@ -210,33 +216,56 @@ will be got as an element of \code{obj} (see "Value").
  ## Inversely, using ggd.kind.index, you can get index for each kind.
  ggd.kind.index( "Mean-Differed Sigma-Equaled Horizontal-Vertical" )
 
- ## Show the cmp field of kind = 14 and plots.
+ ## Show the 'cmp' field and plot the probability density function.
  result$obj[[14]]$cmp
  plot.freq.and.d( result$obj[[14]], df$x, df$freq )
 
- ## Now, for the initial values, we are going to use the result of
- ## kind = "2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution".
+ ## Now, for the start values, we are going to use the result of
+ ## '2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution'.
  ggd.kind.index( "2-Mean-Differed Sigma-Equaled Vertical" )  ## 8
+ result$cor[[8]]
  result$obj[[8]]$cmp
 
- ## Display the parameters for the initial values for kind = 14.
+ ## Display the parameters for the start values for kind = 14.
  ggd.start.template( 14 )
 
- ## Set the initial values for kind = 14.
+ ## Specify the start values for kind = 14.
  start.list <- ggd.init.start()
  start.list[[14]] <- ggd.start.template( 14 )
  start.list[[14]]$mean.1.1 <- result$obj[[8]]$cmp$mean[1]
  start.list[[14]]$mean.1.2 <- result$obj[[8]]$cmp$mean[2]
  start.list[[14]]$mean.2.1 <- result$obj[[8]]$cmp$mean[1]
  start.list[[14]]$mean.2.2 <- result$obj[[8]]$cmp$mean[2]
- start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Set sqrt for SD.
+ start.list[[14]]$sqrt.sd <- sqrt( result$obj[[8]]$cmp$sd[1] )   ## Take sqrt for SD.
 
  ## Retry ggd.nls.freq.all.
  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
- result$cor
  result$cor[[14]]
  result$obj[[14]]$cmp
  plot.freq.and.d( result$obj[[14]], df$x, df$freq )
+
+ ## On the other hand, you can check the start values with 'not.use.nls = TRUE'.
+ start <- ggd.nls.freq.all( df, start.level = 1, not.use.nls = TRUE )
+ start$cor
+ start$best.cor; start$best$kind.index
+ start$obj[[14]]$cmp
+ plot.freq.and.d( start$obj[[14]], df$x, df$freq )
+
+ ## You will find that 'start.level = 2' can generate reasonable start values basically.
+ start <- ggd.nls.freq.all( df, start.level = 2, not.use.nls = TRUE )
+ start$cor
+ start$best.cor; start$best$kind.index   ## 14
+ start$obj[[14]]$cmp
+ plot.freq.and.d( start$obj[[14]], df$x, df$freq )
+
+ ## Using 'cor.method' argument,
+ ## you can evaluate the correlations with nonparametric methods.
+ start <- ggd.nls.freq.all( df, start.level = 2, not.use.nls = TRUE,
+                            cor.method = "kendall" )
+ start$cor
+ start$best.cor; start$best$kind.index   ## 2
+ start$obj[[2]]$cmp
+ plot.freq.and.d( start$obj[[2]], df$x, df$freq )
 }
 \seealso{
 \code{\link[ggd]{nls.freq}}, \code{\link[stats]{cor}},

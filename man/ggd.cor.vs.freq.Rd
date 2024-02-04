@@ -17,13 +17,14 @@ ggd.cor.vs.freq(objs, x, freq, total = sum(freq), cor.method = NULL)
 \item{total}{Total value of the frequencies.}
 
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.
-It represents the correlation coefficient method.
-If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
+It is a character string indicating which correlation coefficient
+(or covariance) is to be computed.
+If \code{NULL}, it uses the default \code{method}.
 See \code{\link[stats]{cor}} for more information.}
 }
 \value{
 A vector of correlation coefficients.
-         Its order follows the order of the elements of the \code{objs} argument.
+         Its order follows the order of the elements in \code{objs} argument.
          If \code{cmp} field of an \code{\link[ggd]{GGD}} object in \code{objs} has no rows,
          \code{NA} will be set to the element.
 }
@@ -38,11 +39,10 @@ two numeric vectors like as other non-exported functions, not a data frame.
                    freq  = c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
                               7947, 10997, 11824, 11133,  7868,  4692,  4103,
                               3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
- a <- ggd.nls.freq( df, kind = "Mean-Eq.*Vertical" )$obj
- ggd.cor.vs.freq( a, df$x, df$freq )
-
  objs <- list( ggd.nls.freq( df, kind = "Mean-Eq.*Vertical" )$obj,
                ggd.nls.freq( df, kind = "Sigma-Eq.*Vertical" )$obj,
-               ggd.nls.freq( df, kind = "Mean-Diff.*Sigma-Diff.*Vertical" )$obj )
+               ggd.nls.freq( df, kind = "Vertical" )$obj )
+
+ ggd.cor.vs.freq( objs[[1]], df$x, df$freq )
  ggd.cor.vs.freq( objs, df$x, df$freq )
 }

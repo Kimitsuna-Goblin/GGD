@@ -14,9 +14,9 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
          grad = c("default", "normal", "h", "v", "v2", "v3", "hv"))
 }
 \arguments{
-\item{cmp}{A data frame for setting into the \code{cmp} field.
+\item{cmp}{A data frame for \code{cmp} field.
 
-                     It must have just 2 columns named "\code{mean}" and "\code{sd}",
+                     It must have just 2 columns named \code{"mean"} and \code{"sd"},
                      and its rows must be less than or equals to 4.
                      Row names are not required.
 
@@ -30,10 +30,10 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      but indicating \code{NULL} or having no columns is not allowed.}
 
 \item{kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
-                     which indicates the kind of the distribution model to create.
+                     which indicates the kind of distribution model to be generated.
 
-                     The matching method of this argument follows that of elements of
-                     the \code{objs} argument of the \code{\link[ggd]{ggd.kind.index}}.
+                     The matching method of \code{kind} follows that of
+                     \code{objs} argument of \code{\link[ggd]{ggd.kind.index}}.
                      \code{NA} is allowed when \code{cmp} has no rows.
 
                      If \code{mix.type} argument or other than \code{"default"} for
@@ -42,10 +42,10 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 \item{mix.type}{A numeric value represents how to mix the normal distributions.
 
                      The type of the distribution model and the number of rows in \code{cmp}
-                     will be represented with \code{mix.type} value as follows:
+                     follow \code{mix.type} as:
                      \itemize{
                          \item \code{0} : Normal distribution. \code{cmp} has only 1 row.
-                         \item \code{1} : Mean of 2 normal distributions (not a GGD).
+                         \item \code{1} : Mean of 2 normal distributions.
                                           \code{cmp} has 2 rows.
                          \item \code{2} : Horizontal gradational distribution.
                                           \code{cmp} has 2 rows.
@@ -56,13 +56,13 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      }
 
                      If the number of rows in \code{cmp} argument is different from
-                     the number shown above, the \code{cmp} field will be
+                     the number shown above, \code{cmp} field will be
                      redundant/simplified to have the number of rows as above,
                      if possible. If not possible, an error will occur.
 
                      You can indicate \code{mix.type = NA} only if \code{cmp} has no rows.
 
-                     If other than \code{"default"} for \code{grad} argument is indicated,
+                     If \code{grad} argument other than \code{"default"} is indicated,
                      this argument will be ignored.}
 
 \item{grad}{A character string indicating the method of gradation.
@@ -73,60 +73,60 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      Numberless \code{"v"} is an alias for \code{"v2"}.
 
                      \code{"normal"} is for a normal distribution,
-                     then also, \code{'grad = "no"'} can be read as "no gradation".
+                     then also, \code{'grad = "no"'} can be read as 'no gradation'.
 
                      \code{"default"} is, if \code{kind} or \code{mix.type} argument
                      is given, follows it, otherwise it depends on the number of columns
-                     in the \code{cmp} argument. If the number of columns in cmp is \code{2},
+                     in \code{cmp} argument. If the number of columns in cmp is \code{2},
                      the current \code{mix.type} is retained or horizontal (default) is used.}
 
-\item{this.cmp}{A data frame for setting into the \code{cmp} field.
-It is equivalent to \code{cmp} argument for \code{ggd.set.cmp}.}
+\item{this.cmp}{A data frame for setting into \code{cmp} field.
+It is equivalent to \code{cmp} argument of \code{ggd.set.cmp}.}
 
 \item{this.kind}{A string or a numeric value or a \code{\link[ggd]{GGD}} object
-which indicates the kind of the distribution model.
-It is equivalent to \code{kind} argument for \code{ggd.set.cmp}.}
+which indicates the kind of distribution model to be constructed.
+It is equivalent to \code{kind} argument of \code{ggd.set.cmp}.}
 
 \item{this.mix.type}{A numeric value represents how to mix the normal distributions.
-It is equivalent to \code{mix.type} argument for \code{ggd.set.cmp}.}
+It is equivalent to \code{mix.type} argument of \code{ggd.set.cmp}.}
 }
 \value{
 The \code{\link[ggd]{GGD}} object itself (invisible for \code{GGD} method).
 
-         For \code{GGD} method: If an error occur, each value of field will not be changed.
+         For \code{GGD} method: If an error occurs, each value of field will not be changed.
 }
 \description{
-Sets the normal distributions of the components to the \code{cmp} field.
-All fields of the \code{\link[ggd]{GGD}} object will be set as appropriate according to
-given components and other arguments, respectively.
-You should never set any values into the \code{cmp} field directly without using this method.
+Generates a \code{\link[ggd]{GGD}} object according to indicated values of \code{cmp} field
+(\code{ggd.set.cmp}), or sets the values in \code{cmp} field and all of other fields
+accordingly (\code{set.cmp}).
+Whenever you want to set values in \code{cmp} field, it is strongly recommended to use
+this method.
 }
 \details{
-\subsection{About "kind" and "mix.type"}{
-     In this function, \code{[this.]kind} argument is, unlike \code{\link[ggd]{trace.q}}
-     and \code{\link[ggd]{nls.freq}} methods, used only to determine how to mix
-     the normal distributions of the components.
-     That is, \code{[this.]kind} argument is used only to determine the new value of
-     \code{mix.type} field, and has no effect on the unification of the mean values and
-     the standard deviations of the components.
+\subsection{About 'kind' and 'mix.type'}{
+     In this function,
+     unlike \code{\link[ggd]{trace.q}} and \code{\link[ggd]{nls.freq}} methods,
+     \code{[this.]kind} argument is only used to determine \code{mix.type} value,
+     which represents how to mix the normal distributions of the components.
+     That is, \code{[this.]kind} argument has no effect to align the mean values or
+     standard deviations of the components to be equal.
 
-     So, the new value of \code{kind} field of the object may not be matched with
-     the indicated value of \code{[this.]kind} argument.
+     So, a regular expression indicated as \code{[this.]kind} argument may not match
+     the new value of \code{[this.]kind} field.
      For example, if you indicate \code{[this.]kind = "Mean-Eq.*Horizontal"} and
      \code{[this.]cmp = data.frame(mean = c(0, 1), sd = c(0.8, 1.2))},
      the new \code{kind} field will be
      \code{"Mean-Differed Sigma-Differed Horizontal Gradational Distribution"},
-     which is not matched with \code{"Mean-Eq.*Horizontal"}.
+     which is not matched with indicated regular expression.
+     In such a case, a warning will occur.
 
-     In such a case, i.e. if indicated \code{[this.]kind} does not match
-     to the new value of \code{kind} field, a warning will occur.
-     But when a \code{\link[ggd]{GGD}} object is indicated for \code{[this.]kind},
-     no warning will occur if the unification of the mean values and standard deviations of
-     the components are different between the indicated object and the result.
-     Indicated object is regarded as just for specifying new \code{mix.type}.
+     On the other hand, when a \code{\link[ggd]{GGD}} object is
+     indicated as \code{[this.]kind}, no warning will occur if the new \code{kind} field
+     is different from that of the indicated object.
+     Indicated object is regarded as just for specifying \code{mix.type} value.
 
-     It is not recommended but if you indicate both of
-     \code{[this.]kind} and \code{[this.]mix.type} at once with not-\code{NULL} values,
+     It is not recommended but if you indicate not-\code{NULL} values for both of
+     \code{[this.]kind} and \code{[this.]mix.type} at once,
      \code{[this.]kind} will be ignored.
 
      If both \code{[this.]kind} and \code{[this.]mix.type} arguments are \code{NULL}
@@ -147,75 +147,89 @@ You should never set any values into the \code{cmp} field directly without using
 \examples{
  ## Normal Distribution
  a <- ggd.set.cmp( data.frame( mean = 0, sd = 1.5 ) )
- a$mix.type; a$cmp
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## "normal" for "grad" argument is allowed, though, it does little work in this function.
+ ## Indicating "normal" for 'grad' argument is allowed. However, in this function,
+ ## it works only to assert that 'cmp' represents a normal distribution.
  a <- ggd.set.cmp( data.frame( mean = 1, sd = 2 ), grad = "normal" )
- a$mix.type; a$cmp
+ a$kind; a$mix.type; a$cmp
 
- ## Where the number of the cmp field rows is 2,
- ## it is recommended to indicate "grad" or "mix.type" or "kind" to avoid confusing.
+ ## Where the number of rows in the 'cmp' argument is 2,
+ ## it is recommended to indicate 'grad' or 'mix.type' or 'kind' to avoid confusing.
+
+ ## Mean of 2 normal distributions (mix.type = 1)
+ ## is not a gradational Gaussian distribution (GDD),
+ ## but a kind of Gaussian mixture model (GMM).
  rm( a )
  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.2, 0.8 ) ),
-                   kind = "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
- a$mix.type; a$cmp
+                   kind = "Mean of.*2 Normal Distributions" )
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
  ## Changing to mix.type = 2 : Horizontal Gradational Distribution
- a$set.cmp( a$cmp, this.mix.type = 2 )
- a$mix.type; a$cmp
+ ## while retaining 'cmp' field.
+ a$set.cmp( this.mix.type = 2 )
+ a$kind; a$mix.type; a$cmp
 
  ## You can also write as:
- a$set.cmp( a$cmp, grad = "h" )
- a$mix.type; a$cmp
+ a$set.cmp( grad = "h" )
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## kind.index = 9 : 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
- a$set.cmp( a$cmp, this.kind = 9 )
- a$mix.type; a$cmp
+ ## kind = 9 : '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
+ ##
+ ## You can also write as 'this.kind = "2.*Vertical"' or 'this.mix.type = 3' or 'grad = "v2"'
+ ## instead of 'this.kind = 9'.
+ a$set.cmp( this.kind = 9 )
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## 3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+ ## You can generate a same kind object with indicating a GGD object for 'kind' argument.
+ b <- ggd.set.cmp( data.frame( mean = c( -1, -1 ), sd = c( 1.2, 0.4 ) ), kind = a )
+ b$kind; b$mix.type; b$cmp
+ plot( seq( -3, 3, 0.01 ), b$d( seq( -3, 3, 0.01 ) ), type = "l" )
+
+ ## Indicating 3 components generates a vertical gradation normally.
+ a$clear()
  a$set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1.2, 0.8, 1.2 ) ) )
- a$mix.type; a$cmp
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+ ## Indicating 4 components generates a horizontal-vertical gradation normally.
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 0.7, 0.5, 2.0, 1.5 ) ) )
- a$mix.type; a$cmp
+ a$kind; a$mix.type; a$cmp
  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 
- ## If "cmp" field can be simplified, "mix.type" field may be set to lower type.
+ ## If 'cmp' field can be simplified, the number of components is automatically reduced,
+ ## and 'mix.type' field follows the reduction.
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ) )
+ a$kind      ## '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
  a$mix.type  ## 3 (not 4)
  a$cmp       ## with 2 rows
 
- ## If you want not to simplify "mix.type" and "cmp" fields,
- ## indicate "mix.type" / "this.mix.type" or one of other arguments for the condition.
-
+ ## If you want not to simplify 'cmp' field,
+ ## indicate '[this.]kind' or '[this.]mix.type' or 'grad' argument for the condition.
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
             this.mix.type = 4 )
+ a$kind      ## '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
  a$mix.type  ## 4
  a$cmp       ## with 4 rows
 
  ## You can also write as:
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
             grad = "hv" )
- a$mix.type; a$cmp
+ a$kind; a$mix.type; a$cmp
 
- ## The "kind" / "this.kind" argument can also indicate
- ## how to mix the normal distributions of the components.
+ ## You can also use '[this.]kind' argument to avoid simplifying.
+ ## However, if the indicated regular expression for '[this.]kind' argument does not match
+ ## the resulting 'kind' field, a warning will occur.
+ ## For avoiding confusing, using '[this.]mix.type' or 'grad' argument is recommended.
  ##
- ## However, if the components indicated by "cmp" or "this.cmp" are inconsistent
- ## with the value of "kind" / "this.kind" argument,
- ## the "kind" and "kind.index" fields will be set to different values with a warning.
- ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or "grad" instead.
-
- ## This sample will work with a warning.
+ ## This sample will work with a warning;
+ ## because 'this.kind' argument does not match the resulting 'kind' field.
  a$set.cmp(
      this.cmp = data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
-     this.kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical" )
- a$mix.type  ## 4
- a$kind      ## "2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution"
+     this.kind = "Horizontal-Vertical" )
+ a$kind; a$mix.type; a$cmp
 }

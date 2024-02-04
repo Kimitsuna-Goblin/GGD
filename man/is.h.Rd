@@ -15,7 +15,7 @@
                  when the model is a normal distribution.}
 }
 \value{
-\code{TRUE} if the object shows a kind of horizontal gradational distribution,
+\code{TRUE} if the object represents a kind of horizontal gradational distribution,
          otherwise \code{FALSE}.
 }
 \description{
@@ -32,9 +32,7 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$set.cmp( data.frame( mean = c( 0, 1 ), sd = c( 1.1, 1.2 ) ), this.mix.type = 2 )
  a$is.h()    ## TRUE
 
- a$trace.q(
-     data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-     grad = "v2" )
+ a$set.cmp( grad = "v2" )
  a$kind      ## 2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
  a$is.h()    ## FALSE
 

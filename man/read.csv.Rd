@@ -11,21 +11,19 @@ ggd.read.csv(file)
 \S4method{read.csv}{GGD}(file)
 }
 \arguments{
-\item{file}{The name of the CSV file which the composition of
-                     a \code{\link[ggd]{GGD}} object is to be read from.
-                     The \code{file} can be a readable text-mode \link[base]{connection}.
+\item{file}{The name of the CSV file.
+                 The \code{file} can be a readable text-mode \link[base]{connection}.
 
-                     The \code{file} must have a header consisting of
-                     the value of \code{mix.type}, the character string of "mean"
-                     and the character string of "sd".
-                     The order of each column is not interchangeable.
-                     The second and subsequent rows should be the name of the row
-                     (such as \code{"nd.1"}, but not be cared)
-                     and the mean value and standard deviation of the each components
-                     of the \code{cmp} field.
+         The \code{file} should be a CSV file with 3 columns.
+         The columns are 1:row header, 2:mean value, and 3:standard deviation
+         of the component. The columns cannot be reordered.
+         The \code{file} must have a header row consisting of the value of
+         \code{mix.type}, the character string of \code{"mean"}, and \code{"sd"}.
+         The second and subsequent rows should have the row name (such as \code{"nd.1"}),
+         the mean value, and standard deviation of each component.
 
-                     For more information about the properties of this argument,
-                     see \code{file} argument of \link[utils]{read.table}.}
+         For more information about the properties of this argument,
+         see \code{file} argument of \link[utils]{read.table}.}
 }
 \value{
 The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
@@ -33,23 +31,23 @@ The generated \code{\link[ggd]{GGD}} object (invisible for \code{GGD} method).
          For \code{GGD} method: If failed to read, the object will be cleared.
 }
 \description{
-Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object
-and generates a \code{\link[ggd]{GGD}} object.
+Reads a CSV file recorded the composition of a \code{\link[ggd]{GGD}} object.
+Then \code{ggd.read.csv} function generates a \code{\link[ggd]{GGD}} object,
+and \code{read.csv} method sets the fields according to the composition.
 }
 \details{
 \subsection{Reading empty data}{
-     If the read file is one which is written with a cleared object,
-     \code{kind}/\code{kind.index} and \code{mix.type} fields of the generated object
+     If the file contains a cleared object (a file with only the header row),
+     the values of \code{kind}, \code{kind.index}, and \code{mix.type} fields
      will be \code{NA},
-     and \code{median} and \code{mean} and other numeric fields will be \code{NaN}.
+     and then \code{median}, \code{mean}, and other numeric fields will be \code{NaN}.
 }
 \subsection{Illegal format file}{
-     If the format of the read file was illegal and a \code{\link[ggd]{GGD}} object cannot
+     If the format of the file was illegal and a \code{\link[ggd]{GGD}} object cannot
      be constructed, an error occurs and the \code{\link[ggd]{GGD}} object is cleared.
 
-     If the \code{mix.type} value stored in a file does not match the values for \code{cmp},
-     an error may occur, or it may happen to work. It is possible to create such a file
-     using \code{ggd:::}\code{\link[ggd]{cat.table}} function which is non-exported.
+     If \code{mix.type} value stored in the file does not match the values for \code{cmp},
+     an error may occur, or it may happen to work.
      However, it is not recommended to create such a non-conforming file anyway.
 }
 }

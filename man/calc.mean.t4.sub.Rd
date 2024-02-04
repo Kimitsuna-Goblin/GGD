@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.mean.sd.R
 \name{calc.mean.t4.sub}
 \alias{calc.mean.t4.sub}
-\title{[Non-exported] Sub-function of the mean calculation for mix.type = 4}
+\title{[Non-exported] Sub-function for mean calculation where mix.type = 4}
 \usage{
 calc.mean.t4.sub(means, sds)
 }
@@ -17,7 +17,7 @@ calc.mean.t4.sub(means, sds)
 The value of \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx}.
 }
 \description{
-A sub-function which is used for calculating the mean value where \code{mix.type = 4}.
+A sub-function of \code{\link[ggd]{calc.mean}} where \code{mix.type = 4}.
 It calculates \eqn{\int_{-\infty}^{\infty} x \Psi_i(x) g_i(x) dx},
 where
 \eqn{\Psi_i(x) = \Phi_{i,1}(x) - \dfrac{1}{\sqrt{2}} \Phi_{i,1}^*(x) +
@@ -25,6 +25,11 @@ where
 \eqn{g_i(x) = ( 1 - f_{i,1}(x) / f_{i,1}(\mu_{i,1}) ) f_{i,1}(x) +
               f_{i,2}(x)^2 / f_{i,2}(\mu_{i,2})}
 \eqn{( i = 1, 2 )}.
-This function does not use \code{\link[stats]{integrate}},
-but \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}} and four arithmetic operations.
+}
+\details{
+This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+However, since \code{\link[stats]{pnorm}} and \code{\link[base]{sqrt}(pi)} are used,
+it is expected that there will be calculation errors due to their implementation,
+in addition to digit losses during arithmetic operations.
 }

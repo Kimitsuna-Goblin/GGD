@@ -21,13 +21,13 @@ The data frame for \code{cmp} field.
 \description{
 Gets a data frame for \code{cmp} field for \code{mix.type = 3}.
 Each of \code{means} and \code{sds} arguments must has 3 elements in order of
-\code{[1]} left-tail side, \code{[2]} top side and \code{[3]} right-tail side.
+\code{[1]} left-tail side, \code{[2]} top side, and \code{[3]} right-tail side.
 }
 \examples{
  means <- c( 0.2, 0, 0.2 ); sds <- c( 1.2, 0.9, 1.2 )
- ggd.get.t3.cmp( means, sds )                    # 2 components
- ggd.get.t3.cmp( means, sds, grad = "v3" )       # 3 components
+ ggd.get.t3.cmp( means, sds )                    ## 2 components
+ ggd.get.t3.cmp( means, sds, grad = "v3" )       ## 3 components
 
  means <- rep( 0.5, 3 ); sds <- rep( 2.5, 3 )
- ggd.get.t3.cmp( means, sds )                    # 2 components even if normal distribution
+ ggd.get.t3.cmp( means, sds )                    ## 2 components even if normal distribution
 }

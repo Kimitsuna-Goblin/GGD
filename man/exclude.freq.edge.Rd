@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggd.nls.freq.R
 \name{exclude.freq.edge}
 \alias{exclude.freq.edge}
-\title{[Non-exported] Exclude small frequencies of edges}
+\title{[Non-exported] Exclude small frequencies on edges}
 \usage{
 exclude.freq.edge(x, freq)
 }
@@ -19,6 +19,6 @@ A list containing components
                  The vectors of frequencies after excluding.}
 }
 \description{
-Excludes data with \code{0} or extremely small frequency on both edges of the range of
+Excludes data with \code{0} or extremely small frequencies on both edges of the range of
 the x-coordinates from data of a frequency distribution.
 }

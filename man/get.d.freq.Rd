@@ -10,18 +10,16 @@ get.d.freq(x, freq, total = sum(freq))
 \item{x}{A vector of x-coordinates. Duplicate values are not allowed.}
 
 \item{freq}{A vector of frequencies following \code{x}.
-The values of frequencies must be positive.
 Both integers and real numbers are allowed for the values.}
 
 \item{total}{Total value of the frequencies.
 
                  If \code{NULL} (the default),
-                 the total of \code{freq}, i.e., \code{\link[base]{sum}(data[[freq]])}
-                 (on \code{\link[stats]{complete.cases}} of \code{x} and \code{freq})
+                 the total of \code{freq}, i.e., \code{\link[base]{sum}(freq)}
                  is used for it.}
 }
 \value{
-The vector of expected probability density value at each of x-coordinates.
+The vector of expected probability density values following the x-coordinates.
 }
 \description{
 Gets the probability density value at each of the x-coordinates based on

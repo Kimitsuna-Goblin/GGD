@@ -15,16 +15,16 @@ calc.v(
 )
 }
 \arguments{
-\item{mix.type}{The value of \code{mix.type} of the \code{\link[ggd]{GGD}} class.}
+\item{mix.type}{The value of \code{mix.type}. It allows from \code{1} to \code{4}.}
 
 \item{means}{The mean values of the normal distributions of the components.}
 
 \item{sds}{The standard deviations of the normal distributions of the components.}
 
-\item{mean}{The mean of the whole distribution.}
+\item{mean}{The mean of the distribution model.}
 
 \item{symmetric}{If \code{TRUE}, the distribution model is treated as symmetric.
-This option may help reduce calculation errors.}
+This option may help to reduce calculation errors.}
 
 \item{get.lv}{If \code{TRUE}, this function calculates the lower half variance.}
 
@@ -36,15 +36,19 @@ This option may help reduce calculation errors.}
                      this function calculates the whole variance.}
 }
 \value{
-The value of the whole/half variance.
+The value of the whole or half variance of the distribution model.
 }
 \description{
-Calculates the variance or the half variance of a GGD model.
-This function does not use \code{\link[stats]{integrate}},
-but \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}}, \code{\link[base]{sqrt}}
-and four arithmetic operations.
+Calculates the whole or half variance of the distribution model.
 }
 \details{
+This function does not use \code{\link[stats]{integrate}} or other tolerance-requiring
+processes. Therefore, the calculation speed and accuracy will be expected in some degree.
+However, since \code{\link[stats]{dnorm}}, \code{\link[stats]{pnorm}} and
+\code{\link[base]{sqrt}(pi)} are used where \code{mix.type} is \code{2} or greater,
+it is expected that there will be calculation errors due to their implementation,
+in addition to digit losses during arithmetic operations.
+
 For \code{mix.type = 4}, the half variance option of
 \code{get.lv = TRUE} or \code{get.uv = TRUE} does not work. The reason is how to calculate
 \eqn{\int_{-\infty}^{\mu} f_{i,1}(x) \Phi_{i,2}(x) dx} without numerical integral function
