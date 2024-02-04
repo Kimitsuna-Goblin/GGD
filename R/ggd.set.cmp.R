@@ -30,7 +30,7 @@
 #'
 #' @param   cmp         A data frame for \code{cmp} field.
 #'
-#'                      It must have just 2 columns named "\code{mean}" and "\code{sd}",
+#'                      It must have just 2 columns named \code{"mean"} and \code{"sd"},
 #'                      and its rows must be less than or equals to 4.
 #'                      Row names are not required.
 #'
@@ -87,7 +87,7 @@
 #'                      Numberless \code{"v"} is an alias for \code{"v2"}.
 #'
 #'                      \code{"normal"} is for a normal distribution,
-#'                      then also, \code{'grad = "no"'} can be read as "no gradation".
+#'                      then also, \code{'grad = "no"'} can be read as 'no gradation'.
 #'
 #'                      \code{"default"} is, if \code{kind} or \code{mix.type} argument
 #'                      is given, follows it, otherwise it depends on the number of columns
@@ -111,15 +111,15 @@
 #' @importFrom  methods     new
 #'
 #' @details
-#'  \subsection{About "kind" and "mix.type"}{
+#'  \subsection{About 'kind' and 'mix.type'}{
 #'      In this function,
 #'      unlike \code{\link[ggd]{trace.q}} and \code{\link[ggd]{nls.freq}} methods,
 #'      \code{[this.]kind} argument is only used to determine \code{mix.type} value,
-#'      which shows how to mix the normal distributions of the components.
+#'      which represents how to mix the normal distributions of the components.
 #'      That is, \code{[this.]kind} argument has no effect to align the mean values or
 #'      standard deviations of the components to be equal.
 #'
-#'      So, the character string indicated as \code{[this.]kind} argument may not match
+#'      So, a regular expression indicated as \code{[this.]kind} argument may not match
 #'      the new value of \code{[this.]kind} field.
 #'      For example, if you indicate \code{[this.]kind = "Mean-Eq.*Horizontal"} and
 #'      \code{[this.]cmp = data.frame(mean = c(0, 1), sd = c(0.8, 1.2))},
@@ -155,77 +155,91 @@
 #' @examples
 #'  ## Normal Distribution
 #'  a <- ggd.set.cmp( data.frame( mean = 0, sd = 1.5 ) )
-#'  a$mix.type; a$cmp
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## "normal" for "grad" argument is allowed, though, it does little work in this function.
+#'  ## Indicating "normal" for 'grad' argument is allowed. However, in this function,
+#'  ## it works only to assert that 'cmp' represents a normal distribution.
 #'  a <- ggd.set.cmp( data.frame( mean = 1, sd = 2 ), grad = "normal" )
-#'  a$mix.type; a$cmp
+#'  a$kind; a$mix.type; a$cmp
 #'
-#'  ## Where the number of the cmp field rows is 2,
-#'  ## it is recommended to indicate "grad" or "mix.type" or "kind" to avoid confusing.
+#'  ## Where the number of rows in the 'cmp' argument is 2,
+#'  ## it is recommended to indicate 'grad' or 'mix.type' or 'kind' to avoid confusing.
+#'
+#'  ## Mean of 2 normal distributions (mix.type = 1)
+#'  ## is not a gradational Gaussian distribution (GDD),
+#'  ## but a kind of Gaussian mixture model (GMM).
 #'  rm( a )
 #'  a <- ggd.set.cmp( data.frame( mean = c( 0, 0 ), sd = c( 1.2, 0.8 ) ),
-#'                    kind = "Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions" )
-#'  a$mix.type; a$cmp
+#'                    kind = "Mean of.*2 Normal Distributions" )
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
 #'  ## Changing to mix.type = 2 : Horizontal Gradational Distribution
-#'  a$set.cmp( a$cmp, this.mix.type = 2 )
-#'  a$mix.type; a$cmp
+#'  ## while retaining 'cmp' field.
+#'  a$set.cmp( this.mix.type = 2 )
+#'  a$kind; a$mix.type; a$cmp
 #'
 #'  ## You can also write as:
-#'  a$set.cmp( a$cmp, grad = "h" )
-#'  a$mix.type; a$cmp
+#'  a$set.cmp( grad = "h" )
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## kind.index = 9 : 2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-#'  a$set.cmp( a$cmp, this.kind = 9 )
-#'  a$mix.type; a$cmp
+#'  ## kind = 9 : '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
+#'  ##
+#'  ## You can also write as 'this.kind = "2.*Vertical"' or 'this.mix.type = 3' or 'grad = "v2"'
+#'  ## instead of 'this.kind = 9'.
+#'  a$set.cmp( this.kind = 9 )
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## 3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
+#'  ## You can generate a same kind object with indicating a GGD object for 'kind' argument.
+#'  b <- ggd.set.cmp( data.frame( mean = c( -1, -1 ), sd = c( 1.2, 0.4 ) ), kind = a )
+#'  b$kind; b$mix.type; b$cmp
+#'  plot( seq( -3, 3, 0.01 ), b$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'
+#'  ## Indicating 3 components generates a vertical gradation normally.
+#'  a$clear()
 #'  a$set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1.2, 0.8, 1.2 ) ) )
-#'  a$mix.type; a$cmp
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
+#'  ## Indicating 4 components generates a horizontal-vertical gradation normally.
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 0.7, 0.5, 2.0, 1.5 ) ) )
-#'  a$mix.type; a$cmp
+#'  a$kind; a$mix.type; a$cmp
 #'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
 #'
-#'  ## If "cmp" field can be simplified, "mix.type" field may be set to lower type.
+#'  ## If 'cmp' field can be simplified, the number of components is automatically reduced,
+#'  ## and 'mix.type' field follows the reduction.
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ) )
+#'  a$kind      ## '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
 #'  a$mix.type  ## 3 (not 4)
 #'  a$cmp       ## with 2 rows
 #'
-#'  ## If you want not to simplify "mix.type" and "cmp" fields,
-#'  ## indicate "mix.type" / "this.mix.type" or one of other arguments for the condition.
-#'
+#'  ## If you want not to simplify 'cmp' field,
+#'  ## indicate '[this.]kind' or '[this.]mix.type' or 'grad' argument for the condition.
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
 #'             this.mix.type = 4 )
+#'  a$kind      ## '2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution'
 #'  a$mix.type  ## 4
 #'  a$cmp       ## with 4 rows
 #'
 #'  ## You can also write as:
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
 #'             grad = "hv" )
-#'  a$mix.type; a$cmp
+#'  a$kind; a$mix.type; a$cmp
 #'
-#'  ## The "kind" / "this.kind" argument can also indicate
-#'  ## how to mix the normal distributions of the components.
+#'  ## You can also use '[this.]kind' argument to avoid simplifying.
+#'  ## However, if the indicated regular expression for '[this.]kind' argument does not match
+#'  ## the resulting 'kind' field, a warning will occur.
+#'  ## For avoiding confusing, using '[this.]mix.type' or 'grad' argument is recommended.
 #'  ##
-#'  ## However, if the components indicated by "cmp" or "this.cmp" are inconsistent
-#'  ## with the value of "kind" / "this.kind" argument,
-#'  ## the "kind" and "kind.index" fields will be set to different values with a warning.
-#'  ## For avoiding confusing, you should use "mix.type" / "this.mix.type" or "grad" instead.
-#'
-#'  ## This sample will work with a warning.
+#'  ## This sample will work with a warning;
+#'  ## because 'this.kind' argument does not match the resulting 'kind' field.
 #'  a$set.cmp(
 #'      this.cmp = data.frame( mean = c( 0, 0, 0, 0 ), sd = c( 1, 0.7, 1, 0.7 ) ),
-#'      this.kind = "Mean-Equaled Sigma-Differed Horizontal-Vertical" )
-#'  a$mix.type  ## 4
-#'  a$kind      ## "2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution"
+#'      this.kind = "Horizontal-Vertical" )
+#'  a$kind; a$mix.type; a$cmp
 ################################################################################################
 ggd.set.cmp <- function( cmp, kind = NULL, mix.type = NULL,
                          grad = c( "default", "normal", "h", "v", "v2", "v3", "hv" ) )
@@ -245,7 +259,7 @@ GGD$methods(
         # Error-check for this.cmp.
         #
         #   This process must be executed before initializing the fields
-        #   for safty of the data copy process
+        #   for safety of the data copy process
         #    (strictly, some processes using this.cmp must be executed before initializing).
         if ( !is.data.frame( this.cmp ) )
         {
@@ -297,6 +311,22 @@ GGD$methods(
             if ( length( this.kind.index ) > 1 )
             {
                 stop( paste( "Error: kind should be valid single value or a GGD object." ) )
+            }
+            else if ( length( this.kind.index ) == 1 && !is.na( this.kind.index ) )
+            {
+                # Set "v2" or "v3" to grad by this.kind
+                # (but if this.mix.type is indicated, it takes priority)
+                if ( grad == "default" && is.null( this.mix.type ) )
+                {
+                    if ( any( this.kind.index == 8:10 ) )
+                    {
+                        grad <- "v2"
+                    }
+                    else if ( any( this.kind.index == 11:13 ) )
+                    {
+                        grad <- "v3"
+                    }
+                }
             }
         }
 
@@ -351,11 +381,11 @@ GGD$methods(
 
         backup <- copy()        # backup for rollback
 
-        # Fix current mix.type field and set indicated cmp field.
+        # Fix current 'mix.type' field and set indicated 'cmp' field.
         mix.type <<- tent.mix.type
         cmp <<- this.cmp
 
-        # Adjust mix.type and cmp fields.
+        # Adjust 'mix.type' and 'cmp' fields.
         result <- try( adjust.cmp( new.mix.type, grad ), silent = TRUE )
         if ( inherits( result, "try-error" ) )
         {
@@ -451,7 +481,7 @@ GGD$methods(
 #'  }
 #'
 #' @examples
-#'  ## Usually the cmp field is simplified automatically,
+#'  ## Usually 'cmp' field is simplified automatically,
 #'  ## so you do not have to call adjust.cmp by your own.
 #'  ## For example, in this case,
 #'  ## the number of components is simplified to 1 automatically.
@@ -459,7 +489,7 @@ GGD$methods(
 #'  a$kind; a$mix.type; a$cmp   ## mix.type = 0: a Normal Distribution
 #'
 #'  ## GGD$new() makes 2 components of normal distributions for convenience.
-#'  ## You can use adjust.cmp in order to adjust the cmp field of a new object to 1 component.
+#'  ## You can use adjust.cmp in order to adjust 'cmp' field of a new object to 1 component.
 #'  a <- GGD$new()
 #'  a$kind; a$mix.type; a$cmp   ## mix.type = 2: Horizontal Gradational Distribution
 #'
@@ -522,7 +552,7 @@ GGD$methods(
                                     "cmp has no rows." ) )
             }
 
-            # First, optimize the components of the "cmp" field.
+            # First, optimize the components of cmp field.
             current.mix.type <- integer()   # current essential mix type; the distribution model
             cmp.rows <- nrow( cmp )
             means <- cmp$mean
@@ -530,7 +560,7 @@ GGD$methods(
 
             if ( cmp.rows > 4 )
             {
-                # 5 and more rows in "cmp" field are not allowed.
+                # 5 and more rows in cmp field are not allowed.
                 warning( paste( "Warning: The number of the cmp field rows is too large.",
                                          "5th and after rows are discarded." ) )
                 cmp.rows <- 4
@@ -599,14 +629,14 @@ GGD$methods(
 
             new.mix.type <- current.mix.type    # the new value for mix.type
 
-            # Second, give redundancy to the "cmp" if this.mix.type or grad argument is given.
+            # Second, give redundancy to cmp if this.mix.type or grad argument is given.
             if ( length( this.mix.type ) > 0 )
             {
                 # new.ncmp: number of cmp rows to have
                 new.ncmp <- ggd.ncmp.for( grad, mix.type = this.mix.type )
 
-                # The normal distribution can enhanse to any other type.
-                # On the other hand, that of mix.type = 1 cannot enhanse to any other type.
+                # The normal distribution can enhance to any other type.
+                # On the other hand, that of mix.type = 1 cannot enhance to any other type.
                 if ( current.mix.type == 0 )
                 {
                     new.mix.type <- as.integer( this.mix.type )

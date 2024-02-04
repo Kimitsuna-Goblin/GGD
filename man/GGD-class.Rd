@@ -83,7 +83,7 @@ The class provides the Gradational Gaussian Distribution.
      The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
      and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
      could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
-     That may be contrary to the intuitive image of the "vertical gradational distribution",
+     That may be contrary to the intuitive image of the 'vertical gradational distribution',
      but it is not prohibited.
 
      About the \bold{3-component vertical gradational Gaussian distribution},
@@ -237,16 +237,16 @@ The class provides the Gradational Gaussian Distribution.
                          Gaussian mixture model (GMM).
                          This is provided for comparing GGD with GMM.}
 
-\item{\code{cmp}}{A data frame with 2 numeric columns which shows
-                         the normal distributions of the components.
+\item{\code{cmp}}{A data frame with 2 numeric columns which have
+                         the parameters of the normal distributions of the components.
 
                          \code{mean} column represents the mean values of the components,
                          and \code{sd} column represents the standard deviations.
 
                          Where \code{mix.type} is from \code{0} to \code{3},
-                         it has 1 to 3 rows named like "\code{n.i}".
+                         it has 1 to 3 rows named like \code{"n.i"}.
                          Where \code{mix.type = 4},
-                         it has 4 rows named like "\code{n.i.j}".}
+                         it has 4 rows named like \code{"n.i.j"}.}
 
 \item{\code{median}}{A numeric; the median of the distribution.}
 

@@ -36,11 +36,11 @@ the normal distributions of the components to be equal.}
                      the desired level at which to guess
                      the initial \code{start} parameters for \code{\link[stats]{nls}}.
 
-         Details for the levels are as:
+         The detail of each level is:
          \itemize{
              \item from \code{0} to \code{3}:
                      Same as \code{start.level} in arguments of \code{\link[ggd]{nls.freq}}.
-             \item \code{NA}: All values of \code{start} will be set to \code{NA}.
+             \item \code{NA}: All elements in \code{start} will be \code{NA}.
          }}
 }
 \value{

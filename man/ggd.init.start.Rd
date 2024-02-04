@@ -11,8 +11,8 @@ An all-\code{NULL} list with the length of 16 (= \code{length(ggd:::kinds)}).
 }
 \description{
 Generates a list of 16 \code{NULL} lists.
-If you want to indicate some initial values for \code{\link[ggd]{ggd.nls.freq.all}},
-insert a list of the initial values instead of \code{NULL} at some elements of
+If you want to indicate some start values for \code{\link[ggd]{ggd.nls.freq.all}},
+insert a list of the start values instead of \code{NULL} at some elements of
 the 16-\code{NULL} list and use it as \code{start} argument.
 For more information about the format of each element and other details,
 see \code{\link[ggd]{ggd.start.template}} and \code{\link[ggd]{ggd.nls.freq.all}}.
@@ -25,21 +25,21 @@ see \code{\link[ggd]{ggd.start.template}} and \code{\link[ggd]{ggd.nls.freq.all}
                        7947, 10997, 11824, 11133,  7868,  4692,  4103,
                        3698,  2740,  2549,  2284,  1499,  1147,   918 ) )
 
- ## get the initial list
+ ## Get the initial list.
  start.list <- ggd.init.start()
  start.list
 
- ## check the parameters for ggd:::kinds[14].
+ ## Check the parameters for ggd:::kinds[14].
  ggd.start.template( 14 )
 
- ## set the start parameters of ggd:::kinds[14] to get better result
+ ## Set the start values of ggd:::kinds[14] to get better result.
  start.list[[14]]$mean.1.1 <-  0.426831
  start.list[[14]]$mean.1.2 <- -0.130757
  start.list[[14]]$mean.2.1 <-  0.426831
  start.list[[14]]$mean.2.2 <- -0.130757
  start.list[[14]]$sqrt.sd <- sqrt( 0.812744 )
 
- ## try ggd.nls.freq.all (the result of ggd:::kinds[14] will be better than ggd:::kinds[8])
+ ## Run ggd.nls.freq.all (the result of ggd:::kinds[14] will be better than ggd:::kinds[8]).
  result <- ggd.nls.freq.all( df, start.level = 1, start = start.list )
  result$cor[8]
  result$cor[14]

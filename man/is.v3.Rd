@@ -18,7 +18,7 @@
                  a normal distribution or a vertical gradation of 2 normal distributions.}
 }
 \value{
-\code{TRUE} if the object shows a kind of vertical gradation of
+\code{TRUE} if the object represents a kind of vertical gradation of
          3 normal distributions, otherwise \code{FALSE}.
 }
 \description{
@@ -45,5 +45,5 @@ Note, this function does not check \code{kind} and \code{kind.index} fields.
  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ),
                         sd = c( 1.1, 0.8, 1.2, 0.8 ) ), this.mix.type = 4 )
  a$mix.type  ## 4
- a$is.v3()   ## FALSE -- see "Note!" at Description
+ a$is.v3()   ## FALSE -- see 'Note!' at Description
 }

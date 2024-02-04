@@ -24,7 +24,7 @@
 #' @examples
 #'  sqnorm( 0.5 )               ## 0
 #'  sqnorm( pnorm( -2, 0, 1 ) ) ## -2
-#'  sqnorm( seq( 0, 1, 0.1 ) )  ## increces from -Inf to Inf
+#'  sqnorm( seq( 0, 1, 0.1 ) )  ## increases from -Inf to Inf
 ################################################################################################
 sqnorm <- function( p )
 {

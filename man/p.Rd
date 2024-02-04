@@ -17,7 +17,7 @@ A vector of the probabilities of that a value of the random variable is less tha
 \description{
 Gets the probabilities of that a value of the random variable is less than or equal to
 the given x-coordinates.
-This function works like \code{\link[stats]{pnorm}} for a normal distribution.
+This method works like \code{\link[stats]{pnorm}} for a normal distribution.
 }
 \examples{
  a <- GGD$new()

@@ -19,7 +19,8 @@ A vector of random numbers.
 }
 \description{
 Generates random numbers which follow the distribution model.
-This function works like \code{\link[stats]{rnorm}} for a normal distribution.
+This method works like \code{\link[stats]{rnorm}} for a normal distribution.
+This method calls \code{\link[ggd]{q}} method internally.
 }
 \examples{
  a <- GGD$new()

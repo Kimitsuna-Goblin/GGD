@@ -23,7 +23,7 @@
 #'                  If \code{NULL}, nothing is applied.
 #' @param   f.sd    A function to apply to elements in \code{sd} column.
 #'                  If \code{NULL}, nothing is applied.
-#'                  See "Details" for more information.
+#'                  See 'Details' for more information.
 #' @return  The processed \code{\link[ggd]{GGD}} object itself (invisible).
 #' @seealso \code{\link[ggd]{round.cmp}}
 #' @details
@@ -34,10 +34,10 @@
 #'          \item The \code{\link[ggd]{GGD}} object itself.
 #'      }
 #'      Therefore, the function for \code{f.mean} or \code{f.cmp} is hoped to be
-#'      declared with 2 arguments like as "\code{function(mean, obj)}",
+#'      declared with 2 arguments like as '\code{function(mean, obj)}',
 #'      however, if the function do not need the 2nd argument,
 #'      you can declare with 1 arguments
-#'      like as "\code{function(mean)}" or "\code{function(sd)}".
+#'      like as '\code{function(mean)}' or '\code{function(sd)}'.
 #'      For the values of the functions, each function must return a numeric vector
 #'      with the same length of the 1st argument as new values of each column.
 #'
@@ -58,22 +58,26 @@
 #'      (e.g., \code{\link[ggd]{adjust.cmp}}, \code{\link[ggd]{round.cmp}}, etc.)
 #'      for the object of the 2nd argument, since they may update the values of the fields.
 #'
-#'      This function does not change the number of rows in \code{cmp} field,
+#'      This method does not change the number of rows in \code{cmp} field,
 #'      no matter what results are obtained.
 #' @examples
 #'  a <- ggd.set.cmp( data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 1, 0.8, 1.2 ) ) )
 #'  a$cmp; c( a$mean, a$sd )
+#'
 #'  ## +1 to mean.
 #'  a$apply.cmp( function( mean ) mean + 1 )
 #'  a$cmp; c( a$mean, a$sd )
-#'  ## double sd of 2nd component.
+#'
+#'  ## Double sd of 2nd component.
 #'  a$apply.cmp( f.sd = function( sd ) { sd[2] <- sd[2] * 2; sd } )
 #'  a$cmp; c( a$mean, a$sd )
-#'  ## rotate as index+1 for mean and index-1 for sd.
+#'
+#'  ## Rotate as index+1 for mean and index-1 for sd.
 #'  a$apply.cmp( f.mean = function( mean ) mean[c( 2, 3, 1 )],
 #'               f.sd = function( sd ) sd[c( 3, 1, 2 )] )
 #'  a$cmp; c( a$mean, a$sd )
-#'  ## swap mean and sd.
+#'
+#'  ## Swap mean and sd.
 #'  a$apply.cmp( f.mean = function( m, obj ) obj$cmp$sd,
 #'               f.sd = function( s, obj ) obj$cmp$mean )
 #'  a$cmp; c( a$mean, a$sd )
