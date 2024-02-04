@@ -15,7 +15,7 @@
                  is a normal distribution.}
 }
 \value{
-\code{TRUE} if the object shows a kind of vertical gradation of
+\code{TRUE} if the object represents a kind of vertical gradation of
          2 normal distributions, otherwise \code{FALSE}.
 }
 \description{

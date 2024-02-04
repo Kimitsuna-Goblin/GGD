@@ -95,7 +95,7 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      to be equal.
                      This condition reduces the degrees of freedom,
                      so allowed number of quantiles will be restricted.
-                     See "Details" for more information.
+                     See 'Details' for more information.
 
                      If \code{FALSE}, the mean values are not bound,
                      and mean-equaled components will be rarely constructed.
@@ -115,7 +115,7 @@ ggd.trace.q(quantiles, x = "x", p = "p",
                      the components to be equal.
                      This condition reduces the degrees of freedom,
                      so allowed number of quantiles will be restricted.
-                     See "Details" for more information.
+                     See 'Details' for more information.
 
                      If \code{FALSE} or \code{logical(0)},
                      the standard deviations are not bound,
@@ -219,82 +219,70 @@ and \code{trace.q} method sets the fields according to the result.
  }
 }
 \examples{
- ## Mean of 2 Normal Distributions Example:
- ##  If mix.type = 1, it generates a mean of 2 normal distributions.
- ##  This model is not a gradational Gaussian distribution (GDD),
- ##  but a kind of Gaussian mixture model (GMM).
+ ## Preparing:
+ ## This function shows 1) the cumulative distribution function with plotting the quantiles
+ ## and 2) the probability density function.
+ plot.p.qt.d <- function( obj, x, p, xlim, ylim )
+ {
+     layout( matrix( c( 1, 0, 2, 0 ), 2, 2, byrow = TRUE ) )
+     plot( x, p, xlim = xlim, ylim = c( 0, 1 ), xlab = "", ylab = "" )
+     par( new = TRUE )
+     plot( seq( xlim[1], xlim[2], 0.1 ), obj$p( seq( xlim[1], xlim[2], 0.1 ) ),
+           type = "l", xlim = xlim, ylim = c( 0, 1 ), xlab = "", ylab = "" )
+     par( new = FALSE )
+     plot( seq( xlim[1], xlim[2], 0.1 ), obj$d( seq( xlim[1], xlim[2], 0.1 ) ),
+           type = "l", xlim = xlim, ylim = ylim, xlab = "", ylab = "" )
+ }
+
+ ## Horizontal gradation:
+ ##  If mix.type = 2 or grad = "h", it generates a horizontal gradational distribution.
  ##  The number of quantiles must be 3 or 4.
- result <- ggd.trace.q( data.frame(
-                        x = c( qnorm( 0.1, 0, 1 ), 0, qnorm( 0.6, 0, 0.75 ) ),
-                        p = c( 0.1, 0.5, 0.6 ) ),
-                        mix.type = 1 )
+ qt <- data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) )
+ result <- ggd.trace.q( qt, mix.type = 2 )
  result
- plot( seq( -3, 3, 0.01 ), result$obj$d( seq( -3, 3, 0.01 ) ), type = "l" )
+ plot.p.qt.d( result$obj, qt$x, qt$p, c( -3, 3 ), c( 0, 0.5 ) )
 
- ## Horizontal Gradational Example:
- ##  If mix.type = 2 or grad = "h",
- ##  it generates a horizontal gradational distribution.
- ##  The number of p of the quantiles must be 3 or 4.
- a <- ggd.trace.q( data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
-                   mix.type = 2 )$obj
- a
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+ ## 2-component vertical gradation:
+ ##  If grad = "v" or "v2", it generates a 2-component vertical gradational distribution.
+ ##  The number of quantiles must be 3 or 4.
+ qt <- data.frame( x.1 = c( -1.28, -0.42, 0 ), x.2 = c( -1.14, -0.51, 0 ),
+                   p = c( 0.1, 0.3, 0.5 ) )
+ a <- GGD$new()
+ a$trace.q( qt, x = "x.1", grad = "v2" )
+ a$kind; a$cmp; a$is.symmetric() ## FALSE
+ plot.p.qt.d( a, qt$x.1, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
 
- ## eq.sd Example:
+ ## eq.mean:
+ ##  If eq.mean = TRUE, it generates a mean-equaled distribution model.
+ a$trace.q( qt, x = "x.1", eq.mean = TRUE )
+ a$kind; a$cmp; a$is.symmetric() ## TRUE
+ plot.p.qt.d( a, qt$x.1, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
+
+ ## eq.sd:
  ##  If eq.sd = TRUE, it generates a distribution model with components of which
  ##  the standard deviations are all equal.
- a$trace.q(
-         data.frame( x = c( -0.64, -0.25, 0 ), p = c( 0.25, 0.4, 0.5 ) ),
-         this.mix.type = 2, eq.sd = TRUE )
- a$cmp
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+ a$trace.q( qt, x = "x.2", this.kind = "Horizontal", eq.sd = TRUE )
+ a$kind; a$cmp; a$is.symmetric() ## TRUE
+ plot.p.qt.d( a, qt$x.2, qt$p, c( -3, 3 ), c( 0, 0.4 ) )
 
- ## Vertical Gradational Example:
- ##  If grad = "v2", it generates a vertical gradation of 2 normal distributions.
- ##  The number of quantiles must be 3 or 4.
- a$trace.q(
-         data.frame( x = c( -1.28, -0.23, 0 ), p = c( 0.1, 0.4, 0.5 ) ),
-         grad = "v2" )
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-
- ## eq.mean Example:
- ##  If eq.mean = TRUE, it generates a mean-equaled distribution model.
-
- a$trace.q(
-         data.frame( x = c( -1.28, -0.42, 0 ), p = c( 0.1, 0.3, 0.5 ) ),
-         grad = "v2", eq.mean = TRUE )
- a$cmp
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-
- ## 3-Mean/Sigma-Differed Vertical Gradational Example:
+ ## 3-component vertical gradation:
  ##  If grad = "v3", it generates a vertical gradational distribution
  ##  with different components for left-tail side and right-tail side.
  ##  The number of quantiles must be from 3 to 6.
- a <- ggd.trace.q(
-         data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-         grad = "v3" )$obj
- a
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+ qt <- data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) )
+ a$trace.q( qt, grad = "v3" )
+ a$kind; a$cmp
+ plot.p.qt.d( a, qt$x, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
 
- ## Horizontal-Vertical Gradational Examples:
+ ## Horizontal-vertical gradation:
  ##  If mix.type = 4 or grad = "hv",
  ##  it generates a horizontal-vertical gradational distribution.
  ##  The number of quantiles must be from 5 to 8.
- a <- ggd.trace.q(
-         data.frame(
-             x = c( -1.38, -0.76, -0.28, 0.02, 0.36, 1.10, 2.79 ),
-             p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ) ),
-         mix.type = 4 )$obj
- a
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-
- a$trace.q(
-     data.frame(
-         x = c( -1.40, -0.96, -0.61, -0.30, 0.32, 0.72, 1.23, 2.21 ),
-         p = c( 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ) ),
-     grad = "hv" )
- a
- plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+ qt <- data.frame( x.coor = c( -1.40, -0.96, -0.61, -0.30, 0.32, 0.72, 1.23, 2.21 ),
+                   prob   = c( 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ) )
+ a$trace.q( qt, x = "x.coor", p = "prob", grad = "hv" )
+ a$kind; a$cmp
+ plot.p.qt.d( a, qt$x, qt$p, c( -3, 3 ), c( 0, 0.35 ) )
 }
 \seealso{
 \code{\link[ggd]{nls.freq}}

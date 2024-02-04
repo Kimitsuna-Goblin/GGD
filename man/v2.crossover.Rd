@@ -19,7 +19,7 @@ A list containing components
                  The output of \code{\link[nleqslv]{nleqslv}}.}
 }
 \description{
-Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
+Tracing 3 quantiles by crossover-tracing, makes a data frame for \code{cmp} field
 for a mean-differed 2-component vertical gradational distribution.
 }
 \details{

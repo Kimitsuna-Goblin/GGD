@@ -226,15 +226,15 @@ tex.end.frac.env = c( "array"       = "\\\\end{array} ",
 #'          frac.env = c("array", "aligned", "gathered", "default"))
 #' @param   con         A \code{\link[base]{connection}} object or a character string
 #'                      to indicate the output destination.
-#'                      See "Details" at \code{\link[base]{writeLines}}
+#'                      See 'Details' at \code{\link[base]{writeLines}}
 #'                      for more information.
 #' @param   sep         A character string to be written to the connection after each line
-#'                      of text. See "Details" at \code{\link[base]{writeLines}}
+#'                      of text. See 'Details' at \code{\link[base]{writeLines}}
 #'                      for more information.
-#' @param   comma       A logical. If \code{TRUE}, this method writes "," as a separator
-#'                      between each expression and "." at the end of output.
-#'                      If \code{FALSE}, "," for the separator of expressions
-#'                      and the final "." are not written.
+#' @param   comma       A logical. If \code{TRUE}, this method writes a ',' (comma)
+#'                      as a separator between each expression and a '.' (period)
+#'                      at the end of the output.
+#'                      If \code{FALSE}, those ',' and '.' will not be written.
 #' @param   format.num  A function to format each numeric value of mean values and
 #'                      standard deviations.
 #'                      It should be a function with one argument for the value
@@ -268,16 +268,16 @@ tex.end.frac.env = c( "array"       = "\\\\end{array} ",
 #'  \subsection{Equaled mean values or standard deviations}{
 #'      For clarity, when all mean values or standard deviations of components are equal
 #'      (i.e., when \code{\link[ggd]{is.eq.mean}} or \code{\link[ggd]{is.eq.sd}} method
-#'      returns \code{TRUE}), they are displayed with "\eqn{=}" to the 1st parameter,
-#'      like as "\eqn{\sigma_2 = \sigma_1}".
+#'      returns \code{TRUE}), they are displayed with '\eqn{=}' to the 1st parameter,
+#'      like as '\eqn{\sigma_2 = \sigma_1}'.
 #'
 #'      If only the values of some parameters are equal (e.g., only \eqn{\sigma_2} and
 #'      \eqn{\sigma_3} are equal and \eqn{\sigma_1} is different),
-#'      each value is displayed as "\eqn{\sigma_2 = x, \sigma_3 = x}"
-#'      instead of "\eqn{\sigma_3 = \sigma_2}" to avoid misreading.
+#'      each value is displayed as '\eqn{\sigma_2 = x, \sigma_3 = x}'
+#'      instead of '\eqn{\sigma_3 = \sigma_2}' to avoid misreading.
 #'
 #'      Note that if the difference between the values of parameters is smaller than
-#'      displayable number of decimal places, "\eqn{\sigma_2 = \sigma_1}" will not be displayed,
+#'      displayable number of decimal places, '\eqn{\sigma_2 = \sigma_1}' will not be displayed,
 #'      but the same number will be displayed for each.
 #'  }
 #' @examples

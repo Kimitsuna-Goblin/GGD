@@ -107,7 +107,7 @@
 #'                      to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See "Details" for more information.
+#'                      See 'Details' for more information.
 #'
 #'                      If \code{FALSE}, the mean values are not bound,
 #'                      and mean-equaled components will be rarely constructed.
@@ -127,7 +127,7 @@
 #'                      the components to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See "Details" for more information.
+#'                      See 'Details' for more information.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
 #'                      the standard deviations are not bound,
@@ -227,82 +227,70 @@
 #'  }
 #'
 #' @examples
-#'  ## Mean of 2 Normal Distributions Example:
-#'  ##  If mix.type = 1, it generates a mean of 2 normal distributions.
-#'  ##  This model is not a gradational Gaussian distribution (GDD),
-#'  ##  but a kind of Gaussian mixture model (GMM).
+#'  ## Preparing:
+#'  ## This function shows 1) the cumulative distribution function with plotting the quantiles
+#'  ## and 2) the probability density function.
+#'  plot.p.qt.d <- function( obj, x, p, xlim, ylim )
+#'  {
+#'      layout( matrix( c( 1, 0, 2, 0 ), 2, 2, byrow = TRUE ) )
+#'      plot( x, p, xlim = xlim, ylim = c( 0, 1 ), xlab = "", ylab = "" )
+#'      par( new = TRUE )
+#'      plot( seq( xlim[1], xlim[2], 0.1 ), obj$p( seq( xlim[1], xlim[2], 0.1 ) ),
+#'            type = "l", xlim = xlim, ylim = c( 0, 1 ), xlab = "", ylab = "" )
+#'      par( new = FALSE )
+#'      plot( seq( xlim[1], xlim[2], 0.1 ), obj$d( seq( xlim[1], xlim[2], 0.1 ) ),
+#'            type = "l", xlim = xlim, ylim = ylim, xlab = "", ylab = "" )
+#'  }
+#'
+#'  ## Horizontal gradation:
+#'  ##  If mix.type = 2 or grad = "h", it generates a horizontal gradational distribution.
 #'  ##  The number of quantiles must be 3 or 4.
-#'  result <- ggd.trace.q( data.frame(
-#'                         x = c( qnorm( 0.1, 0, 1 ), 0, qnorm( 0.6, 0, 0.75 ) ),
-#'                         p = c( 0.1, 0.5, 0.6 ) ),
-#'                         mix.type = 1 )
+#'  qt <- data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) )
+#'  result <- ggd.trace.q( qt, mix.type = 2 )
 #'  result
-#'  plot( seq( -3, 3, 0.01 ), result$obj$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'  plot.p.qt.d( result$obj, qt$x, qt$p, c( -3, 3 ), c( 0, 0.5 ) )
 #'
-#'  ## Horizontal Gradational Example:
-#'  ##  If mix.type = 2 or grad = "h",
-#'  ##  it generates a horizontal gradational distribution.
-#'  ##  The number of p of the quantiles must be 3 or 4.
-#'  a <- ggd.trace.q( data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
-#'                    mix.type = 2 )$obj
-#'  a
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'  ## 2-component vertical gradation:
+#'  ##  If grad = "v" or "v2", it generates a 2-component vertical gradational distribution.
+#'  ##  The number of quantiles must be 3 or 4.
+#'  qt <- data.frame( x.1 = c( -1.28, -0.42, 0 ), x.2 = c( -1.14, -0.51, 0 ),
+#'                    p = c( 0.1, 0.3, 0.5 ) )
+#'  a <- GGD$new()
+#'  a$trace.q( qt, x = "x.1", grad = "v2" )
+#'  a$kind; a$cmp; a$is.symmetric() ## FALSE
+#'  plot.p.qt.d( a, qt$x.1, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
 #'
-#'  ## eq.sd Example:
+#'  ## eq.mean:
+#'  ##  If eq.mean = TRUE, it generates a mean-equaled distribution model.
+#'  a$trace.q( qt, x = "x.1", eq.mean = TRUE )
+#'  a$kind; a$cmp; a$is.symmetric() ## TRUE
+#'  plot.p.qt.d( a, qt$x.1, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
+#'
+#'  ## eq.sd:
 #'  ##  If eq.sd = TRUE, it generates a distribution model with components of which
 #'  ##  the standard deviations are all equal.
-#'  a$trace.q(
-#'          data.frame( x = c( -0.64, -0.25, 0 ), p = c( 0.25, 0.4, 0.5 ) ),
-#'          this.mix.type = 2, eq.sd = TRUE )
-#'  a$cmp
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'  a$trace.q( qt, x = "x.2", this.kind = "Horizontal", eq.sd = TRUE )
+#'  a$kind; a$cmp; a$is.symmetric() ## TRUE
+#'  plot.p.qt.d( a, qt$x.2, qt$p, c( -3, 3 ), c( 0, 0.4 ) )
 #'
-#'  ## Vertical Gradational Example:
-#'  ##  If grad = "v2", it generates a vertical gradation of 2 normal distributions.
-#'  ##  The number of quantiles must be 3 or 4.
-#'  a$trace.q(
-#'          data.frame( x = c( -1.28, -0.23, 0 ), p = c( 0.1, 0.4, 0.5 ) ),
-#'          grad = "v2" )
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-#'
-#'  ## eq.mean Example:
-#'  ##  If eq.mean = TRUE, it generates a mean-equaled distribution model.
-#'
-#'  a$trace.q(
-#'          data.frame( x = c( -1.28, -0.42, 0 ), p = c( 0.1, 0.3, 0.5 ) ),
-#'          grad = "v2", eq.mean = TRUE )
-#'  a$cmp
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-#'
-#'  ## 3-Mean/Sigma-Differed Vertical Gradational Example:
+#'  ## 3-component vertical gradation:
 #'  ##  If grad = "v3", it generates a vertical gradational distribution
 #'  ##  with different components for left-tail side and right-tail side.
 #'  ##  The number of quantiles must be from 3 to 6.
-#'  a <- ggd.trace.q(
-#'          data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) ),
-#'          grad = "v3" )$obj
-#'  a
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'  qt <- data.frame( x = c( -1.92, -0.20, 0.20, 1.92 ), p = c( 0.1, 0.4, 0.6, 0.9 ) )
+#'  a$trace.q( qt, grad = "v3" )
+#'  a$kind; a$cmp
+#'  plot.p.qt.d( a, qt$x, qt$p, c( -3, 3 ), c( 0, 0.52 ) )
 #'
-#'  ## Horizontal-Vertical Gradational Examples:
+#'  ## Horizontal-vertical gradation:
 #'  ##  If mix.type = 4 or grad = "hv",
 #'  ##  it generates a horizontal-vertical gradational distribution.
 #'  ##  The number of quantiles must be from 5 to 8.
-#'  a <- ggd.trace.q(
-#'          data.frame(
-#'              x = c( -1.38, -0.76, -0.28, 0.02, 0.36, 1.10, 2.79 ),
-#'              p = c( 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9 ) ),
-#'          mix.type = 4 )$obj
-#'  a
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
-#'
-#'  a$trace.q(
-#'      data.frame(
-#'          x = c( -1.40, -0.96, -0.61, -0.30, 0.32, 0.72, 1.23, 2.21 ),
-#'          p = c( 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ) ),
-#'      grad = "hv" )
-#'  a
-#'  plot( seq( -3, 3, 0.01 ), a$d( seq( -3, 3, 0.01 ) ), type = "l" )
+#'  qt <- data.frame( x.coor = c( -1.40, -0.96, -0.61, -0.30, 0.32, 0.72, 1.23, 2.21 ),
+#'                    prob   = c( 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ) )
+#'  a$trace.q( qt, x = "x.coor", p = "prob", grad = "hv" )
+#'  a$kind; a$cmp
+#'  plot.p.qt.d( a, qt$x, qt$p, c( -3, 3 ), c( 0, 0.35 ) )
 ################################################################################################
 ggd.trace.q <- function( quantiles, x = "x", p = "p",
                          kind = NULL, mix.type = NULL,
@@ -464,7 +452,7 @@ GGD$methods(
         ################################################################
         # Deciding the new mix.type.
 
-        # Get grad value needed for tracing processes with this.kind.
+        # Get grad value needed for tracing processes according to this.kind.
         if ( !is.null( this.kind ) )
         {
             this.kind.index <- ggd.kind.index( this.kind, undef.err = TRUE )
@@ -472,14 +460,11 @@ GGD$methods(
             {
                 stop( "Error: kind should be valid single value or a GGD object." )
             }
-            else if ( length( this.kind.index ) == 0 )
+            else if ( length( this.kind.index ) == 1 && !is.na( this.kind.index ) )
             {
-                this.kind.index <- NA_integer_
-            }
-
-            if ( !is.na( this.kind.index ) )
-            {
-                if ( grad == "default" )
+                # Set "v2" or "v3" to grad by this.kind
+                # (but if this.mix.type is indicated, it takes priority)
+                if ( grad == "default" && is.null( this.mix.type ) )
                 {
                     if ( any( this.kind.index == 8:10 ) )
                     {
@@ -490,6 +475,7 @@ GGD$methods(
                         grad <- "v3"
                     }
                 }
+
                 if ( length( eq.mean ) == 0 )
                 {
                     eq.mean <- ( this.kind.index %% 3 == 0 )
@@ -684,7 +670,7 @@ GGD$methods(
 
         ################################################################
         # If new.mix.type = 0,
-        # culculate the mean and the standard deviation directly.
+        # calculate the mean and the standard deviation directly.
         if ( new.mix.type == 0 )
         {
             result <- ms.norm.xp( qt.with.median$x, qt.with.median$p )
@@ -767,7 +753,7 @@ GGD$methods(
             qt <- qt.no.median      # the condition of quantiles for nleqslv
 
             # Define the initial values and the objective function of nleqslv.
-            #   In the folloing code,
+            #   In the following code,
             #   mean.i and sd.i (i = 1,2,...) are index number of x,
             #   which is the input vector of f and also output vector of nleqslv.
             if ( new.mix.type == 1 )
@@ -1036,7 +1022,7 @@ GGD$methods(
                 # new.mix.type = 3, 2 components
                 if ( eq.sd )
                 {
-                    # Set start values for mean values and the standard deviaton
+                    # Set start values for mean values and the standard deviations
                     # by 2 quantiles other than median.
                     pseudo <- ms.norm.xp( qt$x[1:2], qt$p[1:2] )
 
@@ -1150,7 +1136,7 @@ GGD$methods(
                         }
                         else
                         {
-                            # Retry with 3 mean-differed componetnts.
+                            # Retry with 3 mean-differed components.
                             #
                             # Note: Twice retrying with eq.mean = TRUE
                             #       (with 2 components and 3 components) will be done
@@ -1546,7 +1532,7 @@ GGD$methods(
                 # Get start values for means and standard deviations
                 # of the left-side and right-side distributions
                 # via ggd.trace.q with new.mix.type = 3.
-                # Here, we don't give "control" to ggd.trace.q intentionally.
+                # Here, we don't give 'control' to ggd.trace.q intentionally.
 
                 # Substring of the failed message for initial guessing
                 msg.sub <- "mean-differed"
@@ -1944,7 +1930,7 @@ GGD$methods(
 ################################################################################################
 #' [Non-exported] Crossover-tracing (3 quantiles, v2)
 #'
-#' Tracing 3 quantiles by crossover-tracing, makes the data frame for \code{cmp} field
+#' Tracing 3 quantiles by crossover-tracing, makes a data frame for \code{cmp} field
 #' for a mean-differed 2-component vertical gradational distribution.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
@@ -2041,11 +2027,11 @@ v2.crossover <- function( qt, control )
 ################################################################################################
 #' [Non-exported] Gets cmp field (4 quantiles, v2)
 #'
-#' Tracing 4 quantiles with 2 normal distributions, makes the data frame for \code{cmp} field
+#' Tracing 4 quantiles with 2 normal distributions, makes a data frame for \code{cmp} field
 #' where \code{mix.type = 3}.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
-#' @param   retriable   A logical; the flag if retrying is enable.
+#' @param   retryable   A logical; the flag if retrying is enable.
 #' @return  A list containing components
 #'          \item{cmp}{
 #'                  The data frame for \code{cmp} field.}
@@ -2054,7 +2040,7 @@ v2.crossover <- function( qt, control )
 #' @importFrom  stats       pnorm
 #' @importFrom  nleqslv     nleqslv
 ################################################################################################
-v2.qt4.cmp <- function( qt, control, retriable )
+v2.qt4.cmp <- function( qt, control, retryable )
 {
     if ( nrow( qt ) != 4 )
     {
@@ -2113,7 +2099,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
     }
     else
     {
-        if ( retriable )
+        if ( retryable )
         {
             message( paste( "nleqslv has once failed. Message:", result$message ) )
         }
@@ -2130,7 +2116,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 ################################################################################################
 #' [Non-exported] Gets cmp field (4 quantiles, v3)
 #'
-#' Tracing 4 quantiles with 3 normal distributions, makes the data frame for \code{cmp} field
+#' Tracing 4 quantiles with 3 normal distributions, makes a data frame for \code{cmp} field
 #' where \code{mix.type = 3}.
 #' @param   qt          A data frame; the quantiles to be traced.
 #' @param   eq.mean     A logical; the flag to be equal all of the mean values.
@@ -2139,7 +2125,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 #'                      If \code{"v3"}, the number of components will forced to be 3,
 #'                      even if it is possible to construct with 2 components.
 #' @param   control     The \code{control} option for \code{\link[nleqslv]{nleqslv}}.
-#' @param   retriable   A logical; the flag if retrying is enable.
+#' @param   retryable   A logical; the flag if retrying is enable.
 #' @return  A list containing components
 #'          \item{cmp}{
 #'                  The data frame for \code{cmp} field.}
@@ -2147,7 +2133,7 @@ v2.qt4.cmp <- function( qt, control, retriable )
 #'                  The output of \code{\link[nleqslv]{nleqslv}}.}
 #' @importFrom  nleqslv     nleqslv
 ################################################################################################
-v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
+v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retryable, grad )
 {
     if ( nrow( qt ) != 4 )
     {
@@ -2245,7 +2231,7 @@ v3.qt4.cmp <- function( qt, eq.mean, eq.sd, control, retriable, grad )
     }
     else
     {
-        if ( retriable )
+        if ( retryable )
         {
             message( paste( "nleqslv has once failed. Message:", result$message ) )
         }

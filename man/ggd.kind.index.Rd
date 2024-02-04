@@ -21,7 +21,7 @@ ggd.kind.index(objs, undef.err = FALSE)
                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
                               16L, 14L, 15L, 17L)}.
                      The order is designed for practical purposes so that
-                     the \code{"Mean-Differed Sigma-Differed"} model,
+                     the '\code{Mean-Differed Sigma-Differed}' model,
                      which has more degrees of freedom than the others of the same type,
                      can be matched first.
 

@@ -99,16 +99,16 @@ f.t3.p <- list( function( x, m, s )
 #'                          Gaussian mixture model (GMM).
 #'                          This is provided for comparing GGD with GMM.
 #'
-#' @field   cmp             A data frame with 2 numeric columns which shows
-#'                          the normal distributions of the components.
+#' @field   cmp             A data frame with 2 numeric columns which have
+#'                          the parameters of the normal distributions of the components.
 #'
 #'                          \code{mean} column represents the mean values of the components,
 #'                          and \code{sd} column represents the standard deviations.
 #'
 #'                          Where \code{mix.type} is from \code{0} to \code{3},
-#'                          it has 1 to 3 rows named like "\code{n.i}".
+#'                          it has 1 to 3 rows named like \code{"n.i"}.
 #'                          Where \code{mix.type = 4},
-#'                          it has 4 rows named like "\code{n.i.j}".
+#'                          it has 4 rows named like \code{"n.i.j"}.
 #'
 #' @field   custom.d        The density function defined by user for the custom distribution.
 #'
@@ -256,7 +256,7 @@ f.t3.p <- list( function( x, m, s )
 #'      The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
 #'      and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
 #'      could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
-#'      That may be contrary to the intuitive image of the "vertical gradational distribution",
+#'      That may be contrary to the intuitive image of the 'vertical gradational distribution',
 #'      but it is not prohibited.
 #'
 #'      About the \bold{3-component vertical gradational Gaussian distribution},
@@ -522,7 +522,7 @@ GGD$methods(
     adjust.cmp.rownames = function()
     {
         # Using direct string vectors instead of rownames( cmp, prefix = "n." )
-        # to avoid creating strange names when the number of the cmp rows is invalid.
+        # to avoid creating strange names when the number of rows of 'cmp' field is invalid.
         if ( length( mix.type ) == 0 || is.na( mix.type ) )
         {
             rownames( cmp ) <<- c()
@@ -756,7 +756,7 @@ GGD$methods(
 #'                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
 #'                               16L, 14L, 15L, 17L)}.
 #'                      The order is designed for practical purposes so that
-#'                      the \code{"Mean-Differed Sigma-Differed"} model,
+#'                      the '\code{Mean-Differed Sigma-Differed}' model,
 #'                      which has more degrees of freedom than the others of the same type,
 #'                      can be matched first.
 #'
@@ -1091,7 +1091,7 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #' Judge if all mean values are equal
 #'
 #' Checks if the mean values of all normal distributions of components are equal.
-#' The equality is determined by the \code{==} operator.
+#' The equality is determined by the '\code{==}' operator.
 #' @name    is.eq.mean
 #' @aliases is.eq.mean
 #' @aliases \S4method{is.eq.mean}{GGD}
@@ -1124,7 +1124,7 @@ GGD$methods(
 #' Judge if all standard deviations are equal
 #'
 #' Checks if the standard deviations of all normal distributions of components are equal.
-#' The equality is determined by the \code{==} operator.
+#' The equality is determined by the '\code{==}' operator.
 #' @name    is.eq.sd
 #' @aliases is.eq.sd
 #' @aliases is.eq.sigma
@@ -1171,7 +1171,7 @@ GGD$methods(
 #' @aliases is.normal
 #' @aliases \S4method{is.normal}{GGD}
 #' @usage   \S4method{is.normal}{GGD}()
-#' @return  \code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
+#' @return  \code{TRUE} if the object represents a normal distribution, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
 #'  a$is.normal()   ## TRUE
@@ -1209,7 +1209,7 @@ GGD$methods(
 #'                  If \code{FALSE}, this function also returns \code{TRUE}
 #'                  when the model is a normal distribution.
 #'
-#' @return  \code{TRUE} if the object shows a kind of horizontal gradational distribution,
+#' @return  \code{TRUE} if the object represents a kind of horizontal gradational distribution,
 #'          otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
@@ -1270,7 +1270,7 @@ GGD$methods(
 #'                  If \code{FALSE}, this function also returns \code{TRUE} when the model
 #'                  is a normal distribution.
 #'
-#' @return  \code{TRUE} if the object shows a kind of vertical gradation of
+#' @return  \code{TRUE} if the object represents a kind of vertical gradation of
 #'          2 normal distributions, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
@@ -1335,7 +1335,7 @@ GGD$methods(
 #'                  If \code{FALSE}, this function also returns \code{TRUE} for
 #'                  a normal distribution or a vertical gradation of 2 normal distributions.
 #'
-#' @return  \code{TRUE} if the object shows a kind of vertical gradation of
+#' @return  \code{TRUE} if the object represents a kind of vertical gradation of
 #'          3 normal distributions, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
@@ -1350,7 +1350,7 @@ GGD$methods(
 #'  a$set.cmp( data.frame( mean = c( 0, 0, 0, 0 ),
 #'                         sd = c( 1.1, 0.8, 1.2, 0.8 ) ), this.mix.type = 4 )
 #'  a$mix.type  ## 4
-#'  a$is.v3()   ## FALSE -- see "Note!" at Description
+#'  a$is.v3()   ## FALSE -- see 'Note!' at Description
 ################################################################################################
 NULL
 GGD$methods(
@@ -1386,7 +1386,7 @@ GGD$methods(
 #'                      a normal distribution, a horizontal gradational distribution
 #'                      and a 2-component vertical gradational distribution.
 #'
-#' @return  \code{TRUE} if the object shows a kind of horizontal-vertical gradation of
+#' @return  \code{TRUE} if the object represents a kind of horizontal-vertical gradation of
 #'          4 (2x2) normal distributions, otherwise \code{FALSE}.
 #' @examples
 #'  a <- GGD$new()
@@ -1435,19 +1435,17 @@ GGD$methods(
 #' Referring \code{mix.type} and \code{cmp} field,
 #' checks if the probability density function is symmetric about the mean.
 #'
-#' This function judges that the distribution model is symmetric if either:
+#' This method judges that the distribution model is symmetric if either:
 #' \enumerate{
 #'      \item   a normal distribution.
 #'      \item   a mean of 2 normal distributions or a horizontal gradational distribution
-#'              which has the same standard deviations for the two normal distributions
-#'              of the components.
-#'      \item   a mean of 2 normal distributions or a vertical gradational distribution
-#'              of 2 normal distributions which has the same mean values for
-#'              the two normal distributions of the components.
-#'      \item   a vertical gradational distribution of 3 normal distributions
-#'              which has the mean value for the top-side component
-#'              as the mean of the mean values of the 2 tail-side components,
-#'              and has the same standard deviations for the both tail-side components.
+#'              where the two components have the same standard deviation.
+#'      \item   a mean of 2 normal distributions or a 2-component vertical gradational
+#'              distribution where the two components have the same mean value.
+#'      \item   a 3-component vertical gradational distribution
+#'              where the both tail-side components have the same standard deviation,
+#'              and the mean value of the top-side component equals the mean of the mean values
+#'              of the both tail-side components.
 #'      \item   a horizontal-vertical gradational distribution which has
 #'              two vertical gradational distributions in the components
 #'              which are symmetrical to each other about the mean of the distribution.
@@ -1503,7 +1501,7 @@ GGD$methods(
 #' Probability density function
 #'
 #' Gets the values of the probability density function for the given x-coordinates.
-#' This function works like \code{\link[stats]{dnorm}} for a normal distribution.
+#' This method works like \code{\link[stats]{dnorm}} for a normal distribution.
 #' @name    d
 #' @aliases d
 #' @aliases \S4method{d}{GGD}
@@ -1586,7 +1584,7 @@ GGD$methods(
 #'
 #' Gets the probabilities of that a value of the random variable is less than or equal to
 #' the given x-coordinates.
-#' This function works like \code{\link[stats]{pnorm}} for a normal distribution.
+#' This method works like \code{\link[stats]{pnorm}} for a normal distribution.
 #' @name    p
 #' @aliases p
 #' @aliases \S4method{p}{GGD}
@@ -1674,7 +1672,7 @@ GGD$methods(
 #'
 #' Gets the x-coordinates with the cumulative distribution function is equal to
 #' the given probabilities (with a tolerance level).
-#' This function works like \code{\link[stats]{qnorm}} for a normal distribution.
+#' This method works like \code{\link[stats]{qnorm}} for a normal distribution.
 #' @name    q
 #' @aliases q
 #' @aliases \S4method{q}{GGD}
@@ -1917,7 +1915,8 @@ GGD$methods(
 #' Random generation
 #'
 #' Generates random numbers which follow the distribution model.
-#' This function works like \code{\link[stats]{rnorm}} for a normal distribution.
+#' This method works like \code{\link[stats]{rnorm}} for a normal distribution.
+#' This method calls \code{\link[ggd]{q}} method internally.
 #' @name    r
 #' @aliases r
 #' @aliases \S4method{r}{GGD}

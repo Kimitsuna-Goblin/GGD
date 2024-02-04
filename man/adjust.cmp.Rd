@@ -57,7 +57,7 @@ The \code{mix.type} field will be change accordingly.
  }
 }
 \examples{
- ## Usually the cmp field is simplified automatically,
+ ## Usually 'cmp' field is simplified automatically,
  ## so you do not have to call adjust.cmp by your own.
  ## For example, in this case,
  ## the number of components is simplified to 1 automatically.
@@ -65,7 +65,7 @@ The \code{mix.type} field will be change accordingly.
  a$kind; a$mix.type; a$cmp   ## mix.type = 0: a Normal Distribution
 
  ## GGD$new() makes 2 components of normal distributions for convenience.
- ## You can use adjust.cmp in order to adjust the cmp field of a new object to 1 component.
+ ## You can use adjust.cmp in order to adjust 'cmp' field of a new object to 1 component.
  a <- GGD$new()
  a$kind; a$mix.type; a$cmp   ## mix.type = 2: Horizontal Gradational Distribution
 

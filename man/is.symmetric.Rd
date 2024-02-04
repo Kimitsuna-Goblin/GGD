@@ -16,19 +16,17 @@ Referring \code{mix.type} and \code{cmp} field,
 checks if the probability density function is symmetric about the mean.
 }
 \details{
-This function judges that the distribution model is symmetric if either:
+This method judges that the distribution model is symmetric if either:
 \enumerate{
      \item   a normal distribution.
      \item   a mean of 2 normal distributions or a horizontal gradational distribution
-             which has the same standard deviations for the two normal distributions
-             of the components.
-     \item   a mean of 2 normal distributions or a vertical gradational distribution
-             of 2 normal distributions which has the same mean values for
-             the two normal distributions of the components.
-     \item   a vertical gradational distribution of 3 normal distributions
-             which has the mean value for the top-side component
-             as the mean of the mean values of the 2 tail-side components,
-             and has the same standard deviations for the both tail-side components.
+             where the two components have the same standard deviation.
+     \item   a mean of 2 normal distributions or a 2-component vertical gradational
+             distribution where the two components have the same mean value.
+     \item   a 3-component vertical gradational distribution
+             where the both tail-side components have the same standard deviation,
+             and the mean value of the top-side component equals the mean of the mean values
+             of the both tail-side components.
      \item   a horizontal-vertical gradational distribution which has
              two vertical gradational distributions in the components
              which are symmetrical to each other about the mean of the distribution.

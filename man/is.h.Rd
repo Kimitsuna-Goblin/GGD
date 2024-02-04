@@ -15,7 +15,7 @@
                  when the model is a normal distribution.}
 }
 \value{
-\code{TRUE} if the object shows a kind of horizontal gradational distribution,
+\code{TRUE} if the object represents a kind of horizontal gradational distribution,
          otherwise \code{FALSE}.
 }
 \description{

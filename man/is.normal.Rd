@@ -8,7 +8,7 @@
 \S4method{is.normal}{GGD}()
 }
 \value{
-\code{TRUE} if the object shows a normal distribution, otherwise \code{FALSE}.
+\code{TRUE} if the object represents a normal distribution, otherwise \code{FALSE}.
 }
 \description{
 Referring \code{cmp} field, checks if the distribution is essentially a normal distribution.

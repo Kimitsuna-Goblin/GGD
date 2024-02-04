@@ -30,23 +30,22 @@ ggd.start.template(kind, ncmp = 0)
 \value{
 A list containing components any of
          \item{mean}{
-                 The start value for the mean value common to all normal distributions
-                 of the components. 0 is preset.}
+                 The start value for the mean value shared by all components. 0 is preset.}
          \item{mean.i}{
-                 The start value for the mean value of i-th normal distribution.
+                 The start value for the mean value of the i-th component.
                  0 is preset.}
          \item{mean.i.j}{
-                 The start value for the mean value of i,j-th normal distribution
+                 The start value for the mean value of the i,j-th component
                  in the 2x2 components. 0 is preset.}
          \item{sqrt.sd}{
-                 The start value for the square root of the standard deviation common to
-                 all normal distributions of the components. 1 is preset.}
+                 The start value for the square root of the standard deviation shared
+                 by all components. 1 is preset.}
          \item{sqrt.sd.i}{
                  The start value for the square root of the standard deviation of
-                 i-th normal distribution. 1 is preset.}
+                 the i-th component. 1 is preset.}
          \item{sqrt.sd.i.j}{
                  The start value for the square root of the standard deviation of
-                 i,j-th normal distribution in the 2x2 components. 1 is preset.}
+                 the i,j-th component in the 2x2 components. 1 is preset.}
 
          If \code{kind} represents an unsupported distribution model,
          \code{NULL} will be returned.
@@ -59,23 +58,23 @@ So if you want to obtain two or more templates,
 you should call this function one by one for each one.
 }
 \examples{
- ## preparing
+ ## Preparing:
  x <- seq( -2, 2, 0.2 )
  freq <- c( 1517,  2292,  2513,  2763,  3724,  4046,  4713,
             7947, 10997, 11824, 11133,  7868,  4692,  4103,
             3698,  2740,  2549,  2284,  1499,  1147,   918 )
 
- ## set the start parameters
+ ## Set the start values.
  start <- ggd.start.template( 14 )
- start   ## check the parameters for the start of ggd:::kinds[14]
+ start   ## Check the parameters for the 'start' of ggd:::kinds[14].
 
  start$mean.1.1 <- -0.671
  start$mean.1.2 <- -0.198
  start$mean.2.1 <-  0.293
  start$mean.2.2 <- -0.198
- start$sqrt.sd <- sqrt( 0.640 )  ## sqrt.sd is the square root of the standard deviation.
+ start$sqrt.sd <- sqrt( 0.640 )  ## 'sqrt.sd' is the square root of the standard deviation.
 
- ## try ggd.nls.freq
+ ## Run ggd.nls.freq.
  ggd.nls.freq( data.frame( x, freq ), start = start, kind = 14 )$obj
 }
 \seealso{

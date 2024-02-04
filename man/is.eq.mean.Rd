@@ -13,7 +13,7 @@
 }
 \description{
 Checks if the mean values of all normal distributions of components are equal.
-The equality is determined by the \code{==} operator.
+The equality is determined by the '\code{==}' operator.
 }
 \examples{
  a <- GGD$new()

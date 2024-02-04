@@ -26,7 +26,7 @@ A vector of the x-coordinates with the cumulative distribution function
 \description{
 Gets the x-coordinates with the cumulative distribution function is equal to
 the given probabilities (with a tolerance level).
-This function works like \code{\link[stats]{qnorm}} for a normal distribution.
+This method works like \code{\link[stats]{qnorm}} for a normal distribution.
 }
 \examples{
  a <- GGD$new()

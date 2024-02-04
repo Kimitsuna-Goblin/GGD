@@ -6650,6 +6650,28 @@ a$trace.q(
     data.frame(
     p = c( 0.1, 0.5, 0.7 ),
     x = xs ),
+    this.kind = "Vertical", this.mix.type = 2 )
+expect_equal( a$is.h( TRUE ), TRUE )
+expect_equal( a$is.eq.mean(), FALSE )
+expect_equal( a$is.eq.sd(), FALSE )
+
+# normal test
+a$clear()
+a$trace.q(
+    data.frame(
+    p = c( 0.1, 0.5, 0.7 ),
+    x = xs ),
+    this.kind = "Horizontal", this.mix.type = 3 )
+expect_equal( a$is.v2( TRUE ), TRUE )
+expect_equal( a$is.eq.mean(), FALSE )
+expect_equal( a$is.eq.sd(), FALSE )
+
+# normal test
+a$clear()
+a$trace.q(
+    data.frame(
+    p = c( 0.1, 0.5, 0.7 ),
+    x = xs ),
     this.kind = "Mean-Differed Sigma-Equaled Horizontal-Vertical",
     grad = "v3" )
 expect_identical( a$mix.type, 3L )
