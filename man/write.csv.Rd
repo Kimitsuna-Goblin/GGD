@@ -33,7 +33,7 @@ regardless of the package version or R version.
      in most cases, and in most systems.
 }
 \subsection{For custom distribution}{
-     Although it is possible to save an object of \code{"Custom Distribution"}
+     Although it is possible to save an object of a custom distribution
      (\code{mix.type = 5}), it is not always a good idea to use this method.
      This is because, \code{costom.d} is simply converted to a character string
      and saved in the last row of the CSV file, so it is not guaranteed that objects loaded
