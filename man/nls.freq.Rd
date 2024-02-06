@@ -237,10 +237,10 @@ See 'Arguments' of \code{\link[stats]{nls}} for more information.}
 
                      When this method is called without \code{this.kind} argument
                      or other conditions, it attempt to retain the value of
-                     \code{mix.type} field as much as possible, but not \code{kind} field.
-                     That is, the condition that the mean values or standard deviations
-                     of the components are aligned to the same values or not may not
-                     be retained. If you want to retain the condition as well,
+                     \code{mix.type} field as much as possible except for \code{kind} field,
+                     i.e., the condition whether the mean value and standard deviation of
+                     each component are aligned to same values or not may not be retained.
+                     If you want to retain these conditions as well,
                      indicate the object itself to \code{this.kind} argument like as
                      \code{obj$nls.freq(data, this.kind = obj)}.}
 
