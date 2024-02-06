@@ -278,7 +278,8 @@ this method.
  ## Using custom distribution (mix.type = 5),
  ## you can create an object of any distribution.
  ##
- ## In this case, custom.d field must be indicated, but custom.p need not be.
+ ## For a custom distribution, 'custom.d' field must be indicated.
+ ## It is not necessary to indicate 'custom.p' field, but it is good to do so if possible.
  a$set.cmp(
      this.cmp = data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 0.5, 0.75, 1 ) ),
      this.kind = "Custom",
