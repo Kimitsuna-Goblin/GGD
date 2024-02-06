@@ -5,7 +5,7 @@
 \alias{\S4method{r}{GGD}}
 \title{Random generation}
 \usage{
-\S4method{r}{GGD}(n, tol = 2^(-17))
+\S4method{r}{GGD}(n, tol = 2^(-17), use.custom.p = isTRUE(mix.type == 5))
 }
 \arguments{
 \item{n}{Number of output values.
@@ -13,6 +13,15 @@ If \code{length(n) > 1}, the length is taken to be the number required.}
 
 \item{tol}{The tolerance level for the convergence criterion for
 \code{\link[ggd]{q}} method.}
+
+\item{use.custom.p}{A logical; selecting the function to compute the probability.
+                         If \code{FALSE}, the build-in function is used.
+                         If \code{TRUE}, the function in \code{custom.p} field is
+                         used instead.
+
+                         This argument works regardless of \code{mix.type} field.
+                         That means, you can use \code{custom.p} field with indicating
+                         \code{use.custom.p = TRUE} even if it is not a custom distribution.}
 }
 \value{
 A vector of random numbers.
@@ -28,4 +37,7 @@ This method calls \code{\link[ggd]{q}} method internally.
      data.frame( x = c( -0.67, 0, 0.53 ), p = c( 0.25, 0.5, 0.75 ) ),
      this.mix.type = 2 )
  hist( a$r( 400 ) )
+}
+\seealso{
+\code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{q}}
 }

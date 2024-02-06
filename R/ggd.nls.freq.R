@@ -255,10 +255,10 @@
 #'
 #'                      When this method is called without \code{this.kind} argument
 #'                      or other conditions, it attempt to retain the value of
-#'                      \code{mix.type} field as much as possible except for \code{kind} field,
-#'                      i.e., the condition whether the mean value and standard deviation of
-#'                      each component are aligned to same values or not may not be retained.
-#'                      If you want to retain these conditions as well,
+#'                      \code{mix.type} field as much as possible, but not \code{kind} field.
+#'                      That is, the condition that the mean values or standard deviations
+#'                      of the components are aligned to the same values or not may not
+#'                      be retained. If you want to retain the condition as well,
 #'                      indicate the object itself to \code{this.kind} argument like as
 #'                      \code{obj$nls.freq(data, this.kind = obj)}.
 #'
@@ -329,8 +329,9 @@
 #'                  This component is given only if \code{start.level = 100}.
 #'                  The composition of each element is same as \code{errors}.}
 #'
-#'          For \code{GGD} method: If an error occurs, all fields of the object will be cleared
-#'                                 in most cases.
+#'          For \code{GGD} method: If an error occurs, all fields
+#'                                 (except \code{custom.d} and \code{custom.p})
+#'                                 of the object will be cleared in most cases.
 #'
 #' @importFrom  methods     new
 #' @importFrom  stats       complete.cases
@@ -504,7 +505,7 @@ GGD$methods(
     {
         # Note:
         # In this function, when an error occurs,
-        # we clear all fields except for custom.d as much as possible.
+        # we clear all fields except custom.d and custom.p as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,

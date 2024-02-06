@@ -23,9 +23,9 @@ ggd.read.csv(file)
          the mean value, and standard deviation of each component.
 
          If the row header is \code{"custom.d"} or \code{"custom.p"},
-         the character string in the 2nd column of that row is used as the function
+         the character string in the 2nd column of the row is used as the function
          for \code{custom.d} or \code{custom.p} field.
-         In this case, the 3rd column is not used.
+         The 3rd column of the row is not used currently.
 
          For more information about the properties of this argument,
          see \code{file} argument of \link[utils]{read.table}.}

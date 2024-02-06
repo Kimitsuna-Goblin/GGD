@@ -269,7 +269,8 @@ The class provides the Gradational Gaussian Distribution.
                          of the components. That is, the \code{cmp} field.
              }
 
-             The default is \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}.
+             The default is currently
+             \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}.
              However, the default can be changed without notice,
              so you should not expect it to be a probability density function
              of a normal distribution.}
@@ -288,10 +289,10 @@ The class provides the Gradational Gaussian Distribution.
              The default is
              \code{function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value}.
              It will work but may be slow and not very accurate.
-             Therefore, this field is provided so that you can define your own function
-             that will be faster or more accurate.
+             Therefore, it is recommended to give this field your own function
+             which will be faster or more accurate.
 
-             This field is basically for custom distributions,
+             This field is basically for a custom distribution,
              but you can also use it for other supported models if you want.
              See \code{\link[ggd]{p}} or \code{\link[ggd]{q}} method.}
 

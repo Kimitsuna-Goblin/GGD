@@ -123,7 +123,8 @@ f.t3.p <- list( function( x, m, s )
 #'                          of the components. That is, the \code{cmp} field.
 #'              }
 #'
-#'              The default is \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}.
+#'              The default is currently
+#'              \code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}.
 #'              However, the default can be changed without notice,
 #'              so you should not expect it to be a probability density function
 #'              of a normal distribution.
@@ -142,10 +143,10 @@ f.t3.p <- list( function( x, m, s )
 #'              The default is
 #'              \code{function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value}.
 #'              It will work but may be slow and not very accurate.
-#'              Therefore, this field is provided so that you can define your own function
-#'              that will be faster or more accurate.
+#'              Therefore, it is recommended to give this field your own function
+#'              which will be faster or more accurate.
 #'
-#'              This field is basically for custom distributions,
+#'              This field is basically for a custom distribution,
 #'              but you can also use it for other supported models if you want.
 #'              See \code{\link[ggd]{p}} or \code{\link[ggd]{q}} method.
 #'
@@ -1509,6 +1510,7 @@ GGD$methods(
 #' @param   x           A vector of x-coordinates.
 #' @return  The values of the probability density function for the given x-coordinates.
 #' @importFrom  stats   dnorm pnorm
+#' @seealso \code{\link[ggd]{p}}, \code{\link[ggd]{q}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1590,13 +1592,18 @@ GGD$methods(
 #' @aliases \S4method{p}{GGD}
 #' @usage   \S4method{p}{GGD}(x, use.custom.p = isTRUE(mix.type == 5))
 #' @param   x               A vector of x-coordinates.
-#' @param   use.custom.p    A logical.
-#'                          If \code{FALSE}, the coded cumulative distribution function is used
-#'                          as it is. If \code{TRUE}, the function in \code{custom.p} field is
+#' @param   use.custom.p    A logical; selecting the function to compute the probability.
+#'                          If \code{FALSE}, the build-in function is used.
+#'                          If \code{TRUE}, the function in \code{custom.p} field is
 #'                          used instead.
+#'
+#'                          This argument works regardless of \code{mix.type} field.
+#'                          That means, you can use \code{custom.p} field with indicating
+#'                          \code{use.custom.p = TRUE} even if it is not a custom distribution.
 #' @return  A vector of the probabilities of that a value of the random variable is less than
 #'          or equal to given x-coordinates.
 #' @importFrom  stats       pnorm
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{q}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1677,17 +1684,22 @@ GGD$methods(
 #' @aliases q
 #' @aliases \S4method{q}{GGD}
 #' @usage   \S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16,
-#'                            use.custom.p = isTRUE( mix.type == 5 ))
+#'          use.custom.p = isTRUE( mix.type == 5 ))
 #' @param   prob            A vector of probabilities.
 #' @param   tol             The tolerance level for the convergence criterion.
-#' @param   use.custom.p    A logical.
-#'                          If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
-#'                          is used as it is to obtain probabilities.
+#' @param   use.custom.p    A logical; selecting the function to compute the probability.
+#'                          If \code{FALSE}, the build-in function
+#'                          for \code{\link[ggd]{p}} method is used.
 #'                          If \code{TRUE}, the function in \code{custom.p} field is
 #'                          used instead.
+#'
+#'                          This argument works regardless of \code{mix.type} field.
+#'                          That means, you can use \code{custom.p} field with indicating
+#'                          \code{use.custom.p = TRUE} even if it is not a custom distribution.
 #' @return  A vector of the x-coordinates with the cumulative distribution function
 #'          is equal to the given probabilities in the tolerance level.
 #' @importFrom  stats       qnorm
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1920,12 +1932,21 @@ GGD$methods(
 #' @name    r
 #' @aliases r
 #' @aliases \S4method{r}{GGD}
-#' @usage   \S4method{r}{GGD}(n, tol = 2^(-17))
+#' @usage   \S4method{r}{GGD}(n, tol = 2^(-17), use.custom.p = isTRUE(mix.type == 5))
 #' @param   n       Number of output values.
 #'                  If \code{length(n) > 1}, the length is taken to be the number required.
 #' @param   tol     The tolerance level for the convergence criterion for
 #'                  \code{\link[ggd]{q}} method.
+#' @param   use.custom.p    A logical; selecting the function to compute the probability.
+#'                          If \code{FALSE}, the build-in function is used.
+#'                          If \code{TRUE}, the function in \code{custom.p} field is
+#'                          used instead.
+#'
+#'                          This argument works regardless of \code{mix.type} field.
+#'                          That means, you can use \code{custom.p} field with indicating
+#'                          \code{use.custom.p = TRUE} even if it is not a custom distribution.
 #' @return  A vector of random numbers.
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{q}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1935,9 +1956,9 @@ GGD$methods(
 ################################################################################################
 NULL
 GGD$methods(
-    r = function( n, tol = 2^(-17) )
+    r = function( n, tol = 2^(-17), use.custom.p = isTRUE( mix.type == 5 ) )
     {
-        return ( q( runif( n, 0, 1 ), tol ) )
+        return ( q( runif( n, 0, 1 ), tol, use.custom.p ) )
     }
 )
 

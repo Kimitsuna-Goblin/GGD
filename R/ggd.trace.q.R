@@ -181,7 +181,8 @@
 #'                  The list of the output of \code{\link[nleqslv]{nleqslv}}
 #'                  which has succeeded to solve tracing quantiles.}
 #'
-#'          For \code{GGD} method: If an error occurs, all fields (except for \code{custom.d})
+#'          For \code{GGD} method: If an error occurs, all fields
+#'                                 (except \code{custom.d} and \code{custom.p})
 #'                                 of the object will be cleared in most cases.
 #'
 #' @importFrom  methods     new
@@ -324,7 +325,7 @@ GGD$methods(
 
         # Note:
         # In this function, when an error occurs,
-        # we clear all of the fields except for custom.d as much as possible.
+        # we clear all of the fields except custom.d and custom.p as much as possible.
         #
         # Because this function does not directly set specified values to the fields,
         # if the fields are not cleared and contain some normal values,

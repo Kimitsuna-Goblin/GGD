@@ -33,13 +33,15 @@ regardless of the package version or R version.
      in most cases, and in most systems.
 }
 \subsection{For custom distribution}{
-     Although it is possible to save an object of a custom distribution
-     (\code{mix.type = 5}), it is not always a good idea to use this method.
-     This is because, \code{costom.d} is simply converted to a character string
-     and saved in the last row of the CSV file, so it is not guaranteed that objects loaded
-     with \code{\link[ggd]{read.csv}} will work well,
-     particularly if \code{custom.d} calls your own functions.
-     Instead, you can use \code{\link[base]{save}} or \code{\link[base]{save.image}}.
+     It is possible to save an object of a custom distribution (\code{mix.type = 5}),
+     but it is not always a good idea to use this method.
+     This is because, \code{costom.d} and \code{costom.p} fields are simply converted
+     to character strings and saved in the CSV file with this function,
+     so it is not guaranteed that the objects loaded with \code{\link[ggd]{read.csv}}
+     will work well, particularly if \code{custom.d} or \code{costom.p} calls
+     your own functions or uses other objects which you have created.
+     Instead, you should consider using \code{\link[base]{save}}
+     or \code{\link[base]{save.image}}.
 }
 }
 \examples{

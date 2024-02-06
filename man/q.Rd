@@ -6,18 +6,22 @@
 \title{Quantile function}
 \usage{
 \S4method{q}{GGD}(prob, tol = .Machine$double.eps * 16,
-                           use.custom.p = isTRUE( mix.type == 5 ))
+         use.custom.p = isTRUE( mix.type == 5 ))
 }
 \arguments{
 \item{prob}{A vector of probabilities.}
 
 \item{tol}{The tolerance level for the convergence criterion.}
 
-\item{use.custom.p}{A logical.
-If \code{FALSE}, the function coded for \code{\link[ggd]{p}} method
-is used as it is to obtain probabilities.
-If \code{TRUE}, the function in \code{custom.p} field is
-used instead.}
+\item{use.custom.p}{A logical; selecting the function to compute the probability.
+                         If \code{FALSE}, the build-in function
+                         for \code{\link[ggd]{p}} method is used.
+                         If \code{TRUE}, the function in \code{custom.p} field is
+                         used instead.
+
+                         This argument works regardless of \code{mix.type} field.
+                         That means, you can use \code{custom.p} field with indicating
+                         \code{use.custom.p = TRUE} even if it is not a custom distribution.}
 }
 \value{
 A vector of the x-coordinates with the cumulative distribution function
@@ -35,4 +39,7 @@ This method works like \code{\link[stats]{qnorm}} for a normal distribution.
      this.mix.type = 2 )
  a$q( c( 0.25, 0.5, 0.75 ) )
  plot( seq( 0, 1, 0.01 ), a$q( seq( 0, 1, 0.01 ) ), type = "l" )
+}
+\seealso{
+\code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{r}}
 }
