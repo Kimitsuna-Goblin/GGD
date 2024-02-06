@@ -40,3 +40,6 @@ This method works like \code{\link[stats]{qnorm}} for a normal distribution.
  a$q( c( 0.25, 0.5, 0.75 ) )
  plot( seq( 0, 1, 0.01 ), a$q( seq( 0, 1, 0.01 ) ), type = "l" )
 }
+\seealso{
+\code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{r}}
+}

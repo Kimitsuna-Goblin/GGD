@@ -38,3 +38,6 @@ This method calls \code{\link[ggd]{q}} method internally.
      this.mix.type = 2 )
  hist( a$r( 400 ) )
 }
+\seealso{
+\code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{q}}
+}
