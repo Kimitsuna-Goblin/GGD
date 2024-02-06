@@ -1404,6 +1404,7 @@ GGD$methods(
 #' @param   x           A vector of x-coordinates.
 #' @return  The values of the probability density function for the given x-coordinates.
 #' @importFrom  stats   dnorm pnorm
+#' @seealso \code{\link[ggd]{p}}, \code{\link[ggd]{q}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1484,6 +1485,7 @@ GGD$methods(
 #' @return  A vector of the probabilities of that a value of the random variable is less than
 #'          or equal to given x-coordinates.
 #' @importFrom  stats       pnorm
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{q}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1561,6 +1563,7 @@ GGD$methods(
 #' @return  A vector of the x-coordinates with the cumulative distribution function
 #'          is equal to the given probabilities in the tolerance level.
 #' @importFrom  stats       qnorm
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{r}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
@@ -1749,6 +1752,7 @@ GGD$methods(
 #' @param   tol     The tolerance level for the convergence criterion for
 #'                  \code{\link[ggd]{q}} method.
 #' @return  A vector of random numbers.
+#' @seealso \code{\link[ggd]{d}}, \code{\link[ggd]{p}}, \code{\link[ggd]{q}}
 #' @examples
 #'  a <- GGD$new()
 #'  a$trace.q(
