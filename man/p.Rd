@@ -27,3 +27,6 @@ This method works like \code{\link[stats]{pnorm}} for a normal distribution.
  a$p( c( -0.67, 0, 0.53 ) )
  plot( seq( -3, 3, 0.01 ), a$p( seq( -3, 3, 0.01 ) ), type = "l" )
 }
+\seealso{
+\code{\link[ggd]{d}}, \code{\link[ggd]{q}}, \code{\link[ggd]{r}}
+}
