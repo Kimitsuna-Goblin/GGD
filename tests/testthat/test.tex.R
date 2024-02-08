@@ -83,6 +83,16 @@ test_that( "Normal output: mix.type = 4",
     rm( x.tex )
 } )
 
+# mix.type = 5
+a$set.cmp( data.frame( mean = -1:1, sd = 1:3 * 0.5 ), this.mix.type = 5,
+                    custom.d = function( x, cmp )
+                               ( dnorm( x, cmp$mean[1], cmp$sd[1] ) +
+                                 dnorm( x, cmp$mean[2], cmp$sd[2] ) +
+                                 dnorm( x, cmp$mean[3], cmp$sd[3] ) ) / 3 )
+expect_error( a$tex( tmpfile ), "Unsupported mix.type for tex method" )
+expect_error( a$tex.d( tmpfile ), "Unsupported mix.type for tex method" )
+expect_error( a$tex.p( tmpfile ), "Unsupported mix.type for tex method" )
+
 
 ## tex.d function
 # mix.type = 0

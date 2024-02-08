@@ -123,6 +123,36 @@ expect_error( expect_output( expect_equal(
 expect_error( expect_output( expect_equal(
         a$tex.p( tex.out ), NULL ) ), "no output" )
 
+## keep.custom.d/p
+f.custom.d <- function( x, cmp )
+              ( dnorm( x, cmp$mean[1], cmp$sd[1] ) +
+                dnorm( x, cmp$mean[2], cmp$sd[2] ) +
+                dnorm( x, cmp$mean[3], cmp$sd[3] ) ) / 3
+f.custom.p <- function( x, cmp )
+              ( pnorm( x, cmp$mean[1], cmp$sd[1] ) +
+                pnorm( x, cmp$mean[2], cmp$sd[2] ) +
+                pnorm( x, cmp$mean[3], cmp$sd[3] ) ) / 3
+a.1 <- ggd.set.cmp( data.frame( mean = -1:1, sd = 1:3 * 0.5 ), kind = "Custom",
+                    custom.d = f.custom.d, custom.p = f.custom.p )
+a.2 <- a$copy()
+a.3 <- a$copy()
+expect_identical( a.1$custom.d, f.custom.d )
+expect_identical( a.1$custom.p, f.custom.p )
+expect_identical( a.2$custom.d, f.custom.d )
+expect_identical( a.2$custom.p, f.custom.p )
+expect_identical( a.3$custom.d, f.custom.d )
+expect_identical( a.3$custom.p, f.custom.p )
+a.1$clear( keep.custom.d = TRUE )
+a.2$clear( keep.custom.p = TRUE )
+a.3$clear( keep.custom.d = TRUE, keep.custom.p = FALSE )
+expect_cleared( a.1 f.custom.d )
+expect_identical( a.1$custom.p, f.custom.p )
+expect_cleared( a.2, ggd:::default.custom.d )
+expect_identical( a.2$custom.p, f.custom.p )
+expect_cleared( a.3, f.custom.d )
+expect_false( identical( a.3$custom.d, f.custom.p ) )
+rm( f.custom.d, f.custom.p, a.1, a.2, a.3 )
+
 #### ggd.ncmp.for empty or invalid mix.type
 expect_equal( ggd.ncmp.for( NULL, mix.type = NULL ), 0 )
 expect_equal( ggd.ncmp.for( NULL, mix.type = integer() ), 0 )

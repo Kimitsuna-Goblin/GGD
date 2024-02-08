@@ -311,7 +311,7 @@ GGD$methods(
         frac.env <- match.arg( frac.env )
 
         tex.body <- ""
-        if ( mix.type < 3 )
+        if ( any( mix.type == 0:2 ) )
         {
             tex.body <- c( tex.d.main[[mix.type + 1]], tex.p.main[[mix.type + 1]], "\\\\",
                             tex.d.sub[[mix.type + 1]],  tex.p.sub[[mix.type + 1]] )
@@ -335,6 +335,10 @@ GGD$methods(
             tex.body <- c( tex.d.main[[5]], tex.p.main[[5]], "\\\\",
                             tex.p.sub[[5]], "\\\\",
                             tex.d.sub[[5]] )
+        }
+        else
+        {
+            stop( "Error: Unsupported mix.type for tex method." )
         }
 
         tex.form <- gsub( "%begin-frac-env%", tex.begin.frac.env[frac.env],
@@ -372,7 +376,7 @@ GGD$methods(
         frac.env <- match.arg( frac.env )
 
         tex.body <- ""
-        if ( mix.type < 2 )
+        if ( any( mix.type == 0:1 ) )
         {
             tex.body <- c( tex.d.main[[mix.type + 1]], "\\\\",
                             tex.d.sub[[mix.type + 1]] )
@@ -403,6 +407,10 @@ GGD$methods(
             tex.body <- c( tex.d.main[[5]], "\\\\",
                             tex.p.sub[[5]], "\\\\",
                             tex.d.sub[[5]] )
+        }
+        else
+        {
+            stop( "Error: Unsupported mix.type for tex method." )
         }
 
         tex.form <- gsub( "%begin-frac-env%", tex.begin.frac.env[frac.env],
@@ -440,7 +448,7 @@ GGD$methods(
         frac.env <- match.arg( frac.env )
 
         tex.body <- ""
-        if ( mix.type < 3 )
+        if ( any( mix.type == 0:2 ) )
         {
             tex.body <- c( tex.p.main[[mix.type + 1]], "\\\\",
                             tex.p.sub[[mix.type + 1]] )
@@ -463,6 +471,10 @@ GGD$methods(
         {
             tex.body <- c( tex.p.main[[5]], "\\\\",
                             tex.p.sub[[5]] )
+        }
+        else
+        {
+            stop( "Error: Unsupported mix.type for tex method." )
         }
 
         tex.form <- gsub( "%begin-frac-env%", tex.begin.frac.env[frac.env],
