@@ -788,7 +788,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #' Approximating a frequency distribution with all of supported models
 #'
 #' Approximates the given frequency distribution with all of distribution models
-#' available in this package (the number of models is 16), and compare their accuracies.
+#' available in this package (the number of models is 16), and compares their accuracies.
 #' The accuracy is checked by the correlation coefficients with the frequency distribution
 #' computed by \code{\link[stats]{cor}}.
 #'
