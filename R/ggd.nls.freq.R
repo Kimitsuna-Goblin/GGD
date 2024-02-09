@@ -96,7 +96,7 @@
 #'                          \item 1: Mean of 2 normal distributions.
 #'                          \item 2: Horizontal gradation of 2 normal distributions.
 #'                          \item 3: Vertical gradation of 2 (or 3) normal distributions.
-#'                          \item 4: Horizontal-Vertical gradation
+#'                          \item 4: Horizontal-vertical gradation
 #'                                   with 4 (2x2) normal distributions.
 #'                          \item 5: Custom distribution.
 #'                      }
