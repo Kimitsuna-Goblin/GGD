@@ -1,14 +1,14 @@
-── R CMD check results ────────────────────────────── ggd 1.0.3.1 ────
-Duration: 16m 33.8s
+── R CMD check results ────────────────────────────── ggd 1.0.3.2 ────
+Duration: 16m 9.8s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── ggd 1.0.3.1: NOTE
+── ggd 1.0.3.2: NOTE
 
-  Build ID:   ggd_1.0.3.1.tar.gz-23bd9cb3d461478cbb2b1e04d0489eed
+  Build ID:   ggd_1.0.3.2.tar.gz-fa3810ac78e44f2891f92e62f44e4afa
   Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  2h 6m 4.7s ago
-  Build time: 30m 49.5s
+  Submitted:  39m 17.8s ago
+  Build time: 30m 52.7s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kimitsuna Ura <kimitsuna@i.softbank.jp>'
@@ -28,40 +28,16 @@ Duration: 16m 33.8s
 
 0 errors ✔ | 0 warnings ✔ | 4 notes ✖
 
-── ggd 1.0.3.1: NOTE
+── ggd 1.0.3.2: IN-PROGRESS
 
-  Build ID:   ggd_1.0.3.1.tar.gz-1382bedfb62f460ba7d2bdc6ed9a9c91
+  Build ID:   ggd_1.0.3.2.tar.gz-58b879039a31484b8350c34d3d9bd8b5
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  2h 6m 4.9s ago
-  Build time: 39m 31.8s
+  Submitted:  39m 17.9s ago
 
-❯ checking CRAN incoming feasibility ... [6s/18s] NOTE
-  Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
-  
-  New submission
 
-❯ checking examples ... [14s/34s] NOTE
-  Examples with CPU (user + system) or elapsed time > 5s
-                    user system elapsed
-  ggd.nls.freq.all 3.249  0.007   8.096
+── ggd 1.0.3.2: IN-PROGRESS
 
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖
-
-── ggd 1.0.3.1: NOTE
-
-  Build ID:   ggd_1.0.3.1.tar.gz-1e68c8f785374d76bf76c6dbd822d9d0
+  Build ID:   ggd_1.0.3.2.tar.gz-b2fab5d522ad47c2a544049a758798e7
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  2h 6m 4.9s ago
-  Build time: 39m 24s
-
-❯ checking CRAN incoming feasibility ... [7s/22s] NOTE
-  Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
+  Submitted:  39m 17.9s ago
   
-  New submission
-
-❯ checking examples ... [14s/36s] NOTE
-  Examples with CPU (user + system) or elapsed time > 5s
-                    user system elapsed
-  ggd.nls.freq.all 3.312  0.004   8.307
-
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖
