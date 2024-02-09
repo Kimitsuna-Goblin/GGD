@@ -224,7 +224,7 @@ That is, the index number for the value of \code{kind} field.}
 
          \tabular{clc}{
              Index \tab Distribution model (\code{kind}) \cr
-             \code{1}  \tab Normal distribution \cr
+             \code{1}  \tab Normal Distribution \cr
              \code{2}  \tab
                  Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions \cr
              \code{3}  \tab Mean of Mean-Equaled Sigma-Differed " \cr
@@ -243,7 +243,7 @@ That is, the index number for the value of \code{kind} field.}
              \code{14} \tab
                  Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution \cr
              \code{15} \tab Mean-Equaled Sigma-Differed " \cr
-             \code{16} \tab Mean-Differed Sigma-Differed " \cr
+             \code{16} \tab Mean-Differed Sigma-Differed "
          }
 
          \code{kind.index} and \code{kind} fields represent how the object actually
