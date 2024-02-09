@@ -74,7 +74,7 @@ f.t3.p <- list( function( x, m, s )
 #'          shown in 'Details', subdivided (except for the normal distribution)
 #'          into 3 categories based on whether the mean values or standard deviations
 #'          of the components are all equal or not,
-#'          and one particular classification for the custom distribution.
+#'          and one particular classification for the custom distribution (\code{mix.type = 5}).
 #'          Therefore, there are 17 (= 5 x 3 + 1 + 1) \code{kind}s in this package defined in
 #'          \code{ggd:::kinds} as follows.
 #'
@@ -104,7 +104,8 @@ f.t3.p <- list( function( x, m, s )
 #'          }
 #'
 #'          \code{kind.index} and \code{kind} fields represent how the object actually
-#'          behaves as a distribution model. These fields are closely related to the number
+#'          behaves as a distribution model (except for \code{"Custom Distribution"}).
+#'          These fields are closely related to the number
 #'          of components (normal distributions) of the object and how they are mixed,
 #'          but are not entirely dependent on them.
 #'          For example, if a object with \code{mix.type = 1} (mean of 2 normal distributions)
@@ -112,6 +113,9 @@ f.t3.p <- list( function( x, m, s )
 #'          the object will actually behave as a normal distribution.
 #'          In this case, \code{kind.index} and \code{kind} fields indicate
 #'          \code{"Normal Distribution"} rather than \code{"Mean of 2 Normal Distributions"}.
+#'          However, if the object is for a custom distribution (i.e. \code{mix.type = 5}),
+#'          \code{kind.index} and \code{kind} fields represent \code{"Custom Distribution"}
+#'          regardless how the object behaves.
 #'
 #' @field   mix.type        An integer which represents how to mix normal distributions
 #'                          of the components.
@@ -391,7 +395,7 @@ f.t3.p <- list( function( x, m, s )
 #'                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}}. \hspace{3em} \ }}
 #'      }
 #'
-#'      Where \eqn{f_i} is the probability density function of
+#'      In above formulas, \eqn{f_i} is the probability density function of
 #'      the normal distribution \eqn{\mathcal{N}_i},
 #'      \eqn{\Phi_i} and \eqn{\Phi_{i,j}} are the cumulative distribution functions of
 #'      \eqn{\mathcal{N}_i} and \eqn{\mathcal{N}_{i,j}},
