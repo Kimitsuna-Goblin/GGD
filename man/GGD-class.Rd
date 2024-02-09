@@ -189,7 +189,7 @@ The class provides the Gradational Gaussian Distribution.
                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}}. \hspace{3em} \ }}
      }
 
-     Where \eqn{f_i} is the probability density function of
+     In above formulas, \eqn{f_i} is the probability density function of
      the normal distribution \eqn{\mathcal{N}_i},
      \eqn{\Phi_i} and \eqn{\Phi_{i,j}} are the cumulative distribution functions of
      \eqn{\mathcal{N}_i} and \eqn{\mathcal{N}_{i,j}},
