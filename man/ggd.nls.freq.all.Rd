@@ -123,27 +123,9 @@ The accuracy is checked by the correlation coefficients with the frequency distr
 computed by \code{\link[stats]{cor}}.
 }
 \details{
-The output lists are ordered by \code{ggd:::kinds} as:
-\enumerate{
-     \item   Normal Distribution
-     \item   Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
-     \item   Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
-     \item   Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
-     \item   Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
-     \item   Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
-     \item   Mean-Differed Sigma-Differed Horizontal Gradational Distribution
-     \item   2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-     \item   2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-     \item   2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
-     \item   3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-     \item   3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-     \item   3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
-     \item   Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
-     \item   Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
-     \item   Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
-}
-Each index number of above list is
-also set into \code{kind.index} field of each \code{\link[ggd]{GGD}} object.
+The output lists are ordered by index number of \code{ggd:::kinds},
+which will be set into \code{kind.index} field of each object
+(see \code{kind} in 'Fields' at \code{\link[ggd]{GGD-class}}).
 
 This function generates 16 \code{\link[ggd]{GGD}} objects and
 calls \code{\link[ggd]{nls.freq}} method 16 times.
