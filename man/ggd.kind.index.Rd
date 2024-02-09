@@ -11,10 +11,8 @@ ggd.kind.index(objs, undef.err = FALSE)
                      distribution model.
 
                      Each element must be a character string of a regular expression pattern
-                     matching to an element of \code{ggd:::kinds}
-                     (see \code{kind} in 'Fields' at \code{\link[ggd]{GGD-class}})
-                     or an index number of \code{ggd:::kinds},
-                     or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
+                     matching to an element of \code{ggd:::kinds} or an index number of
+                     \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
 
                      If a character string is indicated as an element,
                      the string matches only one element of \code{ggd:::kinds} of

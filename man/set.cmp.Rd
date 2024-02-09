@@ -45,20 +45,15 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 
                      The type of the distribution model and the number of rows in \code{cmp}
                      follow \code{mix.type} as:
-                     \itemize{
-                         \item \code{0} : Normal distribution. \code{cmp} has only 1 row.
-                         \item \code{1} : Mean of 2 normal distributions.
-                                          \code{cmp} has 2 rows.
-                         \item \code{2} : Horizontal gradational distribution.
-                                          \code{cmp} has 2 rows.
-                         \item \code{3} : Vertical gradational distribution.
-                                          \code{cmp} has 2 or 3 rows.
-                         \item \code{4} : Horizontal-vertical gradational distribution.
-                                          \code{cmp} has 4 rows.
-                         \item \code{5} : Custom distribution.
-                                          The number of rows in \code{cmp} is unlimited.
-                                          User have to give an own density function
-                                          to \code{custom.d}.
+                     \tabular{clc}{
+                         \code{mix.type} \tab Distribution model     \tab Number of rows \cr
+                         \code{0} \tab Normal distribution                   \tab 1 \cr
+                         \code{1} \tab Mean of 2 normal distributions        \tab 2 \cr
+                         \code{2} \tab Horizontal gradational distribution   \tab 2 \cr
+                         \code{3} \tab Vertical gradational distribution     \tab 2 or 3 \cr
+                         \code{4} \tab Horizontal-vertical gradational distribution
+                                                                             \tab 4 \cr
+                         \code{5} \tab Custom distribution                   \tab unlimited
                      }
 
                      If the number of rows in \code{cmp} argument is different from
