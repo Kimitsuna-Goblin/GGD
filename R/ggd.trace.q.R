@@ -75,7 +75,7 @@
 #'                          \item \code{2} : Horizontal gradation of 2 normal distributions.
 #'                          \item \code{3} : Vertical gradation of 2 or 3 normal distributions.
 #'                                           The 2-component model has priority.
-#'                          \item \code{4} : Horizontal-Vertical gradation
+#'                          \item \code{4} : Horizontal-vertical gradation
 #'                                           with 4 (2x2) normal distributions.
 #'                      }
 #'                      If \code{NULL}
