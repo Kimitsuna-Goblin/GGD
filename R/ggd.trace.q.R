@@ -107,7 +107,7 @@
 #'                      to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See 'Details' for more information.
+#'                      See \sQuote{Details} for more information.
 #'
 #'                      If \code{FALSE}, the mean values are not bound,
 #'                      and mean-equaled components will be rarely constructed.
@@ -127,7 +127,7 @@
 #'                      the components to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See 'Details' for more information.
+#'                      See \sQuote{Details} for more information.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
 #'                      the standard deviations are not bound,

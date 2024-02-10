@@ -206,7 +206,7 @@ This argument works only if \code{start.level = 100}.
 See \code{\link[stats]{cor}} for more information.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
-See 'Arguments' of \code{\link[stats]{nls}} for more information.}
+See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.}
 
 \item{this.kind}{A character string or a numeric value or a \code{\link[ggd]{GGD}} object
                      which indicates the kind of distribution model to be constructed.
@@ -247,7 +247,7 @@ A list containing components (invisible for \code{GGD} method)
          \item{nls.out}{
                  The list of the output of \code{\link[stats]{nls}}.
                  If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
-                 See 'Value' of \code{\link[stats]{nls}} for more information.}
+                 See \sQuote{Value} of \code{\link[stats]{nls}} for more information.}
          \item{start.level}{
                  The initial guessing level which is used actually to obtain \code{obj}.
                  If \code{start.level = 100} is indicated,
@@ -289,13 +289,13 @@ constructs a \code{\link[ggd]{GGD}} object which (locally) most closely approxim
 the given frequency distribution.
 Then \code{ggd.nls.freq} function generates a \code{\link[ggd]{GGD}} object,
 and \code{nls.freq} method sets the fields according to the result.
-'Locally' means that if the start value is modified, more closely approximating model
+\sQuote{Locally} means that if the start value is modified, more closely approximating model
 may be constructed.
 The outliers of the frequency distribution will not be excluded in this function.
 If necessary, outliers should be excluded by preprocessing.
 }
 \details{
-\subsection{Why the standard deviations for 'start' are square-rooted?}{
+\subsection{Why the standard deviations for start are square-rooted?}{
      You know a standard deviation must be a positive value.
      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
      they sometimes drop into negative values while the Gauss-Newton algorithm is running

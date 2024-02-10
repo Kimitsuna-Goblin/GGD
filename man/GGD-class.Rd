@@ -83,8 +83,8 @@ The class provides the Gradational Gaussian Distribution.
      The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
      and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
      could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
-     That may be contrary to the intuitive image of the 'vertical gradational distribution',
-     but it is not prohibited.
+     That may be contrary to the intuitive image of
+     \sQuote{vertical gradational distribution}, but it is not prohibited.
 
      About the \bold{3-component vertical gradational Gaussian distribution},
      you can divide the tail-side distribution along x-axis into left (lower) side
@@ -216,7 +216,7 @@ That is, the index number for the value of \code{kind} field.}
 \item{\code{kind}}{A character string; the name of the kind of the distribution model.
 
          \code{kind} shows the classification of each of the 6 distribution models
-         shown in 'Details', subdivided (except for the normal distribution)
+         shown in \sQuote{Details}, subdivided (except for the normal distribution)
          into 3 categories based on whether the mean values or standard deviations
          of the components are all equal or not.
          Therefore, there are 16 (= 5 x 3 + 1) \code{kind}s in this package defined in

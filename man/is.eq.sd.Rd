@@ -17,7 +17,7 @@
 }
 \description{
 Checks if the standard deviations of all normal distributions of components are equal.
-The equality is determined by the '\code{==}' operator.
+The equality is determined by the \code{\link[base]{==}} operator.
 }
 \examples{
  a <- GGD$new()

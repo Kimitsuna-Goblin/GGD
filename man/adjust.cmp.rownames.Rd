@@ -12,5 +12,5 @@ The adjusted \code{\link[ggd]{GGD}} object itself (invisible).
 }
 \description{
 Sets each row name of \code{cmp} field according to \code{mix.type} field.
-Normally, users of this class don't need to call this method directly.
+Normally, users of this class do not need to call this method directly.
 }
