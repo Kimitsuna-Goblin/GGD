@@ -277,7 +277,7 @@ But simple models may be easier to use for analyzing data.
 | Field     | median                | The median value  of the distribution.                    |
 | 〃        | mean                  | The mean value of the distribution.                       |
 | 〃        | sd, usd, lsd          | The standard deviation, upper semi-standard deviation and lower semi-standard deviation. |
-| RC Method | d                     | Returns the values of the probability density function.   |
+| Method    | d                     | Returns the values of the probability density function.   |
 | 〃        | p                     | Returns the values of the cumulative probability function.    |
 | 〃        | q                     | Returns the values of the quantile function.              |
 | 〃        | r                     | Returns random samples following the distribution.        |
