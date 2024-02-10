@@ -24,17 +24,17 @@
 \arguments{
 \item{con}{A \code{\link[base]{connection}} object or a character string
 to indicate the output destination.
-See 'Details' at \code{\link[base]{writeLines}}
+See \sQuote{Details} at \code{\link[base]{writeLines}}
 for more information.}
 
 \item{sep}{A character string to be written to the connection after each line
-of text. See 'Details' at \code{\link[base]{writeLines}}
+of text. See \sQuote{Details} at \code{\link[base]{writeLines}}
 for more information.}
 
-\item{comma}{A logical. If \code{TRUE}, this method writes a ',' (comma)
-as a separator between each expression and a '.' (period)
+\item{comma}{A logical. If \code{TRUE}, this method writes a \sQuote{,} (comma)
+as a separator between each expression and a \sQuote{.} (period)
 at the end of the output.
-If \code{FALSE}, those ',' and '.' will not be written.}
+If \code{FALSE}, those \sQuote{,} and \sQuote{.} will not be written.}
 
 \item{format.num}{A function to format each numeric value of mean values and
 standard deviations.
@@ -77,17 +77,17 @@ using \code{\link[base]{writeLines}}.
  \subsection{Equaled mean values or standard deviations}{
      For clarity, when all mean values or standard deviations of components are equal
      (i.e., when \code{\link[ggd]{is.eq.mean}} or \code{\link[ggd]{is.eq.sd}} method
-     returns \code{TRUE}), they are displayed with '\eqn{=}' to the 1st parameter,
-     like as '\eqn{\sigma_2 = \sigma_1}'.
+     returns \code{TRUE}), they are displayed with \sQuote{\eqn{=}} to the 1st parameter,
+     like as \sQuote{\eqn{\sigma_2 = \sigma_1}}.
 
      If only the values of some parameters are equal (e.g., only \eqn{\sigma_2} and
      \eqn{\sigma_3} are equal and \eqn{\sigma_1} is different),
-     each value is displayed as '\eqn{\sigma_2 = x, \sigma_3 = x}'
-     instead of '\eqn{\sigma_3 = \sigma_2}' to avoid misreading.
+     each value is displayed as \sQuote{\eqn{\sigma_2 = x, \sigma_3 = x}}
+     instead of \sQuote{\eqn{\sigma_3 = \sigma_2}} to avoid misreading.
 
      Note that if the difference between the values of parameters is smaller than
-     displayable number of decimal places, '\eqn{\sigma_2 = \sigma_1}' will not be displayed,
-     but the same number will be displayed for each.
+     displayable number of decimal places, \sQuote{\eqn{\sigma_2 = \sigma_1}}
+     will not be displayed, but the same number will be displayed for each.
  }
 }
 \examples{

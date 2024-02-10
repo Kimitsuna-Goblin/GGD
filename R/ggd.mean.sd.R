@@ -333,12 +333,13 @@ calc.v <- function( mix.type, means, sds,
 #' [Non-exported] Sub-function for variance calculation where mix.type = 2, 3
 #'
 #' A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type} is \code{2} or \code{3}.
-#' The meaning of this function is depend on \code{mix.type} (see 'Details').
+#' The meaning of this function is depend on \code{mix.type} (see \sQuote{Details}).
 #' @param   mix.type    The value of \code{mix.type}. It allows \code{2} or \code{3}.
 #' @param   mean        The mean of the distribution model.
 #' @param   mean.i      The mean value of the i-th normal distribution of the component.
 #' @param   sd.i        The standard deviation of the i-th normal distribution of the component.
-#' @param   x           The upper limit of the integral interval (see formulas in 'Details').
+#' @param   x           The upper limit of the integral interval
+#'                      (see formulas in \sQuote{Details}).
 #' @param   p.sum       The sum of the probabilities of two normal distributions of
 #'                      the components at \code{x = q}; the lower or upper limit of the domain
 #'                      of the distribution.
@@ -387,7 +388,7 @@ calc.v <- function( mix.type, means, sds,
 #'  \code{\link[base]{sqrt}(pi)} are used, it is expected that there will be calculation errors
 #'  due to their implementation, in addition to digit losses during arithmetic operations.
 #'
-#' @return  Calculated value of the expression shown in 'Details'.
+#' @return  Calculated value of the expression shown in \sQuote{Details}.
 #' @importFrom  stats   dnorm pnorm
 ################################################################################################
 calc.v.sub <- function( mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0 )
@@ -537,7 +538,7 @@ calc.v.t4.via.integrate <- function( means, sds, mean = calc.mean( 4, means, sds
 #' Calculates the median, the mean, and the standard deviation of the distribution model and
 #' then sets those values into the fields.
 #' Before calling this method, you must set \code{cmp} and \code{mix.type} fields.
-#' Normally, users of this class don't need to call this method directly.
+#' Normally, users of this class do not need to call this method directly.
 #' @name    adjust.median.mean.sd
 #' @aliases adjust.median.mean.sd
 #' @aliases \S4method{adjust.median.mean.sd}{GGD}

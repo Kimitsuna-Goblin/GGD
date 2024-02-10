@@ -57,7 +57,7 @@ See \code{\link[ggd]{nls.freq}} for more information.}
                  In addition, \code{\link[ggd]{ggd.kind}} and
                  \code{\link[ggd]{ggd.kind.index}} functions may help you whether
                  each index number of \code{start} represents what kind of distribution.
-                 See 'Examples' for usages of these tools.}
+                 See \sQuote{Examples} for usages of these tools.}
 
 \item{control}{The \code{control} argument for \code{\link[stats]{nls}}.
 See \code{\link[stats]{nls.control}} for more information.}
@@ -82,7 +82,7 @@ If \code{NULL}, it uses the default method of \code{\link[stats]{cor}}.
 See \code{\link[stats]{cor}} for more information.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
-See 'Arguments' of \code{\link[stats]{nls}} for more information.}
+See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.}
 }
 \value{
 A list containing components
@@ -114,7 +114,7 @@ A list containing components
                  Normally, each element is a list of the output of
                  \code{\link[ggd]{nls.freq}}.
                  But if an error has occurred, the element will be an error condition.
-                 See 'Value' of \code{\link[ggd]{nls.freq}} for more information.}
+                 See \sQuote{Value} of \code{\link[ggd]{nls.freq}} for more information.}
 }
 \description{
 Approximates the given frequency distribution with all of distribution models
@@ -126,25 +126,25 @@ computed by \code{\link[stats]{cor}}.
 \details{
 The output lists are ordered by index number of \code{ggd:::kinds},
 which will be set into \code{kind.index} field of each object
-(see \code{kind} in 'Fields' at \code{\link[ggd]{GGD-class}}).
+(see \code{kind} in \sQuote{Fields} at \code{\link[ggd]{GGD-class}}).
 
 This function generates 16 \code{\link[ggd]{GGD}} objects and
 calls \code{\link[ggd]{nls.freq}} method 16 times.
 By default, \code{\link[ggd]{nls.freq}} is called with \code{warnOnly = TRUE},
 so \code{\link[ggd]{nls.freq}} does not generate errors, but generates warnings often.
 When a warning occur, this function generates another warning like
-'\code{Warning for kind = xx :}' to inform which \code{kind.index} gets a poor result
+\code{"Warning for kind = xx :"} to inform which \code{kind.index} gets a poor result
 (poor, but may be accurate enough).
 So when one warning has occurred, two warnings will occur eventually.
 
 If you indicate \code{warnOnly = FALSE} in \code{control} argument
 and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
 If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
-this function throws messages like '\code{Error for kind = xx :}' and '\code{Error in ...}'
+this function throws messages like \code{"Error for kind = xx :"} and \code{"Error in ..."}
 instead of throwing an error and skips the process,
 then tries other \code{\link[ggd]{nls.freq}} processes.
 For the result of error-occurred \code{kind.index}, a cleared \code{\link[ggd]{GGD}} object
-will be got as the element of \code{obj} (see 'Value').
+will be got as the element of \code{obj} (see \sQuote{Value}).
 }
 \examples{
  ## Preparing:

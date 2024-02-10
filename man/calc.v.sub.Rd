@@ -15,7 +15,8 @@ calc.v.sub(mix.type, mean, mean.i, sd.i, x, p.sum = 0, i = 0)
 
 \item{sd.i}{The standard deviation of the i-th normal distribution of the component.}
 
-\item{x}{The upper limit of the integral interval (see formulas in 'Details').}
+\item{x}{The upper limit of the integral interval
+(see formulas in \sQuote{Details}).}
 
 \item{p.sum}{The sum of the probabilities of two normal distributions of
 the components at \code{x = q}; the lower or upper limit of the domain
@@ -26,11 +27,11 @@ This argument is for \code{mix.type = 2}.}
 This argument is for \code{mix.type = 3}.}
 }
 \value{
-Calculated value of the expression shown in 'Details'.
+Calculated value of the expression shown in \sQuote{Details}.
 }
 \description{
 A sub-function of \code{\link[ggd]{calc.v}} where \code{mix.type} is \code{2} or \code{3}.
-The meaning of this function is depend on \code{mix.type} (see 'Details').
+The meaning of this function is depend on \code{mix.type} (see \sQuote{Details}).
 }
 \details{
 Depending on the value of \code{mix.type}, the following calculations are performed without

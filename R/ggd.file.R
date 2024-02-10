@@ -180,7 +180,7 @@ GGD$methods(
 #'      Mean values and standard deviations are recorded to a maximum length of
 #'      the 22nd decimal place.
 #'      The accuracy is sufficient to reconstruct the original object almost completely
-#'      (at least the value of each field can be \code{TRUE} with '\code{==}')
+#'      (at least the value of each field can be \code{TRUE} with \code{\link[base]{==}})
 #'      in most cases, and in most systems.
 #' }
 #' \subsection{For custom distribution}{

@@ -44,7 +44,7 @@ An integer of \code{mix.type} value appropriate for a distribution model
          \code{integer(0)} is returned when \code{grad} is \code{"default"}.
 
          Although the length of \code{grad} argument must be 1 (or 0 as the default),
-         but lengths of other arguments are not checked in this function consciously.
+         the lengths of other arguments are not checked in this function consciously.
          So if \code{grad} is \code{"default"}, a vector of 2 or more length can be returned.
          That means, the length of other arguments or the return value must be checked
          by the caller of this function if necessary.

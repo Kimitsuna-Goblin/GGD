@@ -49,7 +49,7 @@ See \code{\link[stats]{nls.control}} for more information.}
 \item{cor.method}{The \code{method} argument for \code{\link[stats]{cor}}.}
 
 \item{...}{Each argument for \code{\link[stats]{nls}} can be indicated.
-See 'Arguments' of \code{\link[stats]{nls}} for more information.}
+See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.}
 }
 \value{
 A list conforming the return value of \code{\link[ggd]{nls.freq}}.

@@ -88,7 +88,8 @@
 #'                      Numberless \code{"v"} is an alias for \code{"v2"}.
 #'
 #'                      \code{"normal"} is for a normal distribution,
-#'                      then also, \code{'grad = "no"'} can be read as 'no gradation'.
+#'                      then also, \sQuote{\code{grad = "no"}} can be read as
+#'                      \sQuote{no gradation}.
 #'
 #'                      \code{"default"} is, if \code{kind} or \code{mix.type} argument
 #'                      is given, follows it, otherwise it depends on the number of columns
@@ -146,7 +147,7 @@
 #' @importFrom  methods     new
 #'
 #' @details
-#'  \subsection{About 'kind' and 'mix.type'}{
+#'  \subsection{About kind and mix.type}{
 #'      In this function,
 #'      unlike \code{\link[ggd]{trace.q}} and \code{\link[ggd]{nls.freq}} methods,
 #'      \code{[this.]kind} argument is only used to determine \code{mix.type} value,
