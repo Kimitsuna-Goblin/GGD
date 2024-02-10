@@ -71,7 +71,7 @@ f.t3.p <- list( function( x, m, s )
 #' @field   kind            A character string; the name of the kind of the distribution model.
 #'
 #'          \code{kind} shows the classification of each of the 6 distribution models
-#'          shown in 'Details', subdivided (except for the normal distribution)
+#'          shown in \sQuote{Details}, subdivided (except for the normal distribution)
 #'          into 3 categories based on whether the mean values or standard deviations
 #'          of the components are all equal or not,
 #'          and one particular classification for the custom distribution (\code{mix.type = 5}).
@@ -289,8 +289,8 @@ f.t3.p <- list( function( x, m, s )
 #'      The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
 #'      and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
 #'      could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
-#'      That may be contrary to the intuitive image of the 'vertical gradational distribution',
-#'      but it is not prohibited.
+#'      That may be contrary to the intuitive image of
+#'      \sQuote{vertical gradational distribution}, but it is not prohibited.
 #'
 #'      About the \bold{3-component vertical gradational Gaussian distribution},
 #'      you can divide the tail-side distribution along x-axis into left (lower) side
@@ -543,7 +543,7 @@ GGD$methods(
 #' Adjust each row name of cmp
 #'
 #' Sets each row name of \code{cmp} field according to \code{mix.type} field.
-#' Normally, users of this class don't need to call this method directly.
+#' Normally, users of this class do not need to call this method directly.
 #' @name    adjust.cmp.rownames
 #' @aliases adjust.cmp.rownames
 #' @aliases \S4method{adjust.cmp.rownames}{GGD}
@@ -605,7 +605,7 @@ GGD$methods(
 #'
 #' Sets \code{kind.index} and \code{kind} fields according to
 #' \code{mix.type} and \code{cmp} fields.
-#' Normally, users of this class don't need to call this method directly.
+#' Normally, users of this class do not need to call this method directly.
 #' @name    adjust.kind.index
 #' @aliases adjust.kind.index
 #' @aliases \S4method{adjust.kind.index}{GGD}
@@ -789,7 +789,7 @@ GGD$methods(
 #'                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
 #'                               16L, 14L, 15L, 17L)}.
 #'                      The order is designed for practical purposes so that
-#'                      the '\code{Mean-Differed Sigma-Differed}' model,
+#'                      the \code{"Mean-Differed Sigma-Differed"} model,
 #'                      which has more degrees of freedom than the others of the same type,
 #'                      can be matched first.
 #'
@@ -983,7 +983,7 @@ ggd.kind <- function( objs )
 #'          \code{integer(0)} is returned when \code{grad} is \code{"default"}.
 #'
 #'          Although the length of \code{grad} argument must be 1 (or 0 as the default),
-#'          but lengths of other arguments are not checked in this function consciously.
+#'          the lengths of other arguments are not checked in this function consciously.
 #'          So if \code{grad} is \code{"default"}, a vector of 2 or more length can be returned.
 #'          That means, the length of other arguments or the return value must be checked
 #'          by the caller of this function if necessary.
@@ -1124,7 +1124,7 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #' Judge if all mean values are equal
 #'
 #' Checks if the mean values of all normal distributions of components are equal.
-#' The equality is determined by the '\code{==}' operator.
+#' The equality is determined by the \code{\link[base]{==}} operator.
 #' @name    is.eq.mean
 #' @aliases is.eq.mean
 #' @aliases \S4method{is.eq.mean}{GGD}
@@ -1157,7 +1157,7 @@ GGD$methods(
 #' Judge if all standard deviations are equal
 #'
 #' Checks if the standard deviations of all normal distributions of components are equal.
-#' The equality is determined by the '\code{==}' operator.
+#' The equality is determined by the \code{\link[base]{==}} operator.
 #' @name    is.eq.sd
 #' @aliases is.eq.sd
 #' @aliases is.eq.sigma

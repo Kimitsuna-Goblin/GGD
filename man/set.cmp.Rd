@@ -89,7 +89,8 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      \code{NULL} retains the current \code{custom.d} field, after the default
                      (\code{function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])}) has been set.
 
-                     See 'Fields' of \code{\link[ggd]{GGD-class}} for more information.}
+                     See \sQuote{Fields} of \code{\link[ggd]{GGD-class}}
+                     for more information.}
 
 \item{custom.p}{A function for the cumulative distribution function defined by user.
                      Unlike \code{custom.d}, this argument is not required to be
@@ -100,7 +101,8 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                             integrate(function(x) custom.d(x, cmp), -Inf, x)$value})
                      has been set.
 
-                     See 'Fields' of \code{\link[ggd]{GGD-class}} for more information.}
+                     See \sQuote{Fields} of \code{\link[ggd]{GGD-class}}
+                     for more information.}
 
 \item{this.cmp}{A data frame for setting into \code{cmp} field.
 It is equivalent to \code{cmp} argument of \code{ggd.set.cmp}.}
