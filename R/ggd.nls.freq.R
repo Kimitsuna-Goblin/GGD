@@ -17,7 +17,7 @@
 #' the given frequency distribution.
 #' Then \code{ggd.nls.freq} function generates a \code{\link[ggd]{GGD}} object,
 #' and \code{nls.freq} method sets the fields according to the result.
-#' 'Locally' means that if the start value is modified, more closely approximating model
+#' \sQuote{Locally} means that if the start value is modified, more closely approximating model
 #' may be constructed.
 #' The outliers of the frequency distribution will not be excluded in this function.
 #' If necessary, outliers should be excluded by preprocessing.
@@ -94,7 +94,7 @@
 #'                          \item 1: Mean of 2 normal distributions.
 #'                          \item 2: Horizontal gradation of 2 normal distributions.
 #'                          \item 3: Vertical gradation of 2 (or 3) normal distributions.
-#'                          \item 4: Horizontal-Vertical gradation
+#'                          \item 4: Horizontal-vertical gradation
 #'                                   with 4 (2x2) normal distributions.
 #'                      }
 #'
@@ -224,7 +224,7 @@
 #'                      See \code{\link[stats]{cor}} for more information.
 #'
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
-#'                      See 'Arguments' of \code{\link[stats]{nls}} for more information.
+#'                      See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.
 #'
 #' @param   this.kind   A character string or a numeric value or a \code{\link[ggd]{GGD}} object
 #'                      which indicates the kind of distribution model to be constructed.
@@ -251,7 +251,7 @@
 #'                      and \code{grad} argument is \code{"default"},
 #'                      the current value of \code{mix.type} field will be retained,
 #'                      and number of components will also.
-#'                      However, if the object has been cleared when this method is called,
+#'                      But note if the object has been cleared when this method is called,
 #'                      \code{mix.type} field will be \code{2}, the start value.
 #'
 #' @return  A list containing components (invisible for \code{GGD} method)
@@ -264,7 +264,7 @@
 #'          \item{nls.out}{
 #'                  The list of the output of \code{\link[stats]{nls}}.
 #'                  If \code{\link[stats]{nls}} has not been used, \code{NULL} will be set.
-#'                  See 'Value' of \code{\link[stats]{nls}} for more information.}
+#'                  See \sQuote{Value} of \code{\link[stats]{nls}} for more information.}
 #'          \item{start.level}{
 #'                  The initial guessing level which is used actually to obtain \code{obj}.
 #'                  If \code{start.level = 100} is indicated,
@@ -306,7 +306,7 @@
 #'          \code{\link[ggd]{ggd.nls.freq.all}}, \code{\link[ggd]{ggd.start.template}}
 #'
 #' @details
-#'  \subsection{Why the standard deviations for 'start' are square-rooted?}{
+#'  \subsection{Why the standard deviations for start are square-rooted?}{
 #'      You know a standard deviation must be a positive value.
 #'      But if you use standard deviations directly in the formula for \code{\link[stats]{nls}},
 #'      they sometimes drop into negative values while the Gauss-Newton algorithm is running
@@ -713,7 +713,7 @@ GGD$methods(
 #'                      See \code{\link[stats]{nls.control}} for more information.
 #' @param   cor.method  The \code{method} argument for \code{\link[stats]{cor}}.
 #' @param   ...         Each argument for \code{\link[stats]{nls}} can be indicated.
-#'                      See 'Arguments' of \code{\link[stats]{nls}} for more information.
+#'                      See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.
 #' @return  A list conforming the return value of \code{\link[ggd]{nls.freq}}.
 #' @seealso \code{\link[ggd]{nls.freq}}
 ################################################################################################
@@ -788,49 +788,31 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #' Approximating a frequency distribution with all of supported models
 #'
 #' Approximates the given frequency distribution with all of distribution models
-#' available in this package (the number of models is 16), and compare their accuracies.
+#' available in this package (the number of models is 16), and compares their accuracies.
 #' The accuracy is checked by the correlation coefficients with the frequency distribution
 #' computed by \code{\link[stats]{cor}}.
 #'
-#' The output lists are ordered by \code{ggd:::kinds} as:
-#' \enumerate{
-#'      \item   Normal Distribution
-#'      \item   Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions
-#'      \item   Mean of Mean-Equaled Sigma-Differed 2 Normal Distributions
-#'      \item   Mean of Mean-Differed Sigma-Differed 2 Normal Distributions
-#'      \item   Mean-Differed Sigma-Equaled Horizontal Gradational Distribution
-#'      \item   Mean-Equaled Sigma-Differed Horizontal Gradational Distribution
-#'      \item   Mean-Differed Sigma-Differed Horizontal Gradational Distribution
-#'      \item   2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-#'      \item   2-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-#'      \item   2-Mean-Differed Sigma-Differed Vertical Gradational Distribution
-#'      \item   3-Mean-Differed Sigma-Equaled Vertical Gradational Distribution
-#'      \item   3-Mean-Equaled Sigma-Differed Vertical Gradational Distribution
-#'      \item   3-Mean-Differed Sigma-Differed Vertical Gradational Distribution
-#'      \item   Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution
-#'      \item   Mean-Equaled Sigma-Differed Horizontal-Vertical Gradational Distribution
-#'      \item   Mean-Differed Sigma-Differed Horizontal-Vertical Gradational Distribution
-#' }
-#' Each index number of above list is
-#' also set into \code{kind.index} field of each \code{\link[ggd]{GGD}} object.
+#' The output lists are ordered by index number of \code{ggd:::kinds},
+#' which will be set into \code{kind.index} field of each object
+#' (see \code{kind} in \sQuote{Fields} at \code{\link[ggd]{GGD-class}}).
 #'
 #' This function generates 16 \code{\link[ggd]{GGD}} objects and
 #' calls \code{\link[ggd]{nls.freq}} method 16 times.
 #' By default, \code{\link[ggd]{nls.freq}} is called with \code{warnOnly = TRUE},
 #' so \code{\link[ggd]{nls.freq}} does not generate errors, but generates warnings often.
 #' When a warning occur, this function generates another warning like
-#' '\code{Warning for kind = xx :}' to inform which \code{kind.index} gets a poor result
+#' \code{"Warning for kind = xx :"} to inform which \code{kind.index} gets a poor result
 #' (poor, but may be accurate enough).
 #' So when one warning has occurred, two warnings will occur eventually.
 #'
 #' If you indicate \code{warnOnly = FALSE} in \code{control} argument
 #' and overwrite \code{warnOnly} option, \code{\link[ggd]{nls.freq}} can generate errors.
 #' If an error occurs in one of \code{\link[ggd]{nls.freq}} processes,
-#' this function throws messages like '\code{Error for kind = xx :}' and '\code{Error in ...}'
+#' this function throws messages like \code{"Error for kind = xx :"} and \code{"Error in ..."}
 #' instead of throwing an error and skips the process,
 #' then tries other \code{\link[ggd]{nls.freq}} processes.
 #' For the result of error-occurred \code{kind.index}, a cleared \code{\link[ggd]{GGD}} object
-#' will be got as the element of \code{obj} (see 'Value').
+#' will be got as the element of \code{obj} (see \sQuote{Value}).
 #'
 #' @export
 #' @param   data    A data frame which represents the frequency distribution.
@@ -872,7 +854,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                  In addition, \code{\link[ggd]{ggd.kind}} and
 #'                  \code{\link[ggd]{ggd.kind.index}} functions may help you whether
 #'                  each index number of \code{start} represents what kind of distribution.
-#'                  See 'Examples' for usages of these tools.
+#'                  See \sQuote{Examples} for usages of these tools.
 #'
 #' @param   control The \code{control} argument for \code{\link[stats]{nls}}.
 #'                  See \code{\link[stats]{nls.control}} for more information.
@@ -897,7 +879,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                      See \code{\link[stats]{cor}} for more information.
 #'
 #' @param   ...     Each argument for \code{\link[stats]{nls}} can be indicated.
-#'                  See 'Arguments' of \code{\link[stats]{nls}} for more information.
+#'                  See \sQuote{Arguments} of \code{\link[stats]{nls}} for more information.
 #'
 #' @return  A list containing components
 #'          \item{best}{
@@ -928,7 +910,7 @@ nls.freq.level.100 <- function( data, total, kind, mix.type,
 #'                  Normally, each element is a list of the output of
 #'                  \code{\link[ggd]{nls.freq}}.
 #'                  But if an error has occurred, the element will be an error condition.
-#'                  See 'Value' of \code{\link[ggd]{nls.freq}} for more information.}
+#'                  See \sQuote{Value} of \code{\link[ggd]{nls.freq}} for more information.}
 #'
 #' @importFrom  methods     new
 #' @seealso \code{\link[ggd]{nls.freq}}, \code{\link[stats]{cor}},

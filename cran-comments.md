@@ -1,14 +1,14 @@
-── R CMD check results ──────────────────────────────────── ggd 1.0.3.1 ────
-Duration: 16m 45.4s
+── R CMD check results ───────────────────────────────── ggd 1.0.4 ────
+Duration: 16m 50.3s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── ggd 1.0.3.1: NOTE
+── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.3.1.tar.gz-99d0690e152d4e7cac299f044a2ed8ff
+  Build ID:   ggd_1.0.4.tar.gz-54ff92bd21b6422e8d766b89962883b3
   Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  47m 16.1s ago
-  Build time: 30m 38.5s
+  Submitted:  39m 6.4s ago
+  Build time: 30m 10.7s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kimitsuna Ura <kimitsuna@i.softbank.jp>'
@@ -28,14 +28,14 @@ Duration: 16m 45.4s
 
 0 errors ✔ | 0 warnings ✔ | 4 notes ✖
 
-── ggd 1.0.3.1: NOTE
+── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.3.1.tar.gz-18b001e039e14923b2dae0deb0a5a7c5
+  Build ID:   ggd_1.0.4.tar.gz-15cae83e843f44488bd5dd6041ffbf24
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  47m 16.2s ago
-  Build time: 38m 17.6s
+  Submitted:  39m 6.5s ago
+  Build time: 37m 43.8s
 
-❯ checking CRAN incoming feasibility ... [6s/19s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/18s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
@@ -43,25 +43,25 @@ Duration: 16m 45.4s
 ❯ checking examples ... [13s/31s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  ggd.nls.freq.all 3.073      0   6.968
+  ggd.nls.freq.all 3.054  0.008   7.087
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
-── ggd 1.0.3.1: NOTE
+── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.3.1.tar.gz-d9ac4f179cad4ff29ec454f19e45df79
+  Build ID:   ggd_1.0.4.tar.gz-dddd19fd21974d48b49aa7dfa81fd566
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  47m 16.2s ago
-  Build time: 37m 50s
+  Submitted:  39m 6.5s ago
+  Build time: 37m 28.8s
 
-❯ checking CRAN incoming feasibility ... [6s/22s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/20s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
 
-❯ checking examples ... [14s/31s] NOTE
+❯ checking examples ... [14s/33s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  ggd.nls.freq.all 3.118      0   7.012
+  ggd.nls.freq.all 3.206  0.012   7.797
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖

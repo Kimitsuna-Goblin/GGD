@@ -55,41 +55,79 @@ f.t3.p <- list( function( x, m, s )
 #' The class provides the Gradational Gaussian Distribution.
 #' @export      GGD
 #' @exportClass GGD
-#' @field   kind.index      An integer; the index number of the kind of the distribution model.
-#' @field   kind            A string; the name of the kind of the distribution model.
+#' @field   kind.index      An integer; the number indicating the kind of distribution model.
+#'                          That is, the index number for the value of \code{kind} field.
+#' @field   kind            A character string; the name of the kind of the distribution model.
+#'
+#'          \code{kind} shows the classification of each of the 6 distribution models
+#'          shown in \sQuote{Details}, subdivided (except for the normal distribution)
+#'          into 3 categories based on whether the mean values or standard deviations
+#'          of the components are all equal or not.
+#'          Therefore, there are 16 (= 5 x 3 + 1) \code{kind}s in this package defined in
+#'          \code{ggd:::kinds} as follows.
+#'
+#'          \tabular{clc}{
+#'              Index \tab Distribution model (\code{kind}) \cr
+#'              \code{1}  \tab Normal Distribution \cr
+#'              \code{2}  \tab
+#'                  Mean of Mean-Differed Sigma-Equaled 2 Normal Distributions \cr
+#'              \code{3}  \tab Mean of Mean-Equaled Sigma-Differed " \cr
+#'              \code{4}  \tab Mean of Mean-Differed Sigma-Differed " \cr
+#'              \code{5}  \tab
+#'                  Mean-Differed Sigma-Equaled Horizontal Gradational Distribution \cr
+#'              \code{6}  \tab Mean-Equaled Sigma-Differed " \cr
+#'              \code{7}  \tab Mean-Differed Sigma-Differed " \cr
+#'              \code{8}  \tab
+#'                  2-Mean-Differed Sigma-Equaled Vertical Gradational Distribution \cr
+#'              \code{9}  \tab 2-Mean-Equaled Sigma-Differed " \cr
+#'              \code{10} \tab 2-Mean-Differed Sigma-Differed " \cr
+#'              \code{11} \tab 3-Mean-Differed Sigma-Equaled " \cr
+#'              \code{12} \tab 3-Mean-Equaled Sigma-Differed " \cr
+#'              \code{13} \tab 3-Mean-Differed Sigma-Differed " \cr
+#'              \code{14} \tab
+#'                  Mean-Differed Sigma-Equaled Horizontal-Vertical Gradational Distribution \cr
+#'              \code{15} \tab Mean-Equaled Sigma-Differed " \cr
+#'              \code{16} \tab Mean-Differed Sigma-Differed "
+#'          }
+#'
+#'          \code{kind.index} and \code{kind} fields represent how the object actually
+#'          behaves as a distribution model. These fields are closely related to the number
+#'          of components (normal distributions) of the object and how they are mixed,
+#'          but are not entirely dependent on them.
+#'          For example, if a object with \code{mix.type = 1} (mean of 2 normal distributions)
+#'          has two same normal distributions as the components,
+#'          the object will actually behave as a normal distribution.
+#'          In this case, \code{kind.index} and \code{kind} fields indicate
+#'          \code{"Normal Distribution"} rather than \code{"Mean of 2 Normal Distributions"}.
+#'
 #' @field   mix.type        An integer which represents how to mix normal distributions
 #'                          of the components.
 #'
-#'                          The type of the distribution model and the number of rows
-#'                          in \code{cmp} field will be as follows with this value:
-#'                          \itemize{
-#'                              \item \code{0} : Normal distribution.
-#'                                        \code{cmp} has only 1 row.
-#'                              \item \code{1} : Mean of 2 normal distributions.
-#'                                        \code{cmp} has 2 rows.
-#'                              \item \code{2} : Horizontal gradational distribution.
-#'                                        \code{cmp} has 2 rows.
-#'                              \item \code{3} : Vertical gradational distribution.
-#'                                        \code{cmp} has 2 or 3 rows.
-#'                              \item \code{4} : Horizontal-vertical gradational distribution.
-#'                                               \code{cmp} has 4 rows.
-#'                          }
+#'          The type of the distribution model and the number of components,
+#'          which equals the number of rows in \code{cmp} field, will be as follows.
 #'
-#'                          The distribution model of \code{mix.type = 1} is not
-#'                          a gradational Gaussian distribution (GGD), but a kind of
-#'                          Gaussian mixture model (GMM).
-#'                          This is provided for comparing GGD with GMM.
+#'          \tabular{clc}{
+#'              \code{mix.type} \tab Distribution model          \tab Number of components \cr
+#'              \code{0}        \tab Normal distribution                            \tab 1 \cr
+#'              \code{1}        \tab Mean of 2 normal distributions                 \tab 2 \cr
+#'              \code{2}        \tab Horizontal gradational distribution (default)  \tab 2 \cr
+#'              \code{3}        \tab Vertical gradational distribution          \tab 2 or 3 \cr
+#'              \code{4}        \tab Horizontal-vertical gradational distribution   \tab 4
+#'          }
+#'
+#'          The distribution model of \code{mix.type = 1} is not
+#'          a gradational Gaussian distribution (GGD), but a kind of
+#'          Gaussian mixture model (GMM). This is provided for comparing GGD with GMM.
 #'
 #' @field   cmp             A data frame with 2 numeric columns which have
 #'                          the parameters of the normal distributions of the components.
 #'
-#'                          \code{mean} column represents the mean values of the components,
-#'                          and \code{sd} column represents the standard deviations.
+#'          \code{mean} column represents the mean values of the components,
+#'          and \code{sd} column represents the standard deviations.
 #'
-#'                          Where \code{mix.type} is from \code{0} to \code{3},
-#'                          it has 1 to 3 rows named like \code{"n.i"}.
-#'                          Where \code{mix.type = 4},
-#'                          it has 4 rows named like \code{"n.i.j"}.
+#'          Where \code{mix.type} is from \code{0} to \code{3},
+#'          it has 1 to 3 rows named like \code{"n.i"}.
+#'          Where \code{mix.type = 4}, it has 4 rows named like \code{"n.i.j"}.
 #'
 #' @field   median          A numeric; the median of the distribution.
 #' @field   mean            A numeric; the mean of the distribution.
@@ -101,11 +139,10 @@ f.t3.p <- list( function( x, m, s )
 #' @field   usd.abs.error   A numeric;
 #'                          the estimated modulus of the absolute error for \code{usd}.
 #'
-#'                          Where \code{mix.type = 4}, to compute the half standard deviations,
-#'                          \code{\link[stats]{integrate}} function is used.
-#'                          And the modulus of the absolute errors which
-#'                          \code{\link[stats]{integrate}} function has reported
-#'                          will be set into these \code{*.abs.error} fields.
+#'          Where \code{mix.type = 4}, to compute the half standard deviations,
+#'          \code{\link[stats]{integrate}} function is used.
+#'          And the modulus of the absolute errors which \code{\link[stats]{integrate}}
+#'          function has reported will be set into these \code{*.abs.error} fields.
 #'
 #' @seealso \code{\link[ggd]{set.cmp}},
 #'          \code{\link[ggd]{nls.freq}}, \code{\link[ggd]{ggd.nls.freq.all}},
@@ -186,8 +223,8 @@ f.t3.p <- list( function( x, m, s )
 #'      The tops of \eqn{f_1} and \eqn{f_2} could be far apart from each other,
 #'      and moreover, the top of \eqn{\mathcal{G}[\mathcal{N}_1 \uparrow \mathcal{N}_2]}
 #'      could be nearby the top of \eqn{f_1}, instead of \eqn{f_2}.
-#'      That may be contrary to the intuitive image of the 'vertical gradational distribution',
-#'      but it is not prohibited.
+#'      That may be contrary to the intuitive image of
+#'      \sQuote{vertical gradational distribution}, but it is not prohibited.
 #'
 #'      About the \bold{3-component vertical gradational Gaussian distribution},
 #'      you can divide the tail-side distribution along x-axis into left (lower) side
@@ -292,7 +329,7 @@ f.t3.p <- list( function( x, m, s )
 #'                          \dfrac{\Phi^*_{i,2}(x)}{\sqrt{2}}. \hspace{3em} \ }}
 #'      }
 #'
-#'      Where \eqn{f_i} is the probability density function of
+#'      In above formulas, \eqn{f_i} is the probability density function of
 #'      the normal distribution \eqn{\mathcal{N}_i},
 #'      \eqn{\Phi_i} and \eqn{\Phi_{i,j}} are the cumulative distribution functions of
 #'      \eqn{\mathcal{N}_i} and \eqn{\mathcal{N}_{i,j}},
@@ -413,7 +450,7 @@ GGD$methods(
 #' Adjust each row name of cmp
 #'
 #' Sets each row name of \code{cmp} field according to \code{mix.type} field.
-#' Normally, users of this class don't need to call this method directly.
+#' Normally, users of this class do not need to call this method directly.
 #' @name    adjust.cmp.rownames
 #' @aliases adjust.cmp.rownames
 #' @aliases \S4method{adjust.cmp.rownames}{GGD}
@@ -471,7 +508,7 @@ GGD$methods(
 #'
 #' Sets \code{kind.index} and \code{kind} fields according to
 #' \code{mix.type} and \code{cmp} fields.
-#' Normally, users of this class don't need to call this method directly.
+#' Normally, users of this class do not need to call this method directly.
 #' @name    adjust.kind.index
 #' @aliases adjust.kind.index
 #' @aliases \S4method{adjust.kind.index}{GGD}
@@ -641,8 +678,10 @@ GGD$methods(
 #'                      distribution model.
 #'
 #'                      Each element must be a character string of a regular expression pattern
-#'                      matching to an element of \code{ggd:::kinds} or an index number of
-#'                      \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
+#'                      matching to an element of \code{ggd:::kinds}
+#'                      (see \code{kind} in \sQuote{Fields} at \code{\link[ggd]{GGD-class}})
+#'                      or an index number of \code{ggd:::kinds},
+#'                      or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
 #'
 #'                      If a character string is indicated as an element,
 #'                      the string matches only one element of \code{ggd:::kinds} of
@@ -651,7 +690,7 @@ GGD$methods(
 #'                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
 #'                               16L, 14L, 15L)}.
 #'                      The order is designed for practical purposes so that
-#'                      the '\code{Mean-Differed Sigma-Differed}' model,
+#'                      the \code{"Mean-Differed Sigma-Differed"} model,
 #'                      which has more degrees of freedom than the others of the same type,
 #'                      can be matched first.
 #'
@@ -845,7 +884,7 @@ ggd.kind <- function( objs )
 #'          \code{integer(0)} is returned when \code{grad} is \code{"default"}.
 #'
 #'          Although the length of \code{grad} argument must be 1 (or 0 as the default),
-#'          but lengths of other arguments are not checked in this function consciously.
+#'          the lengths of other arguments are not checked in this function consciously.
 #'          So if \code{grad} is \code{"default"}, a vector of 2 or more length can be returned.
 #'          That means, the length of other arguments or the return value must be checked
 #'          by the caller of this function if necessary.
@@ -986,7 +1025,7 @@ ggd.ncmp.for <- function( grad = c( "default", "normal", "h", "v", "v2", "v3", "
 #' Judge if all mean values are equal
 #'
 #' Checks if the mean values of all normal distributions of components are equal.
-#' The equality is determined by the '\code{==}' operator.
+#' The equality is determined by the \code{\link[base]{==}} operator.
 #' @name    is.eq.mean
 #' @aliases is.eq.mean
 #' @aliases \S4method{is.eq.mean}{GGD}
@@ -1019,7 +1058,7 @@ GGD$methods(
 #' Judge if all standard deviations are equal
 #'
 #' Checks if the standard deviations of all normal distributions of components are equal.
-#' The equality is determined by the '\code{==}' operator.
+#' The equality is determined by the \code{\link[base]{==}} operator.
 #' @name    is.eq.sd
 #' @aliases is.eq.sd
 #' @aliases is.eq.sigma

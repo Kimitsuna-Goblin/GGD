@@ -13,5 +13,5 @@ The adjusted \code{\link[ggd]{GGD}} object itself (invisible).
 \description{
 Sets \code{kind.index} and \code{kind} fields according to
 \code{mix.type} and \code{cmp} fields.
-Normally, users of this class don't need to call this method directly.
+Normally, users of this class do not need to call this method directly.
 }

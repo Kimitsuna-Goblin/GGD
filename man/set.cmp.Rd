@@ -43,16 +43,13 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
 
                      The type of the distribution model and the number of rows in \code{cmp}
                      follow \code{mix.type} as:
-                     \itemize{
-                         \item \code{0} : Normal distribution. \code{cmp} has only 1 row.
-                         \item \code{1} : Mean of 2 normal distributions.
-                                          \code{cmp} has 2 rows.
-                         \item \code{2} : Horizontal gradational distribution.
-                                          \code{cmp} has 2 rows.
-                         \item \code{3} : Vertical gradational distribution.
-                                          \code{cmp} has 2 or 3 rows.
-                         \item \code{4} : Horizontal-vertical gradational distribution.
-                                          \code{cmp} has 4 rows.
+                     \tabular{clc}{
+                         \code{mix.type} \tab Distribution model     \tab Number of rows \cr
+                         \code{0} \tab Normal distribution                   \tab 1 \cr
+                         \code{1} \tab Mean of 2 normal distributions        \tab 2 \cr
+                         \code{2} \tab Horizontal gradational distribution   \tab 2 \cr
+                         \code{3} \tab Vertical gradational distribution     \tab 2 or 3 \cr
+                         \code{4} \tab Horizontal-vertical gradational distribution  \tab 4
                      }
 
                      If the number of rows in \code{cmp} argument is different from
@@ -73,7 +70,8 @@ ggd.set.cmp(cmp, kind = NULL, mix.type = NULL,
                      Numberless \code{"v"} is an alias for \code{"v2"}.
 
                      \code{"normal"} is for a normal distribution,
-                     then also, \code{'grad = "no"'} can be read as 'no gradation'.
+                     then also, \sQuote{\code{grad = "no"}} can be read as
+                     \sQuote{no gradation}.
 
                      \code{"default"} is, if \code{kind} or \code{mix.type} argument
                      is given, follows it, otherwise it depends on the number of columns
@@ -103,7 +101,7 @@ Whenever you want to set values in \code{cmp} field, it is strongly recommended 
 this method.
 }
 \details{
-\subsection{About 'kind' and 'mix.type'}{
+\subsection{About kind and mix.type}{
      In this function,
      unlike \code{\link[ggd]{trace.q}} and \code{\link[ggd]{nls.freq}} methods,
      \code{[this.]kind} argument is only used to determine \code{mix.type} value,

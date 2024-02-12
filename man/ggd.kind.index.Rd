@@ -11,8 +11,10 @@ ggd.kind.index(objs, undef.err = FALSE)
                      distribution model.
 
                      Each element must be a character string of a regular expression pattern
-                     matching to an element of \code{ggd:::kinds} or an index number of
-                     \code{ggd:::kinds}, or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
+                     matching to an element of \code{ggd:::kinds}
+                     (see \code{kind} in \sQuote{Fields} at \code{\link[ggd]{GGD-class}})
+                     or an index number of \code{ggd:::kinds},
+                     or a \code{\link[ggd]{GGD}} object, or an \code{NA}.
 
                      If a character string is indicated as an element,
                      the string matches only one element of \code{ggd:::kinds} of
@@ -21,7 +23,7 @@ ggd.kind.index(objs, undef.err = FALSE)
                      \code{ c(1L, 4L, 2L, 3L, 7L, 5L, 6L, 10L, 8L, 9L, 13L, 11L, 12L,
                               16L, 14L, 15L)}.
                      The order is designed for practical purposes so that
-                     the '\code{Mean-Differed Sigma-Differed}' model,
+                     the \code{"Mean-Differed Sigma-Differed"} model,
                      which has more degrees of freedom than the others of the same type,
                      can be matched first.
 

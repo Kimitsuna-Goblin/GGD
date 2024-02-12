@@ -13,7 +13,7 @@ If \code{NULL}, nothing is applied.}
 
 \item{f.sd}{A function to apply to elements in \code{sd} column.
 If \code{NULL}, nothing is applied.
-See 'Details' for more information.}
+See \sQuote{Details} for more information.}
 }
 \value{
 The processed \code{\link[ggd]{GGD}} object itself (invisible).
@@ -31,10 +31,10 @@ Each function indicated with \code{f.mean} or \code{f.sd} can receive
          \item The \code{\link[ggd]{GGD}} object itself.
      }
      Therefore, the function for \code{f.mean} or \code{f.cmp} is hoped to be
-     declared with 2 arguments like as '\code{function(mean, obj)}',
+     declared with 2 arguments like as \code{function(mean, obj)},
      however, if the function do not need the 2nd argument,
      you can declare with 1 arguments
-     like as '\code{function(mean)}' or '\code{function(sd)}'.
+     like as \code{function(mean)} or \code{function(sd)}.
      For the values of the functions, each function must return a numeric vector
      with the same length of the 1st argument as new values of each column.
 

@@ -75,7 +75,7 @@
 #'                          \item \code{2} : Horizontal gradation of 2 normal distributions.
 #'                          \item \code{3} : Vertical gradation of 2 or 3 normal distributions.
 #'                                           The 2-component model has priority.
-#'                          \item \code{4} : Horizontal-Vertical gradation
+#'                          \item \code{4} : Horizontal-vertical gradation
 #'                                           with 4 (2x2) normal distributions.
 #'                      }
 #'                      If \code{NULL}
@@ -107,7 +107,7 @@
 #'                      to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See 'Details' for more information.
+#'                      See \sQuote{Details} for more information.
 #'
 #'                      If \code{FALSE}, the mean values are not bound,
 #'                      and mean-equaled components will be rarely constructed.
@@ -127,7 +127,7 @@
 #'                      the components to be equal.
 #'                      This condition reduces the degrees of freedom,
 #'                      so allowed number of quantiles will be restricted.
-#'                      See 'Details' for more information.
+#'                      See \sQuote{Details} for more information.
 #'
 #'                      If \code{FALSE} or \code{logical(0)},
 #'                      the standard deviations are not bound,

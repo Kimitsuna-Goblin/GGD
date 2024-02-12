@@ -14,5 +14,5 @@ The \code{\link[ggd]{GGD}} object itself (invisible).
 Calculates the median, the mean, and the standard deviation of the distribution model and
 then sets those values into the fields.
 Before calling this method, you must set \code{cmp} and \code{mix.type} fields.
-Normally, users of this class don't need to call this method directly.
+Normally, users of this class do not need to call this method directly.
 }
