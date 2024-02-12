@@ -1,14 +1,14 @@
 ── R CMD check results ───────────────────────────────── ggd 1.0.4 ────
-Duration: 16m 55s
+Duration: 16m 50.3s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.4.tar.gz-9d9310b3598542018a4db090335d5549
+  Build ID:   ggd_1.0.4.tar.gz-54ff92bd21b6422e8d766b89962883b3
   Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  3h 40m 9.3s ago
-  Build time: 31m 58.9s
+  Submitted:  39m 6.4s ago
+  Build time: 30m 10.7s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kimitsuna Ura <kimitsuna@i.softbank.jp>'
@@ -30,38 +30,38 @@ Duration: 16m 55s
 
 ── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.4.tar.gz-4958b55146274ef6b1ed14ebb0b50177
+  Build ID:   ggd_1.0.4.tar.gz-15cae83e843f44488bd5dd6041ffbf24
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  3h 40m 9.4s ago
-  Build time: 40m 39.4s
+  Submitted:  39m 6.5s ago
+  Build time: 37m 43.8s
 
-❯ checking CRAN incoming feasibility ... [6s/21s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/18s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
 
-❯ checking examples ... [13s/36s] NOTE
+❯ checking examples ... [13s/31s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  ggd.nls.freq.all 3.158  0.003   8.742
+  ggd.nls.freq.all 3.054  0.008   7.087
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 ── ggd 1.0.4: NOTE
 
-  Build ID:   ggd_1.0.4.tar.gz-8ad5160da96b49dd9fe73a31e00b3517
+  Build ID:   ggd_1.0.4.tar.gz-dddd19fd21974d48b49aa7dfa81fd566
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  3h 40m 9.4s ago
-  Build time: 40m 16.9s
+  Submitted:  39m 6.5s ago
+  Build time: 37m 28.8s
 
-❯ checking CRAN incoming feasibility ... [6s/25s] NOTE
+❯ checking CRAN incoming feasibility ... [6s/20s] NOTE
   Maintainer: ‘Kimitsuna Ura <kimitsuna@i.softbank.jp>’
   
   New submission
 
-❯ checking examples ... [14s/38s] NOTE
+❯ checking examples ... [14s/33s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
                     user system elapsed
-  ggd.nls.freq.all 3.379      0   8.647
+  ggd.nls.freq.all 3.206  0.012   7.797
 
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖]
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
