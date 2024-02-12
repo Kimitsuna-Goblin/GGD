@@ -119,7 +119,7 @@ It is equivalent to \code{mix.type} argument of \code{ggd.set.cmp}.}
                          It is equivalent to \code{custom.d} argument of \code{ggd.set.cmp}.
 
                          \code{NULL} is allowed to retain the current \code{custom.d} field.
-                         However, a warning will occur if you retain the default for
+                         But note that a warning will occur if you retain the default for
                          a custom distribution.}
 
 \item{this.custom.p}{A function for the cumulative distribution function defined by user.

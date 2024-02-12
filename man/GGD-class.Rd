@@ -250,15 +250,14 @@ That is, the index number for the value of \code{kind} field.}
 
          \code{kind.index} and \code{kind} fields represent how the object actually
          behaves as a distribution model (except for \code{"Custom Distribution"}).
-         These fields are closely related to the number
-         of components (normal distributions) of the object and how they are mixed,
-         but are not entirely dependent on them.
+         These fields are closely related to the number of normal distributions
+         of the components and how they are mixed, but are not entirely dependent on them.
          For example, if a object with \code{mix.type = 1} (mean of 2 normal distributions)
          has two same normal distributions as the components,
          the object will actually behave as a normal distribution.
          In this case, \code{kind.index} and \code{kind} fields indicate
          \code{"Normal Distribution"} rather than \code{"Mean of 2 Normal Distributions"}.
-         However, if the object is for a custom distribution (i.e. \code{mix.type = 5}),
+         But note if the object is for a custom distribution (i.e. \code{mix.type = 5}),
          \code{kind.index} and \code{kind} fields represent \code{"Custom Distribution"}
          regardless how the object behaves.}
 

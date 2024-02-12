@@ -274,7 +274,7 @@
 #'                      and \code{grad} argument is \code{"default"},
 #'                      the current value of \code{mix.type} field will be retained,
 #'                      and number of components will also.
-#'                      However, if the object has been cleared when this method is called,
+#'                      But note if the object has been cleared when this method is called,
 #'                      \code{mix.type} field will be \code{2}, the start value.
 #'
 #' @param   this.custom.d   A function for the density function of the custom distribution.
