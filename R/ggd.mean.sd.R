@@ -566,17 +566,17 @@ GGD$methods(
             mean <<- mean.result$value
             mean.abs.error <<- mean.result$abs.error
 
-            sd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, Inf )
-            sd <<- sqrt( sd.result$value )
-            sd.abs.error <<- sqrt( sd.result$abs.error )
+            v.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, Inf )
+            sd <<- sqrt( v.result$value )
+            sd.abs.error <<- sqrt( v.result$abs.error )
 
-            lsd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, mean )
-            lsd <<- sqrt( 2 * lsd.result$value )
-            lsd.abs.error <<- sqrt( 2 * lsd.result$abs.error )
+            lv.result <- integrate( function( x ) ( x - mean )^2 * d( x ), -Inf, mean )
+            lsd <<- sqrt( lv.result$value * 2 )
+            lsd.abs.error <<- sqrt( lv.result$abs.error * 2 )
 
-            usd.result <- integrate( function( x ) ( x - mean )^2 * d( x ), mean, Inf )
-            usd <<- sqrt( 2 * usd.result$value )
-            usd.abs.error <<- sqrt( 2 * usd.result$abs.error )
+            uv.result <- integrate( function( x ) ( x - mean )^2 * d( x ), mean, Inf )
+            usd <<- sqrt( uv.result$value * 2 )
+            usd.abs.error <<- sqrt( uv.result$abs.error * 2 )
         }
         else if ( is.normal() )
         {

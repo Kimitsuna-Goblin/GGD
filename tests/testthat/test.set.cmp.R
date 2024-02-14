@@ -381,6 +381,108 @@ expect_warning( a$set.cmp( data.frame( mean = c( -0.5, 0.5 ), sd = c( 1, 2 ) ),
 expect_identical( a$mix.type, 5L )
 expect_equal( nrow( a$cmp ), 2 )
 
+# custom.d/p
+f.custom.d <- function( x, cmp )
+              ( dnorm( x, cmp$mean[1], cmp$sd[1] ) +
+                dnorm( x, cmp$mean[2], cmp$sd[2] ) +
+                dnorm( x, cmp$mean[3], cmp$sd[3] ) ) / 3
+f.custom.p <- function( x, cmp )
+              ( pnorm( x, cmp$mean[1], cmp$sd[1] ) +
+                pnorm( x, cmp$mean[2], cmp$sd[2] ) +
+                pnorm( x, cmp$mean[3], cmp$sd[3] ) ) / 3
+
+f.default.p <- function( x, cmp, custom.d )
+               integrate(function(x) custom.d(x, cmp), -Inf, x)$value
+
+check.fields.for.custom <- function( obj, cmp, expect.d, expect.p )
+{
+    expect_equal( a$cmp$mean, cmp$mean )
+    expect_equal( a$cmp$sd, cmp$sd )
+    expect_identical( a$custom.d, expect.d )
+    expect_identical( a$custom.p, expect.p )
+
+    integ.mean <- integrate( function( x )
+                             x * expect.d( x, cmp ), -Inf, Inf )
+    integ.v <- integrate( function( x )
+                          ( x - integ.mean$value )^2 * expect.d( x, cmp ),
+                          -Inf, Inf )
+    integ.lv <- integrate( function( x )
+                          ( x - integ.mean$value )^2 * expect.d( x, cmp ),
+                          -Inf, integ.mean$value )
+    integ.uv <- integrate( function( x )
+                          ( x - integ.mean$value )^2 * expect.d( x, cmp ),
+                          integ.mean$value, Inf )
+
+    expect_equal( a$mean, integ.mean$value )
+    expect_equal( a$sd, sqrt( integ.v$value ) )
+    expect_equal( a$lsd, sqrt( integ.lv$value * 2 ) )
+    expect_equal( a$usd, sqrt( integ.uv$value * 2 ) )
+    expect_equal( a$mean.abs.error, integ.mean$abs.error )
+    expect_equal( a$sd.abs.error, sqrt( integ.v$abs.error ) )
+    expect_equal( a$lsd.abs.error, sqrt( integ.lv$abs.error * 2 ) )
+    expect_equal( a$usd.abs.error, sqrt( integ.uv$abs.error * 2 ) )
+}
+
+cmp <- data.frame( mean = -1:1, sd = c( 1, 1, 1 ) )
+a <- ggd.set.cmp( cmp, mix.type = 5,
+                  custom.d = f.custom.d, custom.p = f.custom.p )
+expect_identical( a$mix.type, 5L )
+expect_equal( a$kind, "Custom Distribution" )
+check.fields.for.custom( a, cmp, f.custom.d, f.custom.p )
+
+cmp <- data.frame( mean = 0:2, sd = 1:3 )
+a$set.cmp( cmp )
+check.fields.for.custom( a, cmp, f.custom.d, f.custom.p )
+
+a$set.cmp( this.mix.type = 3 )
+b <- ggd.set.cmp( cmp, mix.type = 3 )
+expect_equal_ggd( a, b )
+expect_identical( a$custom.d, f.custom.d )
+expect_identical( a$custom.p, f.custom.p )
+
+a$set.cmp( this.mix.type = 5 )
+expect_identical( a$mix.type, 5L )
+expect_equal( a$kind, "Custom Distribution" )
+check.fields.for.custom( a, cmp, f.custom.d, f.custom.p )
+
+
+cmp <- data.frame( mean = 0:2 / 4, sd = 1:3 / 2 )
+a <- ggd.set.cmp( cmp, kind = "Custom Distribution",
+                  custom.d = f.custom.d, custom.p = f.custom.p )
+expect_identical( a$mix.type, 5L )
+expect_equal( a$kind, "Custom Distribution" )
+check.fields.for.custom( a, cmp, f.custom.d, f.custom.p )
+
+a$set.cmp( this.mix.type = 3 )
+cmp <- data.frame( mean = 2:3 / 2, sd = c( 2, 1.25, 3 ) )
+a$set.cmp( cmp, this.kind = "Custom" )
+expect_identical( a$mix.type, 5L )
+expect_equal( a$kind, "Custom Distribution" )
+check.fields.for.custom( a, cmp, f.custom.d, f.custom.p )
+
+
+cmp <- data.frame( mean = c( -2.5, 0.5, 3.25 ), sd = c( 0.75, 2, 3.5 ) )
+a <- ggd.set.cmp( cmp, mix.type = 5, grad = "v3",
+                  custom.d = f.custom.d, custom.p = f.custom.p )
+expect_equal_ggd( a, b )
+
+a$set.cmp( this.mix.type = 5 )
+a$set.cmp( this.mix.type = 5, grad = "v3" )
+b <- ggd.set.cmp( cmp, mix.type = 3 )
+expect_equal_ggd( a, b )
+expect_identical( a$custom.d, f.custom.d )
+expect_identical( a$custom.p, f.custom.p )
+
+expect_warning(
+    a <- ggd.set.cmp( cmp, mix.type = 5, kind = "Vertical",
+                      custom.d = f.custom.d ),
+    "Indicated kind does not match the result" )
+check.fields.for.custom( a, cmp, f.custom.d, a$custom.p )
+expect_equal( a$p( 0 ), f.default.p( 0, cmp, f.custom.d ) )
+expect_equal( a$p( 1 ), f.default.p( 1, cmp, f.custom.d ) )
+expect_equal( a$p( 2 ), f.default.p( 2, cmp, f.custom.d ) )
+expect_equal( a$p( -0.75 ), f.default.p( -0.75, cmp, f.custom.d ) )
+expect_equal( a$p( -1.625 ), f.default.p( -1.625, cmp, f.custom.d ) )
 
 ## Basic Errors
 a$set.cmp( data.frame( mean = rep( 0, 4 ), sd = rep( 1, 4 ) ), grad = "v3" )

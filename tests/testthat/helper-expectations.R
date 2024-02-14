@@ -80,7 +80,7 @@ expect_na_ggd <- function( obj, kind.length = 1 )
 }
 
 ################################################################################################
-#' Check whether GGD object a equals to b
+#' Check whether GGD object a equals to b except for custom.* fields
 #' @param   a       A GGD object. It must not be a cleared object.
 #' @param   b       A GGD object which is expected to be equal to a.
 #' @importFrom  rlang   enquo
@@ -104,8 +104,10 @@ expect_equal_ggd <- function( a, b )
             act$val$sd      == exp$val$sd &&
             act$val$lsd     == exp$val$lsd &&
             act$val$usd     == exp$val$usd &&
-            act$val$lsd.abs.error == exp$val$lsd.abs.error &&
-            act$val$usd.abs.error == exp$val$usd.abs.error,
+            act$val$mean.abs.error == exp$val$mean.abs.error &&
+            act$val$sd.abs.error   == exp$val$sd.abs.error &&
+            act$val$lsd.abs.error  == exp$val$lsd.abs.error &&
+            act$val$usd.abs.error  == exp$val$usd.abs.error,
             sprintf( "%s not equal to %s.", act$lab, exp$lab ) )
 
     invisible( act$val )
