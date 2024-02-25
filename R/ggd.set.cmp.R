@@ -489,7 +489,7 @@ GGD$methods(
         # Set custom.d and custom.p
         if ( is.null( this.custom.d ) )
         {
-            if ( isTRUE( mix.type == 5 ) && identical( custom.d, default.custom.d ) )
+            if ( isTRUE( mix.type == 5 ) && is.default.custom.d( custom.d ) )
             {
                 warning( paste( "Warning: Your own function should be given to custom.d",
                                          "for the custom distribution." ) )

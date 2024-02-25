@@ -206,17 +206,29 @@ GGD$methods(
 ################################################################################################
 ggd.write.csv <- function( obj, file = "" )
 {
-    if ( isTRUE( obj$mix.type == 5 ) )
+    append.str <- ""
+
+    if ( !obj$is.default.custom.d() )
     {
-        append.str <- paste0( '"',
+        append.str <- paste0( '"custom.d","',
                               gsub( '"', '\\\\"',
                                     paste( as.character( attributes( obj$custom.d )$srcref ),
                                            collapse = "\\n" ) ),
-                              '","",""' )
+                              '",""' )
     }
-    else
+
+    if ( !obj$is.default.custom.p() )
     {
-        append.str <- ""
+        if ( nchar( append.str ) > 0 )
+        {
+            append.str <- paste0( append.str, "\n" )
+        }
+
+        append.str <- paste0( append.str, '"custom.p","',
+                              gsub( '"', '\\\\"',
+                                    paste( as.character( attributes( obj$custom.p )$srcref ),
+                                           collapse = "\\n" ) ),
+                              '",""' )
     }
 
     cat.table( obj$cmp, file, obj$mix.type, append.str, 22 )

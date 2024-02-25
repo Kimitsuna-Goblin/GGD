@@ -37,9 +37,8 @@ default.custom.d <- function(x, cmp) dnorm(x, cmp$mean[1], cmp$sd[1])
 
 # Default custom.p cannot be a global variable as default.custom.d.
 # Because it should call each custom.d function in the field of the object.
-#
-# Of cause, it is possible to define with providing an argument
-# which gives the object itself, but that would be undesirable.
+default.custom.p.text <-
+                "function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value"
 
 ## Square root of 2 pi
 sqrt.2pi <- sqrt( 2 * pi )
@@ -474,8 +473,7 @@ GGD$methods(
                     mix.type        = 2L,
                     cmp             = data.frame( mean = c( 0, 0 ), sd = c( 1, 1 ) ),
                     custom.d        = default.custom.d,
-                    custom.p        =
-                        function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value,
+                    custom.p        = eval( parse( text = default.custom.p.text ) ),
                     median          = 0,
                     mean            = 0,
                     sd              = 1,
@@ -525,8 +523,7 @@ GGD$methods(
         }
         if ( !isTRUE( keep.custom.p ) )
         {
-            custom.p <<-
-                function(x, cmp) integrate(function(x) custom.d(x, cmp), -Inf, x)$value
+            custom.p <<- eval( parse( text = default.custom.p.text ) )
         }
 
         adjust.kind.index()
@@ -1526,6 +1523,78 @@ GGD$methods(
                 ( isTRUE( mix.type == 4 ) && nrow( cmp ) == 4 &&
                                    ( cmp$mean[1] == cmp$mean[2] + cmp$mean[4] - cmp$mean[3] &&
                                      cmp$sd[1] == cmp$sd[3] && cmp$sd[2] == cmp$sd[4] ) ) )
+    }
+)
+
+################################################################################################
+#' Judge if custom.d is default
+#'
+#' Checks if the function in \code{custom.d} field is
+#' \code{\link[base]{identical}} with \code{ggd:::default.custom.d}.
+#' @name    is.default.custom.d
+#' @aliases is.default.custom.d
+#' @aliases \S4method{is.default.custom.d}{GGD}
+#' @usage   \S4method{is.default.custom.d}{GGD}()
+#' @return  \code{TRUE} if the function in \code{custom.d} field is
+#'          identical with \code{ggd:::default.custom.d}, otherwise \code{FALSE}.
+#' @seealso \code{\link[ggd]{is.default.custom.p}}
+#' @examples
+#'  a <- GGD$new()
+#'  a$is.default.custom.d() ## TRUE
+#'
+#'  a$set.cmp(
+#'      this.cmp = data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 0.5, 0.75, 1 ) ),
+#'      this.kind = "Custom",
+#'      this.custom.d = function(x, cmp) (dnorm(x, cmp$mean[1], cmp$sd[1]) +
+#'                                        dnorm(x, cmp$mean[2], cmp$sd[2]) +
+#'                                        dnorm(x, cmp$mean[3], cmp$sd[3])) / 3 )
+#'  a$is.default.custom.d() ## FALSE
+################################################################################################
+NULL
+GGD$methods(
+    is.default.custom.d = function()
+    {
+        return( identical( custom.d, default.custom.d ) )
+    }
+)
+
+################################################################################################
+#' Judge if custom.p is default
+#'
+#' Checks if the function in \code{custom.p} field can be considered the default
+#' \code{custom.p} function.
+#' This function converts the \code{srcref} attribute of the function in \code{custom.p} field
+#' into a character string and compare it  with \code{ggd:default.custom.p.text}.
+#' @name    is.default.custom.p
+#' @aliases is.default.custom.p
+#' @aliases \S4method{is.default.custom.p}{GGD}
+#' @usage   \S4method{is.default.custom.p}{GGD}()
+#' @return  \code{TRUE} if the character string of the \code{srcref} attribute
+#'          of the function set in \code{custom.p} field
+#'          is same as \code{ggd:::default.custom.p.text},
+#'          otherwise \code{FALSE}.
+#' @seealso \code{\link[ggd]{is.default.custom.d}}
+#' @examples
+#'  a <- GGD$new()
+#'  a$is.default.custom.p() ## TRUE
+#'
+#'  a$set.cmp(
+#'      this.cmp = data.frame( mean = c( -0.5, 0, 0.5 ), sd = c( 0.5, 0.75, 1 ) ),
+#'      this.kind = "Custom",
+#'      this.custom.d = function(x, cmp) (dnorm(x, cmp$mean[1], cmp$sd[1]) +
+#'                                        dnorm(x, cmp$mean[2], cmp$sd[2]) +
+#'                                        dnorm(x, cmp$mean[3], cmp$sd[3])) / 3,
+#'      this.custom.p = function(x, cmp) (pnorm(x, cmp$mean[1], cmp$sd[1]) +
+#'                                        pnorm(x, cmp$mean[2], cmp$sd[2]) +
+#'                                        pnorm(x, cmp$mean[3], cmp$sd[3])) / 3 )
+#'  a$is.default.custom.p() ## FALSE
+################################################################################################
+NULL
+GGD$methods(
+    is.default.custom.p = function()
+    {
+        return( paste( as.character( attributes( custom.p )$srcref ),
+                       collapse = "\\n" )[1] == default.custom.p.text )
     }
 )
 
